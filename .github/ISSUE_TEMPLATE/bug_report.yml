@@ -42,6 +42,6 @@ body:
       label: Logs 日志
       description: |
         If available, please upload your log to [Github Gist](https://gist.github.com/) to help identify your problem.
-        如果可以，请上传你的游戏日志到[Github Gist](https://gist.github.com/)，帮助我定位问题。
+        如果可以，请上传你的游戏日志到 [Github Gist](https://gist.github.com/)，帮助我定位问题。
     validations:
       required: false
