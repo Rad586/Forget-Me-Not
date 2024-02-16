@@ -1,0 +1,47 @@
+name: Bug Report 汇报问题
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+        Before starting, please make sure: 
+        - You are using the **latest** version of the modpack.
+        - A similar issue hasn't been reported here.
+        感谢你抽空汇报问题！
+        在开始前，请确保：
+        - 你在使用最新版本的整合包；
+        - 这个板块中没有相同问题
+  - type: textarea
+    id: descripiton
+    attributes:
+      label: Descripiton 简述
+      description: What did you expect to happen? 本来应该是怎样的？
+      placeholder: Describe the bug. 简单描述问题
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce 复现问题的步骤
+      placeholder: 1... 2... 3...
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Screenshots
+      description: |
+        If needed, upload a screenshot to help solving the problem!
+        如果有需要，你可以在此上传游戏截图来帮助我解决问题！
+    validations:
+      required: false
+  - type: input
+    attributes:
+      label: Logs
+      description: |
+        If available, please upload your log to [Github Gist](https://gist.github.com/) to help identify your problem.
+        如果可以，请上传你的游戏日志到[Github Gist](https://gist.github.com/)，帮助我定位问题。
+        
+    validations:
+      required: false
