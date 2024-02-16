@@ -25,7 +25,8 @@ body:
     id: steps
     attributes:
       label: Steps to reproduce. 复现问题的步骤
-      description: 1... 2... 3...
+      description:  
+      placeholder: 1... 2... 3...
     validations:
       required: true
   - type: textarea
