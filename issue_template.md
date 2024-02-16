@@ -1,4 +1,5 @@
-name: Bug Report 汇报问题
+name: Bug Report
+description: File a bug report
 title: "[Bug]: "
 labels: ["bug"]
 body:
