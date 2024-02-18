@@ -28,7 +28,7 @@ Brand-new royalty-free musics are added for better experience, you can use them 
 
 ### **⚡High Performance**
 
-_12 view distance, 5 similation distance, limited to 95 frames. _
+_12 view distance, 5 similation distance, limited to 95 frames_. 
 
 When max frames is set to "unlimited", I get 200+ frames on average. 
 
@@ -43,7 +43,7 @@ Allocates 6G by default, change xms and xmx to fit your own need: 
 ***
 
 ### **✍Credits**: 
-_Stardust and his team. Incendium optional resourcepack. 
+Stardust and his team. Incendium optional resourcepack. 
 Vanilla tweaks (vanillatweaks.net). 
 Splatus. True Ending datapack. 
 Telepathicgrunt. 
