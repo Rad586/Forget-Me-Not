@@ -43,36 +43,36 @@ Allocates 6G by default, change xms and xmx to fit your own need: 
 ***
 
 ### **✍Credits**: 
-Stardust and his team. Incendium optional resourcepack. 
-Vanilla tweaks (vanillatweaks.net). 
-Splatus. True Ending datapack. 
-Telepathicgrunt. 
-Repurposed structures better desert temples datapack. 
-xPand_4B. Towers of the wild: reworked datapack. 
-IchPhilipp. Better end city datapack. 
-Ordana. Logical Dye Mixing datapack. 
-LoquilloHub. Don't flood my village datapack.
-Nikeyso. The bation overhaul datapack. 
-TBC_Miles. New pillagers datapack. 
-Xalixilax. Xalis Bushy Leaves. 
-Kirillirik. Bedrodium mod. 
-Qendolin. Boat Step Up mod. 
-Creerio. Elemental Enchantments mod. 
-Red. Masa Additions mod. 
-Roundaround. Nicer Portals mod. 
-Socially Anxious Dragon. Smoking Mobs mod. 
-Javiergcim. MakeUp Ultra Fast shader. 
-EminGT. Complementary Shaders v4, v5 shader. 
-X0nk. Bliss shader. 
-Sixthsurge. Photon shader. 
-HarrisHeller. https://www.senpai.tv/streambeats/ 
-soundeffect-lab.info
-www.soundjay.com 
-freepd.com 
-Komiku. 
-Alexander Nakarada.
-brucethemoose. Minecraft-Performance-Flags-Benchmarks
-Griefed. ServerPackCreator_
+* Stardust and his team. Incendium optional resourcepack. 
+* Vanilla tweaks (vanillatweaks.net). 
+* Splatus. True Ending datapack. 
+* Telepathicgrunt. 
+* Repurposed structures better desert temples datapack. 
+* xPand_4B. Towers of the wild: reworked datapack. 
+* IchPhilipp. Better end city datapack. 
+* Ordana. Logical Dye Mixing datapack. 
+* LoquilloHub. Don't flood my village datapack.
+* Nikeyso. The bation overhaul datapack. 
+* TBC_Miles. New pillagers datapack. 
+* Xalixilax. Xalis Bushy Leaves. 
+* Kirillirik. Bedrodium mod. 
+* Qendolin. Boat Step Up mod. 
+* Creerio. Elemental Enchantments mod. 
+* Red. Masa Additions mod. 
+* Roundaround. Nicer Portals mod. 
+* Socially Anxious Dragon. Smoking Mobs mod. 
+* Javiergcim. MakeUp Ultra Fast shader. 
+* EminGT. Complementary Shaders v4, v5 shader. 
+* X0nk. Bliss shader. 
+* Sixthsurge. Photon shader. 
+* HarrisHeller. https://www.senpai.tv/streambeats/ 
+* soundeffect-lab.info
+* www.soundjay.com 
+* freepd.com 
+* Komiku. 
+* Alexander Nakarada.
+* brucethemoose. Minecraft-Performance-Flags-Benchmarks
+* Griefed. ServerPackCreator
 
 **Thanks for all creative creators**! 
 ***
@@ -126,34 +126,35 @@ _在12视距，5模拟距离，最大帧数95的情况下：_
 
 ***
 ### **✍鸣谢**: 
-_Stardust and his team. Incendium optional resourcepack. 
-Vanilla tweaks (vanillatweaks.net). 
-Splatus. True Ending datapack. 
-Telepathicgrunt. Repurposed structures better desert temples datapack. 
-xPand_4B. Towers of the wild: reworked datapack. 
-IchPhilipp. Better end city datapack. 
-Ordana. Logical Dye Mixing datapack. 
-LoquilloHub. Don't flood my village datapack.
-Nikeyso. The bation overhaul datapack. 
-TBC_Miles. New pillagers datapack. 
-Xalixilax. Xalis Bushy Leaves. 
-Kirillirik. Bedrodium mod. 
-Qendolin. Boat Step Up mod. 
-Creerio. Elemental Enchantments mod. 
-Red. Masa Additions mod. 
-Roundaround. Nicer Portals mod. 
-Socially Anxious Dragon. Smoking Mobs mod. 
-Javiergcim. MakeUp Ultra Fast shader. 
-EminGT. Complementary Shaders v4, v5 shader. 
-X0nk. Bliss shader. 
-Sixthsurge. Photon shader. 
-HarrisHeller. https://www.senpai.tv/streambeats/ 
-soundeffect-lab.info
-www.soundjay.com 
-freepd.com 
-Komiku. 
-Alexander Nakarada.
-brucethemoose. Minecraft-Performance-Flags-Benchmarks
-Griefed. ServerPackCreator_
+* Stardust and his team. Incendium optional resourcepack. 
+* Vanilla tweaks (vanillatweaks.net). 
+* Splatus. True Ending datapack. 
+* Telepathicgrunt. 
+* Repurposed structures better desert temples datapack. 
+* xPand_4B. Towers of the wild: reworked datapack. 
+* IchPhilipp. Better end city datapack. 
+* Ordana. Logical Dye Mixing datapack. 
+* LoquilloHub. Don't flood my village datapack.
+* Nikeyso. The bation overhaul datapack. 
+* TBC_Miles. New pillagers datapack. 
+* Xalixilax. Xalis Bushy Leaves. 
+* Kirillirik. Bedrodium mod. 
+* Qendolin. Boat Step Up mod. 
+* Creerio. Elemental Enchantments mod. 
+* Red. Masa Additions mod. 
+* Roundaround. Nicer Portals mod. 
+* Socially Anxious Dragon. Smoking Mobs mod. 
+* Javiergcim. MakeUp Ultra Fast shader. 
+* EminGT. Complementary Shaders v4, v5 shader. 
+* X0nk. Bliss shader. 
+* Sixthsurge. Photon shader. 
+* HarrisHeller. https://www.senpai.tv/streambeats/ 
+* soundeffect-lab.info
+* www.soundjay.com 
+* freepd.com 
+* Komiku. 
+* Alexander Nakarada.
+* brucethemoose. Minecraft-Performance-Flags-Benchmarks
+* Griefed. ServerPackCreator
 
 **感谢所有的Minecraft社区贡献者**！
