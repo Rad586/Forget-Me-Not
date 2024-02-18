@@ -39,7 +39,7 @@ Here are the jvm args for best performance: 
 
 Allocates 6G by default, change xms and xmx to fit your own need: 
 
-_-Xms6G -Xmx6G -XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC -XX:AllocatePrefetchStyle=1 -XX:ShenandoahGuaranteedGCInterval=1000000 -XX:+SegmentedCodeCache -XX:ReservedCodeCacheSize=188m -XX:NonProfiledCodeHeapSize=80m -XX:ProfiledCodeHeapSize=96m -XX:NonNMethodCodeHeapSize=12m -XX:MetaspaceSize=320m -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:+UseNUMA -XX:+UseNewLongLShift -XX:+UseVectorCmov -XX:+UseFastStosb -XX:-DontCompileHugeMethods -XX:+UseCompressedOops -XX:+UseCompressedClassPointers -XX:+UseLargePages -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority_
+`-Xms6G -Xmx6G -XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC -XX:AllocatePrefetchStyle=1 -XX:ShenandoahGuaranteedGCInterval=1000000 -XX:+SegmentedCodeCache -XX:ReservedCodeCacheSize=188m -XX:NonProfiledCodeHeapSize=80m -XX:ProfiledCodeHeapSize=96m -XX:NonNMethodCodeHeapSize=12m -XX:MetaspaceSize=320m -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:+UseNUMA -XX:+UseNewLongLShift -XX:+UseVectorCmov -XX:+UseFastStosb -XX:-DontCompileHugeMethods -XX:+UseCompressedOops -XX:+UseCompressedClassPointers -XX:+UseLargePages -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority`
 ***
 
 ### **✍Credits**: 
@@ -118,7 +118,7 @@ _在12视距，5模拟距离，最大帧数95的情况下：_
 
 默认分配6G，你可以根据需要自行修改xms和xmx的数值。
 
-_-Xms6G -Xmx6G -XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC -XX:AllocatePrefetchStyle=1 -XX:ShenandoahGuaranteedGCInterval=1000000 -XX:+SegmentedCodeCache -XX:ReservedCodeCacheSize=188m -XX:NonProfiledCodeHeapSize=80m -XX:ProfiledCodeHeapSize=96m -XX:NonNMethodCodeHeapSize=12m -XX:MetaspaceSize=320m -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:+UseNUMA -XX:+UseNewLongLShift -XX:+UseVectorCmov -XX:+UseFastStosb -XX:-DontCompileHugeMethods -XX:+UseCompressedOops -XX:+UseCompressedClassPointers -XX:+UseLargePages -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority_
+`-Xms6G -Xmx6G -XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC -XX:AllocatePrefetchStyle=1 -XX:ShenandoahGuaranteedGCInterval=1000000 -XX:+SegmentedCodeCache -XX:ReservedCodeCacheSize=188m -XX:NonProfiledCodeHeapSize=80m -XX:ProfiledCodeHeapSize=96m -XX:NonNMethodCodeHeapSize=12m -XX:MetaspaceSize=320m -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:+UseNUMA -XX:+UseNewLongLShift -XX:+UseVectorCmov -XX:+UseFastStosb -XX:-DontCompileHugeMethods -XX:+UseCompressedOops -XX:+UseCompressedClassPointers -XX:+UseLargePages -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority`
 
 ***
 ### **✅全方位汉化**
