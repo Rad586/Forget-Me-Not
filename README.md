@@ -1,4 +1,4 @@
-![BAND](https://github.com/Rad586/Forget-Me-Not/assets/99306685/576dbddc-858f-4232-b059-7b3c2ba23700)
+![BAND2](https://github.com/Rad586/Forget-Me-Not/assets/99306685/4bf45780-aa77-40ee-a769-95897a52e8e5)
 
 Forget Me Not, in short, FMN modpack, is a modpack that has been developed all by myself for over 1 year. It provides an immersive, breath-taking yet smooth experience. 
 
@@ -82,7 +82,7 @@ Allocates 6G by default, change xms and xmx to fit your own need: 
 
 **中文版**
 
-![BAND](https://github.com/Rad586/Forget-Me-Not/assets/99306685/576dbddc-858f-4232-b059-7b3c2ba23700)
+![BAND2](https://github.com/Rad586/Forget-Me-Not/assets/99306685/4bf45780-aa77-40ee-a769-95897a52e8e5)
 
 勿忘我，英文简称FMN，是一款我独立开发超过一年的整合包。它将为你带来沉浸、史诗并且流畅的游戏体验。
 
