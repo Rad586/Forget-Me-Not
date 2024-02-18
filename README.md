@@ -42,7 +42,7 @@ Allocates 6G by default, change xms and xmx to fit your own need: 
 _-Xms6G -Xmx6G -XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC -XX:AllocatePrefetchStyle=1 -XX:ShenandoahGuaranteedGCInterval=1000000 -XX:+SegmentedCodeCache -XX:ReservedCodeCacheSize=188m -XX:NonProfiledCodeHeapSize=80m -XX:ProfiledCodeHeapSize=96m -XX:NonNMethodCodeHeapSize=12m -XX:MetaspaceSize=320m -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:+UseNUMA -XX:+UseNewLongLShift -XX:+UseVectorCmov -XX:+UseFastStosb -XX:-DontCompileHugeMethods -XX:+UseCompressedOops -XX:+UseCompressedClassPointers -XX:+UseLargePages -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority_
 ***
 
-### **✍Credits: **
+### **✍Credits**: 
 _Stardust and his team. Incendium optional resourcepack. 
 Vanilla tweaks (vanillatweaks.net). 
 Splatus. True Ending datapack. 
@@ -125,7 +125,7 @@ _-Xms6G -Xmx6G -XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC -XX:Allocat
 目前Incendium的汉化无法使用，作者暂时让语言文件（除英文）都无法使用。请耐心等待。
 
 ***
-### **✍鸣谢: **
+### **✍鸣谢**: 
 _Stardust and his team. Incendium optional resourcepack. 
 Vanilla tweaks (vanillatweaks.net). 
 Splatus. True Ending datapack. 
