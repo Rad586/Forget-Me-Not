@@ -32,7 +32,7 @@ _12 view distance, 5 similation distance, limited to 95 frames_. 
 
 When max frames is set to "unlimited", I get 200+ frames on average. 
 
-**Lowest ram required for a smooth gameplay: 2G. **
+**Lowest ram required for a smooth gameplay: 2G**.
 
 It is highly suggested to use higher versions of java. 
 Here are the jvm args for best performance: 
