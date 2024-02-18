@@ -8,13 +8,13 @@ body:
       value: |
         **✍Thanks for taking the time to fill out this bug report**!
         Before starting, please make sure: 
-        _* ✔You are using the **latest** version of the modpack.
-        * ✔A similar issue hasn't been reported here._
+        * _✔You are using the **latest** version of the modpack_.
+        * _✔A similar issue hasn't been reported here_.
                                                                                     ⁬
         **✍感谢你抽空汇报问题**！
         在开始前，请确保：
-        _* ✔你在使用最新版本的整合包
-        * ✔这个板块中没有相同问题_
+        * _✔你在使用最新版本的整合包_
+        * _✔这个板块中没有相同问题_
   - type: textarea
     id: what-happened
     attributes:
