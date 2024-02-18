@@ -74,7 +74,7 @@ Alexander Nakarada.
 brucethemoose. Minecraft-Performance-Flags-Benchmarks
 Griefed. ServerPackCreator_
 
-**Thanks for all creative creators! **
+**Thanks for all creative creators**! 
 ***
 
 
@@ -156,4 +156,4 @@ Alexander Nakarada.
 brucethemoose. Minecraft-Performance-Flags-Benchmarks
 Griefed. ServerPackCreator_
 
-**感谢所有的Minecraft社区贡献者！**
+**感谢所有的Minecraft社区贡献者**！
