@@ -82,8 +82,6 @@ Allocates 6G by default, change xms and xmx to fit your own need: 
 
 **中文版**
 
-![BAND2](https://github.com/Rad586/Forget-Me-Not/assets/99306685/4bf45780-aa77-40ee-a769-95897a52e8e5)
-
 勿忘我，英文简称FMN，是一款我独立开发超过一年的整合包。它将为你带来沉浸、史诗并且流畅的游戏体验。
 
 ***
