@@ -43,6 +43,7 @@ Allocates 6G by default, change xms and xmx to fit your own need: 
 
 `-Xms6G -Xmx6G -XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC -XX:AllocatePrefetchStyle=1 -XX:ShenandoahGuaranteedGCInterval=1000000 -XX:+SegmentedCodeCache -XX:ReservedCodeCacheSize=188m -XX:NonProfiledCodeHeapSize=80m -XX:ProfiledCodeHeapSize=96m -XX:NonNMethodCodeHeapSize=12m -XX:MetaspaceSize=320m -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:+UseNUMA -XX:+UseNewLongLShift -XX:+UseVectorCmov -XX:+UseFastStosb -XX:-DontCompileHugeMethods -XX:+UseCompressedOops -XX:+UseCompressedClassPointers -XX:+UseLargePages -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority`
 </details>
+
 ***
 
 ### **✍Credits**: 
