@@ -2,12 +2,12 @@
 
 Forget Me Not, in short, FMN modpack, is a modpack that has been developed all by myself for over 1 year. It provides an immersive, breath-taking yet smooth experience. 
 
-======
+===
 ### **🎆Immersive experience**
 I do care about immersion. Advancements are replaced by realtime ingame tips. Also, dark gui is applied on every gui for a seamless experience.
 However, immersion is something related to so many designs, I can't list them all. 
 
-======
+===
 ### **⚖Well-balancing**
 It has been tested for hours and hours to make sure it's balanced and stable. A dynamic difficulty system is designed for this modpack. You will face thougher enemies underground, in other dimension, and further away, some of them even have special abilities. 
 
