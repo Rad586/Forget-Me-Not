@@ -1,5 +1,7 @@
 ![BAND2](https://github.com/Rad586/Forget-Me-Not/assets/99306685/4bf45780-aa77-40ee-a769-95897a52e8e5)
 
+[**English**](./README.md) | [**简体中文**](./cn/README.md)
+
 Forget Me Not, in short, FMN modpack, is a modpack that has been developed all by myself for over 1 year. It provides an immersive, breath-taking yet smooth experience. 
 
 ***
