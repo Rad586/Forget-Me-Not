@@ -61,7 +61,10 @@ _在12视距，5模拟距离，最大帧数95的情况下：_
 * LoquilloHub. Don't flood my village datapack.
 * Nikeyso. The bation overhaul datapack. 
 * TBC_Miles. New pillagers datapack. 
-* Xalixilax. Xalis Bushy Leaves. 
+* Xalixilax. Xalis Bushy Leaves.
+* F53. Horse Buff
+* Melontini. Andromeda mod.
+* AnOpenSauceDev, Steveplays.  Faster Random mod.
 * Kirillirik. Bedrodium mod. 
 * Qendolin. Boat Step Up mod. 
 * Creerio. Elemental Enchantments mod. 
