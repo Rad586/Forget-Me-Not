@@ -60,6 +60,8 @@ It is highly suggested to use higher versions of java. 
 * Nikeyso. The bation overhaul datapack. 
 * TBC_Miles. New pillagers datapack. 
 * Xalixilax. Xalis Bushy Leaves.
+* JustS-js. Survival Debug Stick mod.
+* UserTeemu. Vehicle Reeling mod.
 * F53. Horse Buff mod.
 * Melontini. Andromeda mod.
 * AnOpenSauceDev, Steveplays.  Faster Random mod.
