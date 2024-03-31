@@ -48,40 +48,39 @@ It is highly suggested to use higher versions of java. 
 
 ***
 ### **✍Credits**: 
-* Stardust and his team. Incendium optional resourcepack. 
+* Stardust and his team. [Incendium optional resourcepack.](https://modrinth.com/resourcepack/incendium-optional-resourcepack)
 * Vanilla tweaks (vanillatweaks.net). 
-* Splatus. True Ending datapack. 
-* Telepathicgrunt. 
-* Repurposed structures better desert temples datapack. 
-* xPand_4B. Towers of the wild: reworked datapack. 
-* IchPhilipp. Better end city datapack. 
-* Ordana. Logical Dye Mixing datapack. 
-* LoquilloHub. Don't flood my village datapack.
-* Nikeyso. The bation overhaul datapack. 
-* TBC_Miles. New pillagers datapack. 
-* Xalixilax. Xalis Bushy Leaves.
-* JustS-js. Survival Debug Stick mod.
-* UserTeemu. Vehicle Reeling mod.
-* F53. Horse Buff mod.
-* Melontini. Andromeda mod.
-* AnOpenSauceDev, Steveplays.  Faster Random mod.
-* Kirillirik. Bedrodium mod. 
-* Qendolin. Boat Step Up mod. 
-* Creerio. Elemental Enchantments mod. 
-* Red. Masa Additions mod. 
-* Roundaround. Nicer Portals mod. 
-* Socially Anxious Dragon. Smoking Mobs mod. 
-* Javiergcim. MakeUp Ultra Fast shader. 
-* EminGT. Complementary Shaders v4, v5 shader. 
-* X0nk. Bliss shader. 
-* Sixthsurge. Photon shader. 
-* HarrisHeller. https://www.senpai.tv/streambeats/ 
+* Splatus. [True Ending datapack.](https://modrinth.com/datapack/true-ending)
+* Telepathicgrunt. [Repurposed structures better desert temples datapack.](https://modrinth.com/datapack/repurposed-structures-better-desert-temples-compat)
+* xPand_4B. [Towers of the wild: reworked datapack.](https://modrinth.com/datapack/towers-of-the-wild-reworked)
+* IchPhilipp. [Better end city datapack.](https://www.planetminecraft.com/data-pack/better-end-city-by-ichphilipp/)
+* Ordana. [Logical Dye Mixing datapack.](https://modrinth.com/datapack/logical-dye-mixing)
+* LoquilloHub. [Don't flood my village datapack.](https://modrinth.com/datapack/dfmv)
+* Nikeyso. [The bation overhaul datapack.](https://modrinth.com/datapack/the-bastion-overhaul)
+* TBC_Miles. [New pillagers datapack.](https://www.planetminecraft.com/data-pack/new-pillagers-better-structures/)
+* Xalixilax. [Xalis Bushy Leaves.](https://modrinth.com/resourcepack/xalis-bushy-leaves)
+* JustS-js. [Survival Debug Stick mod.](https://modrinth.com/mod/survival-debug-stick)
+* UserTeemu. [Vehicle Reeling mod.](https://modrinth.com/mod/vehicle-reeling/versions)
+* F53. [Horse Buff mod.](https://modrinth.com/mod/horsebuff)
+* Melontini. [Andromeda mod.](https://modrinth.com/mod/andromeda)
+* AnOpenSauceDev, Steveplays.  [Faster Random mod.](https://modrinth.com/mod/faster-random)
+* Kirillirik. [Bedrodium mod.](https://modrinth.com/mod/bedrodium)
+* Qendolin. [Boat Step Up mod.](https://modrinth.com/mod/boatstepup)
+* Creerio. [Elemental Enchantments mod.](https://modrinth.com/mod/elemental-enchantments)
+* Red. [Masa Additions mod.](https://modrinth.com/mod/masaadditions)
+* Roundaround. [Nicer Portals mod.](https://modrinth.com/mod/nicer-portals)
+* Socially Anxious Dragon. [Smoking Mobs mod.](https://modrinth.com/mod/smoking_mobs)
+* Javiergcim. [MakeUp Ultra Fast shader.](https://modrinth.com/shader/makeup-ultra-fast-shaders)
+* EminGT. [Complementary Shaders v4, v5 shader.](https://modrinth.com/shader/complementary-unbound)
+* X0nk. [Bliss shader.](https://modrinth.com/shader/bliss-shader)
+* Sixthsurge. [Photon shader.](https://github.com/sixthsurge/photon?tab=MIT-1-ov-file)
+* HarrisHeller. https://www.senpai.tv/streambeats/
 * soundeffect-lab.info
-* www.soundjay.com 
-* freepd.com 
-* Komiku. 
+* www.soundjay.com
+* freepd.com
+* Komiku.
 * Alexander Nakarada.
-* brucethemoose. Minecraft-Performance-Flags-Benchmarks
-* Griefed. ServerPackCreator
+* brucethemoose. [Minecraft-Performance-Flags-Benchmarks](https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks)
+* Griefed. [ServerPackCreator.](https://serverpackcreator.de/#/)
 
 **Thanks for all creative creators**! 
