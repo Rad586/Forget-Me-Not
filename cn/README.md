@@ -62,7 +62,9 @@ _在12视距，5模拟距离，最大帧数95的情况下：_
 * Nikeyso. The bation overhaul datapack. 
 * TBC_Miles. New pillagers datapack. 
 * Xalixilax. Xalis Bushy Leaves.
-* F53. Horse Buff
+* JustS-js. Survival Debug Stick mod.
+* UserTeemu. Vehicle Reeling mod.
+* F53. Horse Buff mod.
 * Melontini. Andromeda mod.
 * AnOpenSauceDev, Steveplays.  Faster Random mod.
 * Kirillirik. Bedrodium mod. 
