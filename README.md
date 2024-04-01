@@ -49,7 +49,7 @@ It is highly suggested to use higher versions of java. 
 ***
 ### **✍Credits**: 
 * Stardust and his team. [Incendium optional resourcepack.](https://modrinth.com/resourcepack/incendium-optional-resourcepack)
-* Vanilla tweaks (vanillatweaks.net). 
+* [Vanilla tweaks](https://vanillatweaks.net/). 
 * Splatus. [True Ending datapack.](https://modrinth.com/datapack/true-ending)
 * Telepathicgrunt. [Repurposed structures better desert temples datapack.](https://modrinth.com/datapack/repurposed-structures-better-desert-temples-compat)
 * xPand_4B. [Towers of the wild: reworked datapack.](https://modrinth.com/datapack/towers-of-the-wild-reworked)
@@ -75,11 +75,11 @@ It is highly suggested to use higher versions of java. 
 * X0nk. [Bliss shader.](https://modrinth.com/shader/bliss-shader)
 * Sixthsurge. [Photon shader.](https://github.com/sixthsurge/photon?tab=MIT-1-ov-file)
 * HarrisHeller. https://www.senpai.tv/streambeats/
-* soundeffect-lab.info
-* www.soundjay.com
-* freepd.com
-* Komiku.
-* Alexander Nakarada.
+* [soundeffect-lab.info](https://soundeffect-lab.info/)
+* [www.soundjay.com](https://www.soundjay.com/)
+* [freepd.com](https://freepd.com/)
+* Komiku. [Her Twitter](https://twitter.com/RrrrroseAzerty)
+* Alexander Nakarada. [His Twitter](https://twitter.com/thenakarada)
 * brucethemoose. [Minecraft-Performance-Flags-Benchmarks](https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks)
 * Griefed. [ServerPackCreator.](https://serverpackcreator.de/#/)
 
