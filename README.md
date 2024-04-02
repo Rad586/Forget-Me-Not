@@ -89,7 +89,8 @@ It is highly suggested to use higher versions of java. 
 <details>
 <summary>Update log: </summary>
 
-**2.3.0**
+
+### **2.3.0**
   - Monsters' great fight back!Pillagers may use firerockets(for once), mob groups may appear, creepers have explode dmg reduction, and have a chance to carry debuffs, evokers may use their totem, undead armys would appear if you killed too many of their fellows.After slaying the ender dragon, monsters would be even more deadly.Added majruszs difficulty.
   - Many-many blocks now has roughness and flexibility, though the variation is hard to notice, but you'll find it more exciting to explore the world!
   - New enchantments thanks to majruszs enchantments!
@@ -111,7 +112,7 @@ It is highly suggested to use higher versions of java. 
   - Updated fancymenu x2.
   - Updated fmndis.
 
-**2.2.1**
+### **2.2.1**
 //Some essential fixes.
   - Fixed a crash relating to takes a pillage.
   - Serverpack is useable now lol.
@@ -133,7 +134,7 @@ It is highly suggested to use higher versions of java. 
   - Removed custom splash screen.
   - Removed remove reload screen.
 
-**2.2.0**
+### **2.2.0**
 //Now we've reached the sweet point where chunk loading fast and fps being stable.
   - Fixed a crash relating to mcda.
   - Fixed a crash caused by villager config.
@@ -174,7 +175,7 @@ It is highly suggested to use higher versions of java. 
   - Updated harvest with ease.
   - Updated enchant tweaker.
 
-**2.1.2**
+### **2.1.2**
   - Pitch variants for ambient sound effects!
   - New illagers thanks to it takes a pillage mod!
   - Reworked recovery pearl.
@@ -215,14 +216,14 @@ It is highly suggested to use higher versions of java. 
   - Removed eldritch mobs.
   - Removed spark.It's for testing purpose only.
 
-**2.1.1**
+### **2.1.1**
   - Undead curse is now incompatible with dark curse.
   - Golden keys can be smelted or blasted now.
   - Added a tip about crafting golden keys and rabbit hide.
   - Moved crafting table tooltip to a ingame tip.
   - Fixed boat/minecart not useable.
 
-2.1.0
+### **2.1.0**
   - Replaced guide with realtime ingame tips.
   - Implemented all background things via kubejs.Removed ftbquests and its dependencies.This took some time but it's all worth.
   - Reintroduced vanilla music into the modpack!43 new musics!
@@ -253,7 +254,7 @@ It is highly suggested to use higher versions of java. 
   - Updated fabrication.
   - Updated fabric api.
 
-**2.0.0**
+### **2.0.0**
   - Boss musics and credit musics are back! 
   - Lowered ender dragon natural regen and fire ball attack strength.
   - Capped evolving enchantment from 5 to 2.
@@ -271,7 +272,7 @@ It is highly suggested to use higher versions of java. 
   - Updated BOMD.
   - Updated modernfix.
 
-**2.0.0b**
+### **2.0.0b**
 //Take a deep breath in the nature and enjoy the future of Forget Me Not modpack.
   - Gorgeous terrain generation and ambient sounds.
   - More variety of structures and better structure set.
@@ -280,7 +281,7 @@ It is highly suggested to use higher versions of java. 
   - Better optimized.
   - Less mods.
 
-**1.3.3**
+### **1.3.3**
   - Added new musics! Those are all from Komiku, an amazing artist! 
   - Added translate key to guide. One guide for multiple languages! 
   - Overhauled default item enchantments. 
@@ -322,7 +323,7 @@ It is highly suggested to use higher versions of java. 
   - Changed lunar event message from chat to hot bar. 
   - Removed aquatictorches. 
 
-**1.3.2**
+### **1.3.2**
   - Fixed a giant lag spike happening in raid. Disabled evoker and vindicator death animation. 
   - Increased min height to take fall damage. Added minfalldistance. 
   - Fixed sand layer texture. Updated FMNIW. 
@@ -363,11 +364,11 @@ It is highly suggested to use higher versions of java. 
   - Removed whereisit. I don't think there're that many new items added in this modpack. 
   - Removed fabric shield lib. 
 
-**1.3.1-hotfix**
+### **1.3.1-hotfix**
   - Greatsword of blood can drop by piglin brutes now. I forgot... 
   - Fixed day and night cycle. 
 
-**1.3.1**
+### **1.3.1**
 //Better late than never. 
   - Updated biome tags, improving compability. 
   - Rolled back the health bar render type to only bar. 
@@ -407,7 +408,7 @@ It is highly suggested to use higher versions of java. 
   - Removed YDM's weapon master. 
   - Removed kiwi, it's for testing purpose. 
 
-**1.3.0**
+### **1.3.0**
 //It's all the small things that matters. 
   - Fixed carrot mode. I didn't really noticed that until I start cooking and gain no extra hearts. 
   - Tagged crafting. No more log spams, better compability, more reasonable. There's still some failed-to-parse recipe caused by other mods, but they're not important. 
@@ -462,7 +463,7 @@ It is highly suggested to use higher versions of java. 
   - Added complementary v5. 
   - Added Bliss. 
 
-**1.2.3**
+### **1.2.3**
   - Removed ravager from patrols. 
   - Fixed spawn rate of monsters in rotten creatures. Originally it's config doesn't works... 
   - Disabled speedster and sprinter ability. 
@@ -490,7 +491,7 @@ It is highly suggested to use higher versions of java. 
   - Updated Living Things. 
   - Changed some textures and descriptions in illager invasion mod to fit in the modpack. 
 
-**1.2.2**
+### **1.2.2**
   - Fixed an experience duplication method. Disabled soul crystal stacking. 
   - Difficulty based boss attributes and dimensional monster attributes. 
   - Time based monster attributes(starting at day 40). 
@@ -520,7 +521,7 @@ It is highly suggested to use higher versions of java. 
   - Updated fabrication x3. 
   - Updated separated leaves x2. 
 
-**1.2.1**
+### **1.2.1**
 //1.2.1 mainly focuses on bug fixes and performance improvement. 
   - Fixed waystones not generating on nether towers and end towers. 
   - Players in the end dimension can fall through the void to the overworld. 
@@ -549,7 +550,7 @@ It is highly suggested to use higher versions of java. 
   - Tweaked meat texture to fit in vanilla style. 
   - Tweaked pumpkin blur, now it's more like a pair of sunglasses. 
 
-**1.2.0**
+### **1.2.0**
   - New dimensions added. 
   - New biome specific mobs and their varients added. 
   - Bedrocks are replaced by obsidians. 
@@ -573,7 +574,7 @@ It is highly suggested to use higher versions of java. 
   - Tweaked entity view distance. 
   - Updated e4mc. 
 
-**1.1.1**
+### **1.1.1**
   - Fixed mimic rate. 
   - Fixed mount hud. 
   - Fixed shovel breaking speed. 
@@ -592,7 +593,7 @@ It is highly suggested to use higher versions of java. 
   - Secretly updated guide. 
   - Removed Super Duper Vanilla cause my custom color scheme kinda sucks. 
 
-**1.1.0**
+### **1.1.0**
   - Terrarian slimes won't attack player from that far away. Finally! 
   - Added unique boss loots. 
   - Fixed several loot tables so there won't be missing items or enchanted books acan't be used. 
@@ -632,11 +633,11 @@ It is highly suggested to use higher versions of java. 
   - Removed Naiy. 
   - Updated Balm. 
 
-**1.0.1**
+### **1.0.1**
   - Balanced lava slime spawn rate in nether. 
   - Fixed a crash happening during dragon fight. 
 
-**1.0.0**
+### **1.0.0**
   - Added back some mods, now they are approved in the non-curseforge mod list. 
   - Fixed consistent error chat message. 
   - Added 100 days goal. 
