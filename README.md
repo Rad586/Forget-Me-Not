@@ -88,6 +88,7 @@ It is highly suggested to use higher versions of java. 
 ***
 <details>
 <summary>Update log: </summary>
+  
 2.3.0
   - Monsters' great fight back!Pillagers may use firerockets(for once), mob groups may appear, creepers have explode dmg reduction, and have a chance to carry debuffs, evokers may use their totem, undead armys would appear if you killed too many of their fellows.After slaying the ender dragon, monsters would be even more deadly.Added majruszs difficulty.
   - Many-many blocks now has roughness and flexibility, though the variation is hard to notice, but you'll find it more exciting to explore the world!
