@@ -61,6 +61,7 @@ _在12视距，5模拟距离，最大帧数95的情况下：_
 * Nikeyso. [The bation overhaul datapack.](https://modrinth.com/datapack/the-bastion-overhaul)
 * TBC_Miles. [New pillagers datapack.](https://www.planetminecraft.com/data-pack/new-pillagers-better-structures/)
 * Xalixilax. [Xalis Bushy Leaves.](https://modrinth.com/resourcepack/xalis-bushy-leaves)
+* Jolkert. [Perch](https://modrinth.com/mod/perch/version/1.0.0-1.19.2)
 * JustS-js. [Survival Debug Stick mod.](https://modrinth.com/mod/survival-debug-stick)
 * UserTeemu. [Vehicle Reeling mod.](https://modrinth.com/mod/vehicle-reeling/versions)
 * F53. [Horse Buff mod.](https://modrinth.com/mod/horsebuff)
