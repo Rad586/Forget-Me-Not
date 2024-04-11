@@ -1,5 +1,5 @@
 name: Bug Report 汇报问题
-description: Bug report template
+description: Report a bug. 汇报bug。
 title: "[Bug]: "
 labels: ["bug"]
 body:
