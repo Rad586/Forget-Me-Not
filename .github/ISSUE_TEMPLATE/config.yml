@@ -3,3 +3,7 @@ contact_links:
   - name: 💡 Suggesting Ideas 建议/灵感
     url: https://github.com/Rad586/Forget-Me-Not/discussions/categories/ideas
     about: Suggestions go here! 在讨论板块提出！
+contact_links:
+  - name: ❓ Q&A 提问/支持
+    url: https://github.com/Rad586/Forget-Me-Not/discussions/categories/q-a
+    about: Questions go here! 在Q&A板块提出！
