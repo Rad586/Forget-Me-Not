@@ -64,7 +64,6 @@ _在12视距，5模拟距离，最大帧数95的情况下：_
 * Jolkert. [Perch mod. ](https://modrinth.com/mod/perch/version/1.0.0-1.19.2)
 * JustS-js. [Survival Debug Stick mod.](https://modrinth.com/mod/survival-debug-stick)
 * UserTeemu. [Vehicle Reeling mod.](https://modrinth.com/mod/vehicle-reeling/versions)
-* F53. [Horse Buff mod.](https://modrinth.com/mod/horsebuff)
 * Melontini. [Andromeda mod.](https://modrinth.com/mod/andromeda)
 * AnOpenSauceDev, Steveplays.  [Faster Random mod.](https://modrinth.com/mod/faster-random)
 * Kirillirik. [Bedrodium mod.](https://modrinth.com/mod/bedrodium)
@@ -130,7 +129,6 @@ _在12视距，5模拟距离，最大帧数95的情况下：_
   - 感谢 backported wolves 为我们带来新版本的变种狼！
   - 现在你最多同时拥有三只狼（kjs）。
   - 用于击杀生物的箭矢将会掉落自身。新增了 arrow entity loot drop 模组。
-  - 感谢 horse buff 带来的更好的马匹！
   - 传送门遗迹的箱子有小概率生成被诅咒的盔甲！小心，这些“生物”（或者说盔甲？）来自下界，能够破坏方块！
   - 现在你能够在无支撑方块的情况下放置梯子！新增了 lengthy ladders 模组。
   - 现在你可以通过潜行来伤害村民警卫。此外，攻击铁傀儡和村民需要潜行了（kjs）。
