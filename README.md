@@ -62,7 +62,6 @@ It is highly suggested to use higher versions of java. 
 * Jolkert. [Perch mod.](https://modrinth.com/mod/perch/version/1.0.0-1.19.2)
 * JustS-js. [Survival Debug Stick mod.](https://modrinth.com/mod/survival-debug-stick)
 * UserTeemu. [Vehicle Reeling mod.](https://modrinth.com/mod/vehicle-reeling/versions)
-* F53. [Horse Buff mod.](https://modrinth.com/mod/horsebuff)
 * Melontini. [Andromeda mod.](https://modrinth.com/mod/andromeda)
 * AnOpenSauceDev, Steveplays.  [Faster Random mod.](https://modrinth.com/mod/faster-random)
 * Kirillirik. [Bedrodium mod.](https://modrinth.com/mod/bedrodium)
@@ -127,7 +126,6 @@ It is highly suggested to use higher versions of java. 
   - Backported wolves thanks to backported wolves mod!
   - Now you can only have 3 wolves(kjs).
   - The arrow used to kill the entity drops itself. Added arrow entity loot drop.
-  - Better horse thanks to horse buff!
   - Ruined portals chests have a low chance to summon cursed armor! Be aware, these creatures(or armor sets?) are from the nether, they can break blocks!
   - Now you can place ladder without supporting blocks! Added lengthy ladders.
   - Now you can crouch to hit villager guards. Also, hitting iron golems and villagers requires crouching too(kjs).
