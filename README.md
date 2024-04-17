@@ -88,7 +88,7 @@ It is highly suggested to use higher versions of java. 
 
 ***
 <details>
-<summary>Update log: </summary>
+<summary>Change log: </summary>
 
 
 ### **2.5.0**
