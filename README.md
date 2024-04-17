@@ -91,6 +91,93 @@ It is highly suggested to use higher versions of java. 
 <summary>Update log: </summary>
 
 
+### **2.5.0**
+  - Entity AI optimizations thanks to mobtimizations!
+  - Overhauled end biomes thanks to nullscape! Also comes with new implementions of gravity in end(kjs)!
+  - Optimized world generation. It might stutter a bit(since the chunk is loading too fast) on launch, but it should be fine shortly. Capped chunk builder thread to 2 so there will be less lag spikes. Basicly, it's about less, and less fancy features, and two less layers of noises.
+  - Updated faster random. Worldgen should be faster now, though you may face some inconsistencies in old worlds.
+  - Rewrote scripts, some would be much faster now, some get much better readability(kjs).
+  - Overhauled enchanting system. Anvil's cap has been set to 50, but you won't get cursed for enchanting too much.
+  - Vaster landscape!
+  - Progressive bosses mod has been replaced by be style wither and true ending now. Enjoy the boss fight!
+  - Now you can toggle auto pickup! Small, but revolutionary.
+  - Deduplicated some feature and structure generation to make worldgen faster and more consistent.
+  - Fixed end to overworld teleportation trggering respawn scripts(kjs).
+  - Mob attacks may inflict you with special effects! That's what we need to make those mobs more "special"!
+  - Fixed time command messing up the blood moon event(kjs).
+  - When having glowing effect, being hit makes nearby monsters target you(kjs).
+  - Reduced lag spikes in shattered savanna and dark forests.
+  - Replaced structure essentials with async locator.
+  - Better configured servercore so there will be less lag spikes.
+  - Tiny optimization to piglins.
+  - Creepers may cause area effect cloud on explosion(kjs).
+  - Pillagers may shoot firework rockets, even blow their goat horn(kjs)!
+  - Candle-like flower placing behavior thanks to flower patch! Also made these flowers generate in world!
+  - Fancier swamp thanks to swampier swamps! Also, like newer versions of Minecraft, skeletons that shoot poisonous arrows will spawn in swamps!
+  - Now there won't be incompabilities with world map mods(kjs).
+  - New tower varients thanks to myself and totw modded! You can take my structures to your modpack, I'm just too lazy to make a seperate datapack.
+  - New structures thanks to hopo better ruined portals! Some of them are burried underground, but I made them generate on the surface lol. Also coming with some balance tweaks.
+  - New transportation method, carts! You can pull it yourself, or a horse!
+  - New transportation method, amethyst feather(kjs)! It grants you the ability to glide for a short time!
+  - You can't break guarded chests now(but you can still bomb them or use a hopper).
+  - You can't use pearls in water now(kjs)!
+  - Parrots won't get off for falling! Also, if you have a parrot on shoulder, you are immune to fall damage(kjs). Added perge.
+  - You can use debug stick in survival mode with limited function now. Added survival debug stick.
+  - Tiny storage thanks to andromeda! Now you can store items in crafting slots, just like those good ol' days!
+  - Backported wolves thanks to backported wolves mod!
+  - Now you can only have 3 wolves(kjs).
+  - The arrow used to kill the entity drops itself. Added arrow entity loot drop.
+  - Better horse thanks to horse buff!
+  - Ruined portals chests have a low chance to summon cursed armor! Be aware, these creatures(or armor sets?) are from the nether, they can break blocks!
+  - Now you can place ladder without supporting blocks! Added lengthy ladders.
+  - Now you can crouch to hit villager guards. Also, hitting iron golems and villagers requires crouching too(kjs).
+  - Added vehicle reeling.
+  - Implemented torch hit in a genius way. Removed torch hit.
+  - Fixed pets not being full health after tamed(kjs).
+  - Fixed loot tables of living things mod.
+  - Fixed fake weakness effect caused by creeper explosion(kjs).
+  - Mobs leave boat/minecart when hurt by player(kjs).
+  - Getting hit underwater lowers your air level(kjs).
+  - Players can avoid insta-death once for every 6 days(kjs).
+  - Tamed entities won't die from *some* damage sources(kjs).
+  - Villager trades won't reset now, but keep in mind that their trade won't reset on workstation change! Also balanced villager trade.
+  - Attacking iron golem or snow golem with matching tool deals extra damage(kjs).
+  - Holding a shield when on fire damages it(kjs).
+  - Disabled charged creeper spawning.
+  - Nuked allays(for performance).
+  - Enabled magnets(andromeda).
+  - Death dropped items won't despawn now(kjs).
+  - Implemented manually dismount(kjs). Removed this boat is mine.
+  - Implemented bed benefits(kjs). Removed bed benefits.
+  - Capped max milk bucket stack size to 4.
+  - No fall damage on slime blocks anyway(kjs)!
+  - Right-clickable recovery compass and clock(kjs).
+  - Disabled tempting villagers using emerald blocks(for performance).
+  - Removed combat enchantments(for performance).
+  - Some animals won't despawn now, enjoy farming!
+  - Changed spread type and salt of some structures.
+  - Nuked copper in illagers' jungle fort and villagers' ship.
+  - Corrected those dumb misspells("dialouge") in the lang file of kubejs(kjs).
+  - Sorted server scripts(kjs).
+  - Tooltip for spawners and debug stick(kjs).
+  - Added kubejs additions.
+  - Other things I forgot or too lazy to list.
+  - Removed environmental creepers. It's function has been implemented in majrusz's difficulty.
+  - Removed dragon fight. It causes crashes during the dragon fight.
+  - Removed glow inc sac, it's function has been implemented in unaverage tweaks.
+  - Removed custom speed, it's causing some rare crash.
+  - Updated tectonic.
+  - Updated andromeda.
+  - Updated unaverage tweaks.
+  - Updated fabrication.
+  - Updated modernfix.
+  - Updated immediately fast.
+  - Updated bad optimizations.
+  - Updated emi x2.
+  - Updated fancymenu x3.
+  - Updated library mods: fabric language kotlin, architectury, cupboard, konkrete and rhino.
+  - Updated fabric loader.
+
 ### **2.3.0**
   - Monsters' great fight back!Pillagers may use firerockets(for once), mob groups may appear, creepers have explode dmg reduction, and have a chance to carry debuffs, evokers may use their totem, undead armys would appear if you killed too many of their fellows.After slaying the ender dragon, monsters would be even more deadly.Added majruszs difficulty.
   - Many-many blocks now has roughness and flexibility, though the variation is hard to notice, but you'll find it more exciting to explore the world!
