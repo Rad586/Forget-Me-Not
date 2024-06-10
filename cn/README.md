@@ -61,6 +61,9 @@ _在12视距，5模拟距离，最大帧数95的情况下：_
 * Nikeyso. [The bation overhaul datapack.](https://modrinth.com/datapack/the-bastion-overhaul)
 * TBC_Miles. [New pillagers datapack.](https://www.planetminecraft.com/data-pack/new-pillagers-better-structures/)
 * Xalixilax. [Xalis Bushy Leaves.](https://modrinth.com/resourcepack/xalis-bushy-leaves)
+* Domi. [Connected Doors mod.](https://modrinth.com/mod/connected-doors)
+* 8s2. [Angling mod.](https://modrinth.com/mod/angling)
+* Richy Z. [ThreatenGL mod.](https://github.com/Numelon-Softworks/ThreatenGL)
 * Jolkert. [Perch mod. ](https://modrinth.com/mod/perch/version/1.0.0-1.19.2)
 * JustS-js. [Survival Debug Stick mod.](https://modrinth.com/mod/survival-debug-stick)
 * UserTeemu. [Vehicle Reeling mod.](https://modrinth.com/mod/vehicle-reeling/versions)
@@ -92,6 +95,64 @@ _在12视距，5模拟距离，最大帧数95的情况下：_
 <details>
 <summary>更新日志：</summary>
 
+
+## **2.7.0**
+  - 酿造系统大升级！新增了66种药水及其合成配方（kjs）！小心，女巫也可能会投掷这些新药水！（kjs）!
+  - 更多，更多附魔！新增了28个新附魔（kjs）！有的诅咒有时能发挥正面作用。
+  - 劫掠者，卫道士，猪灵，猪灵蛮兵现在能使用不同武器，发挥其特长了（kjs）！
+  - 新增了 threatengl，为客户端带来了帧数的飞跃。
+  - 感谢 options profile 模组带来的配置预设功能！
+  - 重构了两次 js 代码，现在性能比以前还要更好（kjs）。
+  - 重新构想并改进了战斗体验。现在你的攻击速度更快（牺牲了一些攻击力），并且能够无前摇地造成伤害。此外，你不再能“长按攻击”了。
+  - 新增了 icterine。尽管我禁用了几乎全部成就，仍然留下了一些来保证 incendium 正常运作。
+  - 新增了 geckolib armor compat。我也不懂这个能不能提升性能...
+  - 回调了 tectonic 的地形高度修改。
+  - 新物品：免死金牌（kjs）！这是一个下界版的不死图腾。你可以用金块合成它！
+  - 不是新武器（上次忘说了）：吹雪！这是一把武士刀，可以通过潜行、疾跑、空中三种状态，组合剑技！由流浪者掉落。
+  - 新武器：流火！这是一把杖形武器，能够生成并号令火球，发动致命的攻击！潜行右键可以将小火球合并，召唤大火球攻击敌人；普通右键可以号令单个火球攻击敌人！由尸壳掉落。
+  - 新物品：恶魔之心！它能够复活你...吗？由凋灵骷髅或凋灵掉落！
+  - 修复了原版 bug：现在末地→主世界的传送不会重置除了末地环境效果的药水效果了（kjs）。
+  - 修复了原版 bug：玩家重新连接不会再重置药水效果的倍率了（kjs）。
+  - 尝试修复了玩家血量为 NaN 的 bug（kjs）。
+  - 不知道谁忘记给黄金钥匙和虚空钥匙加配方了。我保证它们现在能合成了。
+  - 用 andromeda 里的神秘袋代替了神秘包裹。现在它可以到处丢了。
+  - 用 andromeda 的解除骑乘特性代替了 kjs 里的实现。
+  - 实现了一些苦力怕机制（kjs）, 开启了生物破坏游戏规则，移除了 health blast。
+  - 用普通骷髅头颅替换了下界哨站的凋零骷髅头颅。
+  - 重新配置了 terralith 的地下建筑的战利品表，顺手干掉了铜矿。
+  - 溺尸可以在洞穴的水坑里生成了。
+  - 你有可能遭遇幻术师伪装的劫掠者！这个劫掠者有点可疑（kjs）...
+  - 每击杀玩家三次，末影龙都会恢复其最大生命值的50%。末影龙，我是来谈条件的...等等，啥？！
+  - 将末影龙的伤害提升了约30%，桀桀桀~
+  - 被末影龙击杀将减少你总计1点生命上限（kjs）。
+  - 修复了末影龙最后一击时血量为 null 的问题（kjs）。
+  - 末影之眼在掉落时会发光了(kjs)。
+  - 移除了 无史莱姆块摔落伤害特性（kjs）。
+  - 实现了物品掉落的腾空效果，移除了 droplight 及其附属（kjs）。
+  - 更新了汉化。
+  - 把 options.txt 移动到了 kubejs/config 文件夹里，防止覆盖用户配置（kjs）。
+  - 现在红色下界砖及其变种将掉落普通下界砖，除非用精准采集。
+  - 如果掉落虚空，你将会以6颗心为代价，传送回地表。
+  - 通过预加载下界和末地，防止了首次进入的卡顿（kjs）。
+  - 你现在不会出生在山地了。
+  - 移除了 nullscape。
+  - 移除了 spoorn bounty mobs。
+  - 移除了 spark。我也不知道自己为什么会忘记删...
+  - 移除了 arrow entity loop drop。
+  - 移除了 remove kjs default lang。
+  - 新增了 morejs。
+  - 新增了 stoneworks。
+  - 新增了 texels paintings。
+  - 新增了 this is what u need。
+  - 重新加入了 fuel info。
+  - 更新了 modernfix。
+  - 更新了 immediately fast。
+  - 更新了 faster random。
+  - 更新了 bad optimizations。
+  - 更新了 kubejs。
+  - 更新了 emi。
+  - 更新了 fancy menu。
+  - 更新了 fabrication。
 
 ## **2.5.0**
   - 感谢 mobtimizations 带来的生物 AI 优化！
