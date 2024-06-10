@@ -93,6 +93,66 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.7.0**
+  - Brewing revolusion! Added 66 potion effects with their recipes(kjs)! Be aware, witches may throw these potions towards you(kjs)!
+  - More enchantments! Added 28 new enchantments(kjs)! Some curses are useful, sometimes...
+  - Pillagers, vindicators, piglins, piglin brutes may use different weapons with special abilities(kjs)!
+  - Added threatengl, which brings explosive client performance boost.
+  - Option presets thanks to options profile mod!
+  - Refactored scripts for twice, now it should be much more performant(kjs).
+  - Rethought, and improved combat experience. Now you can deal damage instantly, and attack faster(of course with a bit lower damage). Also, "hold to attack" was banned for the new "click to attack" experience.
+  - Added icterine. Though I disabled almost all advancement, there're still some to keep incendium working.
+  - Added geckolib armor compat. I doubt if this will boost performance...
+  - Reverted terrain height modification in tectonic.
+  - New item: medallion of undying(kjs)! A nether-only version of totem of undying, can be crafted with gold blocks!
+  - Not-new weapon(forgot to list in 2.5.0): snowwhisper! It's a katana which can perform special combinations of attack based on sprint/courch/mid-air! Killing strays may drop this weapon.
+  - New weapon: inferno! It's a staff with the ability to summon fireballs! Shift+right click to merge all small fireballs into a big one; right click to shoot a single fireball! Killing husks may drop this weapon.
+  - New item: heart of demon! It revives you... or not? Dropped by wither or wither skeletons!
+  - Vanilla bug fixed: end-to-overworld travel will NOT clear your potion effects now, besides jump boost and slow falling(kjs).
+  - Vanilla bug fixed: player re-loggin will NOT reset the amplifier of potion effects now(kjs).
+  - Tried fixing NaN health bug on player(kjs).
+  - Someone forgot to add a recipe for gold keys and void keys, now they can be crafted, I promise.
+  - Replaced mysterious bundle with the one in andromeda. It's funny to throw them everywhere.
+  - Replaced dismount on hurt feature with the one in andromeda.
+  - Implemented some creeper mechanics(kjs), disabled mob griefing gamerule and removed health blast.
+  - Replaced wither skeleton skulls with skeleton skulls in outposts in nether.
+  - Rebalanced loot in underground structures of terralith, also nuked copper there. You can't hide from me <evil laugh>.
+  - Drowns will spawn in the pools of caves now.
+  - You may encounter illusioner disguised pillager! The pillager is sus(kjs)...
+  - Killing player for 3 times heals ender dragon by 50% of its max health(kjs). Enderdragon, I've come to bargain...what?
+  - Increased damage of enderdragon by about 1.3x. *evil laugh*
+  - Being killed by ender dragon decreases your max health by 1 in total(kjs).
+  - Fixed the health of ender dragon being null on last hit(kjs).
+  - Eye of ender will glow after being dropped(kjs).
+  - Removed "no slime block fall damage" feature(kjs).
+  - Implemented item toss, removed droplight and its dependencies(kjs).
+  - Updated zh_cn translation.
+  - Moved options.txt to kubejs/config folder, now it won't override user configs(kjs).
+  - Red nether bricks now drops nether bricks if mined without silk touch.
+  - Dropping into the void of end will teleport you back to the surface, at the cost of 6 hearts.
+  - Pre-loads nether and end to avoid teleportation lags on the first time(kjs).
+  - You won't spawn on mountains now.
+  - Removed nullscape.
+  - Removed spoorn bounty mobs.
+  - Removed spark. Why I'm always forgetting about this...
+  - Removed arrow entity loop drop.
+  - Removed remove kjs default lang.
+  - Removed health blast.
+  - Added morejs.
+  - Added stoneworks. More blocks for builders!
+  - Added texels paintings.
+  - Added this is what u need.
+  - Added back fuel info.
+  - Added back shulker loader.
+  - Updated modernfix.
+  - Updated immediately fast.
+  - Updated faster random.
+  - Updated bad optimizations.
+  - Updated kubejs.
+  - Updated emi.
+  - Updated fancy menu.
+  - Updated fabrication.
+
 ### **2.5.0**
   - Entity AI optimizations thanks to mobtimizations!
   - Overhauled end biomes thanks to nullscape! Also comes with new implementions of gravity in end(kjs)!
