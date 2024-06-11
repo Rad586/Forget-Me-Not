@@ -141,7 +141,7 @@ It is highly suggested to use higher versions of java. 
   - Added morejs.
   - Added stoneworks. More blocks for builders!
   - Added texels paintings.
-  - Added this is what u need.
+  - Added show me what you got.
   - Added back fuel info.
   - Added back shulker loader.
   - Updated modernfix.
