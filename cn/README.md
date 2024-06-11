@@ -143,7 +143,7 @@ _在12视距，5模拟距离，最大帧数95的情况下：_
   - 新增了 morejs。
   - 新增了 stoneworks。
   - 新增了 texels paintings。
-  - 新增了 this is what u need。
+  - 新增了 show me what you got。
   - 重新加入了 fuel info。
   - 更新了 modernfix。
   - 更新了 immediately fast。
