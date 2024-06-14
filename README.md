@@ -132,6 +132,7 @@ It is highly suggested to use higher versions of java. 
   - Dropping into the void of end will teleport you back to the surface, at the cost of 6 hearts.
   - Pre-loads nether and end to avoid teleportation lags on the first time(kjs).
   - You won't spawn on mountains now.
+  - Removed entity culling.
   - Removed nullscape.
   - Removed spoorn bounty mobs.
   - Removed spark. Why I'm always forgetting about this...
