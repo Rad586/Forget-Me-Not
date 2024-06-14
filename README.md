@@ -97,7 +97,7 @@ It is highly suggested to use higher versions of java. 
   - Brewing revolusion! Added 66 potion effects with their recipes(kjs)! Be aware, witches may throw these potions towards you(kjs)!
   - More enchantments! Added 28 new enchantments(kjs)! Some curses are useful, sometimes...
   - Pillagers, vindicators, piglins, piglin brutes may use different weapons with special abilities(kjs)!
-  - Added threatengl, which brings explosive client performance boost.
+  - (Not yet but promised)Added threatengl, which brings explosive client performance boost.
   - Option presets thanks to options profile mod!
   - Refactored scripts for twice, now it should be much more performant(kjs).
   - Rethought, and improved combat experience. Now you can deal damage instantly, and attack faster(of course with a bit lower damage). Also, "hold to attack" was banned for the new "click to attack" experience.
