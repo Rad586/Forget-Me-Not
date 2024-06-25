@@ -96,6 +96,25 @@ _在12视距，5模拟距离，最大帧数95的情况下：_
 <summary>更新日志：</summary>
 
 
+## **2.7.1**
+  - 新增了 threadengl，见 2.7.0。
+  - 修复了地下城装备附魔的崩溃。
+  - 用 this is what u need 替代了 show me what you got，预防可能的崩溃。
+  - 修复了轮子配方。
+  - 实现了 up we go 模组的内容，烟花现在能给实体提供升力了（kjs）。
+  - 改变了高亮流浪商人的方式(kjs).
+  - 优化了 kjs 代码里的代码生成。
+  - 新增了 beautiful tnts。
+  - 更新了 bad optimizations。
+  - 更新了 immediately fast。
+  - 更新了 furnace boost。
+  - 更新了 appleskin。
+  - 更新了 farmers delight。
+  - 更新了 servercore。
+  - 更新了 fabric language kotlin。
+  - 更新了 boat break fix。
+  - 更新了 emi。
+
 ## **2.7.0**
   - 酿造系统大升级！新增了66种药水及其合成配方（kjs）！小心，女巫也可能会投掷这些新药水！（kjs）!
   - 更多，更多附魔！新增了28个新附魔（kjs）！有的诅咒有时能发挥正面作用。
