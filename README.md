@@ -93,6 +93,25 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.7.1**
+  - Added threadengl as it's mentioned in 2.7.0.
+  - Fixed crash when applying enchantment in anvil.
+  - Replaced show me what you got with this is what u need, preventing potential crashes.
+  - Fixed wheel recipe.
+  - Implemented up we go, firework can lift entities now(kjs).
+  - Changed the way a wandering trader is being highlighted(kjs).
+  - Optimized particle spawning in kjs.
+  - Added beautiful tnts.
+  - Updated bad optimizations.
+  - Updated immediately fast.
+  - Updated furnace boost.
+  - Updated appleskin.
+  - Updated farmers delight.
+  - Updated servercore.
+  - Updated fabric language kotlin.
+  - Updated boat break fix.
+  - Updated emi.
+
 ### **2.7.0**
   - Brewing revolusion! Added 66 potion effects with their recipes(kjs)! Be aware, witches may throw these potions towards you(kjs)!
   - More enchantments! Added 28 new enchantments(kjs)! Some curses are useful, sometimes...
