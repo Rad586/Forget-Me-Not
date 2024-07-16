@@ -93,6 +93,26 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.8.0**
+  - Added biome temperature system(kjs). Of course it includes nether biomes.
+  - Mobs can now kill slimes/magma cubes/villagers/players to evolve themselves(kjs).
+  - Bountiful underground(kjs)! These ores are moving!?
+  - New optimized way of applying mining fatigue(kjs).
+  - New underground dungeons to explore thanks to epic dungeons mod!
+  - New enchantment: curse of abyss(kjs)! It increases your damage based on how many curse types are on your armors!
+  - Dispensers can use enderpearls now(kjs).
+  - Neat tooltip animations thanks to updated andromeda mod!
+  - Disabled canyon generation.
+  - Decreased spawnrate of axolotl, less calculations.
+  - Illagers with sai now can only block up to 7 damage.
+  - Made all "very rare" enchantments untradeable(kjs).
+  - Fixed shocking compatible with sweeping(kjs).
+  - Fixed pigs spawning in caves(wrong spelling of mob).
+  - Moved constants into their module(kjs).
+  - Changed all cave fog colors to black.
+  - Updated faster random.
+  - Updated emi.
+
 ### **2.7.1**
   - Added threadengl as it's mentioned in 2.7.0.
   - Fixed crash when applying enchantment in anvil.
