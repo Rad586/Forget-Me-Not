@@ -113,6 +113,7 @@ _在12视距，5模拟距离，最大帧数95的情况下：_
   - 修复了洞穴中生成猪的问题（拼写错误导致）。
   - 将常量声明移动到了对应的模块里Moved constants into their module（kjs）。
   - 把洞穴迷雾的颜色改成了黑色。
+  - 新增了 waxable coral。
   - 更新了 faster random。
   - 更新了 emi。
 
