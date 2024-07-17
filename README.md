@@ -110,6 +110,7 @@ It is highly suggested to use higher versions of java. 
   - Fixed pigs spawning in caves(wrong spelling of mob).
   - Moved constants into their module(kjs).
   - Changed all cave fog colors to black.
+  - Brought back hold to attack.
   - Added waxable coral.
   - Updated faster random.
   - Updated emi.
