@@ -113,6 +113,7 @@ It is highly suggested to use higher versions of java. 
   - Changed all cave fog colors to black.
   - Brought back hold to attack.
   - Added waxable coral.
+  - Updated e4mc.
   - Updated faster random.
   - Updated emi.
 
