@@ -102,6 +102,7 @@ It is highly suggested to use higher versions of java. 
   - New enchantment: curse of abyss(kjs)! It increases your damage based on how many curse types are on your armors!
   - Dispensers can use enderpearls now(kjs).
   - Neat tooltip animations thanks to updated andromeda mod!
+  - Fixed crash related to takes a pillage.
   - Disabled canyon generation.
   - Decreased spawnrate of axolotl, less calculations.
   - Illagers with sai now can only block up to 7 damage.
