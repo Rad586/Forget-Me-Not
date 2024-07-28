@@ -106,6 +106,7 @@ It is highly suggested to use higher versions of java. 
   - Decreased spawnrate of axolotl, less calculations.
   - Illagers with sai now can only block up to 7 damage.
   - Made all "very rare" enchantments untradeable(kjs).
+  - Eating glow berries now triggers on hit effect of glowing(kjs).
   - Fixed shocking compatible with sweeping(kjs).
   - Fixed pigs spawning in caves(wrong spelling of mob).
   - Moved constants into their module(kjs).
