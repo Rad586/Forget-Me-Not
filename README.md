@@ -93,6 +93,15 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.8.0 hf**
+  - Disabled leaves' random tick for better performance(kjs). Won't affect leaf decay.
+  - More entities are leashable now. Added fish on a leash.
+  - Doors deal more knockback.
+  - Being hit by silverfish damages your main hand item(kjs).
+  - Skeletons wont target magma cubes.
+  - Moss carpets are replaceable now.
+  - Gui scale is 4 by default, as it's designed for.
+
 ### **2.8.0**
   - Added biome temperature system(kjs). Of course it includes nether biomes.
   - Mobs can now kill slimes/magma cubes/villagers/players to evolve themselves(kjs).
