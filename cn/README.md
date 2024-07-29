@@ -38,7 +38,7 @@ _在12视距，5模拟距离，最大帧数95的情况下：_
 
 强烈推荐使用高版本java。
 <details>
-<summary>以下是最适合这个整合包的jvm参数：</summary>
+<summary>以下是最适合这个整合包的jvm参数（需要 Java21+）：</summary>
 **默认分配6G，你可以根据需要自行修改xms和xmx的数值**。
 
 `-Xms6G -Xmx6G -XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC -XX:AllocatePrefetchStyle=1 -XX:ShenandoahGuaranteedGCInterval=1000000 -XX:+SegmentedCodeCache -XX:ReservedCodeCacheSize=188m -XX:NonProfiledCodeHeapSize=80m -XX:ProfiledCodeHeapSize=96m -XX:NonNMethodCodeHeapSize=12m -XX:MetaspaceSize=320m -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:+UseNUMA -XX:+UseNewLongLShift -XX:+UseVectorCmov -XX:+UseFastStosb -XX:-DontCompileHugeMethods -XX:+UseCompressedOops -XX:+UseCompressedClassPointers -XX:+UseLargePages -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority`
