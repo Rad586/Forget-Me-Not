@@ -93,6 +93,27 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.9.0**
+  - Added magic system through enchantment book(kjs). Right click an enchanted book to cast magic within it, at the cost of your xp!
+  - Added falling stars(kjs). Falling star only spawns at night, it generates ores, but may also come with some foes.
+  - Fixed and improved temperature mechanic(kjs).
+  - Fixed timeout for bloodmoon event(kjs).
+  - Optimized entity spawn trys.
+  - Optimized entity hurt/death/spawn scripts(kjs).
+  - Mounted mobs may spawn after ender dragon was killed(kjs)!
+  - Nearby monsters will path find to player's death point(kjs).
+  - Motion of projectiles now scales with owner's motion(kjs). Idea from 1.21.
+  - Temporarily removed "bountiful underground" feature(kjs) since it's buggy.
+  - Better implemented "eye of ender glows"(kjs).
+  - Fixed missing worm texture.
+  - Tips should got shown for much longer now(kjs).
+  - Added tip for oak sapling.
+  - Added EntityJS and its dependency.
+  - Updated ImmediatelyFast.
+  - Updated Servercore.
+  - Updated ThreatenGL.
+  - Updated EMI.
+
 ### **2.8.0 hf**
   - Disabled leaves' random tick for better performance(kjs). Won't affect leaf decay.
   - More entities are leashable now. Added fish on a leash.
