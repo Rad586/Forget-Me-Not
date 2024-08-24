@@ -93,6 +93,11 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.9.0hf**
+  - Fixed mounted mob rider spawn(kjs).
+  - Evoluted mob will keep their weapon, they might use bow now(kjs).
+  - Deleted Auditory since it causes crash.
+
 ### **2.9.0**
   - Added magic system through enchantment book(kjs). Right click an enchanted book to cast magic within it, at the cost of your xp!
   - Added falling stars(kjs). Falling star only spawns at night, it generates ores, but may also come with some foes.
