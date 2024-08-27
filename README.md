@@ -93,6 +93,14 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.9.0hf2**
+  - Fixed magic damage calculation(kjs).
+  - Fixed half heart protection(kjs).
+  - Fixed fish script(kjs).
+  - Fixed throttle function being messed up by time commands(kjs).
+  - Increased hostile mob spawn interval.
+  - Added Better Block Sounds.
+
 ### **2.9.0hf**
   - Fixed mounted mob rider spawn(kjs).
   - Evoluted mob will keep their weapon, they might use bow now(kjs).
