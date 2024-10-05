@@ -94,7 +94,6 @@ It is highly suggested to use higher versions of java. 
 
 
 ### **2.10.0**
-  - Added LightVsync. There should be less screen tearing, at least I hope so.
   - Max chunk tick distance has been set to 3 for better performance.
   - Reduced follow range of zaps for better performance.
   - Increased reach distance of weapons.
