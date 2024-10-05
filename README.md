@@ -93,6 +93,65 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.10.0**
+  - Added LightVsync. There should be less screen tearing, at least I hope so.
+  - Max chunk tick distance has been set to 3 for better performance.
+  - Reduced follow range of zaps for better performance.
+  - Increased reach distance of weapons.
+  - Brought back bountiful underground(kjs)! Now there're ores that actually flee from player!
+  - Added a command to toggle death penalty(kjs).
+  - Removed super bloodmoon event(kjs).
+  - Introducing a new way to gain max health, no more pressure on farming! Now you can craft soul stars into soul remnant(kjs)! As an item, you can easily share it with your friends! Removed Spice of Fabric.
+  - Unified meat into meat and poultry(kjs). Adjusted loot tables.
+  - Food from farmer's delight now gives unique effects(kjs). For those who loves cooking, there's a new way to be powerful!
+  - Added Wall Jump and Coyote Time mod. Enjoy climbing and parkouring!
+  - Portal conversion(kjs)! Throw items into portal, and see how they respond!
+  - Villagers will refuse to trade if they feel trapped(kjs).
+  - Victims of mob farms will become "ghosts"(kjs)!
+  - Added dyed leaves! You can use dyes and leaves to craft dyed leaves(kjs)!
+  - Added golden cudgel, you can get it from getting direct hit by falling stars(kjs).
+  - Added leaf carpets that can be dyed(kjs)!
+  - Implemented beloved right click pickup(kjs).
+  - Goat horns have special abilities now(kjs).
+  - Spiders may place spider web on hurting target(kjs).
+  - Animals will panic if there's a lightning nearby(kjs).
+  - Fireworks can make player that equipped with elytra start fall flying(kjs).
+  - Redstone ores will appear in desert and "a special biome"!
+  - There won't be curse of vanishing and curse of binding on crown of scarlet now.
+  - You can shear leather armors back into leathers now(kjs)!
+  - Greatsword of blood have custom right click ability now(kjs).
+  - Breaking wither rose gives you wither effect shortly(kjs).
+  - Inferno and snowwhisper now select entity regardless of passable blocks(kjs).
+  - Level up sound won't be triggered by magic(kjs).
+  - Magic can be blocked with shield(kjs).
+  - Changed invincible effect implementation(kjs).
+  - Fireballs will disappear after 30s(kjs).
+  - Projectiles on fire will show a fire trail(kjs).
+  - Projectiles extinguish when in ground(kjs).
+  - Added a fancy particle ring on firework launch(kjs).
+  - Fixed weapon with custom enchantment attacking non-living entity crashing the game(kjs).
+  - Fixed value declaring in some scripts(kjs).
+  - Fixed released fish being able to duplicate xp(kjs).
+  - Curse of destined death enchantment will clear purity effect for balancing reason(kjs).
+  - Priority of heart of demon is now lower than medallion(kjs).
+  - Fixed released fish being stuck in wall(kjs).
+  - Fixed entity death tip(kjs).
+  - Implemented min fall distance, replacing the mod(kjs).
+  - Monsters that can evolute will instantly evolute on thunder hit(kjs).
+  - Moved more scripts into entity modification events for better performance(kjs).
+  - Refactored temperature script, now it's more stable and performant(kjs).
+  - Refactored recipe scripts(kjs), it looks much cleaner now(kjs).
+  - Eye of ender glow script is much faster now(kjs).
+  - Used a faster, and more accurate way to implement speed related effects(kjs).
+  - Changed the way purity effect works(kjs).
+  - Added more daily tips(kjs).
+  - Added tips for medallion of undying and portal conversion(kjs).
+  - Increased show time of tips(3s → 8s).
+  - Removed NiftyCarts.
+  - Updated ImmediatelyFast.
+  - Updated EMI.
+  - Updated Fabrication.
+
 ### **2.9.0hf2**
   - Fixed magic damage calculation(kjs).
   - Fixed half heart protection(kjs).
