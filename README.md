@@ -93,6 +93,11 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.10.0hf**
+  - Villagers will unride on trade.
+  - Fixed a crash related to Illager Expansion.
+  - Removed Enhanced Celestial since it's no longer needed and slow.
+
 ### **2.10.0**
   - Max chunk tick distance has been set to 3 for better performance.
   - Reduced follow range of zaps for better performance.
