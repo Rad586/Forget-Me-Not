@@ -102,12 +102,12 @@ It is highly suggested to use higher versions of java. 
   - Now you can place carpets, pressure plates on any side of block. Added Additional Placements.
   - Use Ctrl + V to paste items on blocks! Added IPLA.
   - Added explosive arrows and hook arrows(kjs). Explosive arrows helps breaking end crystals, hook arrows introduces a new way to quick travel.
-  - Implemented accurate double slab breaking, replacing Klee Slabs mod. idea and partial code from Mango is Me!(https://discord.com/channels/303440391124942858/1048591172165189632/threads/1162917542625542294). Klee Slabs can't be automatically included in manifest.json, so I made my own one.
+  - Implemented accurate double slab breaking(kjs), replacing Klee Slabs mod. idea and partial code from Mango is Me!(https://discord.com/channels/303440391124942858/1048591172165189632/threads/1162917542625542294). Klee Slabs can't be automatically included in manifest.json, so I made my own one.
   - Implemented direct dying(kjs), replacing Colorize.
   - Implemented auto planting(kjs). Should reduce some load in extreme cases.
   - Implemented cobweb torching(kjs), idea from g66ol3eb5u (https://discord.com/channels/303440391124942858/1048591172165189632/threads/1287822838212071544).
   - Implemented fire starter(kjs), you can use torch and soul torch to light up campfires.
-  - Implemented craft slabs to blocks, partial code from Lady Lexxie Black (https://discord.com/channels/303440391124942858/1060221802380546109).
+  - Implemented craft slabs to blocks(kjs), partial code from Lady Lexxie Black (https://discord.com/channels/303440391124942858/1060221802380546109).
   - Enchanted books has durability of 20 now! Unbreaking provides a chance to not consume the durability, and mending may gain back durability on hitting target.
   - Refactored magic, recovery pearl, and falling star script(kjs), they will spawn as projectile now.
   - Copper related blocks are replaced by similar blocks(kjs). Replacing the old approach that overrides structure file.
