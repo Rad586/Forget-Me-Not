@@ -136,12 +136,12 @@ It is highly suggested to use higher versions of java. 
   - Changed implementation of flame effect(kjs).
   - Implemented shocking effect in a faster way(kjs).
   - Added a cooldown to check if villager is trapped, in case of spam clicking(kjs).
+  - Banned flower field endermen.
   - Reduced volume of vanilla music.
   - Slightly increased interval of musics.
   - Hid some uncraftable items in EMI.
   - Translated shader styles, and added a new profile of shader for potato computers.
   - Replaced Limited Spawners with Spawner Control.
-  - Banned flower field endermen.
   - Added Just Spawn Me There.
   - Added CobClear.
   - Updated ModernFix.
