@@ -101,7 +101,7 @@ _在12视距，5模拟距离，最大帧数95的情况下：_
   - 新增了用来开关玩家击杀判断的命令（kjs）。用 LootJS 替代了旧的数据包实现方式。新增了 LootJS。
   - 实现了围炉（营火）而坐（kjs）。灵感源自 Prunoideae(https://discord.com/channels/303440391124942858/1296026113042026496)。
   - 实现了黏性火把（kjs），替代 Throwable Torch 模组。
-  - 实现了可投掷史莱姆球（kjs）。灵感和部分代码源自 MikhailTapio(https://www.curseforge.com/minecraft/mc-mods/throwableslimeball)。已征得使用同意。
+  - 实现了可投掷史莱姆球（kjs）。灵感和部分代码源自 MikhailTapio(https://www.curseforge.com/minecraft/mc-mods/throwableslimeball) 。已征得使用同意。
   - 现在可以在任意表面放置地毯和压力板。新增了 Additional Placements。
   - 使用 Ctrl + V，把物品“粘贴到”方块上。 新增了 IPLA。
   - 新增了爆炸箭和钩锁箭（kjs）。拆水晶和长途旅行更轻松了。
