@@ -93,6 +93,61 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.11.0hf**
+  - New types of monster will spawn after you entered the nether and defeat the dragon(kjs)! Added Twilight Forest(for its mobs, not the dimension), EnderZoology and Elemental Creepers.
+  - Added a command to toggle entity player kill check(kjs). Replaced datapack some approach to LootJS. Added LootJS.
+  - Implemented sitting by campfire(kjs), idea from Prunoideae(https://discord.com/channels/303440391124942858/1296026113042026496).
+  - Implemented sticky torch(kjs), replacing Throwable Torch mod.
+  - Implemented throwable slimeballs(kjs), idea and partial code from MikhailTapio(https://www.curseforge.com/minecraft/mc-mods/throwableslimeball). The permission of code use was approved.
+  - Now you can place carpets, pressure plates on any side of block. Added Additional Placements.
+  - Use Ctrl + V to paste items on blocks! Added IPLA.
+  - Added explosive arrows and hook arrows(kjs). Explosive arrows helps breaking end crystals, hook arrows introduces a new way to quick travel.
+  - Implemented accurate double slab breaking, replacing Klee Slabs mod. idea and partial code from Mango is Me!(https://discord.com/channels/303440391124942858/1048591172165189632/threads/1162917542625542294). Klee Slabs can't be automatically included in manifest.json, so I made my own one.
+  - Implemented direct dying(kjs), replacing Colorize.
+  - Implemented auto planting(kjs). Should reduce some load in extreme cases.
+  - Implemented cobweb torching(kjs), idea from g66ol3eb5u (https://discord.com/channels/303440391124942858/1048591172165189632/threads/1287822838212071544).
+  - Implemented fire starter(kjs), you can use torch and soul torch to light up campfires.
+  - Implemented craft slabs to blocks, partial code from Lady Lexxie Black (https://discord.com/channels/303440391124942858/1060221802380546109).
+  - Enchanted books has durability of 20 now! Unbreaking provides a chance to not consume the durability, and mending may gain back durability on hitting target.
+  - Refactored magic, recovery pearl, and falling star script(kjs), they will spawn as projectile now.
+  - Copper related blocks are replaced by similar blocks(kjs). Replacing the old approach that overrides structure file.
+  - Remove swift sneak, soul speed and immobilize effect for performance reason(kjs).
+  - Made villages in CTOV smaller.
+  - Fixed villager unwilling to trade in some open areas(kjs).
+  - Fixed crashes related to getting server on client(kjs).
+  - Fixed enchantment crashes in multiplayer(kjs).
+  - Advancements will be removed automatically via Crunchy Crunchy Advancements. Also added Log Begone, Log Cleaner and Advancements Debug.
+  - Moved most tip scripts to clientside(kjs), reduces load on server.
+  - Fixed log spam related to persistentData(kjs).
+  - Fixed pigs having friendly fire protection(kjs).
+  - Players won't get bad omen effect before entering the nether(kjs).
+  - Playing in hardcore automatically activates nether stage(kjs).
+  - Tear them apart! You can tear some items into their material(kjs). A step forward easier inventory management.
+  - You will get a bundle on day 4(kjs).
+  - Simplified drops of crops in Farmers' Delight.
+  - Thrown dyes being able to dye wools.
+  - Reduced cooldown for important tips(kjs).
+  - Amethyst feather and enchanted golden feather are much more common in tower chests.
+  - Slightly increased the separation of villages.
+  - Now using EntityJS to change attribute of player(kjs).
+  - Fixed thrown acaia sapling saying "1" and "2" on hitting block.
+  - Recovery compass will come with vanishing curse, and it won't be given if you already had one(kjs). Also, removed crafting recipe of it.
+  - Tried fixing creeper explosion damaging terrain(kjs).
+  - Changed implementation of flame effect(kjs).
+  - Implemented shocking effect in a faster way(kjs).
+  - Added a cooldown to check if villager is trapped, in case of spam clicking(kjs).
+  - Reduced volume of vanilla music.
+  - Slightly increased interval of musics.
+  - Hid some uncraftable items in EMI.
+  - Translated shader styles, and added a new profile of shader for potato computers.
+  - Replaced Limited Spawners with Spawner Control.
+  - Banned flower field endermen.
+  - Added Just Spawn Me There.
+  - Added CobClear.
+  - Updated ModernFix.
+  - Updated ImmediatelyFast.
+  - Updated EMI.
+
 ### **2.10.0hf**
   - Villagers will unride on trade.
   - Fixed a crash related to Illager Expansion.
