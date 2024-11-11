@@ -93,6 +93,27 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.11.1**
+  - Added texture for hook arrows.
+  - Implemented creeper chain explosion(kjs).
+  - Item dropped from explosion that damages terrain will have 30% chance of despawning(kjs).
+  - Placing torch under y=0 may attract nearby monsters(kjs)!
+  - Made pets in Probably Chests have immunities to certain source of damages(kjs).
+  - Implemented mimic feeding(kjs).
+  - Implemented elytra bombing(kjs).
+  - Increased monster spawn interval.
+  - Fixed player ignited TNT not damaging terrain(kjs).
+  - Fixed temperature bar not updating on respawn(kjs).
+  - Fixed enchanted book not breaking after durability reaches 0(kjs).
+  - Item from Fish of Thieves won't appear in chests(kjs).
+  - Removed recipe of plaques.
+  - Removed more unused item tags(kjs).
+  - Added a new recipe for bundles(kjs).
+  - Disabled worm drop in Fish of Thieves.
+  - Hide items from Angling and Fish of Thieves in EMI.
+  - Removed Swampier Swamps.
+  - Added Clean F3.
+
 ### **2.11.0**
   - New types of monster will spawn after you entered the nether and defeat the dragon(kjs)! Added Twilight Forest(for its mobs, not the dimension), EnderZoology and Elemental Creepers.
   - Added a command to toggle entity player kill check(kjs). Replaced datapack some approach to LootJS. Added LootJS.
