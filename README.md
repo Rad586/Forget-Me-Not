@@ -93,6 +93,9 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.11.1hf**
+  - Fixed autoplanting consuming main hand item(kjs).
+
 ### **2.11.1**
   - Added texture for hook arrows.
   - Implemented creeper chain explosion(kjs).
