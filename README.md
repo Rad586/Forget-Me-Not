@@ -93,6 +93,25 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.11.2**
+  - Implemented coal vein collapsing(kjs).
+  - Mining coal, iron and gold has a small percent of chance to get bonus drop(kjs)!
+  - Added fire resistance effect for gold armor set, speed effect for leather armor set(kjs).
+  - Implemented door push(kjs).
+  - Implemented door knocking(kjs).
+  - Unified block variant drops(kjs).
+  - Unified leathers(kjs). Removed old recipe that requires rabbit hide.
+  - Enabled invisibility ability of thief armor set.
+  - Reduced default spawn radius to 0 for better performance(kjs).
+  - Increased loot of bastion treasure chest(kjs).
+  - Removed swamped skeleton from being evolved(kjs).
+  - Changed the method that gives back item used in campfire sit(kjs), also changed the height of dummy.
+  - Added a visual effect on killing entity with fire aspect enchantment(kjs).
+  - Moved crosshair to a more centered place.
+  - Dummy entity wont show its health on ridden(kjs).
+  - Translated Ender Zoology.
+  - Updated Additional Placements.
+
 ### **2.11.1hf**
   - Fixed autoplanting consuming main hand item(kjs).
 
