@@ -134,7 +134,7 @@ It is highly suggested to use higher versions of java. 
   - Added hover tip for waystone gui.
   - Moved bundle crafting tooltip from rabbit hide to leather(kjs).
   - Added hint and in-gui tip for disenchanter.
-  - Added in-gui tip for inventory, furnace and enchanting table.
+  - Added in-gui tip for inventory, furnace, waystone and enchanting table.
   - Changed implementation of loot modification of released fish(kjs).
   - Added tooltip for stove, carved pumpkin, and wither skeleton skull(kjs).
   - Auto translation for potion effects(kjs).
