@@ -93,6 +93,61 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.11.3**
+  - Implemented dizzying, dealing damage > 11 may dizzy the target(kjs).
+  - Implemented fighting back, you can restore some health on fighting back(kjs).
+  - Unless crouching, in nether, being hurt by lava will bounce you up(kjs). Brave through the lava sea!
+  - After nether stage, skeletons have 3% chance to use tipped arrows, and creepers have 3% chance to spawn with potion effect(kjs).
+  - After dragon stage, skeletons may shoot splitting arrows, zombies will get resistance shortly on hurting target, and spiders will get speed shortly on first timing seeing target(kjs).
+  - Added 4 variants(explosion, phantom, push, repulsion) for dragon fireballs(kjs).
+  - Implemented xp heal(kjs).
+  - Implemented drinkable dragon breath(kjs).
+  - Added fire extinguisher(kjs), burned zombies have 1.25% of chance of dropping this powerful tool.
+  - Added infested deepslates underground.
+  - Projectiles of mob now have 50% chance of getting motion randomness(kjs).
+  - Creepers wont explode under water, and the explosion strength will decrease 30% if they are in water(kjs).
+  - Implemented keep some inventory(kjs), replacing Save Gear On Death.
+  - Implemented lightning conversion, also added a flash particle effect for lightnings(kjs).
+  - Implemented zombie thrower(kjs), replacing the old approach relying on Improved Mobs.
+  - There won't be naturally locked chests now(kjs). Also simplified the loottables of this mod.
+  - You can use water bucket to extinguish entities(kjs).
+  - Witches may throw you a potion that gives you midas curse, which causes killing monsters only to drop gold nuggets(kjs).
+  - Added Structure Layout Optimizer.
+  - Used regex to and filter in mcmeta to remove advancements, replacing Crunchy Crunchy Advancements and Log Begone. Simple, fast and effective.
+  - Cleaned up customization datapack.
+  - Optimized mob modification script(kjs).
+  - Removed end portal frames in the lost castle.
+  - Fixed xp duplication with soul dancer armor set(kjs).
+  - Made all custom curses can't be obtained on enchanting table(kjs).
+  - Curse of destruction is now undiscoverable(kjs), which means you won't meet mobs wearing armors with this enchantment.
+  - Fixed player max health not being updated on logged in(kjs).
+  - Crouch and left click, not right click to knock the door(kjs).
+  - Fixed temperature not taking effect(kjs).
+  - Changed implementation of gravity in the end dimension(kjs), preventing bringing the effects outside the end.
+  - Fixed non-item-entity being able to be custom picked up(kjs).
+  - Fixed chicken and boar being able to be fed with any item(kjs).
+  - Nerfed idle healing of bosses in BOMD.
+  - Nerfed gauntlet boss, and now it has 100% of chance to drop unique weapon.
+  - Wither Skeletons won't drop their sword now(kjs).
+  - Deduplicated some clientside check in scripts(kjs).
+  - Changed tag remover implementation(kjs).
+  - Added hover tip for waystone gui.
+  - Moved bundle crafting tooltip from rabbit hide to leather(kjs).
+  - Added hint and in-gui tip for disenchanter.
+  - Added in-gui tip for inventory, furnace and enchanting table.
+  - Changed implementation of loot modification of released fish(kjs).
+  - Added tooltip for stove, carved pumpkin, and wither skeleton skull(kjs).
+  - Auto translation for potion effects(kjs).
+  - Fixed wrong inactive texture in respawn confirm gui.
+  - Renamed all custom curses from "Curse of ..." to "... Curse"(kjs).
+  - Minor improvements to accurate slab breaking script(kjs).
+  - Disabled some mixins in Passable Leaves, Bedrockify and Tweakeroo for better performance.
+  - Removed Angling.
+  - Updated Additional Placements.
+  - Updated Villages and Pillages.
+  - Updated Fabrication.
+  - Updated EMI.
+
 ### **2.11.2**
   - Implemented coal vein collapsing(kjs).
   - Mining coal, iron and gold has a small percent of chance to get bonus drop(kjs)!
