@@ -93,6 +93,17 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.11.3hf**
+  - Implemented tnt defusing(kjs).
+  - Used a cleaner and vanilla-friendly way to delete advancements and tags. Fixed the removal of arctic boots recipe.
+  - Creepers won't carry potion effects(kjs).
+  - Fixed a crash related to depreciated custom function(kjs).
+  - Fixed a crash when attacking fish entities(kjs).
+  - Fixed keep some inventory script ignoring the gamerule(kjs).
+  - Tried fixing health limiting feature not functioning in extreme cases(kjs).
+  - Updated Structure Layout Optimizer.
+  - Updated CameraOverhaul.
+
 ### **2.11.3**
   - Implemented dizzying, dealing damage > 11 may dizzy the target(kjs).
   - Implemented fighting back, you can restore some health on fighting back(kjs).
