@@ -93,6 +93,11 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.11.3hf3**
+  - Fixed skeleton having chance of holding useless tipped arrow in offhand(kjs).
+  - Rolled back recipe removing method(kjs).
+  - Add a sound effect for TNT defusing(kjs).
+
 ### **2.11.3hf2**
   - Fixed Additional Placements crashing the game.
   - Fixed tags being messed up, added Load My F***ing tags.
