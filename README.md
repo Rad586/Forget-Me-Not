@@ -93,6 +93,10 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.11.3hf2**
+  - Fixed Additional Placements crashing the game.
+  - Fixed tags being messed up, added Load My F***ing tags.
+
 ### **2.11.3hf**
   - Implemented tnt defusing(kjs).
   - Used a cleaner and vanilla-friendly way to delete advancements and tags. Fixed the removal of arctic boots recipe.
