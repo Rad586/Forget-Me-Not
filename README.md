@@ -93,6 +93,14 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.11.3hf4**
+  - Updated bell highlight script(kjs), right click the item directly to highlight the raiders!
+  - Fixed some scripts using item right click event not working(kjs).
+  - Restored visibility in EMI of pressure plate recipes.
+  - Fixed outcast curse not being a curse(kjs).
+  - Replaced custom pickup with the one in Interactic.
+  - Eye of ender itself also glows now(kjs).
+
 ### **2.11.3hf3**
   - Fixed skeleton having chance of holding useless tipped arrow in offhand(kjs).
   - Rolled back recipe removing method(kjs).
