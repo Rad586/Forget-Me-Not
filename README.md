@@ -93,6 +93,13 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.11.3hf5**
+  - Fixed MC-193202: the health of tamed wolf being reset to 20 on added to world(kjs).
+  - Fixed entity modification, player change dimension and player respawn script(kjs).
+  - Fixed axes being not efficient to logs.
+  - Updated keybinds in options.txt.
+  - Updated EMI and use its low distraction preset.
+
 ### **2.11.3hf4**
   - Updated bell highlight script(kjs), right click the item directly to highlight the raiders!
   - Fixed some scripts using item right click event not working(kjs).
