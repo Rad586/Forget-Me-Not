@@ -93,6 +93,12 @@ It is highly suggested to use higher versions of java. 
 <summary>Changelog: </summary>
 
 
+### **2.11.3hf6**
+  - Fixed netherite diamond axe being able to be duplicated in the smithing table. Removed the removal of unused tags in c and fabric so it won't be that invasive.
+  - Fixed wolf healh not being updated correctly after healed(kjs).
+  - Killing elder guardian removes mining fatigue for nearby players(kjs).
+  - Improved several scripts(kjs).
+
 ### **2.11.3hf5**
   - Fixed MC-193202: the health of tamed wolf being reset to 20 on added to world(kjs).
   - Fixed entity modification, player change dimension and player respawn script(kjs).
