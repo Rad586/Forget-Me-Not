@@ -1,0 +1,6 @@
+{
+	"parent": "kubejs:block/leaf_pile",
+	"textures": {
+		"wool": "minecraft:block/dark_oak_leaves"
+	}
+}
