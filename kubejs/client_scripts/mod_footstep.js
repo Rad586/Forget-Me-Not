@@ -2,7 +2,7 @@ const FootstepsConfig = Java.loadClass('dev.footstepstrail.config.FootstepsConfi
 const { STEPS, TIME } = Java.loadClass('dev.footstepstrail.config.TrackingMode')
 
 function modFootstep(player) {
-    if(player.age % 5) return;
+    if (player.age % 5) return;
     const steps_mode = FootstepsConfig.getTrackingMode() == STEPS;
 
     if (player.isCrouching() || !player.isOnGround()) {

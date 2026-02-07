@@ -232,7 +232,6 @@
 
 //准备移除kjs additions
 //取消右键换甲
-//trail改进不onground
 
 // ItemEvents.rightClicked(e => {
 //     const {player} = e
