@@ -1,0 +1,10 @@
+/*
+!.gitignore
+!/LICENSE
+!/README.md
+!/.github/
+!/.github/**
+!/kubejs/
+!/kubejs/**
+!/cn/
+!/cn/**
