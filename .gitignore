@@ -15,5 +15,9 @@
 !/kubejs/server_scripts/**
 !/kubejs/startup_scripts/
 !/kubejs/startup_scripts/**
+/kubejs/README.txt
+/kubejs/config/
+/kubejs/documentation/
+/kubejs/jsconfig.json
 !/cn/
 !/cn/**desktop.ini
