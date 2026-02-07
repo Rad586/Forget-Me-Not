@@ -5,6 +5,15 @@
 !/.github/
 !/.github/**
 !/kubejs/
-!/kubejs/**
+!/kubejs/assets/
+!/kubejs/assets/**
+!/kubejs/client_scripts/
+!/kubejs/client_scripts/**
+!/kubejs/data/
+!/kubejs/data/**
+!/kubejs/server_scripts/
+!/kubejs/server_scripts/**
+!/kubejs/startup_scripts/
+!/kubejs/startup_scripts/**
 !/cn/
 !/cn/**
