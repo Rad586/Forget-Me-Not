@@ -5,6 +5,7 @@
 !/.github/
 !/.github/**
 !/kubejs/
+/kubejs/*
 !/kubejs/assets/
 !/kubejs/assets/**
 !/kubejs/client_scripts/
@@ -15,11 +16,5 @@
 !/kubejs/server_scripts/**
 !/kubejs/startup_scripts/
 !/kubejs/startup_scripts/**
-/kubejs/*
-!/kubejs/assets/
-!/kubejs/client_scripts/
-!/kubejs/data/
-!/kubejs/server_scripts/
-!/kubejs/startup_scripts/
 !/cn/
 !/cn/**desktop.ini
