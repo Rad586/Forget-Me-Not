@@ -1,0 +1,10 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "minecraft:anvil"
+      }
+    }
+  }
+}

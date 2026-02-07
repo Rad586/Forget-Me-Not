@@ -1,0 +1,21 @@
+{
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": {
+          "stepping_on": {
+            "block": {
+              "blocks": [
+                "minecraft:powder_snow"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "kubejs:give_leather_boots"
+  }
+}

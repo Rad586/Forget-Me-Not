@@ -1,0 +1,1 @@
+NetworkEvents.dataReceived("totemAnimation", e => Client.gameRenderer.displayItemActivation(e.data.item))

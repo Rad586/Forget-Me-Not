@@ -1,0 +1,17 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:using_item",
+      "conditions": {
+        "player": {
+          "nbt": "{HasVisualFire:true}"
+        },
+        "item": {
+          "items": [
+            "minecraft:shield"
+          ]
+        }
+      }
+    }
+  }
+}

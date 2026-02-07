@@ -1,0 +1,1 @@
+// BlockEvents.rightClicked(global.banned_block, e => e.cancel())

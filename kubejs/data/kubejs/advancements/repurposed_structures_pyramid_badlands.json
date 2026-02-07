@@ -1,0 +1,21 @@
+{
+    "criteria": {
+        "in_structure": {
+            "conditions": {
+              "player": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "location": {
+                      "structure": "repurposed_structures:pyramid_badlands"
+                    }
+                  }
+                }
+              ]
+            },
+            "trigger": "minecraft:location"
+        }
+    },
+    "requirements": [["in_structure"]]
+}

@@ -1,0 +1,14 @@
+{
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "minecraft:glow_berries"
+          ]
+        }
+      }
+    }
+  }
+}

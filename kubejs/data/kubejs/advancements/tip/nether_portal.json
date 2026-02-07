@@ -1,0 +1,7 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:nether_travel"
+    }
+  }
+}

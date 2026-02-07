@@ -1,0 +1,29 @@
+{
+	"type": "minecraft:block",
+	"pools": [
+		{
+			"entries": [
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:match_tool",
+									"predicate": {
+										"items": [
+											"minecraft:shears"
+										]
+									}
+								}
+							],
+							"name": "kubejs:jungle_leaf_pile"
+						}
+					]
+				}
+			],
+			"rolls": 1
+		}
+	]
+}

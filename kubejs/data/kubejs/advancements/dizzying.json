@@ -1,0 +1,18 @@
+{
+  "criteria": {
+    "example": {
+      "trigger": "minecraft:player_hurt_entity",
+      "conditions": {
+        "damage": {
+          "dealt": {
+            "min": 11
+          },
+          "blocked": false,
+          "direct_entity": {
+            "type": "player"
+          }
+        }
+      }
+    }
+  }
+}

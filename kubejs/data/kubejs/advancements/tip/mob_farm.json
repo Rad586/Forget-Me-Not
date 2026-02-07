@@ -1,0 +1,16 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "bosses_of_mass_destruction:soul_star"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

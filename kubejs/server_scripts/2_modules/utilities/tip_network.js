@@ -1,0 +1,1 @@
+NetworkEvents.dataReceived("stage_update", e => e.player.stages.add(e.data.name))

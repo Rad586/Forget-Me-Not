@@ -1,0 +1,14 @@
+{
+  "criteria": {
+    "example": {
+      "trigger": "minecraft:entity_hurt_player",
+      "conditions": {
+        "damage": {
+          "source_entity": {
+            "type": "ender_dragon"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "from": "minecraft:overworld",
+        "to": "minecraft:the_nether"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+    "criteria": {
+        "in_biome": {
+            "conditions": {
+              "player": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "location": {
+                      "biome": "incendium:infernal_dunes"
+                    }
+                  }
+                }
+              ]
+            },
+            "trigger": "minecraft:location"
+        }
+    },
+    "requirements": [["in_biome"]]
+}

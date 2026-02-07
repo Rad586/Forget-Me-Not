@@ -1,0 +1,1 @@
+EntityEvents.death("minecraft:wither_skeleton", e => e.entity.mergeNbt({HandDropChances: [0, 0]}))

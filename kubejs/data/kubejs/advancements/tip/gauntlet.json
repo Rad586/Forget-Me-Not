@@ -1,0 +1,16 @@
+{
+  "criteria": {
+    "c": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "location": {
+          "block": {
+            "blocks": [
+              "bosses_of_mass_destruction:gauntlet_blackstone"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
