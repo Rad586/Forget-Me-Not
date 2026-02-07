@@ -10,6 +10,7 @@ ClientEvents.tick(e => {
     const now = Date.now();
 
     fallInLeavesClient(player);
+    modFootstep(player);
 
     if (now - previous < 500) return;
     previous = now;
