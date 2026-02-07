@@ -1,1 +1,0 @@
-// e.item.setNbt({display:{Lore:["{"text":"line1","color":"#FF0000","underlined":true}","{"text":"line2","color":"gold","bold":true}"]}})
