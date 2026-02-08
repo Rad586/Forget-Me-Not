@@ -236,8 +236,6 @@
 //entity view distance 和 tritium性能优化，过大的生物加入白名单（单次自动生成）
 //参考：兔子：鱼：蜜蜂：美西螈：海豚：苦力怕：末影人，熊猫，铁傀儡；boss生物不受影响
 
-//破坏方块后移开光标，方块保持破坏，这是原版行为还是模组行为？影响了方块描边的判断
-
 ItemEvents.rightClicked(e => {
     const {player} = e
     // e.server.playerList.setSimulationDistance(5)

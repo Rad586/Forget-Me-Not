@@ -1,12 +1,12 @@
 /* executed in client_tick.js */
-const BobbyConfig = Java.loadClass('de.johni0702.minecraft.bobby.Bobby').getInstance().getConfig()
+const Bobby = Java.loadClass('de.johni0702.minecraft.bobby.Bobby')
 let stay = 0, last_pos = [0, 0]
 
 function modBobby(player) {
     const { x, z } = player, { options } = Client;
     const rd = options.renderDistance().get();
+    const BobbyConfig = Bobby.getInstance().getConfig();
 
-    player.tell(Math.hypot(last_pos[0] - x, last_pos[1] - z))
     if (Math.hypot(last_pos[0] - x, last_pos[1] - z) < 5.3) { /* sprinting > n > walking */
         if (!Client.isPaused()) stay++ /* pause with game pause */
     }
@@ -28,10 +28,10 @@ function modBobby(player) {
     Client.getSingleplayerServer().playerList.setSimulationDistance(options.simulationDistance().get())
 }
 
-/* fix leaving game after being idle, causing joining with high bobby view distance */
+/* fix leaving game after being idle, causing re-joining with high bobby view distance */
 ClientEvents.loggedOut(e => {
     stay = 0;
-    BobbyConfig.viewDistanceOverwrite = Math.round(
+    Bobby.getInstance().getConfig().viewDistanceOverwrite = Math.round(
         Client.options.renderDistance().get() * 0.84
     )
 })
