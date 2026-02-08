@@ -20,7 +20,7 @@ function modBobby(player) {
             Math.min(32 - rd, Math.round(rd * 0.34)), 
             Math.floor((stay - initial_timeout) / interval) - 1) : 
         Math.round(rd * 0.84);
-    player.tell("stay: " + stay + ", vd: " + BobbyConfig.viewDistanceOverwrite)
+
     if (BobbyConfig.viewDistanceOverwrite == internal_vd) return;
     BobbyConfig.viewDistanceOverwrite = internal_vd;
 

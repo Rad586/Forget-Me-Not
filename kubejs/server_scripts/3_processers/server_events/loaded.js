@@ -23,12 +23,4 @@ ServerEvents.loaded(e => {
 
     const vd = server.playerList.getViewDistance();
     DynamicSetting.CHUNK_TICK_DISTANCE.set(Math.ceil(vd / 3), DynamicManager.getInstance(server))
-
-    // const range = sd * 16;
-    // console.log(range)
-    // EntityOpt.verticalRange = range;
-    // EntityOpt.horizontalRange = range
-    // console.log("rd: " + Client.options.renderDistance().get())
-    // console.log("vd: " + server.playerList.getViewDistance())
-    // console.log("sd: " + server.playerList.getSimulationDistance())
 })
