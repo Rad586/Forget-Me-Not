@@ -226,3 +226,6 @@ const { ITEM, BLOCK } = ParticleTypes
 global.itemParticle = (id) => new ItemParticleOption(ITEM, id)
 global.blockParticle = (id) => new BlockParticleOption(BLOCK, Block.get(id).defaultBlockState())
 global.blockStateParticle = (state) => new BlockParticleOption(BLOCK, state)
+
+global.reloadStartupScript = () => KubeJS.getStartupScriptManager().reload(null);
+global.reloadClientScript = () => KubeJS.PROXY.reloadClientInternal();

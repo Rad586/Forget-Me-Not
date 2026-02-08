@@ -3,7 +3,7 @@ PlayerEvents.advancement("kubejs:tip/updated", e => {
     if(persistentData.nether_stage == true) return; 
 
     server.persistentData.nether_stage = true;
-    server.runCommandSilent("kjs reload startup_script");
+    global.reloadStartupScript()
 
     const players = server.players.filter(p => p != player);
     players.forEach(p => p.unlockAdvancement("kubejs:tip/updated"))
@@ -14,7 +14,7 @@ PlayerEvents.advancement("kubejs:memory_removal", e => {
     if(persistentData.ender_dragon == true) return;
 
     persistentData.ender_dragon = true;
-    server.runCommandSilent("kjs reload startup_script");
+    global.reloadStartupScript();
 
     server.players.forEach(player => {
         const {level, potionEffects} = player;

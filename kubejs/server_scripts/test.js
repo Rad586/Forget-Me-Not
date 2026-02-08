@@ -233,15 +233,28 @@
 //准备移除kjs additions
 //取消右键换甲
 
-// ItemEvents.rightClicked(e => {
-//     const {player} = e
-//     player.tell(Block.get(player.block.id) instanceof LeavesBlock)
-// })
+//entity view distance 和 tritium性能优化，过大的生物加入白名单（单次自动生成）
+//参考：兔子：鱼：蜜蜂：美西螈：海豚：苦力怕：末影人，熊猫，铁傀儡；boss生物不受影响
+
+//破坏方块后移开光标，方块保持破坏，这是原版行为还是模组行为？影响了方块描边的判断
+
+ItemEvents.rightClicked(e => {
+    const {player} = e
+    // e.server.playerList.setSimulationDistance(5)
+    const BobbyConfig = Java.loadClass('de.johni0702.minecraft.bobby.Bobby').getInstance().getConfig()
+    player.tell(
+        "VD: " + e.server.playerList.getViewDistance() + 
+        ", SD: " + e.server.playerList.getSimulationDistance() + 
+        ", BD: " + BobbyConfig.viewDistanceOverwrite + 
+        ", CSD: " + Client.options.simulationDistance().get()
+    )
+    // e.server.playerList.setSimulationDistance(Client.options.simulationDistance().get())
+    // e.server.tell(e.server.playerCount)
+    // const entity = player.rayTrace(200).entity
+    // if (entity) {
+    //     player.tell(player.distanceToEntity(entity))
+    // }
+})
 // BlockEvents.broken("torch", e => {
 //     e.server.tell("hi")
 // })
-
-ItemEvents.rightClicked(e => {
-    
-})
-//hi github!

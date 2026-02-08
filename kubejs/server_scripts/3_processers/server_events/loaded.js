@@ -9,12 +9,26 @@ ServerEvents.loaded(e => {
 
     serverStartup(server);
 
-    server.runCommandSilent("servercore settings chunk_tick_distance 3");
-    server.runCommandSilent("kjs reload startup_scripts"); /* make sure some global constants are loaded */
-    // server.runCommandSilent("kjs reload client_scripts");
+    global.reloadStartupScript(); /* make sure some global constants are loaded */
     server.runCommandSilent("kjs reload server_scripts");
 
-    const range = Math.min(256, server.playerList.setSimulationDistance() * 16);
-    EntityOpt.verticalRange = range;
-    EntityOpt.horizontalRange = range
+    let i = 0
+    // server.scheduleInTicks(1, (c) => {
+    //     i++;
+    //     c.reschedule()
+
+    //     if(i != 1 && i % 20) return;
+    //     server.tell(i/20 + "s, sd: "+ server.playerList.getSimulationDistance())
+    // })
+
+    const vd = server.playerList.getViewDistance();
+    DynamicSetting.CHUNK_TICK_DISTANCE.set(Math.ceil(vd / 3), DynamicManager.getInstance(server))
+
+    // const range = sd * 16;
+    // console.log(range)
+    // EntityOpt.verticalRange = range;
+    // EntityOpt.horizontalRange = range
+    // console.log("rd: " + Client.options.renderDistance().get())
+    // console.log("vd: " + server.playerList.getViewDistance())
+    // console.log("sd: " + server.playerList.getSimulationDistance())
 })

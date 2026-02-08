@@ -12,7 +12,7 @@ ClientEvents.tick(e => {
     fallInLeavesClient(player);
     modFootstep(player);
 
-    if (now - previous < 500) return;
+    if (now - previous < 250) return;
     previous = now;
 
     tasks[0].splice(0, tasks[1]).forEach(t => (t(player), tasks[0].push(t)))

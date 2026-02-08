@@ -46,6 +46,6 @@ function serverStartup(server) {
 
 	if(server.isHardcore()) {
 		sData.nether_stage = true;
-		server.runCommandSilent(`kjs reload startup_scripts`);
+		global.reloadStartupScript()
 	};
 }
