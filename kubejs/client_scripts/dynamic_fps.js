@@ -21,8 +21,8 @@ function dynamicFps(player) {
 }
 
 /* prevent leaving game unfocused to make old_limit initially being 10 */
+/* have to null check, client somehow logs out on joining world after launch */
 ClientEvents.loggedOut(e => {
     const value = global[identifier];
-    if(!value) return;
-    Client.options.framerateLimit().set(value)
+    if (value) Client.options.framerateLimit().set(value)
 })

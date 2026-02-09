@@ -1,10 +1,11 @@
 /* executed in client_tick.js */
+/* can't get instance in outter constant */
 const Bobby = Java.loadClass('de.johni0702.minecraft.bobby.Bobby')
 let stay = 0, last_pos = [0, 0]
 
 function modBobby(player) {
-    const { x, z } = player, { options } = Client;
-    const rd = options.renderDistance().get();
+    const { x, z } = player;
+    const rd = Client.options.renderDistance().get();
     const BobbyConfig = Bobby.getInstance().getConfig();
 
     if (Math.hypot(last_pos[0] - x, last_pos[1] - z) < 5.3) { /* sprinting > n > walking */
@@ -22,10 +23,7 @@ function modBobby(player) {
         Math.round(rd * 0.84);
 
     if (BobbyConfig.viewDistanceOverwrite == internal_vd) return;
-    BobbyConfig.viewDistanceOverwrite = internal_vd;
-
-    if (!Client.isLocalServer()) return;
-    Client.getSingleplayerServer().playerList.setSimulationDistance(options.simulationDistance().get())
+    BobbyConfig.viewDistanceOverwrite = internal_vd
 }
 
 /* fix leaving game after being idle, causing re-joining with high bobby view distance */

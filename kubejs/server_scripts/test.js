@@ -231,7 +231,6 @@
 //改进落叶放置，做确认
 
 //准备移除kjs additions
-//取消右键换甲
 
 //entity view distance 和 tritium性能优化，过大的生物加入白名单（单次自动生成）
 //参考：兔子：鱼：蜜蜂：美西螈：海豚：苦力怕：末影人，熊猫，铁傀儡；boss生物不受影响
@@ -246,6 +245,7 @@ ItemEvents.rightClicked(e => {
         ", BD: " + BobbyConfig.viewDistanceOverwrite + 
         ", CSD: " + Client.options.simulationDistance().get()
     )
+    // Client.getSingleplayerServer().playerList.setSimulationDistance(Client.options.simulationDistance().get())
     // e.server.playerList.setSimulationDistance(Client.options.simulationDistance().get())
     // e.server.tell(e.server.playerCount)
     // const entity = player.rayTrace(200).entity
