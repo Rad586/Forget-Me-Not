@@ -100,22 +100,22 @@ function explosion(x, y, z, level, server) {
 };
 
 function falling_star_entity(context) {
-    const {entity} = context;
-    const {level} = entity;
-    if(level.isClientSide()) return;
+    // const {entity} = context;
+    // const {level} = entity;
+    // if(level.isClientSide()) return;
 
-    const {server, x, y, z} = entity;
-    const {result: {entity: target}} = context;
-    if(target.isPlayer() && !target.stages.has("golden_cudgel")) {
-        target.stages.add("golden_cudgel");
-        target.give("kubejs:golden_cudgel");
+    // const {server, x, y, z} = entity;
+    // const {result: {entity: target}} = context;
+    // if(target.isPlayer() && !target.stages.has("golden_cudgel")) {
+    //     target.stages.add("golden_cudgel");
+    //     target.give("kubejs:golden_cudgel");
 
-        entity.statusMessage = Text.translate(`dialogue.fmn.unique_item`);
-        声声global.sound(entity, "simplyswords:dark_sword_breaks", 0.4, 1.9, 0.1);
-        level.spawnParticles("bosses_of_mass_destruction:obsidilith_burst", true, entity.x, entity.eyeY, entity.z, 0, 0, 0, 1, 0);
-    }
-    else explosion(x, y, z, level, server);
-    entity.discard();
+    //     entity.statusMessage = Text.translate(`dialogue.fmn.unique_item`);
+    //     声声global.sound(entity, "simplyswords:dark_sword_breaks", 0.4, 1.9, 0.1);
+    //     level.spawnParticles("bosses_of_mass_destruction:obsidilith_burst", true, entity.x, entity.eyeY, entity.z, 0, 0, 0, 1, 0);
+    // }
+    // else explosion(x, y, z, level, server);
+    // entity.discard();
 };
 
 function falling_star_block(context) {

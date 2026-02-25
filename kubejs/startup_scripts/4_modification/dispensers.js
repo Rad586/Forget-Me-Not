@@ -15,7 +15,7 @@ function ender_pearl(key, block, item) {
 	const { facing } = oldDispenser.properties;
 	const facingData = facingMap[facing];
 
-	item.count--;
+	item.shrink(1);
 
 	const ender_pearl = level.createEntity(key);
 	ender_pearl.setPosition(

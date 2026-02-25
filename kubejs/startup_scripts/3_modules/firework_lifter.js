@@ -7,7 +7,7 @@ function firework_lifter(entity) {
     const {nbt, level, boundingBox} = entity;
     const time = nbt.LifeTime;
 
-    level.getEntitiesWithin(boundingBox.inflate(0.68)).forEach(entity2 => {
+    level.getEntitiesWithin(boundingBox.inflate(0.68, 0.2, 0.68)).forEach(entity2 => {
         entity2.motionY += time / 20;
         entity2.hurtMarked = true;
         if(entity2.isPlayer() && entity2.chestArmorItem == "minecraft:elytra") {

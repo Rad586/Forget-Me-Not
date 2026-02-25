@@ -1,7 +1,7 @@
 /* executed in client_tick.js */
 /* can't get instance in outter constant */
 const Bobby = Java.loadClass('de.johni0702.minecraft.bobby.Bobby')
-let stay = 0, last_pos = [0, 0]
+let stay = 0;
 
 function modBobby(player) {
     const { x, z } = player;
@@ -12,10 +12,9 @@ function modBobby(player) {
         if (!Client.isPaused()) stay++ /* pause with game pause */
     }
     else stay = 0;
-    last_pos = [x, z];
 
-    const initial_timeout = 8;
-    const interval = 6;
+    const initial_timeout = 12;
+    const interval = 8;
     const internal_vd = stay && stay >= initial_timeout ? 
         rd + Math.min(
             Math.min(32 - rd, Math.round(rd * 0.34)), 

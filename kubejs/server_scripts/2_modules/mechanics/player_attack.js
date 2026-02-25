@@ -2,7 +2,7 @@ PlayerEvents.advancement("kubejs:player_attack", e => {
 	const { player } = e;
 	player.revokeAdvancement("kubejs:player_attack");
 
-    if (!global.Weapons.find(i => i.id == player.mainHandItem.id)) return;
+    if (!global.Swords.find(i => i.id == player.mainHandItem.id)) return;
     const delay = player.getCurrentItemAttackStrengthDelay(), mul = delay / 12.5;
 
 	e.server.scheduleInTicks(1, () => {

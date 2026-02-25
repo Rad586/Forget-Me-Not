@@ -19,7 +19,7 @@ const pillager_weapon_skills = {
                 /* Start using */
                 server.scheduleInTicks(10, () => {
                     level.spawnParticles("minecraft:note", true, x, y+0.25, z, 0, 0, 0, 1, 0);
-                    level.getEntitiesWithin(source.boundingBox.inflate(8)).forEach(entity2 => {
+                    level.getEntitiesWithin(source.boundingBox.inflate(8, 2, 8)).forEach(entity2 => {
                         if(!entity2.isMonster()) return
                         entity2.potionEffects.add("speed", 400, 0);
                         entity2.target = entity;

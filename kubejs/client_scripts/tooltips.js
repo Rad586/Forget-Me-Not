@@ -138,9 +138,6 @@ ItemEvents.tooltip(e => {
 		"coal_ore": [
 			"minecraft:coal"
 		],
-		"campfire": [
-			"minecraft:campfire", "minecraft:soul_campfire"
-		],
 		"oak_door": [
 			"minecraft:iron_door", "minecraft:oak_door", "minecraft:birch_door", "minecraft:dark_oak_door",
 			"minecraft:acacia_door", "minecraft:jungle_door", "minecraft:spruce_door",
@@ -166,9 +163,6 @@ ItemEvents.tooltip(e => {
 		],
 		"minecart": [
 			"minecraft:minecart"
-		],
-		"snowwhisper": [
-			"kubejs:snowwhisper"
 		],
 		"hay_block": [
 			"minecraft:hay_block"
@@ -261,7 +255,7 @@ ItemEvents.tooltip(e => {
 	const tdmg = Text.translate("dialogue.fmn.dmg").getString();
 	const tspd = Text.translate("dialogue.fmn.spd").getString();
 	const { upgrade_limit, reforge_limit } = global;
-	e.addAdvanced(global.Weapons, (stack, isAdvanced, tooltip) => {
+	e.addAdvanced(global.Swords, (stack, isAdvanced, tooltip) => {
 		const { nbt } = stack;
 		if (!nbt) return;
 

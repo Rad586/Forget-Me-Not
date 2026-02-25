@@ -4,7 +4,7 @@ EntityJSEvents.modifyEntity(e => {
 	/* may prevent memory leak */
 	const {
 		ally, dimensionalMobs, projectiles,
-		rewards, preys, evolutionMap,
+		preys, evolutionMap,
 		released_fish, fireballs,
 		spiders, monsters2, skeletons, 
 		attackable_pets, creepers, zombies, 
@@ -40,8 +40,7 @@ EntityJSEvents.modifyEntity(e => {
 			.onFall(context => {
 				const {distance, entity} = context, {server} = entity;
 				if(!server) return;
-				ender_eye_glow(entity, server);
-				auto_plant(entity, distance, server)
+				auto_plant(entity, distance)
 			})
 	)
 
@@ -51,6 +50,11 @@ EntityJSEvents.modifyEntity(e => {
 				if (!entity.server) return;
 				deadlier_witch(entity)
 			})
+	)
+
+	e.modify("minecraft:slime", modifyBuilder =>
+		modifyBuilder
+			.onFall(context => slime_regen(context))
 	)
 
 	e.modify("minecraft:pillager", modifyBuilder =>
@@ -125,13 +129,6 @@ EntityJSEvents.modifyEntity(e => {
 		)
 	)
 
-	Object.keys(rewards).forEach(key =>
-		e.modify(key, modifyBuilder =>
-			modifyBuilder
-				.onDeath(context => unique_item(context.entity, context.damageSource, key))
-		)
-	)
-
 	Object.keys(preys).forEach(key => {
 		const score = preys[key];
 		e.modify(key, modifyBuilder =>
@@ -156,11 +153,6 @@ EntityJSEvents.modifyEntity(e => {
 	e.modify("minecraft:ender_dragon", modifyBuilder =>
 		modifyBuilder
 			.onHurt(context => nan_fix(context.damageSource.actual, context.entity))
-	)
-
-	e.modify("minecraft:silverfish", modifyBuilder =>
-		modifyBuilder
-			.onHurtTarget(context => better_silverfish(context.targetEntity))
 	)
 
 	released_fish.forEach(key =>
@@ -197,8 +189,9 @@ EntityJSEvents.modifyEntity(e => {
 	e.modify("minecraft:lightning_bolt", modifyBuilder =>
 		modifyBuilder
 			.onAddedToWorld(entity => {
-				if (!entity.server) return;
-				animal_fear(entity);
+				const { server } = entity;
+				if (!server) return;
+				animal_fear(entity, server);
 				lightning_conversion(entity);
 			})
 	)
@@ -236,6 +229,7 @@ EntityJSEvents.modifyEntity(e => {
 			modifyBuilder
 				.onAddedToWorld(entity => debuff_arrow(entity, nether_stage))
 				.onDeath(context => haunting(context.entity))
+				.onHurt(context => wither_conversion(context))
 		)
 	)
 

@@ -4,7 +4,6 @@
   "dialogue.fmn.enchanted_golden_feather":"§8Just try it.",
   "dialogue.fmn.villagers_weapon":"A powerful weapon...only if you know how to use that.",
   "dialogue.fmn.villagers_armor":"Technical support provided by VillagerTech™.",
-  "dialogue.fmn.crown_of_scarlet":"§4Soaked with blood.",
   "dialogue.fmn.throwable":"§8Throwable",
   "dialogue.fmn.bundle":"§8Ingredient of bundle.",
   "dialogue.fmn.compass":"§8Ingredient of recovery pearl.",
@@ -81,7 +80,6 @@
   "dialogue.fmn.ender_dragon_death":"Being killed by ender dragon decreases your max health by 1 in total.",
   "dialogue.fmn.normal_chest_mimic":"You can use mimic handbell to tame mimics.",
   "dialogue.fmn.mimic":"Holding iron or gold block, you can crouch + right click on mimics to feed them.",
-  "dialogue.fmn.helper":"There's hover information in the upper left of some containers.",
   "dialogue.fmn.hot_biome":"Take off armors/touch water/be underground/stay near respawn point to cool down.",
   "dialogue.fmn.cold_biome":"Take on full armor/be on fire/sprint/be underground/stay near respawn point to warm up.",
   "dialogue.fmn.no_limited_lives":" has disabled self death penalty.",
@@ -102,7 +100,6 @@
   "dialogue.fmn.parkour":"Crouching +2 safe fall distance.",
   "dialogue.fmn.updated":"World memory updated.",
   "dialogue.fmn.memory_removal":"Revive the ender dragon to remove world memory.",
-  "dialogue.fmn.campfire":"Right click the campfire with bare hand to take a nap.",
   "dialogue.fmn.item_frame":"Shift + right click with empty hand to hide the frame.",
   "dialogue.fmn.coal_ore":"Coal ore vein will collapse unless broken while crouching.",
   "dialogue.fmn.oak_door":"Crouch and left click on doors to knock them.",
@@ -168,7 +165,6 @@
   "dialogue.fmn.witch":"Witches flee from player.",
   "dialogue.fmn.husk":"Husks are immune to fire damage.",
   "dialogue.fmn.wither_skeleton":"Wither skeletons are immune to fire damage.",
-  "dialogue.fmn.unique_item":"Unique item looted!",
   "dialogue.fmn.fletching_table":"Fletching table can be used to tighten the bow.",
   "dialogue.fmn.medallion":"§8Nether-only version of totem of undying.",
   "dialogue.fmn.heart_of_demon":"§8What would immortal cost you?",
@@ -182,16 +178,8 @@
   "dialogue.fmn.gunpowder": "Time to explode: ",
   "dialogue.fmn.tnt": "Use gunpowder to delay the explosion.",
 
-  "item.kubejs.crown_of_scarlet":"§4Crown of Scarlet",
   "item.kubejs.medallion_of_undying":"Medallion of Undying",
   "item.kubejs.medallion_of_undying_activated":"Medallion of Undying - Icon",
-  "item.kubejs.greatsword_of_blood":"§4Greatsword of Blood",
-  "item.kubejs.inferno":"Inferno",
-  "item.kubejs.snowwhisper":"§3Snowwhisper",
-  "dialogue.fmn.snowwhisper":"Sprinting/crouching/hovering has different cutting effect.",
-  "item.kubejs.golden_cudgel":"Golden Cudgel",
-  "item.kubejs.golden_cudgel_small":"Golden Cudgel",
-  "item.kubejs.golden_cudgel_large":"Golden Cudgel",
 
   "item.kubejs.villagers_helmet":"Guard's Helmet",
   "item.kubejs.villagers_chestplate":"Guard's Chestplate",
@@ -257,8 +245,5 @@
   "enchantment.kubejs.breach.desc":"Deal extra damage based on target's armor points.",
   "enchantment.kubejs.blessed.desc":"Increase invulunerable time on taking hit.",
   "enchantment.kubejs.luna.desc":"At night, deal extra damage based on moon phase.",
-  "enchantment.kubejs.shocking.desc":"Chain attack enemies.",
-
-  "enchantment.kubejs.golden_cudgel.desc":"Jump + right click to somersault, shift + right click to change scale.",
-  "enchantment.kubejs.greatsword_of_blood.desc":"Blood for blood."
+  "enchantment.kubejs.shocking.desc":"Chain attack enemies."
 }

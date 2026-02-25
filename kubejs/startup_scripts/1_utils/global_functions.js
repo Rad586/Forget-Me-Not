@@ -140,33 +140,27 @@ global.advancedRayTrace = (entity, distance) => {  /* Credit: Squoshi */
 	}
 }
 
-global.advancedRayTraceEntity = (entity, distance) => {  /* Credit: Squoshi */
-	const eyePos = entity.eyePosition;
-	const viewVec = entity.getViewVector(1);
-	const endPos = eyePos.add(viewVec.x() * distance, viewVec.y() * distance, viewVec.z() * distance);
-	const aabb = AABB.of(eyePos.x(), eyePos.y(), eyePos.z(), endPos.x(), endPos.y(), endPos.z());
+global.advancedRayTraceEntity = (entity, dist) => {  /* Credit: Squoshi */
+	const { eyePosition: pos, lookAngle } = entity;
+	const endPos = pos.add(lookAngle.scale(dist));
 
 	const ray = $ProjectileUtil.getEntityHitResult(
 		entity.level, entity,
-		eyePos, endPos,
-		aabb,
-		(e) => !e.isSpectator(), 0
+		pos, endPos, 
+		AABB.of(pos.x(), pos.y(), pos.z(),
+			endPos.x(), endPos.y(), endPos.z()),
+		e => !e.isSpectator(), 0
 	);
-
 	return ray == null ? null : ray.entity;
 }
 
-global.advancedRayTraceBlock = (entity, distance) => {  /* Credit: Squoshi */
-	const { level } = entity, eye_pos = entity.getEyePosition(1);
-
+global.advancedRayTraceBlock = (entity, dist) => {  /* Credit: Squoshi */
+	const { eyePosition: pos, lookAngle } = entity;
 	const clip = new ClipContext(
-		eye_pos,
-		eye_pos.add(entity.getLookAngle().scale(distance)),
-		"collider", "none",
-		entity
+		pos, pos.add(lookAngle.scale(dist)),
+		"collider", "none", entity
 	);
-
-	return level.clip(clip)
+	return entity.level.clip(clip)
 }
 
 global.updateMaxHealth = (player, count) => {
@@ -229,3 +223,35 @@ global.blockStateParticle = (state) => new BlockParticleOption(BLOCK, state)
 
 global.reloadStartupScript = () => KubeJS.getStartupScriptManager().reload(null);
 global.reloadClientScript = () => KubeJS.PROXY.reloadClientInternal();
+
+const Integer = Java.loadClass("java.lang.Integer")
+global.toInt = (value) => Integer.valueOf(value.toString())
+
+global.particleRing2 = (mode, count, dist, entity, particleId, speed, yOverride) => {
+	const { x, y, z, level, eyeHeight } = entity;
+	const finalY = y + (eyeHeight / 4) + (yOverride || 0);
+
+	for (let i = 0; i < count; i++) {
+		let angle = (i * 2 / count) * 3.14;
+		let vx, vz;
+
+		if (mode === "spread") {
+			vx = Math.cos(angle) * speed;
+			vz = Math.sin(angle) * speed;
+		} else if (mode === "gather") {
+			vx = -Math.cos(angle) * speed;
+			vz = -Math.sin(angle) * speed;
+		}
+
+		level.spawnParticles(
+			particleId,
+			true,
+			x + Math.cos(angle) * dist,
+			finalY,
+			z + Math.sin(angle) * dist,
+			0,
+			vx, 0, vz,
+			1
+		)
+	}
+}

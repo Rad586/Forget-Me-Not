@@ -64,16 +64,16 @@
 // 	}
 // })
 
-// 
+//
 
 
 // const caving_dim_values = {
-// 	"diamond": 1, "ruby": 1, "sapphire": 1, "emerald": 1, 
-// 	"alexandrite": 0.8, "aquamarine": 0.8, "opal": 0.8, "turquoise": 0.8, 
+// 	"diamond": 1, "ruby": 1, "sapphire": 1, "emerald": 1,
+// 	"alexandrite": 0.8, "aquamarine": 0.8, "opal": 0.8, "turquoise": 0.8,
 // 	"topaz": 0.7, "zircon": 0.7, "lapis_lazuli": 0.6, "malachite": 0.6,
-// 	"moonstone": 0.5, "schorl": 0.5, "charoite": 0.5, "rhodochrosite": 0.5, 
+// 	"moonstone": 0.5, "schorl": 0.5, "charoite": 0.5, "rhodochrosite": 0.5,
 // 	"chalcedony": 0.4, "kunzite": 0.4, "morganite": 0.4, "citrine": 0.4,
-// 	"labradorite": 0.3, "grossular": 0.3, "kyanite": 0.3, "agate": 0.3, 
+// 	"labradorite": 0.3, "grossular": 0.3, "kyanite": 0.3, "agate": 0.3,
 // 	"jade": 0.3, "stone": 0.01
 // };
 // for(let i = 0; i <= 15; i += 3) {
@@ -105,26 +105,6 @@
 // 	})
 // }
 // e.server.scoreboard.addPlayerTeam()
-
-
-
-//荧光蘑菇
-///place feature twilightforest:mushgloom_cluster
-
-// 暮色蕨
-// /place feature twilightforest:fiddlehead
-
-// 萤火虫罐子路灯
-// /place feature twilightforest:firefly_lamppost
-
-// 酢浆草
-// /place feature twilightforest:mayapple
-
-// 黑曜石柱子
-// /place feature twilightforest:monolith
-
-// 荆棘
-// /place feature twilightforest:thorns
 
 
 // const SMP = Java.loadClass("net.minecraft.world.SimpleMenuProvider");
@@ -228,31 +208,43 @@
 
 
 //用fmntweaks，集中移除建筑生成
-//改进落叶放置，做确认
 
 //准备移除kjs additions
+//排查satin api
+//移除一些动物模组？
+//击败宝箱怪概率使之成为伙伴
+//unique_item 独特物品掉落修改（vsc搜索）
+//移除末地相关：要塞X better stronghold，末影龙X enderdragon,true ending/，鞘翅X，潜影盒（流星），末影之眼，烈焰粉，龙蛋，音乐，开局提示，末地相关修复（kjs），相关配方（鞘翅，末影水晶，末影箱），末地相关改动（末影龙火球），龙息，龙蛋龙头，末影水晶相关修改（kjs），紫颂果，爆裂紫颂果
+//坐下的提示
+//宝箱无法破坏改为“开启宝箱吸引仇恨，宝箱内物资等待出现结果”
+//CROWMAP fork？直接改
+// ItemEvents.rightClicked(e => {
+//     e.player.damageHeldItem(e.hand, 1)
+// })
 
-//entity view distance 和 tritium性能优化，过大的生物加入白名单（单次自动生成）
-//参考：兔子：鱼：蜜蜂：美西螈：海豚：苦力怕：末影人，熊猫，铁傀儡；boss生物不受影响
+// EntityEvents.death("slime", e=> e.server.tell("a"))
 
 ItemEvents.rightClicked(e => {
-    const {player} = e
-    // e.server.playerList.setSimulationDistance(5)
-    const BobbyConfig = Java.loadClass('de.johni0702.minecraft.bobby.Bobby').getInstance().getConfig()
-    player.tell(
-        "VD: " + e.server.playerList.getViewDistance() + 
-        ", SD: " + e.server.playerList.getSimulationDistance() + 
-        ", BD: " + BobbyConfig.viewDistanceOverwrite + 
-        ", CSD: " + Client.options.simulationDistance().get()
-    )
-    // Client.getSingleplayerServer().playerList.setSimulationDistance(Client.options.simulationDistance().get())
-    // e.server.playerList.setSimulationDistance(Client.options.simulationDistance().get())
-    // e.server.tell(e.server.playerCount)
-    // const entity = player.rayTrace(200).entity
-    // if (entity) {
-    //     player.tell(player.distanceToEntity(entity))
-    // }
+    // const {level, player, hand, target} = e;
+    // const {entity} = target;
+    // if(!entity) return;
+    // const SwellGoal = Java.loadClass('net.minecraft.world.entity.ai.goal.SwellGoal')
+
+    // const {goalSelector} = entity;
+    // e.server.tell(
+    //     goalSelector.getAvailableGoals().some(
+    //         g => g.getGoal() instanceof SwellGoal)
+    // )
+    // goalSelector.getAvailableGoals().forEach(g => {
+    //     if (g.getGoal() instanceof SwellGoal)
+    //     goalSelector.removeGoal(g.getGoal())
+    // })
+    // e.server.tell(
+    //     goalSelector.getAvailableGoals().some(
+    //         g => g.getGoal() instanceof SwellGoal)
+    // )
+
+
+    // e.server.tell("hi")
 })
-// BlockEvents.broken("torch", e => {
-//     e.server.tell("hi")
-// })
+//测试globalring2

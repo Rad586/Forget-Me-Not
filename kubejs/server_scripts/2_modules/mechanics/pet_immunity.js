@@ -1,19 +1,21 @@
-global.attackable_pets.forEach(pet => {
-    EntityEvents.death(pet, e => {
-        const { entity } = e, { owner } = entity;
-        if (!owner || e.source.actual == owner) return;
+if (global.attackable_pets) { /* waiting for startup script */
+    global.attackable_pets.forEach(pet => {
+        EntityEvents.death(pet, e => {
+            const { entity } = e, { owner } = entity;
+            if (!owner || e.source.actual == owner) return;
 
-        entity.setHealth(2); /* prevent being one-shot by fire damage */
-        entity.discard();
+            entity.setHealth(2); /* prevent being one-shot by fire damage */
+            entity.discard();
 
-        /* remove agro */
-        const refreshed = e.level.createEntity(entity.type);
-        refreshed.mergeNbt(entity.nbt);
-        refreshed.resetFallDistance(); /* prevent inheriting fall distance */
-        refreshed.invulnerableTime = 40; /* prevent consistently dying */
-        refreshed.extinguish(); /* prevent consistently dying */
+            /* remove agro */
+            const refreshed = e.level.createEntity(entity.type);
+            refreshed.mergeNbt(entity.nbt);
+            refreshed.resetFallDistance(); /* prevent inheriting fall distance */
+            refreshed.invulnerableTime = 40; /* prevent consistently dying */
+            refreshed.extinguish(); /* prevent consistently dying */
 
-        refreshed.spawn();
-        e.cancel()
+            refreshed.spawn();
+            e.cancel()
+        })
     })
-})
+}

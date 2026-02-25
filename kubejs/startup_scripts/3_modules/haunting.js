@@ -5,9 +5,9 @@ function haunting(entity) {
 	const {level} = entity;
 	if(level.isClientSide()) return;
 
-	const aabb = entity.boundingBox.inflate(0.5);
-	const next_entity = level.getEntitiesWithin(aabb)
-		.filter(n => n.isMonster() && n.isAlive())
+	const next_entity = level
+		.getEntitiesWithin(entity.boundingBox.inflate(0.5, 0, 0.5))
+		.filter(n => n.isMonster() && n.isAlive());
 	if(next_entity.isEmpty()) return;
 
 	const {persistentData: pData} = next_entity.getFirst();
@@ -23,5 +23,5 @@ function haunting(entity) {
 	const {x, y, z} = entity;
 	entity.playSound("minecraft:entity.vex.death")
 	level.spawnParticles("minecraft:soul_fire_flame", true, x, y, z, 0.08, 0.08, 0.08, 4, 0);
-	level.spawnParticles("minecraft:sculk_soul", true, x, y, z, 0.08, 0.08, 0.08, 3, 0.06);
+	level.spawnParticles("minecraft:sculk_soul", true, x, y, z, 0.08, 0.08, 0.08, 3, 0.06)
 }

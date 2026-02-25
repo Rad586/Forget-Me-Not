@@ -39,6 +39,9 @@ global.class_map = {
 
     "OwnableEntity": "net.minecraft.world.entity.OwnableEntity",
     "NeutralMob": "net.minecraft.world.entity.NeutralMob",
+    "Npc": "net.minecraft.world.entity.npc.Npc",
+    "WaterAnimal": "net.minecraft.world.entity.animal.WaterAnimal",
+    "EntityType": "net.minecraft.world.entity.EntityType",
 
     "CrossbowAttackMob": "net.minecraft.world.entity.monster.CrossbowAttackMob",
     "RangedAttackMob": "net.minecraft.world.entity.monster.RangedAttackMob",
@@ -67,6 +70,7 @@ global.class_map = {
 
     "MeleeAttackGoal": "net.minecraft.world.entity.ai.goal.MeleeAttackGoal",
     "AvoidEntityGoal": "net.minecraft.world.entity.ai.goal.AvoidEntityGoal",
+    "PanicGoal": "net.minecraft.world.entity.ai.goal.PanicGoal",
 
     "AttributeModifier": "net.minecraft.world.entity.ai.attributes.AttributeModifier",
 
@@ -83,6 +87,7 @@ global.class_map = {
     "BlockTintFunction": "dev.latvian.mods.kubejs.block.BlockTintFunction",
     "ItemTintFunction": "dev.latvian.mods.kubejs.item.ItemTintFunction",
     "ItemBuilder": "dev.latvian.mods.kubejs.item.custom.BasicItemJS$Builder",
+    "blockBuilder": "dev.latvian.mods.kubejs.block.custom.BasicBlockJS$Builder",
     "EntityOpt": "org.craftamethyst.tritium.config.TritiumConfigBase$Entities$EntityOpt",
     "DynamicSetting": "me.wesley1808.servercore.common.dynamic.DynamicSetting",
     "DynamicManager": "me.wesley1808.servercore.common.dynamic.DynamicManager",

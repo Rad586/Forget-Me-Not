@@ -77,7 +77,6 @@ const effects = {
 	"rewind":"归返",
 	"timer":"计时器",
 	"timer2":"计时器2",
-	"parry":"弹反",
 	"somersault":"筋斗",
 	"zombify":"僵尸化",
 	"hot":"高温",

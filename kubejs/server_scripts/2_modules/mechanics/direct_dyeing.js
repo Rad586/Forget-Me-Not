@@ -37,12 +37,17 @@ Object.keys(colored_blocks).forEach(key => {
 		if (block.id.includes(`${color}_`)) return;
 		const { entityData, x, y, z } = block;
 
-		e.item.count--;
+		e.item.shrink(1);
 		const seperate = mod.includes(":") ? "." : ":";
 		block.set(`${mod}${seperate}${color}_${suffix}`, block.properties);
 		if (entityData) block.setEntityData(entityData);
 
-		global.sound(player, "block.flowering_azalea.hit", 2, 1.8);
+		level.playSound(
+			null, 
+			x + 0.5, y + 0.5, z + 0.5, 
+			"block.flowering_azalea.hit", "blocks", 
+			2, 1.8
+		);
 		player.swing();
 
 		const shape = block.blockState.getCollisionShape(level, block.pos);
@@ -62,7 +67,9 @@ Object.keys(colored_blocks).forEach(key => {
 				data[3] * 0.18, data[4] * 0.18, data[5] * 0.18,
 				6, 0
 			)
-		})
+		});
+
+		e.cancel()
 	})
 })
 

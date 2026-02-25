@@ -6,9 +6,8 @@ ItemEvents.entityInteracted(e => {
 		!player.isCrouching()
 	) return;
 
-	const aabb = target.boundingBox.inflate(0.75, 0, 0.75);
 	const entities = e.level
-		.getEntitiesWithin(aabb)
+		.getEntitiesWithin(target.boundingBox.inflate(0.75, 0, 0.75))
 		.filter(a => a.inLove == false && a != target);
 	if (entities.isEmpty()) return;
 

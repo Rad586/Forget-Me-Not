@@ -39,7 +39,7 @@ ServerEvents.recipes(e => {
 		"illagerexp", "livingthings", "ecologics",
 		"naturalist", 
 		"sds", "elementalcreepers", "probablychests", 
-		"twilightforest", "musictriggers"
+		"musictriggers"
 	].forEach(key => e.remove({ mod: key }))
 
 	/* 染料拓展配方 Dye recipe expansion */

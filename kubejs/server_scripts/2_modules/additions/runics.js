@@ -22,7 +22,7 @@ const uuid = global.randomUuid;
 const upgrage_msg = Text.translate("dialogue.fmn.upgrade_count").getString();
 const reforge_msg = Text.translate("dialogue.fmn.reforge_count").getString();
 
-global.Weapons.forEach(i => {
+global.Swords.forEach(i => {
     const { id } = i;
     const ini_dmg = i.getAttributes("generic.attack_damage")[0].getAmount();
     const ini_spd = i.getAttributes("generic.attack_speed")[0].getAmount() + 4;
@@ -46,7 +46,7 @@ global.Weapons.forEach(i => {
             return;
         };
 
-        offhandItem.count--;
+        offhandItem.shrink(1);
         nbt.Upgrade = Upgrade; nbt.Reforge = Reforge;
 
         if (is_upgrade) {
@@ -105,7 +105,7 @@ global.Armors.forEach(i => {
             player.statusMessage = Text.translate("dialogue.fmn.upgrade_limit")
             return;
         };
-        offhandItem.count--;
+        offhandItem.shrink(1);
         nbt.Upgrade = Upgrade;
 
         player.statusMessage = upgrage_msg + Upgrade + "/" + upgrade_limit

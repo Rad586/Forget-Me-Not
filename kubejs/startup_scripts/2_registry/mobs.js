@@ -54,15 +54,27 @@ StartupEvents.registry("entity_type", e => {
 		.isInvulnerableTo(() => true)
 		.canBeAffected(() => false)
 		.tick(entity => {
-			if(entity.level.isClientSide() || entity.age % 5) return;
+			const { level } = entity;
+			if (level.isClientSide() || entity.age % 8) return;
+
 			const passenger = entity.getFirstPassenger();
-			if(!passenger) entity.discard();
-			else passenger.potionEffects.add("farmersdelight:comfort", 6, 0, true, true);
+			if (
+				!passenger || passenger.hurtTime > 0 ||
+				!entity.feetBlockState.fluidState.isEmpty()
+			) {
+				entity.discard()
+			}
+			else {
+				const players = level
+					.getEntitiesWithin(entity.boundingBox.inflate(4, 1, 4))
+					.filter(e => e.isPlayer());
+				if (players.isEmpty()) return;
+				passenger.potionEffects.add("regeneration", 10, 0, true, true)
+			}
 		})
 		.onLivingFall(context => {
 			const {entity} = context;
-			if(entity.level.isClientSide()) return;
-			if(entity.tags.contains("sit")) entity.discard();
+			if (entity.server && entity.tags.contains("sit")) entity.discard();
 			else entity.addTag("sit");
         })
 })

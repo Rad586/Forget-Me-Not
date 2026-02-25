@@ -8,21 +8,43 @@ const cobweb_breaker = {
 
 ["sihywtcamd:messy_cobweb", "minecraft:cobweb"].forEach(key => {
 	BlockEvents.leftClicked(key, e => {
-		const {item} = e;
+		const { item } = e;
 		let data = cobweb_breaker[item.id];
 
-		if(item.isEnchanted()) {
-			const {enchantments} = item;
-			if(enchantments.containsKey("minecraft:fire_aspect")) data = "flame";
-			else if(enchantments.containsKey("minecraft:soul_fire_aspect")) data = "soul_fire_flame";
+		if (item.isEnchanted()) {
+			const { enchantments } = item;
+			if (enchantments.containsKey("minecraft:fire_aspect")) data = "flame";
+			else if (enchantments.containsKey("minecraft:soul_fire_aspect")) data = "soul_fire_flame";
 		};
-		if(!data) return;
-	
-		const {block, entity} = e, {x, y, z, level} = block;
+		if (!data) return;
+
+		const { block } = e, { x, y, z, level } = block;
 		block.set("air");
-		global.particleBurstBlock(level, x, y, z, data, 3, 0.04, 0.2);
-		global.particleBurstBlock(level, x, y, z, "smoke", 3, 0, 0.4);
-		global.sound(entity, "block.fire.ambient", 2, 2, 0.1);
-		global.sound(entity, "block.fire.extinguish", 0.4, 2, 0.1);
+
+		level.spawnParticles(
+			data, true, 
+			x + 0.5, y + 0.5, z + 0.5, 
+			0.2, 0.2, 0.2, 
+			3, 0.04
+		);
+		level.spawnParticles(
+			"smoke", true, 
+			x + 0.5, y + 0.5, z + 0.5, 
+			0.4, 0.4, 0.4, 
+			3, 0
+		);
+		level.playSound(
+			null, 
+			x + 0.5, y + 0.5, z + 0.5, 
+			"block.fire.ambient", "blocks", 
+			2, 2
+		);
+		level.playSound(
+			null, 
+			x + 0.5, y + 0.5, z + 0.5, 
+			"block.fire.extinguish", 
+			"blocks", 
+			0.4, 2
+		)
 	})
 })

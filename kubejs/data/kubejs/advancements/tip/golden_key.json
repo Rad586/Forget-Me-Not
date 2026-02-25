@@ -1,5 +1,5 @@
 {
-  "parent": "kubejs:tip_chest",
+  "parent": "kubejs:tip/chest",
   "criteria": {
     "c": {
       "trigger": "minecraft:placed_block",

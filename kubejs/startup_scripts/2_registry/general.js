@@ -1,45 +1,5 @@
 //priority: 6
 ItemEvents.toolTierRegistry(e => {
-	e.add("netherite_iron", tier => {
-		tier.uses = 2281;
-		tier.speed = 10.0;
-		tier.attackDamageBonus = 4.0;
-		tier.level = 4;
-		tier.enchantmentValue = 15;
-		tier.repairIngredient = "advancednetherite:netherite_iron_ingot";
-	})
-	e.add("netherite_gold", tier => {
-		tier.uses = 2313;
-		tier.speed = 11.0;
-		tier.attackDamageBonus = 4.0;
-		tier.level = 4;
-		tier.enchantmentValue = 15;
-		tier.repairIngredient = "advancednetherite:netherite_gold_ingot";
-	})
-	e.add("netherite_emerald", tier => {
-		tier.uses = 2651;
-		tier.speed = 12.0;
-		tier.attackDamageBonus = 5.0;
-		tier.level = 4;
-		tier.enchantmentValue = 18;
-		tier.repairIngredient = "advancednetherite:netherite_emerald_ingot";
-	})
-	e.add("netherite_diamond", tier => {
-		tier.uses = 3092;
-		tier.speed = 12.0;
-		tier.attackDamageBonus = 5.0;
-		tier.level = 4;
-		tier.enchantmentValue = 18;
-		tier.repairIngredient = "advancednetherite:netherite_diamond_ingot";
-	})
-	e.add("dragon", tier => {
-		tier.uses = 2479;
-		tier.speed = 12.0;
-		tier.attackDamageBonus = 5.0;
-		tier.level = 4;
-		tier.enchantmentValue = 20;
-		tier.repairIngredient = "dragonloot:dragon_scale";
-	})
 	e.add("breaker", tier => {
 		tier.uses = 64;
 		tier.speed = 0.875;
@@ -49,10 +9,6 @@ ItemEvents.toolTierRegistry(e => {
 	e.add("villager", tier => {
 		tier.uses = 1200;
 		tier.enchantmentValue = 20;
-	})
-	e.add("unique_weapon", tier => {
-		tier.uses = 0;
-		tier.enchantmentValue = 0;
 	})
 	for(let i = 0; i <= 15; i += 3) {
 		e.add(`caving${i}`, tier => {
@@ -70,12 +26,6 @@ ItemEvents.armorTierRegistry(e => {
 		tier.enchantmentValue = 10
 		tier.equipSound = "minecraft:item.armor.equip_iron"
 		tier.toughness = 1.0
-	})
-	e.add("s", tier => {
-		tier.durabilityMultiplier = 100
-		tier.slotProtections = [0, 5, 6, 2]
-		tier.enchantmentValue = 0
-		tier.toughness = 0.0
 	})
 })
 
@@ -116,15 +66,6 @@ StartupEvents.registry("item", e => {
 	e.create("villagers_chestplate", "chestplate").tier("v").texture("minecraft:item/golden_chestplate").rarity("uncommon").tooltip(Text.translate("dialogue.fmn.villagers_armor"))
 	e.create("villagers_leggings", "leggings").tier("v").texture("minecraft:item/golden_leggings").rarity("uncommon").tooltip(Text.translate("dialogue.fmn.villagers_armor"))
 	e.create("villagers_boots", "boots").tier("v").texture("minecraft:item/golden_boots").rarity("uncommon").tooltip(Text.translate("dialogue.fmn.villagers_armor"))
-
-	//Unique equipment
-	e.create("crown_of_scarlet", "helmet").tier("s").tooltip(Text.translate("dialogue.fmn.crown_of_scarlet")).fireResistant(true);
-	e.create("greatsword_of_blood", "sword").tier("unique_weapon").attackDamageBaseline(5).speedBaseline(-2.4).fireResistant(true);
-	e.create("snowwhisper", "sword").tier("unique_weapon").attackDamageBaseline(2).speedBaseline(-2.4).fireResistant(true);
-	e.create("inferno", "sword").tier("unique_weapon").attackDamageBaseline(5).speedBaseline(-2.4).fireResistant(true);
-	e.create("golden_cudgel", "sword").tier("unique_weapon").attackDamageBaseline(4).speedBaseline(-2.4).fireResistant(true);
-	e.create("golden_cudgel_large", "sword").tier("unique_weapon").attackDamageBaseline(6).speedBaseline(-3).fireResistant(true);
-	e.create("golden_cudgel_small", "sword").tier("unique_weapon").attackDamageBaseline(0).speedBaseline(-1.1).fireResistant(true);
 
 	//Medallion of Undying
 	e.create("medallion_of_undying").rarity("rare").tooltip(Text.translate("dialogue.fmn.medallion")).fireResistant(true);
@@ -187,22 +128,44 @@ StartupEvents.registry("item", e => {
 				if (level.isClientSide()) return item;
 
 				const golem = level.createEntity(id);
-				const result = global.advancedRayTraceBlock(entity, 4);
-				const { x, y, z } = level.getBlock(result.blockPos)[result.direction];
+				let block, nohit;
+				if(entity.isCrouching()) {
+					let result = entity.rayTrace(4);
+					let hit_block = result.block;
+					if (!hit_block) nohit = true;
+					else block = hit_block[result.facing]
+				}
+				else {
+					let result = global.advancedRayTraceBlock(entity, 4);
+					let hit_block = level.getBlock(result.blockPos);
+					if(hit_block.blockState.isAir()) nohit = true;
+					else block = hit_block[result.direction]
+				};
+				if(nohit == true) return item;
 
+				const { x, y, z } = block, { eyeHeight } = golem;
 				if (id == "minecraft:iron_golem") {
 					golem.mergeNbt({ PlayerCreated: true })
 				};				
 				golem.setPosition(x + 0.5, y, z + 0.5);
 				golem.spawn();
 
-				global.particleBurst(golem, global.itemParticle(key), 4, 0.3);
-				golem.playSound(id.replace(":", ":entity.") + ".hurt", 0.4, 1.2);
-
+				level.spawnParticles(
+					global.itemParticle(key), true, 
+					x + 0.5, y + eyeHeight + 0.5, z + 0.5, 
+					0.3, 0.3, 0.3, 
+					4, 0
+				);
+				level.playSound(null, 
+					x + 0.5, y + eyeHeight + 0.5, z + 0.5, 
+					id.replace(":", ":entity.") + ".hurt", 
+					"master", 0.4, 1.2
+				);
 				if (entity.isPlayer()) {
 					entity.addItemCooldown(key, 30);
 					entity.swing();
 				};
+
 				item.shrink(1);
 				return item
 			})

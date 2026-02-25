@@ -86,7 +86,7 @@ function evolution(nether_stage, actual, score) {
 	score = score || 5;
 
 	const result = evolution ? evolution+score : score;
-	pData.evolution = result
+	pData.evolution = result;
 	if(result < 5) return;
 
 	const evoluted = actual.level.createEntity(global.randomSelect(data));
@@ -102,5 +102,5 @@ function evolution(nether_stage, actual, score) {
 
 	global.particleBurst(actual, "cloud", 10, 0.05);
 	actual.playSound("lunaslimes:entity.slime.merge", 1.2, 1.1);
-	actual.discard();
+	actual.discard()
 }

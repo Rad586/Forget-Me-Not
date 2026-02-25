@@ -20,16 +20,13 @@ extensiveBlocks.forEach(eBlock => {
             if (nextBlock.id != eBlock) break;
         };
 
-        const final = item.useOn(
-            new UseOnContext(
-                level, player, null, item,
-                new BlockHitResult(null, opposite, blockPos, true)
-            )
-        );
+        if (!item.useOn(new UseOnContext(
+            level, player, null, item,
+            new BlockHitResult(null, opposite, blockPos, true)
+        )).consumesAction()) return;
 
-        if (final != "CONSUME") return;
         player.swing();
-        level.playSound(null, blockPos, "minecraft:block.stone.place", "blocks", 1, 1);
+        level.playSound(null, blockPos.offset(0.5, 0.5, 0.5), "minecraft:block.stone.place", "blocks", 1, 1);
 
         e.cancel()
     })

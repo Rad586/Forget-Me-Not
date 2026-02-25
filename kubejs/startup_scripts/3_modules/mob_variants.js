@@ -10,21 +10,16 @@ const mob_variant_map = {
     },
     "minecraft:zombie": {
         nether: [
-            "rottencreatures:burned", "twilightforest:wraith"
+            "rottencreatures:burned"
         ],
         dragon: [
-            "enderzoology:fallen_knight", "enderzoology:infested_zombie",
-            "twilightforest:blockchain_goblin", "twilightforest:lower_goblin_knight",
-            "twilightforest:minotaur", "twilightforest:upper_goblin_knight"
+            "enderzoology:fallen_knight", "enderzoology:infested_zombie"
         ]
     },
     "minecraft:spider": {
         nether: [
-            "twilightforest:carminite_broodling", "twilightforest:swarm_spider"
         ],
         dragon: [
-            "twilightforest:fire_beetle", "twilightforest:hedge_spider",
-            "twilightforest:pinch_beetle", "twilightforest:slime_beetle",
             "betteranimalsplus:tarantula"
         ]
     },
@@ -33,7 +28,6 @@ const mob_variant_map = {
             "skeletalremains:sharpshooterskeleton"
         ],
         dragon: [
-            "twilightforest:death_tome", "twilightforest:skeleton_druid",
             "skeletalremains:charredskeleton", "skeletalremains:overgrownskeleton",
             "minecraft:stray"
         ]
@@ -48,10 +42,8 @@ const mob_variant_map = {
     },
     "rottencreatures:frostbitten": {
         nether: [
-            "twilightforest:winter_wolf"
         ],
         dragon: [
-            "twilightforest:yeti"
         ]
     },
     "minecraft:pillager": {

@@ -1,4 +1,4 @@
-// const arthropods = ["minecraft:spider", "minecraft:silverfish", "minecraft:bee", "minecraft:endermite"];
+// const arthropods = ["minecraft:spider", "minecraft:bee", "minecraft:endermite"];
 
 // const attack_effects = {
 // 	"kubejs.fire_aspect": (attacker, taker, lvl) => {

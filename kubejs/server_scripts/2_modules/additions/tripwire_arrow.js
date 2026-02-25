@@ -5,7 +5,7 @@ PlayerEvents.chestOpened(e => {
 
 	const {player, level, block} = e;
 	const item = inventory.getItem(slot);
-	item.count--;
+	item.shrink(1);
 
 	const {x, y, z} = block;
 	const vec = player.getViewVector(1).scale(-1);

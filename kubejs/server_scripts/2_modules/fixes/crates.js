@@ -14,13 +14,13 @@ const crates = {
 };
 
 function crate_fix(e) {
-	const {player, item} = e;
+	const { player, item } = e;
 	const crateId = crates[item.id];
-	if(!crateId || !player.isCrouching()) return;
+	if (!crateId || !player.isCrouching()) return;
 
 	e.level.runCommandSilent(`loot give ${player.username} loot gofish:gameplay/fishing/${crateId}`);
 	global.sound(player, "entity.item.pickup", 1, 1, 0.2);
-	item.count--;
+	item.shrink(1);
 }
 
 BlockEvents.rightClicked(e => crate_fix(e))

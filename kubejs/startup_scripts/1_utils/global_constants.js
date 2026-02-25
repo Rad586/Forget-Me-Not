@@ -15,6 +15,7 @@ function globalPack(from, pre, map) {
 
     from.forEach(i => {
         const temp = pre(i);
+        if(!temp) return;
         map_entries.forEach(
             ([key, func]) => {
                 if (func(temp)) global[key].push(i)
@@ -49,18 +50,19 @@ if(!global.Slabs) {
         i => i.item,
         {
             "Shovels": (i) => i instanceof ShovelItem,
-            "Weapons": (i) =>
-                (i instanceof SwordItem) ||
-                (i instanceof AxeItem),
-            "Armors": (i) => i instanceof ArmorItem
+            "Swords": (i) => i instanceof SwordItem,
+            "Armors": (i) => i instanceof ArmorItem,
+            "Axes": (i) => i instanceof AxeItem,
+            "Durables": (i) => i.maxDamage != 0,
+            "Pickaxes": (i) => i instanceof PickaxeItem,
         }
     )
-    global.Upgradeables = global.Weapons.concat(global.Armors)
+    global.Upgradeables = global.Swords.concat(global.Armors)
 
 
     global.colored_blocks = {};
     let { colored_blocks } = global;
-    let isExist = (str1, str2) => !Item.of(`${str1}:pink_${str2}`).isEmpty();
+    let isExist = (str1, str2) => Item.exists(`${str1}:pink_${str2}`);
     let handler = (str, i) => str.slice(i).join("_");
     Block.getIds().forEach(key => {
         const { namespace, path } = key;
@@ -92,7 +94,7 @@ if (server && !global.attackable_pets) {
             "fireballs": (i) => i instanceof Fireball,
             "zombies": (i) => i instanceof Zombie,
             "arrows": (i) => i instanceof AbstractArrow,
-            "skeletons": (i) => i instanceof Skeleton
+            "skeletons": (i) => (i instanceof Skeleton) && i.type.includes("skeleton")
         }
     )
 }

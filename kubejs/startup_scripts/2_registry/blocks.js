@@ -114,6 +114,7 @@ StartupEvents.registry("block", e => {
 				.textureAll(`minecraft:block/${leaf}_leaves`)
 				.color(0, Color[`${color.toUpperCase()}_DYE`])
 				.item(i => i.color(0, ItemTintFunction.BLOCK))
+				.waterlogged()
 
 			checkThenWrite(`${mp}/${key}_leaf_pile.json`, model_leaf_pile(leaf));
 			/*block states for bushy look was done in client script*/

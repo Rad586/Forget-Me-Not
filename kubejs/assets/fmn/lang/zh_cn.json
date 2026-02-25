@@ -4,7 +4,6 @@
 	"dialogue.fmn.enchanted_golden_feather":"§8右键试试",
 	"dialogue.fmn.villagers_weapon":"如果你知道怎么使用的话，这会是一把不错的武器",
 	"dialogue.fmn.villagers_armor":"由村民科技™提供技术支持",
-	"dialogue.fmn.crown_of_scarlet":"§4一顶被血液浸染的王冠",
 	"dialogue.fmn.throwable":"§8可投掷",
 	"dialogue.fmn.bundle":"§8可用于制作收纳袋",
 	"dialogue.fmn.recovery_compass":"§8可用于制作追溯珍珠",
@@ -79,7 +78,6 @@
 	"dialogue.fmn.ender_dragon_death":"被末影龙击杀将减少总计1点最大生命值",
 	"dialogue.fmn.normal_chest_mimic":"你可以使用宝箱怪手铃驯服宝箱怪",
 	"dialogue.fmn.mimic":"手持铁块或金块，潜行右键以投喂",
-	"dialogue.fmn.helper":"部分容器左上角折叠了使用帮助",
 	"dialogue.fmn.hot_biome":"脱护甲/接触水/进地下/靠近重生点 以降温",
 	"dialogue.fmn.cold_biome":"全护甲/着火/疾跑/进地下/靠近重生点 以升温",
 	"dialogue.fmn.falling_star":"被流星直接击中似乎会发生什么…",
@@ -162,7 +160,6 @@
 	"dialogue.fmn.dist1":"距上次死亡点：",
 	"dialogue.fmn.dist2":"距出生点：",
 	"dialogue.fmn.time":"当前时间：",
-	"dialogue.fmn.unique_item":"已掉落独特道具！",
 	"dialogue.fmn.fletching_table":"制箭台可用于强化弓弦",
 	"dialogue.fmn.medallion":"§8相当于不死图腾，仅下界可用",
 	"dialogue.fmn.sapling":"植物会尝试种植自身",
@@ -176,7 +173,6 @@
 	"dialogue.fmn.no_haunting": "启用了恼鬼惩罚",
 	"dialogue.fmn.villager_denial":"村民感到自由受限，拒绝交易",
 	"dialogue.fmn.soul_remnant_tip":"你的生命值最大为40，多余的会被暂存",
-	"dialogue.fmn.campfire":"空手右键营火以小憩",
 	"dialogue.fmn.coal_ore":"非潜行破坏将使煤矿矿脉坍塌",
 	"dialogue.fmn.oak_door":"潜行左键门以敲击",
 	"dialogue.fmn.hay_block":"§8可用于合成试验假人",
@@ -186,18 +182,11 @@
 	"dialogue.fmn.raider":"位袭击者",
 	"dialogue.fmn.elder_guardian":"远古守卫者被击杀，已移除挖掘疲劳！",
 
-	"item.kubejs.crown_of_scarlet":"§4猩红王冠",
 	"item.kubejs.medallion_of_undying":"免死金牌",
 	"item.kubejs.medallion_of_undying_activated":"免死金牌激活图标",
-	"item.kubejs.greatsword_of_blood":"§4鲜血巨剑",
-	"item.kubejs.snowwhisper":"§3吹雪",
-	"item.kubejs.inferno":"流火",
-	"dialogue.fmn.snowwhisper":"§8疾跑/潜行/离地时有不同居合斩效果",
+
 	"item.kubejs.heart_of_demon":"恶魔之心",
 	"dialogue.fmn.heart_of_demon":"§8永生的代价是…",
-	"item.kubejs.golden_cudgel":"金箍棒",
-	"item.kubejs.golden_cudgel_small":"金箍棒",
-	"item.kubejs.golden_cudgel_large":"金箍棒",
 	"item.kubejs.fire_extinguisher":"灭火器",
 	"item.kubejs.iron_golem": "铁傀儡",
 	"item.kubejs.snow_golem": "雪傀儡",
@@ -409,11 +398,5 @@
 	"enchantment.kubejs.shocking.desc":"连锁攻击目标外敌人",
 
 	"enchantment.kubejs.regeneration":"再生",
-	"enchantment.kubejs.regeneration.desc":"受击后缓慢再生",
-
-	"enchantment.kubejs.golden_cudgel":"金箍棒",
-	"enchantment.kubejs.golden_cudgel.desc":"起跳右键腾空，再次右键下砸；潜行右键变形",
-
-	"enchantment.kubejs.greatsword_of_blood":"鲜血巨剑",
-	"enchantment.kubejs.greatsword_of_blood.desc":"以血换血"
+	"enchantment.kubejs.regeneration.desc":"受击后缓慢再生"
 }

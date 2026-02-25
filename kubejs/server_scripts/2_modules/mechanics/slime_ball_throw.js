@@ -1,6 +1,6 @@
 ItemEvents.rightClicked("minecraft:slime_ball", e => {
-	const {level, player, item} = e;
-	item.count--;
+	const { level, player, item } = e;
+	item.shrink(1);
 	const ball = level.createEntity("kubejs:slime_ball");
 
 	ball.setDeltaMovement(player.lookAngle.scale(1));

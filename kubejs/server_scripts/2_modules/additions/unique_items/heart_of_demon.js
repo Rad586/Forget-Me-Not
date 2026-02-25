@@ -18,7 +18,7 @@ const demon_effects = {
 };
 
 function heart_of_demon(e) {
-    const entity = e.entity;
+    const {entity} = e;
     const {x, y, z, level, server} = entity;
 
     if(!entity.isHoldingInAnyHand("kubejs:heart_of_demon")) return;
@@ -35,7 +35,7 @@ function heart_of_demon(e) {
     });
     server.scheduleInTicks(30, () => global.sound(entity, "entity.warden.heartbeat", 2, 0.6, 0.1));
 
-    level.getEntitiesWithin(AABB.of(x-4, y-2, z-4, x+4, y+2, z+4)).forEach((entity2) => {
+    level.getEntitiesWithin(entity.boundingBox.inflate(4, 2, 4)).forEach((entity2) => {
         if(!entity2.isLiving() || entity2 == entity) return;
         entity2.knockback(1.0, x-entity2.x, z-entity2.z);
     });	

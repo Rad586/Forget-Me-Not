@@ -24,17 +24,17 @@ function slime_ball_entity(entity, result) {
 
     const target = result.entity;
     if(target == entity.owner) {
-        target.give("slime_ball");
+        target.give("slime_ball")
     }
-    else if(target instanceof Slime){
+    else if(target instanceof Slime && target.health < target.maxHealth){
         target.heal(2);
-        global.sound(target, "entity.puffer_fish.blow_up", 0.48, 1.4);
+        target.playSound("entity.puffer_fish.blow_up", 0.48, 1.4);
         global.particleBurst(target, "heart", 3, 0.06, 0.4, entity.eyeY);
     }
-    else if(Object.keys(global.evolutionMap).includes(target.type)){
+    else if(Object.keys(global.evolutionMap).includes(target.type) && server.persistentData.nether_stage){
         evolution(server.persistentData.nether_stage, target, 1);
         target.potionEffects.add("slowness", 24, 0);
-        global.sound(target, "entity.generic.eat", 0.55, 0.8);
+        target.playSound("entity.generic.eat", 0.55, 0.8);
     };
 
     if(entity.isOnFire()) target.setSecondsOnFire(1.5);
@@ -42,5 +42,5 @@ function slime_ball_entity(entity, result) {
     entity.discard();
 
     global.particleBurst(target, "item_slime", 4);
-    global.sound(target, "block.slime_block.break", 0.4, 1.1);
+    target.playSound("block.slime_block.break", 0.4, 1.1)
 }

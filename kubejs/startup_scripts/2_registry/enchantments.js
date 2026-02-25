@@ -157,7 +157,7 @@ StartupEvents.registry("enchantment", e => {
 
 				if (user.isPlayer()) user.statusMessage = Text.translate(`dialogue.fmn.annoying${random.nextInt(0, 9)}`);
 				global.sound(user, "entity.wither.ambient", 0.5, 1, 0.2);
-				user.level.getEntitiesWithin(user.boundingBox.inflate(6)).forEach(entity => {
+				user.level.getEntitiesWithin(user.boundingBox.inflate(6, 1, 6)).forEach(entity => {
 					if (!entity.isMonster()) return;
 					entity.attack(user, 0);
 					entity.target = user;
@@ -197,106 +197,7 @@ StartupEvents.registry("enchantment", e => {
 				if (target.isInWaterOrRain()) global.shocking(user, target, 7, 3);
 				else global.shocking(user, target, 4, 1.5);
 			})
-
-
-
-
-
-
-	e.create("inferno")
-		.weapon()
-		.undiscoverable()
-		.untradeable()
-		.veryRare()
-		.postAttack(
-			(user, target, level) => {
-				if (ec_check(target, "sec9") || target.isAlive()) return;
-				const { eyeHeight } = target;
-
-				const small_fireball = user.level.createEntity("minecraft:small_fireball");
-
-				global.particleRing("spread", 12, 0, 0, target, "small_flame", 1, eyeHeight);
-				user.potionEffects.add("strength", 80, 0, true, false);
-
-				Utils.server.scheduleInTicks(15, () => {
-					声声global.sound(user, "bettercombat:double_axe_swing", 0.6, 0.5, 0.3);
-
-					small_fireball.mergeNbt({ ExplosionPower: Math.min(1.5, target.maxHealth / 20) });
-					small_fireball.copyPosition(target);
-					small_fireball.y += eyeHeight;
-					small_fireball.spawn();
-				})
-			})
-
-	e.create("golden_cudgel")
-		.weapon()
-		.undiscoverable()
-		.untradeable()
-		.veryRare()
-		.postAttack(
-			(user, target, level) => {
-				if (ec_check(target, "sec35")) return;
-				const { fallDistance, potionEffects } = user;
-				const { maxHealth } = target;
-				if (!target.isAlive() || target.health / maxHealth < 0.05) {
-					const duration = Math.min(maxHealth, 100)
-					potionEffects.add("strength", duration, 0, true, false);
-					potionEffects.add("resistance", duration, 0, true, false);
-					potionEffects.add("haste", 10, 9, true, false);
-
-					声声global.sound(target, "bettercombat:hammer_slam", 0.8, 1.48);
-					global.particleBurst(target, "flame", 12, 0.4);
-					global.particleBurst(target, "large_smoke", 8, 0.06, 0.3);
-				}
-				else {
-					if (Client.player.isSprinting()) {
-						if (!user.isCrouching()) return;
-						const dir = user.lookAngle.scale(1.6);
-
-						user.setDeltaMovement(dir);
-						user.motionY += 0.1;
-						user.setSprinting(true);
-						user.hurtMarked = true;
-						user.potionEffects.add("kubejs:invincible", 5, 0, true, false);
-
-						target.knockback(1.6, user.x - target.x, user.z - target.z);
-					}
-					else if (fallDistance > 0.5) {
-						const fall_multiplier = Math.min(fallDistance + 20, 40);
-						target.potionEffects.add("weakness", fall_multiplier, 9, true, false);
-						target.potionEffects.add("slowness", fall_multiplier, 9, true, false);
-
-						target.target = null;
-						user.resetFallDistance();
-
-						global.particleBurst(target, "flame", 12, 0.4);
-						global.particleBurst(target, "large_smoke", 8, 0.06, 0.3);
-					}
-				}
-			})
-
-	e.create("greatsword_of_blood")
-		.weapon()
-		.veryRare()
-		.curse()
-		.treasureOnly()
-		.postAttack(
-			(user, target, level) => {
-				if (ec_check(target, "sec36") || target.isAlive()) return;
-
-				if (Math.random() < 0.14) user.level.createExplosion(user.x, user.y, user.z).strength(3).damagesTerrain(false).explode();
-
-				if (user.hasEffect("kubejs:shadow_form")) {
-					const { duration } = user.getEffect("kubejs:shadow_form");
-					user.heal(3);
-					user.potionEffects.add("kubejs:shadow_form", Math.min(duration + 50, 100), 0, true, true);
-
-					global.particleBurst(target, blood_particle, 18, 0.3, 0.2);
-					global.sound(target, "entity.wither.hurt", 0.2, 0.68, 0.5);
-					global.sound(target, "entity.vex.death", 1.6, 1.07, 0.5);
-				}
-			})
-})
+		})
 
 	// e.create("mountain_king")
 	// 	.checkCompatibility(() => false)

@@ -296,7 +296,7 @@ StartupEvents.registry("mob_effect", e => {
 		.beneficial()
 		.color(0xE05C00)
 		.effectTick((entity, level) => {
-			if(!entity || entity.level.isClientSide() || entity.isInWater() || entity.isInLava()) return;
+			if(!entity || entity.level.isClientSide() || !entity.feetBlockState.fluidState.isEmpty()) return;
 
 			const vec3 = entity.getViewVector(1);
 			entity.setMotionX(vec3.x()*(0.5+level*0.05));
@@ -486,26 +486,6 @@ StartupEvents.registry("mob_effect", e => {
 		.effectTick((entity, level) => {
 			if(checkWithTime(entity, 5) || takeHitCheck(entity)) return;
 			entity.invulnerableTime -= level+1;
-		})
-
-	e.create("parry")
-		.beneficial()
-		.color(0xED7D04)
-		.effectTick((entity, level) => {
-			if(checkWithTime(entity, 5) || takeHitCheck(entity)) return;
-			const {potionEffects, lastHurtByMob, x, eyeY, z} = entity;
-			entity.removeEffect("kubejs:parry");
-
-			potionEffects.add("haste", 15, 3);
-			lastHurtByMob.knockback(1.2, x-lastHurtByMob.x, z-lastHurtByMob.z);
-			potionEffects.add("strength", 15, 1);
-
-			entity.addItemCooldown("kubejs:golden_cudgel", 40);
-			entity.addItemCooldown("kubejs:golden_cudgel_large", 40);
-			entity.addItemCooldown("kubejs:golden_cudgel_small", 40);
-
-			global.sound(entity, "entity.blaze.hurt", 0.6, 1.35);
-			entity.level.spawnParticles("flash", true, x, eyeY, z, 0, 0, 0, 1, 0);
 		})
 	
 
@@ -872,7 +852,7 @@ StartupEvents.registry("mob_effect", e => {
 				player.setSecondsOnFire(1);
 			},
 			criteria: player => {
-				const caving = player.level.dimension == "minecraft:overworld" && player.y < 24;
+				const caving = player.level.isOverworld() && player.y < 24;
 				if(
 					player.armorValue <= 15 || 
 					player.isInWaterOrRain() || 
@@ -896,7 +876,7 @@ StartupEvents.registry("mob_effect", e => {
 				player.ticksFrozen = Math.min(200, player.ticksFrozen + 80);
 			},
 			criteria: player => {
-				const caving = player.level.dimension == "minecraft:overworld" && player.y < 24;
+				const caving = player.level.isOverworld() && player.y < 24;
 				if(
 					global.checkFullArmor(player) ||
 					player.isSprinting() ||

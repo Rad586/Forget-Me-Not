@@ -12,12 +12,6 @@ const bonuses = {
             "minecraft:leather_leggings", "minecraft:leather_boots"
         ],
         bonus: ["speed", 0]
-    },
-    set3: {
-        armors: [
-            "kubejs:crown_of_scarlet"
-        ],
-        bonus: ["strength", 0]
     }
 };
 function armor_set_bonus(context) {

@@ -1,4 +1,4 @@
-const fireResistant = ["dragonloot:dragon_anvil", "minecraft:goat_horn"];
+const fireResistant = ["minecraft:goat_horn"];
 const uncommon =["bosses_of_mass_destruction:soul_star","bosses_of_mass_destruction:void_lily","fancydyes:aurora_dye","fancydyes:flame_dye","fancydyes:aurora_dye","rottencreatures:treasure_chest","probablychests:gold_chest","probablychests:mimic_core","probablychests:pet_mimic_key","probablychests:mimic_key"];
 
 const effectMap = {
@@ -99,6 +99,8 @@ ItemEvents.modification(e => {
 
 	e.modify("minecraft:glistering_melon_slice", item =>
 		item.foodProperties = food => {
+			food.hunger(1);
+			food.saturation(1);
 			food.effect("minecraft:regeneration", 22, 0, 1);
 			food.alwaysEdible();
 			food.fastToEat()
@@ -143,10 +145,47 @@ ItemEvents.modification(e => {
 							const result = global.advancedRayTraceBlock(player, 4);
 							const block = level.getBlock(result.blockPos);
 							return !(
-								block &&
 								block.id == "minecraft:farmland" &&
 								result.direction == "up"
 							)
+						})
+				item.setItemBuilder(builder);
+			})
+		})
+
+	/* axes are not weapons */
+	global.Axes
+		.forEach(i => {
+			e.modify(i.id, item => {
+				item.setAttackDamage(i.attackDamage / 2)
+				item.setAttackSpeed(i.attackSpeed * 1.2)
+			})
+		})
+
+	/* remove durability */
+	global.Durables.forEach(i => e.modify(i.id, item => item.setMaxDamage(0)))
+
+	/* pickaxe utility */
+	global.Pickaxes
+		.map(i => i.asItem().id)
+		.forEach(id => {
+			e.modify(id, item => {
+				const builder =
+					new ItemBuilder(id)
+						.use((level, player, hand) => {
+							if(level.isClientSide()) return false;
+
+							const result = global.advancedRayTraceBlock(player, 4);
+							const stack = player.inventory.allItems.find(i => i.id == "minecraft:torch");
+
+							if (stack && stack.useOn(new UseOnContext(
+								level, player, hand, stack, result
+							)).consumesAction()) {
+								level.playSound(null, result.blockPos, "block.stone.place", "blocks", 0.68, 1);
+								player.swing()
+							};
+
+							return false
 						})
 				item.setItemBuilder(builder);
 			})

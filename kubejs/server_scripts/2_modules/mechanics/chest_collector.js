@@ -28,10 +28,11 @@ global.Chests.forEach(chest => {
         const main_chest = left_type ? block[facing_dir.getClockWise()] : block;
         const { inventory } = main_chest;
 
-        const item_entities = e.level.getEntitiesWithin(aabb)
-            .filter(e => e.type == "minecraft:item");
+        const item_entities = e.level.getEntities(
+            EntityType.ITEM, aabb, 
+            ie => !ie.tags.contains("flying"));
         if (item_entities.isEmpty()) {
-            player.statusMessage = Text.translate("dialogue.fmn.not_found")
+            player.statusMessage = Text.translate("dialogue.fmn.not_found");
             return
         };
 
