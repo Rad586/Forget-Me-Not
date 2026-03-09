@@ -80,7 +80,7 @@ It is highly suggested to use higher versions of java. 
 * brucethemoose. [Minecraft-Performance-Flags-Benchmarks](https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks)
 * Griefed. [ServerPackCreator.](https://serverpackcreator.de/#/)
 
-**BGM used**
+**BGM used**: 
  - c1h1: Big Eyes - Rafael Krux
  - c2h2n4: Chill Bells - Frank Nora
  - c3h3: Cockroaches - Alexander Nakarada
