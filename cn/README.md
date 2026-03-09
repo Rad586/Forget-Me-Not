@@ -227,7 +227,7 @@ _在12视距，5模拟距离，最大帧数95的情况下：_
  - credits: The only reason we end here - Komiku
  - death: Die in the forest - Komiku
 
-**感谢所有的Minecraft社区贡献者**！
+**感谢所有无私贡献的创作者**！
 
 ![image](https://github.com/Rad586/Forget-Me-Not/assets/99306685/899561d2-07aa-4f2c-b20b-2034f9f81c56)
 
