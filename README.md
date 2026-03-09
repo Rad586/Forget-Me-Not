@@ -77,14 +77,152 @@ It is highly suggested to use higher versions of java. 
 * EminGT. [Complementary Shaders v4, v5 shader.](https://modrinth.com/shader/complementary-unbound)
 * X0nk. [Bliss shader.](https://modrinth.com/shader/bliss-shader)
 * Sixthsurge. [Photon shader.](https://github.com/sixthsurge/photon?tab=MIT-1-ov-file)
-* HarrisHeller. https://www.senpai.tv/streambeats/
-* [soundeffect-lab.info](https://soundeffect-lab.info/)
-* [www.soundjay.com](https://www.soundjay.com/)
-* [freepd.com](https://freepd.com/)
-* Komiku. [Her Twitter](https://twitter.com/RrrrroseAzerty)
-* Alexander Nakarada. [His Twitter](https://twitter.com/thenakarada)
 * brucethemoose. [Minecraft-Performance-Flags-Benchmarks](https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks)
 * Griefed. [ServerPackCreator.](https://serverpackcreator.de/#/)
+
+**BGM used: **
+c1h1: Big Eyes - Rafael Krux
+c2h2n4: Chill Bells - Frank Nora
+c3h3: Cockroaches - Alexander Nakarada
+c4h4: Hidden Truth - Rafael Krux
+c5h5: Hor Hor - Alexander Nakarada
+c6h6: Horror Mystery - Rafael Krux
+c7h7: Horroriffic - Kevin MacLeod
+c8h8: Midnight in the Green House - Kevin MacLeod
+c9h9: Mysterious Lights - Bryan Teoh
+c10h10: The Land of the Dead - Rafael Krux
+c11h11: Burt's Requiem - Alexander Nakarada
+c12: Time Flute's Place - Komiku
+d1: Bleu - Komiku
+d2: Music for Funeral Home - Part 8 - Kevin MacLeod
+d3: Horizon Flare - Alexander Nakarada
+d4: Martini Sunset - Kevin MacLeod
+d5: Moving On - Harris Heller
+d6: Nomadic Sunset - Alexander Nakarada
+d7: Walking Stars - Rafael Krux
+d8: Witch Waltz - Kevin MacLeod
+d9: Bonjour from Paris, Nantes and Montreal - 16 Se recourber - MonPlaisir
+d10: Remember This Shadow - Komiku
+d11l28: Music for Funeral Home - Part 6 - Kevin MacLeod
+d12: Music for Funeral Home - Part 5 - Kevin MacLeod
+d13: The place that never get old - Komiku
+d14: This Must Be the Place - MonPlaisir
+d15: Flashback - MonPlaisir
+d16: Facing It - MonPlaisir
+e1n2: Bass Meant Jazz - Kevin MacLeod
+e2n7: Kalimba Relaxation Music - Kevin MacLeod
+e3n6: Lonely Mountain - Rafael Krux
+e4: Mana Two - Part 1 - Kevin MacLeod
+e5: Mana Two - Part 2 - Kevin MacLeod
+e6: Mana Two - Part 3 - Kevin MacLeod
+e7n3: Satin Danger - Kevin MacLeod
+enderdragon: Alien Invasion - Rafael Krux
+f1: Rubix Cube - Jason Shaw
+f2: I Got 99 Broadswords but This One Isn't One - Komiku
+f3: The Message to the Fish - DimensionBucket
+f4: No Rocking in the Jazzhands Zone - Peter Gresser
+f5: The Lobster Quadrille - DimensionBucket
+gauntlet: Boss Battle - Kevin MacLeod
+h12s7: Nordic Wist - Kevin MacLeod
+i1: Fairy Dance - Rafael Krux
+i2: Relaxing Ukulele - 03 Time Gap - MonPlaisir
+i3: Morning Snowflake - Kevin MacLeod
+i4l31: Reflecing on Ideals - Kevin MacLeod
+i5: Roquefort Prolog - Kevin MacLeod
+i6: Waterlilies 3 - Kevin MacLeod
+i7: Friends, 2018 - Komiku
+i8: When you see that you were subject of experiment - Komiku
+i9: A calm moment to remember before taking the dangerous road - Komiku
+i10: Beach - Komiku
+i11: Wake up, heroic figure - Komiku
+l1: A Waltz For Naseem - dogsounds
+l2: Cycles - Harris Heller
+l3: Delete World - Harris Heller
+l4: Enchanting Table - Harris Heller
+l5: End Poem - Harris Heller
+l7: Music for Funeral Home - Part 7 - Kevin MacLeod
+l8: Iron Golem - Harris Heller
+l9: Isolation Waltz - Bryan Teoh
+l10: Journey To The Far Lands - Harris Heller
+l11: La Citadelle - Komiku
+l12: Magic in the Garden - Rafael Krux
+l13: Morning Dew - Harris Heller
+l14r4: Nostalgic Piano - Rafael Krux
+l15r3: Painting Room - Kevin MacLeod
+l17: Petrichor - Harris Heller
+l18: Pond - Rafael Krux
+l19: Riverside Cottage - Harris Heller
+l20: Sandbox - Harris Heller
+l21: Serenity - Harris Heller
+l22: Sleepyhead - Harris Heller
+l23: Slice of Life - Bryan Teoh
+l24: The Crown - Alexander Nakarada
+l25: The Story - Alexander Nakarada
+l26: Music for Funeral Home - Part 9 - Kevin MacLeod
+l27: Winter - Alexander Nakarada
+l29: Music for Funeral Home - Part 3 - Kevin MacLeod
+l30: Sadness on White Keys - Kevin MacLeod
+l33: First Quest - Kevin MacLeod
+l34: Someday I'll like you but before let me rest in my solitude (Lonely character's theme) - Komiku
+l35: Emotional Piano - Rafael Krux
+l36: Fantastic A - Kevin MacLeod
+l39: The Ruins - Komiku
+l40: Fear of being mistaken - Komiku
+l41: On the tracks of the elders - Komiku
+l42: The main reason we are here - Komiku
+l43: The main reason we cry so much - Komiku
+l44: Sweet night and friends - Komiku
+l45: An Anarchist Utopia - Komiku
+l46: Credits, thank you for playing - Komiku
+l47: Princess Cheese Burger - Komiku
+l48: A forest for you and me - Komiku
+l49: The Sickness - MonPlaisir
+lich: Right Around the Corner - Arthur Fordsworthy
+n1: Ancient Rite - Kevin MacLeod
+n5: Chill Openness - Frank Nora
+n8: Lawful Victim Unit - Kevin MacLeod
+n10: Walk in the forest - Komiku
+n11: Fight in the forest - Komiku
+n12: A silence in the forest - Komiku
+obsidilith: Epic Character Selection Screen Loop - Kevin MacLeod
+r1: Victory - Komiku
+r2s4: Connecting Rainbows - Kevin MacLeod
+r5: vavin - Cuicuitte
+r6: Sincere Love - MonPlaisir
+r7: Stay Quiet - MonPlaisir
+r8: On the road, looking at your feet - MonPlaisir
+r9: Floating Temple - MonPlaisir
+r10: Hop - MonPlaisir
+r11: Rouge - Komiku
+r12: Childhood scene - Komiku
+r13: The truth about your story - Komiku
+r14: The night before the fight of our life - Komiku
+r15: Spell me your love - MonPlaisir
+r16: Narcissus smells like headache - MonPlaisir
+r17: Sweet potato - MonPlaisir
+r18: No need to - MonPlaisir
+raid: Jungle Run-01 - www.SoundJay.com
+s1: Adding the Sun - Kevin MacLeod
+s2: Amazing Grace - Kevin MacLeod
+s3: Champ de tournesol - Komiku
+s5: Lovely Piano Song - Rafael Krux
+s6: Meditating Beat - Kevin MacLeod
+s8: Northur - Alexander Nakarada
+s9: Novus Initium - Alexander Nakarada
+s10: The Celebrated Minuet for Piano - Rafael Krux
+s11: Wisdom in the Sun - Kevin MacLeod
+s12: Dance of the Turtle - Kevin MacLeod
+s13: Music for Funeral Home - Part 2 - Kevin MacLeod
+s14: Music for Funeral Home - Part 10 - Kevin MacLeod
+s15: Orchestra Demo - Kevin MacLeod
+voidblossom: Chase Pulse Faster - Kevin MacLeod
+wither: Low Level Action A - Kevin MacLeod
+m1: Patience Party - Kevin MacLeod
+m2: Someday I'll like you but before let me rest in my solitude (Lonely character's theme) - Komiku
+m3: Painting Room - Kevin MacLeod
+m4: The main reason we are here - Komiku
+credits: The only reason we end here - Komiku
+death: Die in the forest - Komiku
 
 **Thanks for all creative creators**! 
 
