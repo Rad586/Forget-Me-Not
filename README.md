@@ -79,6 +79,7 @@ It is highly suggested to use higher versions of java. 
 * Sixthsurge. [Photon shader.](https://github.com/sixthsurge/photon?tab=MIT-1-ov-file)
 * brucethemoose. [Minecraft-Performance-Flags-Benchmarks](https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks)
 * Griefed. [ServerPackCreator.](https://serverpackcreator.de/#/)
+* Google Gemini. AI really helps solving math problems in scripts.
 
 ### **BGM used**: 
  - c1h1: Big Eyes - Rafael Krux
