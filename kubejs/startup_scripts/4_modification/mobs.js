@@ -4,11 +4,11 @@ EntityJSEvents.modifyEntity(e => {
 	/* may prevent memory leak */
 	const {
 		ally, dimensionalMobs, projectiles,
-		preys, evolutionMap,
+		preys, evolutionMap, pets, 
 		released_fish, fireballs,
 		spiders, monsters2, skeletons, 
 		attackable_pets, creepers, zombies, 
-		arrows
+		arrows, raiders
 	} = global;
 
 	const pdata = server.persistentData;
@@ -193,6 +193,7 @@ EntityJSEvents.modifyEntity(e => {
 				if (!server) return;
 				animal_fear(entity, server);
 				lightning_conversion(entity);
+				conducting(entity)
 			})
 	)
 
@@ -243,7 +244,7 @@ EntityJSEvents.modifyEntity(e => {
 			.canBeAffected(context => !context.entity.hasEffect("kubejs:purity"))
 			.isInvulnerableTo(context => player_hurt(context))
 			.calculateFallDamage(context => fall_damage_modifier(context))
-			.onEffectAdded(context => bad_omen_tweak(context))
+			.canBeAffected(context => conditional_effects(context, dragon_stage))
 	)
 
 	e.modify("minecraft:dragon_fireball", modifyBuilder =>
@@ -257,7 +258,7 @@ EntityJSEvents.modifyEntity(e => {
 				.onAddedToWorld(entity => {
 					const { server } = entity;
 					if (!server) return;
-					flame_effect(entity)
+					flame_effect(entity);
 					splitting_arrow(entity, dragon_stage, server)
 				})
 				.tick(entity => {
@@ -300,6 +301,20 @@ EntityJSEvents.modifyEntity(e => {
 		e.modify(pet, modifyBuilder =>
 			modifyBuilder
 				.canAttack(context => passive_on_low(context))
+		)
+	})
+
+	pets.forEach(pet => {
+		e.modify(pet, modifyBuilder =>
+			modifyBuilder
+				.isInvulnerableTo(context => pet_immunity(context))
+		)
+	})
+
+	raiders.forEach(raider => {
+		e.modify(raider, modifyBuilder =>
+			modifyBuilder
+				.onAddedToWorld(entity => no_sneaky_raiders(entity))
 		)
 	})
 })
