@@ -8,7 +8,7 @@ function modBobby(player) {
     const rd = Client.options.renderDistance().get();
     const BobbyConfig = Bobby.getInstance().getConfig();
 
-    if (Math.hypot(last_pos[0] - x, last_pos[1] - z) < 5.3) { /* sprinting > n > walking */
+    if ((last_pos[0] - x) ** 2 + (last_pos[1] - z) ** 2 < 5.3 ** 2) { /* sprinting > n > walking */
         if (!Client.isPaused()) stay++ /* pause with game pause */
     }
     else stay = 0;
