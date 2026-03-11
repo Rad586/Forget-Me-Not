@@ -39,7 +39,7 @@ NetworkEvents.dataReceived("coral_wet", e => {
     const item = player.mainHandItem;
     const info = coral_map[item.id];
     const x = pos[0], y = pos[1], z = pos[2];
-    const block = level.getBlock(x, y, z);
+    const block = level.getBlock(pos);
 
     if (info.action) info.action(item, player);
     block.set(id, block.properties);

@@ -25,13 +25,13 @@ ItemEvents.rightClicked(["water_bucket", "potion"], e => {
     const { item, player } = e, { nbt } = item;
     if (nbt && nbt.Potion != "minecraft:water") return;
 
-    const { block } = e.target, { id } = block;
-    if (!block || !coral_dead.includes(id) || player.isCrouching()) return;
+    const { block } = e.target;
+    if (!block || !coral_dead.includes(block.id) || player.isCrouching()) return;
 
     const { x, y, z } = block;
     player.sendData("coral_wet", {
         pos: [x, y, z],
-        id: id.replace("minecraft:dead_", "waxablecoral:waxed_")
+        id: block.id.replace("minecraft:dead_", "waxablecoral:waxed_")
     });
     e.cancel()
 })

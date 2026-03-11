@@ -18,7 +18,7 @@ NetworkEvents.dataReceived("farmland_wet", e => {
     const item = player.mainHandItem;
     const info = farmland_map[item.id];
     const x = pos[0], y = pos[1], z = pos[2];
-    const block = level.getBlock(x, y, z);
+    const block = level.getBlock(pos);
 
     if (info.action) info.action(item, player);
     block.set("minecraft:farmland", { moisture: global.toInt(7) });
