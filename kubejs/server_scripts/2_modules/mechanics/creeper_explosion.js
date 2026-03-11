@@ -27,6 +27,8 @@ const area_cloud_nbt = (size) => [
     }`
 ];
 function creeper_explosion(level, exploder, x, y, z, size) {
+    exploder.removeAllEffects();
+
     if (exploder.isUnderWater()) {
         level.spawnParticles(
             "bubble_column_up", true,
