@@ -13,20 +13,28 @@ global.particleBurstBlock2 = (block, particleId, count, speed, spread) => {
 	level.spawnParticles(particleId, true, x+0.5, y+0.5, z+0.5, spread, spread, spread, count, speed);
 }
 
-const modeMap = {
-	"static": "",
-	"spread": "10000000000000",
-	"gather": "-10000000000000"
+const mode_map = {
+	"spread": 1, "gather": -1, "static": 0
 };
-global.particleRing = (mode, count, delay, dist, entity, particleId, speed, yOverride) => {
-	let {x, y, z, level, eyeHeight} = entity;
-	yOverride = yOverride || 0;
+global.particleRing2 = (mode, count, dist, entity, particleId, speed, yOverride) => {
+	const { x, y, z, level, eyeHeight } = entity;
+	const finalY = y + (eyeHeight / 4) + (yOverride || 0);
+	const index = mode_map[mode];
 
-	for(let i = 0, counter = 0; i < count; i++) {
-		server.scheduleInTicks(delay*i, () => {
-			counter++;
-			level.runCommandSilent(`execute rotated ${counter * 360/count} 0 positioned ${x} ${y+eyeHeight/4+yOverride} ${z} run particle ${particleId} ^ ^ ^${dist} ^ ^ ^${modeMap[mode]} ${(speed*0.00000000000001).toFixed(18)} 0 force`)
-		})
+	for (let i = 0; i < count; i++) {
+		let angle = (i * 2 / count) * 3.14;
+
+		let vx = index * Math.cos(angle) * speed;
+		let vz = index * Math.sin(angle) * speed;
+
+		level.spawnParticles(
+			particleId, true,
+			x + Math.cos(angle) * dist,
+			finalY,
+			z + Math.sin(angle) * dist,
+			vx, 0, vz,
+			0, 1
+		)
 	}
 }
 
@@ -226,30 +234,3 @@ global.reloadClientScript = () => KubeJS.PROXY.reloadClientInternal();
 
 const Integer = Java.loadClass("java.lang.Integer")
 global.toInt = (value) => Integer.valueOf(value.toString())
-
-global.particleRing2 = (mode, count, dist, entity, particleId, speed, yOverride) => {
-	const { x, y, z, level, eyeHeight } = entity;
-	const finalY = y + (eyeHeight / 4) + (yOverride || 0);
-	const mode_map = {
-		"spread": 1, "gather": -1, "static": 0
-	}
-	const index = mode_map[mode];
-	for (let i = 0; i < count; i++) {
-		let angle = (i * 2 / count) * 3.14;
-		let vx, vz;
-
-		vx = index * Math.cos(angle) * speed;
-		vz = index * Math.sin(angle) * speed;
-
-		level.spawnParticles(
-			particleId,
-			true,
-			x + Math.cos(angle) * dist,
-			finalY,
-			z + Math.sin(angle) * dist,
-			0,
-			vx, 0, vz,
-			1
-		)
-	}
-}

@@ -219,8 +219,7 @@
 //宝箱无法破坏改为“开启宝箱吸引仇恨，宝箱内物资等待出现结果”
 
 ItemEvents.rightClicked(e => {
-    // global.particleRing2("spread", 8, 1, e.player, "smoke", 0.05)
-    // e.server.tell(e.level.getHeight("motion_blocking", e.player.x, e.player.z))
+    global.particleRing2("gather", 8, 1, e.player, "flame", 0.05)
 })
 //测试globalring2
 // LevelEvents.tick(e => {
