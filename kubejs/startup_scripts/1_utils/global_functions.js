@@ -234,3 +234,5 @@ global.reloadClientScript = () => KubeJS.PROXY.reloadClientInternal();
 
 const Integer = Java.loadClass("java.lang.Integer")
 global.toInt = (value) => Integer.valueOf(value.toString())
+
+global.totemAnimation = (player, item) => player.sendData("totemAnimation", {item: item})
