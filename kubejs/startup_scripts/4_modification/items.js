@@ -158,7 +158,8 @@ ItemEvents.modification(e => {
 		.forEach(i => {
 			e.modify(i.id, item => {
 				item.setAttackDamage(i.attackDamage / 2)
-				item.setAttackSpeed(i.attackSpeed * 1.2)
+				item.setAttackSpeed((1.2 * (4 + i
+					.getAttributes("minecraft:generic.attack_speed")[0].amount)).toFixed(1))
 			})
 		})
 
