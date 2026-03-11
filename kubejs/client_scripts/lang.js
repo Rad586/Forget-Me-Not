@@ -82,7 +82,6 @@ const effects = {
 	"hot":"高温",
 	"cold":"低温",
 	"normal_temp":"常温",
-	"bad_omen_check":"不祥之兆检测",
 	"fight_back":"反击",
 	"dragon_powered":"龙之吐息",
 	"midas_curse":"迈达斯诅咒",

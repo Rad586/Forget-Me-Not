@@ -9,7 +9,6 @@ PlayerEvents.loggedIn(e => {
         pData.remove('effects')
     }
 
-    potionEffects.add("kubejs:bad_omen_check", 1, 0, true, false);
     if (player.team == "net.minecraft.class_268@57dfd0e3") {
         server.runCommandSilent(`team leave ${username}`)
     };
