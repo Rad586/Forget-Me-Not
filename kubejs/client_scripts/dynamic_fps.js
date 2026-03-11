@@ -4,7 +4,7 @@ function revertFps(framerateLimit) {
     framerateLimit.set(global[limit_old]);
     [dynfpsing, limit_old].forEach(i => global[i] = false)
 }
-function decreaseFps(framerateLimit) {
+function decreaseFps(framerateLimit, limit_now) {
     if (!global[dynfpsing]) global[limit_old] = limit_now;
     global[dynfpsing] = true;
 
@@ -14,12 +14,14 @@ function decreaseFps(framerateLimit) {
 
 function dynamicFps() {
     const framerateLimit = Client.options.framerateLimit();
+    const limit_now = framerateLimit.get();
+
     if (!Client.isWindowActive()) {
-        if (framerateLimit.get() != 10) {
-            decreaseFps(framerateLimit)
+        if (limit_now != 10) {
+            decreaseFps(framerateLimit, limit_now)
         }
     }
-    else if (framerateLimit.get() != global[limit_old]) {
+    else if (limit_now != global[limit_old]) {
         revertFps(framerateLimit)
     }
 }
