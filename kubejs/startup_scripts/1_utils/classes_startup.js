@@ -94,7 +94,7 @@ global.class_map = {
     "KubeJS": "dev.latvian.mods.kubejs.KubeJS",
 
     "UUID": "java.util.UUID",
-    "{ MAX_VALUE }": "java.lang.Integer"
+    "Integer": "java.lang.Integer"
 }
 
 global.load_classes = (scope) => {

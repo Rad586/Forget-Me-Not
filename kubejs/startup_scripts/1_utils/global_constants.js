@@ -3,6 +3,7 @@
 const { random, server } = Utils
 
 global.randomUuid = UUID.randomUUID() /* Credit: Liopyu */
+global.MAX_VALUE = Integer.MAX_VALUE
 
 global.Block = Utils.getRegistry("minecraft:block")
 global.Item = Utils.getRegistry("minecraft:item")
