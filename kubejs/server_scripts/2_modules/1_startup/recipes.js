@@ -225,8 +225,6 @@ ServerEvents.recipes(e => {
 		1: "bosses_of_mass_destruction:soul_star"
 	})
 
-	e.shapeless("kubejs:soul_remnant", ["bosses_of_mass_destruction:soul_star"])
-
 	/* 矿物鱼 Mineral fishes */
 	const mineral_fishes = ["emerald", "diamond"];
 	mineral_fishes.forEach(key => {
