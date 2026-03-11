@@ -30,7 +30,7 @@ ItemEvents.rightClicked("kubejs:amethyst_feather", e => {
 ItemEvents.rightClicked("minecraft:firework_rocket", e => {
 	const {player} = e;
 	if(!player.hasEffect("kubejs:timer")) {
-		if(player.chestArmorItem.id == "minecraft:elytra") player.startFallFlying();
+		if(player.chestArmorItem.is("minecraft:elytra")) player.startFallFlying();
 		return;
 	};
 	global.sound(player, "block.fire.extinguish", 0.6, 1, 0.14);

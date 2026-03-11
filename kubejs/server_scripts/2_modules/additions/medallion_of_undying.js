@@ -12,10 +12,7 @@ function medallion(e) {
 		entity.isCreative()
 	) return;
 
-	const handItem = entity.handSlots.find(item => {
-		if (item.id == "kubejs:medallion_of_undying") return true;
-		return false;
-	});
+	const handItem = entity.handSlots.find(i => i.is("kubejs:medallion_of_undying"));
 
 	if (!handItem) return;
 
