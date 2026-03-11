@@ -88,13 +88,15 @@ if (server && !global.attackable_pets) {
                 (i instanceof OwnableEntity) &&
                 i.isLiving() &&
                 i.getAttribute("minecraft:generic.attack_damage") != null,
+            "pets": (i) => i instanceof OwnableEntity,
             "projectiles": (i) => i instanceof Projectile,
             "creepers": (i) => i instanceof Creeper,
             "spiders": (i) => i instanceof Spider,
             "fireballs": (i) => i instanceof Fireball,
             "zombies": (i) => i instanceof Zombie,
             "arrows": (i) => i instanceof AbstractArrow,
-            "skeletons": (i) => (i instanceof Skeleton) && i.type.includes("skeleton")
+            "skeletons": (i) => (i instanceof Skeleton) && i.type.includes("skeleton"),
+            "raiders": (i) => i instanceof Raider,
         }
     )
 }

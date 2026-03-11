@@ -230,18 +230,16 @@ global.toInt = (value) => Integer.valueOf(value.toString())
 global.particleRing2 = (mode, count, dist, entity, particleId, speed, yOverride) => {
 	const { x, y, z, level, eyeHeight } = entity;
 	const finalY = y + (eyeHeight / 4) + (yOverride || 0);
-
+	const mode_map = {
+		"spread": 1, "gather": -1, "static": 0
+	}
+	const index = mode_map[mode];
 	for (let i = 0; i < count; i++) {
 		let angle = (i * 2 / count) * 3.14;
 		let vx, vz;
 
-		if (mode === "spread") {
-			vx = Math.cos(angle) * speed;
-			vz = Math.sin(angle) * speed;
-		} else if (mode === "gather") {
-			vx = -Math.cos(angle) * speed;
-			vz = -Math.sin(angle) * speed;
-		}
+		vx = index * Math.cos(angle) * speed;
+		vz = index * Math.sin(angle) * speed;
 
 		level.spawnParticles(
 			particleId,
