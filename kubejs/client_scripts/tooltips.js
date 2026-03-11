@@ -355,4 +355,15 @@ ItemEvents.tooltip(e => {
 			}
 		})
 	})
+
+	e.addAdvanced("minecraft:firework_star", (stack, isAdvanced, tooltip) => {
+		if (!e.isShift()) tooltip.add(shift)
+		else {
+			tooltip.add(["\uE000 ", Text.translate("item.minecraft.firework_star.shape.large_ball").darkGray()]);
+			tooltip.add(["\uE001 ", Text.translate("item.minecraft.firework_star.shape.star").darkGray()]);
+			tooltip.add(["\uE002 ", Text.translate("item.minecraft.firework_star.shape.burst").darkGray()]);
+			tooltip.add(["\uE003 ", Text.translate("item.minecraft.firework_star.flicker").darkGray()]);
+			tooltip.add(["\uE004 ", Text.translate("item.minecraft.firework_star.trail").darkGray()])
+		}
+	})
 })

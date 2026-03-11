@@ -1,0 +1,49 @@
+{
+    "providers": [
+        {
+            "type": "bitmap",
+            "file": "minecraft:item/fire_charge.png",
+            "ascent": 8,
+            "height": 10,
+            "chars": [
+                "\uE000"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "minecraft:item/gold_nugget.png",
+            "ascent": 8,
+            "height": 10,
+            "chars": [
+                "\uE001"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "minecraft:item/feather.png",
+            "ascent": 8,
+            "height": 10,
+            "chars": [
+                "\uE002"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "minecraft:item/glowstone_dust.png",
+            "ascent": 8,
+            "height": 10,
+            "chars": [
+                "\uE003"
+            ]
+        },
+        {
+            "type": "bitmap",
+            "file": "minecraft:item/diamond.png",
+            "ascent": 8,
+            "height": 10,
+            "chars": [
+                "\uE004"
+            ]
+        }
+    ]
+}
