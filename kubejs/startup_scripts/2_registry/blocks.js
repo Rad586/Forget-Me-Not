@@ -33,7 +33,6 @@ WorldgenEvents.add(e => {
 
 
 
-
 const leaf_colors = [
 	"pink", "blue", "purple", "white",
 	"yellow", "orange", "red", "gray",

@@ -970,14 +970,6 @@ StartupEvents.registry("mob_effect", e => {
 			if(pData.temp != 0) potionEffects.add("kubejs:normal_temp", 11, 0, true, false);
 		})
 
-	e.create("bad_omen_check")
-		.beneficial()
-		.color(0xD87F2B)
-		.effectTick((entity, level) => {
-			if(!entity || entity.level.isClientSide()) return;
-			entity.removeEffect("kubejs:bad_omen_check");
-			if(!Utils.server.persistentData.nether_stage) entity.removeEffect("bad_omen");
-		})
 
 	e.create("fight_back")
 		.beneficial()

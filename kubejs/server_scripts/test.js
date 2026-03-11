@@ -207,44 +207,22 @@
 // })
 
 
-//用fmntweaks，集中移除建筑生成
 
 //准备移除kjs additions
 //排查satin api
+//排查elytra
 //移除一些动物模组？
 //击败宝箱怪概率使之成为伙伴
 //unique_item 独特物品掉落修改（vsc搜索）
 //移除末地相关：要塞X better stronghold，末影龙X enderdragon,true ending/，鞘翅X，潜影盒（流星），末影之眼，烈焰粉，龙蛋，音乐，开局提示，末地相关修复（kjs），相关配方（鞘翅，末影水晶，末影箱），末地相关改动（末影龙火球），龙息，龙蛋龙头，末影水晶相关修改（kjs），紫颂果，爆裂紫颂果
 //坐下的提示
 //宝箱无法破坏改为“开启宝箱吸引仇恨，宝箱内物资等待出现结果”
-//CROWMAP fork？直接改
-// ItemEvents.rightClicked(e => {
-//     e.player.damageHeldItem(e.hand, 1)
-// })
-
-// EntityEvents.death("slime", e=> e.server.tell("a"))
 
 ItemEvents.rightClicked(e => {
-    // const {level, player, hand, target} = e;
-    // const {entity} = target;
-    // if(!entity) return;
-    // const SwellGoal = Java.loadClass('net.minecraft.world.entity.ai.goal.SwellGoal')
-
-    // const {goalSelector} = entity;
-    // e.server.tell(
-    //     goalSelector.getAvailableGoals().some(
-    //         g => g.getGoal() instanceof SwellGoal)
-    // )
-    // goalSelector.getAvailableGoals().forEach(g => {
-    //     if (g.getGoal() instanceof SwellGoal)
-    //     goalSelector.removeGoal(g.getGoal())
-    // })
-    // e.server.tell(
-    //     goalSelector.getAvailableGoals().some(
-    //         g => g.getGoal() instanceof SwellGoal)
-    // )
-
-
-    // e.server.tell("hi")
+    // global.particleRing2("spread", 8, 1, e.player, "smoke", 0.05)
+    // e.server.tell(e.level.getHeight("motion_blocking", e.player.x, e.player.z))
 })
 //测试globalring2
+// LevelEvents.tick(e => {
+//     Client.player.interactAt()
+// })
