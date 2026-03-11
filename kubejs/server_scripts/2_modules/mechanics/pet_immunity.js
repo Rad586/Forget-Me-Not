@@ -14,6 +14,8 @@ if (global.attackable_pets) { /* waiting for startup script */
             refreshed.invulnerableTime = 40; /* prevent consistently dying */
             refreshed.extinguish(); /* prevent consistently dying */
 
+            e.server.scheduleInTicks(1, () => refreshed.stopBeingAngry());
+
             refreshed.spawn();
             e.cancel()
         })
