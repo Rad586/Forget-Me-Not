@@ -24,8 +24,7 @@ function heart_of_demon(e) {
     if(!entity.isHoldingInAnyHand("kubejs:heart_of_demon")) return;
     if(player.maxHealth <= 6) return;
 
-    entity.sendData("totemAnimation", {item: "kubejs:heart_of_demon"});
-
+    global.totemAnimation(entity, "kubejs:heart_of_demon");
     global.particleBurst(entity, "soul_fire_flame", 30, 0.4);
     level.spawnParticles("alessandrvenchantments:enderwave", true, x, y, z, 0, 0, 0, 1, 0);
 

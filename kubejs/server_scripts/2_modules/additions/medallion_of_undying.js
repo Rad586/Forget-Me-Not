@@ -19,7 +19,7 @@ function medallion(e) {
 	handItem.shrink(1);
 	effectPack(medallion_effects, entity);
 
-	entity.sendData("totemAnimation", { item: "kubejs:medallion_of_undying_activated" });
+	global.totemAnimation(entity, "kubejs:medallion_of_undying_activated")
 	global.particleBurst(entity, "minecraft:totem_of_undying", 30, 0.6);
 	global.sound(entity, "item.totem.use", 0.7, 1.8, 0.2);
 
