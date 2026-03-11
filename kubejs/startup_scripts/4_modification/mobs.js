@@ -238,8 +238,8 @@ EntityJSEvents.modifyEntity(e => {
 	e.modify("minecraft:player", modifyBuilder =>
 		modifyBuilder
 			.lavaHurt(entity => lava_jump(entity))
-			.onEquipItem(context => armor_set_bonus(context))
-			.canDisableShield(context => context.fallDistance > 5)
+			.onEquipItem(context => set_bonus(context))
+			.canDisableShield(context => context.entity.fallDistance > 5)
 			.invertedHealAndHarm(entity => entity.hasEffect("kubejs:zombify"))
 			.canBeAffected(context => !context.entity.hasEffect("kubejs:purity"))
 			.isInvulnerableTo(context => player_hurt(context))
