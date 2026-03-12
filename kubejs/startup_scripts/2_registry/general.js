@@ -118,12 +118,9 @@ StartupEvents.registry("item", e => {
 			.unstackable()
 			.useAnimation("none")
 			.useDuration(item => 1)
-			.use((level, player, hand) => 
-				level.isOverworld() &&
-				!level.getBlock(
-					global.advancedRayTraceBlock(player, 4).blockPos
-				).blockState.isAir()
-			)
+			.use((level, player, hand) => level.isOverworld() &&
+				global.advancedRayTraceBlock(player, 4).type != "MISS")
+
 			.finishUsing((item, level, entity) => {
 				if (level.isClientSide()) return item;
 
@@ -138,7 +135,7 @@ StartupEvents.registry("item", e => {
 				else {
 					let result = global.advancedRayTraceBlock(entity, 4);
 					let hit_block = level.getBlock(result.blockPos);
-					if(hit_block.blockState.isAir()) nohit = true;
+					if (result.type == "MISS") nohit = true;
 					else block = hit_block[result.direction]
 				};
 				if(nohit == true) return item;

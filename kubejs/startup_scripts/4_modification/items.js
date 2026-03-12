@@ -157,8 +157,8 @@ ItemEvents.modification(e => {
 	global.Axes
 		.forEach(i => {
 			e.modify(i.id, item => {
-				item.setAttackDamage(Math.floor(i.attackDamage / 1.5))
 				item.setAttackSpeed(1.0)
+				item.setAttackDamage(Math.floor(i.attackDamage / 1.5))
 			})
 		})
 

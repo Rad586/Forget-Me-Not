@@ -8,19 +8,16 @@ global.Chests.forEach(chest => {
         };
 
         const { block, level } = e, { properties } = block;
-        if(!block.inventory) return;
+        if (!block.inventory) return;
         const { type } = properties;
 
         const left_type = type == "left";
         const facing_dir = Direction[properties.facing];
 
         const to_neighbor = (type == "single" || !type) ?
-            new Vec3f(0, 0, 0) :
-            (
-                left_type ?
-                    facing_dir.getClockWise().step() :
-                    facing_dir.getCounterClockWise().step()
-            )
+            new Vec3f(0, 0, 0) : (left_type ?
+                facing_dir.getClockWise().step() :
+                facing_dir.getCounterClockWise().step())
         const aabb = AABB.ofBlock(block.pos)
             .expandTowards(new Vec3(to_neighbor))
             .inflate(1.2, 0, 1.2);
@@ -28,8 +25,7 @@ global.Chests.forEach(chest => {
         const main_chest = left_type ? block[facing_dir.getClockWise()] : block;
         const { inventory } = main_chest;
 
-        const item_entities = e.level.getEntities(
-            EntityType.ITEM, aabb, 
+        const item_entities = e.level.getEntities(EntityType.ITEM, aabb,
             ie => !ie.tags.contains("flying"));
         if (item_entities.isEmpty()) {
             player.statusMessage = Text.translate("dialogue.fmn.not_found");

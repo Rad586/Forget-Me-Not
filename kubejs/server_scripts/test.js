@@ -219,7 +219,10 @@
 //宝箱无法破坏改为“开启宝箱吸引仇恨，宝箱内物资等待出现结果”
 
 ItemEvents.rightClicked(e => {
-    global.particleRing2("gather", 8, 1, e.player, "flame", 0.05)
+    const { player } = e, { eyePosition: pos } = player;
+    const clip = new ClipContext(pos, pos.add(new Vec3(0, -4, 0)),
+        "collider", "none", player);
+    e.player.tell(e.level.clip(clip))
 })
 //测试globalring2
 // LevelEvents.tick(e => {
