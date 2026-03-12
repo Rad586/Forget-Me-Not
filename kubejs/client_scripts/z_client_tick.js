@@ -6,10 +6,11 @@ tasks.push(Math.ceil(tasks.length / 2))
 
 let previous = 0, last_pos = [0, 0, 0], limit_old, dynfpsing;
 ClientEvents.tick(e => {
-    const { player } = e;
+    const { player, level } = e;
     const now = Date.now();
 
     if (!Client.isPaused()) {
+        gliding_client(player, level)
         fallInLeavesClient(player);
         modFootstep(player);
         sitClient(player)

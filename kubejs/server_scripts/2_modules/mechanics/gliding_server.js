@@ -1,0 +1,1 @@
+NetworkEvents.dataReceived("gliding", e => e.player.resetFallDistance())
