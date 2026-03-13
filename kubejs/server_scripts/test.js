@@ -210,7 +210,6 @@
 
 //准备移除kjs additions
 //排查satin api
-//排查elytra
 //移除一些动物模组？
 //击败宝箱怪概率使之成为伙伴
 //unique_item 独特物品掉落修改（vsc搜索）
@@ -219,10 +218,8 @@
 //宝箱无法破坏改为“开启宝箱吸引仇恨，宝箱内物资等待出现结果”
 
 ItemEvents.rightClicked(e => {
-    const { player } = e, { eyePosition: pos } = player;
-    const clip = new ClipContext(pos, pos.add(new Vec3(0, -4, 0)),
-        "collider", "none", player);
-    e.player.tell(e.level.clip(clip))
+    e.server.tell(Client.player.input.moveVector.x)
+    
 })
 //测试globalring2
 // LevelEvents.tick(e => {
