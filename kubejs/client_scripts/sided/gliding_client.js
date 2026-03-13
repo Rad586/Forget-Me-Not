@@ -9,8 +9,8 @@ function gliding_client(player, level) {
     const needs_change = now_press && !previous_press;
     previous_press = now_press;
 
-    if ((!can_glide && !needs_change) ||
-        m.y() > 0 ||
+    if (!can_glide && !needs_change) return;
+    if (m.y() > 0 ||
         player.horizontalCollision ||
         !level.getFluidState(player.blockPosition()).isEmpty() ||
         player.isFallFlying() ||
@@ -20,12 +20,14 @@ function gliding_client(player, level) {
         player.abilities.flying
     ) {
         can_glide = false;
+        FootstepsConfig.setPlacementMode(GROUND_ONLY);
         return
     };
 
     const { eyePosition: pos } = player;
     const high_enough = level.clip(new ClipContext(pos, pos.add(0, -4, 0),
         "collider", "none", player)).type == "MISS";
+
     function start_gliding() {
         can_glide = true;
         FootstepsConfig.setPlacementMode(CONTINUOUS);
@@ -38,7 +40,7 @@ function gliding_client(player, level) {
         level.playLocalSound(pos, "item.armor.equip_generic", "players", 1.08, 0.5, true)
     };
 
-    if (can_glide && (!high_enough || needs_change)) {
+    if (can_glide && (player.isOnGround() || needs_change)) {
         end_gliding()
     } 
     else if (!can_glide && high_enough && needs_change) {
