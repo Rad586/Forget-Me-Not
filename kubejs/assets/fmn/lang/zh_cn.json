@@ -1,7 +1,5 @@
 {
 	"dialogue.fmn.msg":"目标：击败末影龙",
-	"dialogue.fmn.golden_feather":"§8右键获得一秒缓降效果",
-	"dialogue.fmn.enchanted_golden_feather":"§8右键试试",
 	"dialogue.fmn.villagers_weapon":"如果你知道怎么使用的话，这会是一把不错的武器",
 	"dialogue.fmn.villagers_armor":"由村民科技™提供技术支持",
 	"dialogue.fmn.throwable":"§8可投掷",
@@ -66,7 +64,6 @@
 	"dialogue.fmn.ender_pearl":"你无法在水中使用末影珍珠",
 	"dialogue.fmn.stick":"你可以制作调试棒",
 	"dialogue.fmn.bell":"§8直接右键以高亮袭击者",
-	"dialogue.fmn.amethyst_feather":"紫水晶羽毛无法向上滑翔",
 	"dialogue.fmn.obsidian_placed":"地狱门可任意形状搭建",
 	"dialogue.fmn.crying_obsidian":"地狱门可用哭泣的黑曜石搭建",
 	"dialogue.fmn.furnace":"熔炉烧炼速度为原版两倍",
@@ -195,9 +192,6 @@
 	"item.kubejs.villagers_leggings":"警卫的护腿",
 	"item.kubejs.villagers_boots":"警卫的靴子",
 
-	"item.kubejs.golden_feather":"金羽毛",
-	"item.kubejs.enchanted_golden_feather":"附魔金羽毛",
-	"item.kubejs.amethyst_feather":"滑翔之羽",
 	"item.kubejs.mysterious_bundle":"神秘包裹",
 	"item.kubejs.recovery_pearl":"追溯珍珠",
 	"item.kubejs.soul_remnant":"灵魂残片",

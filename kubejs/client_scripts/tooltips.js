@@ -70,9 +70,6 @@ ItemEvents.tooltip(e => {
 		"flint_and_steel": [
 			"minecraft:flint_and_steel"
 		],
-		"amethyst_feather": [
-			"kubejs:amethyst_feather"
-		],
 		"crying_obsidian": [
 			"minecraft:crying_obsidian"
 		],

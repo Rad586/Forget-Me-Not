@@ -1,7 +1,6 @@
 {
   "dialogue.fmn.msg":"Goal: kill the ender dragon.",
   "dialogue.fmn.goldenfeather":"§8Right click to gain slow falling for 1s.",
-  "dialogue.fmn.enchanted_golden_feather":"§8Just try it.",
   "dialogue.fmn.villagers_weapon":"A powerful weapon...only if you know how to use that.",
   "dialogue.fmn.villagers_armor":"Technical support provided by VillagerTech™.",
   "dialogue.fmn.throwable":"§8Throwable",
@@ -68,7 +67,6 @@
   "dialogue.fmn.ender_pearl":"You can't use enderpearl in water.",
   "dialogue.fmn.stick":"Debug stick can be crafted.",
   "dialogue.fmn.bell":"§8Right click directly to highlight raiders.",
-  "dialogue.fmn.amethyst_feather":"Amethyst feather can't glide upwards.",
   "dialogue.fmn.obsidian_placed":"Nether portals can be built in any enclose shape.",
   "dialogue.fmn.crying_obsidian":"Nether portals can be built with crying obsidians.",
   "dialogue.fmn.furnace":"Furnace smelts 2x faster than vanilla.",

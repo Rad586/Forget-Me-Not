@@ -49,11 +49,6 @@ StartupEvents.registry("item", e => {
 	//怪物用的镐子 Pickaxe for mobs
 	e.create("breaker", "pickaxe").tier("breaker")
 
-	//黄金羽毛 Golden feather
-	e.create("golden_feather").tooltip(Text.translate("dialogue.fmn.golden_feather")).rarity("uncommon")
-	e.create("enchanted_golden_feather").tooltip(Text.translate("dialogue.fmn.enchanted_golden_feather")).rarity("rare").glow(true).texture("kubejs:item/golden_feather")
-	e.create("amethyst_feather").rarity("rare")
-
 	//村民武器 Villagers" weapons
 	e.create("villagers_oak_door", "axe").tier("villager").attackDamageBaseline(6).speedBaseline(-2.3).rarity("uncommon").glow(true).texture("minecraft:item/oak_door").tooltip(Text.translate("dialogue.fmn.villagers_weapon"))
 	e.create("villagers_cauldron", "axe").tier("villager").attackDamageBaseline(6).speedBaseline(-3.6).rarity("uncommon").glow(true).texture("minecraft:item/cauldron").tooltip(Text.translate("dialogue.fmn.villagers_weapon"))

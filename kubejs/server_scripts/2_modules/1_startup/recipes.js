@@ -245,22 +245,6 @@ ServerEvents.recipes(e => {
 	e.campfireCooking("8x minecraft:lapis_lazuli", "kubejs:lapis_fish")
 	e.campfireCooking("minecraft:gold_ingot", "kubejs:gold_fish")
 
-	/* 羽毛 Feathers */
-	const feather_recipe = {
-		"golden": "gold_nugget"
-	};
-	Object.keys(feather_recipe).forEach(key => {
-		e.shaped(`kubejs:${key}_feather`, [
-			"000",
-			"010",
-			"000"
-		], {
-			0: `minecraft:${feather_recipe[key]}`,
-			1: "minecraft:feather"
-		})
-	})
-	e.shapeless("kubejs:amethyst_feather", ["minecraft:feather", "3x minecraft:amethyst_shard"])
-
 	/* 追溯珍珠 Recovery pearl */
 	e.shapeless("kubejs:recovery_pearl", ["minecraft:recovery_compass", "2x minecraft:ender_pearl"])
 
