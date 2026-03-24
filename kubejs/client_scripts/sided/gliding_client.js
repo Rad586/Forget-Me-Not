@@ -10,7 +10,16 @@ function gliding_client(player, level) {
     previous_press = now_press;
 
     if (!can_glide && !needs_change) return;
-    if (m.y() > 0 ||
+
+    function gliding(status, pitch) {
+        can_glide = status;
+        if (!status) player.sendData("gliding");
+        FootstepsConfig.setPlacementMode(!status ? GROUND_ONLY : CONTINUOUS);
+        if(pitch) level.playLocalSound(pos, "item.armor.equip_generic", "players", 1.08, pitch, true)
+    };
+
+    if ((needs_change || player.age % 3) && (
+        m.y() > 0 ||
         player.horizontalCollision ||
         !level.getFluidState(player.blockPosition()).isEmpty() ||
         player.isFallFlying() ||
@@ -18,33 +27,20 @@ function gliding_client(player, level) {
         player.isPassenger() ||
         player.invulnerableTime > 0 ||
         player.abilities.flying
-    ) {
-        can_glide = false;
-        FootstepsConfig.setPlacementMode(GROUND_ONLY);
-        return
-    };
+    )) {
+        gliding(false);
+        return;
+    }
 
     const { eyePosition: pos } = player;
-    const high_enough = level.clip(new ClipContext(pos, pos.add(0, -4, 0),
+    const high_enough = () => level.clip(new ClipContext(pos, pos.add(0, -4, 0),
         "collider", "none", player)).type == "MISS";
 
-    function start_gliding() {
-        can_glide = true;
-        FootstepsConfig.setPlacementMode(CONTINUOUS);
-        level.playLocalSound(pos, "item.armor.equip_generic", "players", 1.08, 0.7, true)
-    };
-    function end_gliding() {
-        can_glide = false;
-        player.sendData("gliding");
-        FootstepsConfig.setPlacementMode(GROUND_ONLY);
-        level.playLocalSound(pos, "item.armor.equip_generic", "players", 1.08, 0.5, true)
-    };
-
-    if (can_glide && (player.isOnGround() || needs_change)) {
-        end_gliding()
-    } 
-    else if (!can_glide && high_enough && needs_change) {
-        start_gliding()
+    if (can_glide && (needs_change || player.isOnGround())) {
+        gliding(false, 0.7)
+    }
+    else if (!can_glide && needs_change && high_enough()) { //test
+        gliding(true, 0.5)
     };
 
     if (!can_glide) return;

@@ -60,7 +60,6 @@
   "dialogue.fmn.fire":"When on fire, blocking damages your shield.",
   "dialogue.fmn.time":"Current time: ",
   "dialogue.fmn.spawner":"Spanwer has spawn cap.",
-  "dialogue.fmn.nether":"You are immune to fall damage in the nether.",
   "dialogue.fmn.debug_stick":"Shift + right click to change status.",
   "dialogue.fmn.ladder":"You can place ladder without supporting block.",
   "dialogue.fmn.parrot":"A parrot on shoulder keeps fall damage away.",

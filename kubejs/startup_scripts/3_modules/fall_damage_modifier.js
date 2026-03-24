@@ -10,8 +10,8 @@ function fall_damage_modifier(context) {
 	const nodmg =
 		final == 0 ||
 		entity.nbt.ShoulderEntityLeft ||
-		level.dimension == "minecraft:the_nether" || 
-		Block.get(entity.block.id) instanceof LeavesBlock
+		Block.get(entity.block.id) instanceof LeavesBlock || 
+		entity.motionY > -0.079
 
 	if (global.within(4.76, 6.76, fallHeight) && crouching) {
 		entity.potionEffects.add("speed", 20, 0, true, false);
