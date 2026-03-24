@@ -13,7 +13,7 @@ function gliding_client(player, level) {
 
     function gliding(status, pitch) {
         can_glide = status;
-        if (!status) player.sendData("gliding");
+        player.sendData("gliding", {status: status});
         FootstepsConfig.setPlacementMode(!status ? GROUND_ONLY : CONTINUOUS);
         if(pitch) level.playLocalSound(pos, "item.armor.equip_generic", "players", 1.08, pitch, true)
     };
