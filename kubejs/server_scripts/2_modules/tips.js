@@ -10,7 +10,7 @@ const advancements = [
     "crying_obsidian", "fletching_table", 
     "oak_door", "spawner", 
     "altar", "gauntlet", "obsidilith",
-    "parkour", "spyglass", "shield",
+    "spyglass", "shield",
     "water_bucket", "debug_stick",
     "flint_and_steel", "boat", "dragon_breath2",
     "zombie", "skeleton", "zoom", 
