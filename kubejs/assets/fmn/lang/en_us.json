@@ -76,7 +76,6 @@
   "dialogue.fmn.glow_berries":"Glow berries can make you glow.",
   "dialogue.fmn.ender_dragon_death":"Being killed by ender dragon decreases your max health by 1 in total.",
   "dialogue.fmn.normal_chest_mimic":"You can use mimic handbell to tame mimics.",
-  "dialogue.fmn.mimic":"Holding iron or gold block, you can crouch + right click on mimics to feed them.",
   "dialogue.fmn.hot_biome":"Take off armors/touch water/be underground/stay near respawn point to cool down.",
   "dialogue.fmn.cold_biome":"Take on full armor/be on fire/sprint/be underground/stay near respawn point to warm up.",
   "dialogue.fmn.no_limited_lives":" has disabled self death penalty.",
@@ -126,6 +125,7 @@
   "dialogue.fmn.auto_path": "Shift + right click with shovel to create a 3x3 path between two selected point.",
   "dialogue.fmn.auto_path_cancel": "Shift + right click towards air to remove start point.",
   "dialogue.fmn.not_found": "There's no item nearby this chest.",
+  "dialogue.fmn.pickaxe": "Right click to place torch in your inventory.",
 
   "dialogue.fmn.zoom":"Press c to zoom in.",
   "dialogue.fmn.waypoint":"Press [+] to create/delete waypoint.",

@@ -88,9 +88,6 @@ ItemEvents.tooltip(e => {
 		"glow_berries": [
 			"minecraft:glow_berries"
 		],
-		"normal_chest_mimic": [
-			"probablychests:normal_chest"
-		],
 		"goat_horn": [
 			"minecraft:goat_horn"
 		],
@@ -233,6 +230,9 @@ ItemEvents.tooltip(e => {
 		],
 		"free": [
 			"minecraft:lava_bucket"
+		],
+		"pickaxe": [
+			"minecraft:wooden_pickaxe", "minecraft:stone_pickaxe"
 		]
 	};
 

@@ -73,7 +73,6 @@
 	"dialogue.fmn.glow_berries":"食用发光浆果将使你发光",
 	"dialogue.fmn.ender_dragon_death":"被末影龙击杀将减少总计1点最大生命值",
 	"dialogue.fmn.normal_chest_mimic":"你可以使用宝箱怪手铃驯服宝箱怪",
-	"dialogue.fmn.mimic":"手持铁块或金块，潜行右键以投喂",
 	"dialogue.fmn.hot_biome":"脱护甲/接触水/进地下/靠近重生点 以降温",
 	"dialogue.fmn.cold_biome":"全护甲/着火/疾跑/进地下/靠近重生点 以升温",
 	"dialogue.fmn.falling_star":"被流星直接击中似乎会发生什么…",
@@ -116,6 +115,7 @@
 	"dialogue.fmn.auto_path": "用锹潜行右键泥土，铲出两点间3x3的土径",
 	"dialogue.fmn.auto_path_cancel": "对空气潜行右键以移除起始点",
 	"dialogue.fmn.not_found": "未在箱子附近发现物品",
+	"dialogue.fmn.pickaxe": "右键放置背包内火把",
 	
 	"dialogue.fmn.zoom":"按c进行缩放",
 	"dialogue.fmn.waypoint":"按+创建/删除标记点",

@@ -4,8 +4,7 @@ function fall_damage_modifier(context) {
 	if (level.isClientSide()) return 0;
 
 	const { fallHeight } = context;
-	const crouching = entity.isCrouching();
-	const value = fallHeight - 4.76 - (crouching ? 2 : 0);
+	const value = fallHeight - 4.76;
 	const final = value < 0 ? 0 : Math.max(parseInt(value), 1); /* requires an int */
 	const pData = entity.persistentData;
 	const nodmg =
@@ -15,7 +14,7 @@ function fall_damage_modifier(context) {
 		pData.gliding == true
 
 	pData.gliding = false;
-	if (global.within(4.76, 6.76, fallHeight) && crouching) {
+	if (global.within(4.76, 6.76, fallHeight)) {
 		entity.potionEffects.add("speed", 20, 0, true, false);
 		global.sound(entity, "entity.player.small_fall", 0.5);
 	};

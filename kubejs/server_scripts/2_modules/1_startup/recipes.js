@@ -303,8 +303,6 @@ ServerEvents.recipes(e => {
 	e.shapeless("2x farmersdelight:cabbage_seeds", ["farmersdelight:cabbage"]);
 	e.shapeless("farmersdelight:cabbage_seeds", ["farmersdelight:cabbage_leaf"]);
 
-	e.shapeless("probablychests:mimic_hand_bell", ["probablychests:pet_mimic_key"]);
-
 	e.remove({ output: "windchimes:copper_chime" });
 
 	e.shaped("minecraft:bundle", [

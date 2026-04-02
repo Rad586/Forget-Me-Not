@@ -1,5 +1,5 @@
 const fireResistant = ["minecraft:goat_horn"];
-const uncommon =["bosses_of_mass_destruction:soul_star","bosses_of_mass_destruction:void_lily","fancydyes:aurora_dye","fancydyes:flame_dye","fancydyes:aurora_dye","rottencreatures:treasure_chest","probablychests:gold_chest","probablychests:mimic_core","probablychests:pet_mimic_key","probablychests:mimic_key"];
+const uncommon =["bosses_of_mass_destruction:soul_star","bosses_of_mass_destruction:void_lily","fancydyes:aurora_dye","fancydyes:flame_dye","fancydyes:aurora_dye","rottencreatures:treasure_chest"];
 
 const effectMap = {
 	common: {
