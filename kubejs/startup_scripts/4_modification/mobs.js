@@ -6,7 +6,7 @@ EntityJSEvents.modifyEntity(e => {
 		ally, dimensionalMobs, projectiles,
 		preys, evolutionMap, pets, 
 		released_fish, fireballs,
-		spiders, monsters2, skeletons, 
+		spiders, skeletons, 
 		attackable_pets, creepers, zombies, 
 		arrows, raiders
 	} = global;
@@ -25,7 +25,6 @@ EntityJSEvents.modifyEntity(e => {
 					zombie_thrower(entity)
 				})
 				.onHurtTarget(context => fierce_zombies(context.entity, dragon_stage))
-				.onDeath(context => haunting(context.entity))
 		)
 	)
 
@@ -69,7 +68,6 @@ EntityJSEvents.modifyEntity(e => {
 				sai(entity);
 			})
 			.onHurtTarget(context => pillager_skill(context))
-			.onDeath(context => haunting(context.entity))
 	);
 	e.modify("minecraft:vindicator", modifyBuilder =>
 		modifyBuilder
@@ -181,7 +179,6 @@ EntityJSEvents.modifyEntity(e => {
 			modifyBuilder
 				.onHurtTarget(context => spider_spit(context))
 				.onTargetChanged(context => spider_speedup(context.entity, dragon_stage))
-				.onDeath(context => haunting(context.entity))
 				.onAddedToWorld(entity => mounted_mobs(entity, nether_stage, "minecraft:zombie"))
 		)
 	)
@@ -195,13 +192,6 @@ EntityJSEvents.modifyEntity(e => {
 				lightning_conversion(entity);
 				conducting(entity)
 			})
-	)
-
-	monsters2.forEach(key =>
-		e.modify(key, modifyBuilder =>
-			modifyBuilder
-				.onDeath(context => haunting(context.entity))
-		)
 	)
 
 	Object.keys(mob_variant_map).forEach(key => {
@@ -221,7 +211,6 @@ EntityJSEvents.modifyEntity(e => {
 				.onAddedToWorld(entity => {
 					mounted_mobs(entity, nether_stage, "minecraft:skeleton")
 				})
-				.onDeath(context => haunting(context.entity))
 		)
 	)
 
@@ -229,7 +218,6 @@ EntityJSEvents.modifyEntity(e => {
 		e.modify(skeleton, modifyBuilder =>
 			modifyBuilder
 				.onAddedToWorld(entity => debuff_arrow(entity, nether_stage))
-				.onDeath(context => haunting(context.entity))
 				.onHurt(context => wither_conversion(context))
 		)
 	)
@@ -271,9 +259,8 @@ EntityJSEvents.modifyEntity(e => {
 	e.modify("minecraft:iron_golem", modifyBuilder =>
 		modifyBuilder
 			.onDeath(context => {
-				const { damageSource, entity } = context;
+				const { damageSource } = context;
 				evolution(nether_stage, damageSource.actual)
-				haunting(entity)
 			})
 			.isInvulnerableTo(context => no_friendly_fire(context))
 	)

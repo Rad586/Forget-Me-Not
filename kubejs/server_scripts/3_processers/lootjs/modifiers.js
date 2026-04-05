@@ -8,5 +8,6 @@ LootJS.modifiers(e => {
 	released_fish(e);
 	midas_curse(e);
 	deepslate_bonus(e);
-	reveal_system(e);
+	// reveal_system(e);
+	haunting(e)
 })

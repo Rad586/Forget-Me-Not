@@ -1,11 +1,11 @@
-let entity_drop, keep_inv, trade;
+let entity_drop, keep_inv, trade_lock_off, haunting_off;
 ServerEvents.loaded(e => {
     const {server} = e, {persistentData: pData} = server;
 
     keep_inv = server.gameRules.get("keepInventory");
     entity_drop = pData.entity_drop || false;
-    trade = pData.trade || false;
-    global.haunting = pData.haunting || false;
+    trade_lock_off = pData.trade_lock_off || false;
+    haunting_off = pData.haunting_off || false;
 
     serverStartup(server);
 
