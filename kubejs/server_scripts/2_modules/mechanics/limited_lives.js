@@ -11,7 +11,7 @@ function limited_lives(player) {
 	if (level.difficulty != "HARD") return;
 
 	const { death_count } = pData;
-	if (player.maxHealth > 6) pData.death_count = death_count == null ? 1 : death_count + 1;
+	if (player.maxHealth > 6) pData.death_count = (death_count || 0) + 1;
 	else player.unlockAdvancement("kubejs:tip/lowhp");
 
 	global.updateMaxHealth(player)
