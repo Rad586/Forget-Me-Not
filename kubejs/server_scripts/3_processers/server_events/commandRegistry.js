@@ -44,15 +44,15 @@ ServerEvents.commandRegistry(e => {
 			const { player } = c.source;
 			const { server, username } = player;
 			const { persistentData: pData } = server;
-			if (!pData.trade) { /* off, remove trade lock */
-				pData.trade = true;
-				trade = true;
-				server.tell(username + Text.translate("dialogue.fmn.trade").getString());
+			if (!pData.trade_lock_off) {
+				pData.trade_lock_off = true;
+				trade_lock_off = true;
+				server.tell(username + Text.translate("dialogue.fmn.trade_lock_off").getString());
 			}
-			else { /* on */
-				pData.trade = false;
-				trade = false;
-				server.tell(username + Text.translate("dialogue.fmn.no_trade").getString());
+			else {
+				pData.trade_lock_off = false;
+				trade_lock_off = false;
+				server.tell(username + Text.translate("dialogue.fmn.trade_lock_on").getString());
 			};
 
 			return 1
@@ -64,15 +64,15 @@ ServerEvents.commandRegistry(e => {
 			const { player } = c.source;
 			const { server, username } = player;
 			const { persistentData: pData } = server;
-			if (!pData.haunting) { /* off, no haunting */
-				pData.haunting = true;
-				global.haunting = true;
-				server.tell(username + Text.translate("dialogue.fmn.haunting").getString());
+			if (!pData.haunting_off) {
+				pData.haunting_off = true;
+				haunting_off = true;
+				server.tell(username + Text.translate("dialogue.fmn.haunting_off").getString());
 			}
-			else { /* on */
-				pData.haunting = false;
-				global.haunting = false;
-				server.tell(username + Text.translate("dialogue.fmn.no_haunting").getString());
+			else {
+				pData.haunting_off = false;
+				haunting_off = false;
+				server.tell(username + Text.translate("dialogue.fmn.haunting_on").getString());
 			};
 
 			return 1

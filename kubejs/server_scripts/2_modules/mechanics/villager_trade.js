@@ -1,5 +1,5 @@
 function villager_trade(entity, player) {
-    if(trade == true) return true;
+    if(trade_lock_off == true) return true;
 
     if(player.hasEffect("kubejs:timer")) return false;
     player.potionEffects.add("kubejs:timer", 5, 0, true, false);
