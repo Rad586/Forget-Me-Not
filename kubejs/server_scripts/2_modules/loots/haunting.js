@@ -6,7 +6,7 @@ function haunting(e) {
 
             const { level } = entity;
             const next_entity = level
-                .getEntitiesWithin(entity.boundingBox.inflate(1, 0, 1))
+                .getEntitiesWithin(entity.boundingBox.inflate(0.6, 0, 0.6))
                 .filter(n => n.isMonster() && n != entity);
             if (next_entity.isEmpty()) return true;
 
