@@ -85,7 +85,24 @@ ServerEvents.recipes(e => {
 		const ingredients = r.originalRecipeIngredients;
 		const outputId = r.originalRecipeResult.id;
 		if (outputId.contains("chiseled")) return;
-		e.shapeless(ingredients[0], [`2x ${outputId}`]);
+		e.shaped(ingredients[0], [
+			"0",
+			"0"
+		], {
+			0: outputId
+		})
+	})
+
+	/* simplier stair recipes */
+	e.forEachRecipe({ type: "minecraft:crafting_shaped", output: "#minecraft:stairs" }, r => {
+		const ingredients = r.originalRecipeIngredients;
+		const outputId = r.originalRecipeResult.id;
+		e.shaped(Item.of(outputId, 2), [
+			"0 ",
+			"00"
+		], {
+			0: ingredients[0]
+		})
 	})
 
 	/* 紫水晶配方添加 Amethyst recipe addition */

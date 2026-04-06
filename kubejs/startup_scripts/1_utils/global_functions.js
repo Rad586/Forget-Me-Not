@@ -16,7 +16,7 @@ global.particleBurstBlock2 = (block, particleId, count, speed, spread) => {
 const mode_map = {
 	"spread": 1, "gather": -1, "static": 0
 };
-global.particleRing2 = (mode, count, dist, entity, particleId, speed, yOverride) => {
+global.particleRing = (mode, count, dist, entity, particleId, speed, yOverride) => {
 	const { x, y, z, level, eyeHeight } = entity;
 	const finalY = y + (eyeHeight / 4) + (yOverride || 0);
 	const index = mode_map[mode];
