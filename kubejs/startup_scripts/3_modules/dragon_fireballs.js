@@ -51,7 +51,7 @@ function pull_fireball(entity) {
 
     fireball_force(level, entity, x, z, -1);
 
-    global.particleRing("gather", 12, 0, 4, entity, "dragon_breath", 3)
+    global.particleRing(level, "gather", 12, 0, 4, entity, "dragon_breath", 3)
     entity.playSound("block.beacon.activate", 2, 2);
     entity.discard()
 }

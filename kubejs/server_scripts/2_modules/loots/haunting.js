@@ -13,7 +13,6 @@ function haunting(e) {
             const { persistentData: pData } = next_entity.getFirst();
             const { victim } = pData;
             pData.victim = (victim || 0) + (entity.persistentData.victim || 0) + 1;
-            Utils.server.tell(pData.victim)
 
             if (pData.victim % 9 || haunting_off == true) return true;
 

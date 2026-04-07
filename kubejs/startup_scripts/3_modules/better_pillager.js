@@ -34,11 +34,11 @@ const pillager_weapon_skills = {
         if(entity.type != "minecraft:iron_golem") return;
         entity.potionEffects.add("slowness", 40, 9);
         entity.potionEffects.add("weakness", 40, 99);
-        global.sound(entity, "minecraft:entity.iron_golem.damage", 0.5, 1.2, 0.2);
+        global.sound(entity.level, entity, "minecraft:entity.iron_golem.damage", 0.5, 1.2);
     },
     "minecraft:stone_shovel": (entity, source) => {
         entity.potionEffects.add("slowness", 40, 2, true, false);
-        global.sound(source, "minecraft:block.stone.place", 0.5, 0.5, 0.2);
+        global.sound(entity.level, source, "minecraft:block.stone.place", 0.5, 0.5);
     }
 };
 

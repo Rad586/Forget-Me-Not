@@ -3,8 +3,8 @@ ItemEvents.rightClicked("minecraft:bell", e => {
     let raiders = 0;
 
     player.addItemCooldown("minecraft:bell", 80);
-    global.sound(player, "minecraft:block.bell.use", 0.06, 1.1);
-    global.sound(player, "minecraft:block.bell.resonate", 0.6, 2);
+    global.sound(level, player, "minecraft:block.bell.use", 0.06, 1.1);
+    global.sound(level, player, "minecraft:block.bell.resonate", 0.6, 2);
 
     for(let i = 0; i < 4; i++) {
         let dx = (i % 2 ? 1 : -1);

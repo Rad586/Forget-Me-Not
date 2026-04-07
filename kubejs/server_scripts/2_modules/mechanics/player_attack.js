@@ -1,5 +1,5 @@
 PlayerEvents.advancement("kubejs:player_attack", e => {
-	const { player } = e;
+	const { player, level } = e;
 	player.revokeAdvancement("kubejs:player_attack");
 
     if (!global.Swords.find(i => i.id == player.mainHandItem.id)) return;
@@ -16,8 +16,8 @@ PlayerEvents.advancement("kubejs:player_attack", e => {
 			player.setMotionY(0.4);
             player.hurtMarked = true;
 
-			global.particleRing("spread", 6, 0.3, 0, player, "cloud", 3, -0.5);
-			global.sound(player, "minecraft:block.wool.break");
+            global.particleRing(level, "spread", 6, 0.3, 0, player, "cloud", 3, -0.5);
+			global.sound(level, player, "minecraft:block.wool.break");
 		};
 
         lastHurtMob.invulnerableTime = JavaMath.clamp(

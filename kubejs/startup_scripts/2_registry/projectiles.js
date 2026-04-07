@@ -5,8 +5,9 @@ StartupEvents.registry("entity_type", e => {
 		.renderScale(0.4, 0.4, 0.4)
 
 		.tick(entity => {
-			if(entity.level.isClientSide()) return;
-			global.particleBurst(entity, "smoke", 2, 0.03);
+			const { level } = entity;
+			if (level.isClientSide()) return;
+			global.particleBurst(level, entity, "smoke", 2, 0.03);
 		})
 		.onHitEntity(context => dynamite_entity(context.entity))
 		.onHitBlock(context => dynamite_block(context.entity, context.result))
@@ -27,8 +28,9 @@ StartupEvents.registry("entity_type", e => {
 		.renderScale(0.5, 0.5, 0.5)
 
 		.tick(entity => {
-			if(entity.level.isClientSide()) return;
-			global.particleBurst(entity, "small_flame", 2, 0.03)
+			const { level } = entity;
+			if (level.isClientSide()) return;
+			global.particleBurst(level, entity, "small_flame", 2, 0.03)
 		})
 		.onHitEntity(context => stick_torch_entity(context.entity, context.result.entity))
 		.onHitBlock(context => stick_torch_block(context.entity, context.result))
@@ -74,9 +76,11 @@ StartupEvents.registry("entity_type", e => {
 		.setBaseDamage(0)
 
 		.tick(entity => {
-			if(entity.level.isClientSide()) return;
-			global.particleBurst(entity, "smoke", 2, 0.03);
-			if(entity.isOnFire()) global.test(entity, 1.5);
+			const { level } = entity;
+			if (level.isClientSide()) return;
+
+			global.particleBurst(level, entity, "smoke", 2, 0.03);
+			if (entity.isOnFire()) explosive_arrow(entity, 1.5)
 		})
 		.onHitEntity(context => explosive_arrow(context.entity, 1))
 		.onHitBlock(context => explosive_arrow(context.entity, 2))
@@ -86,8 +90,10 @@ StartupEvents.registry("entity_type", e => {
 		.setBaseDamage(0)
 
 		.tick(entity => {
-			if(entity.level.isClientSide()) return;
-			global.particleBurst(entity, "end_rod", 1);
+			const { level } = entity;
+			if (level.isClientSide()) return;
+
+			global.particleBurst(level, entity, "end_rod", 1);
 		})
 		.onHitEntity(context => hook_arrow(context))
 		.onHitBlock(context => hook_arrow(context))
@@ -144,4 +150,44 @@ StartupEvents.registry("entity_type", e => {
 		.onHitEntity(context => powder_entity(context))
 		.onHitBlock(context => powder_block(context))
 		.isInvulnerableTo(context => powder_onfire(context.entity))
+
+	e.create("arc", "entityjs:projectile")
+		.noItem()
+		.sized(0.4, 0.4)
+		.renderScale(0, 0, 0)
+		.textureLocation(() => "kubejs:textures/entity/dummy.png")
+
+		.tick(entity => {
+			const { level } = entity
+			if (level.isClientSide()) return;
+			level.spawnParticles(
+				"sweep_attack", true,
+				entity.x, entity.y, entity.z,
+				0, 0, 0,
+				1, 0
+			)
+		})
+		.onHitEntity(context => {
+			const { entity } = context;
+			if (!entity.server || entity.age % 3) return;
+			const {owner} = entity;
+			if (owner) {
+				let target = context.result.entity;
+				target.invulnerableTime = 0;
+				target.attack(entity.owner, entity.persistentData.dmg)
+			}
+			entity.discard()
+		})
+		.onHitBlock(context => {
+			const { entity } = context, { level } = entity;
+			if (level.isClientSide()) return;
+
+			entity.discard();
+			level.spawnParticles(
+				"sweep_attack", true,
+				entity.x, entity.y, entity.z,
+				0, 0, 0,
+				1, 0
+			)
+		})
 })

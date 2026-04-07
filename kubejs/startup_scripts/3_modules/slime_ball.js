@@ -21,6 +21,7 @@ function slime_ball_block(entity, direction) {
 function slime_ball_entity(entity, result) {
     const {server} = entity;
     if (!server) return;
+    const { level } = entity;
 
     const target = result.entity;
     if(target == entity.owner) {
@@ -29,7 +30,7 @@ function slime_ball_entity(entity, result) {
     else if(target instanceof Slime && target.health < target.maxHealth){
         target.heal(2);
         target.playSound("entity.puffer_fish.blow_up", 0.48, 1.4);
-        global.particleBurst(target, "heart", 3, 0.06, 0.4, entity.eyeY);
+        global.particleBurst(level, target, "heart", 3, 0.06, 0.4, entity.eyeY);
     }
     else if(Object.keys(global.evolutionMap).includes(target.type) && server.persistentData.nether_stage){
         evolution(server.persistentData.nether_stage, target, 1);
@@ -41,6 +42,6 @@ function slime_ball_entity(entity, result) {
 
     entity.discard();
 
-    global.particleBurst(target, "item_slime", 4);
+    global.particleBurst(level, target, "item_slime", 4);
     target.playSound("block.slime_block.break", 0.4, 1.1)
 }

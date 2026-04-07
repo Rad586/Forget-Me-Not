@@ -4,7 +4,7 @@ function flame_effect(e) {
         .randomChanceWithEnchantment("minecraft:fire_aspect", [0, 1, 1])
         .entityPredicate(entity => {
             global.particleBurst(
-                entity, "flame", 
+                entity.level, entity, "flame", 
                 6, 0.08, entity.boundingBox.size / 3.2
             )
             return true
@@ -15,7 +15,7 @@ function flame_effect(e) {
         .randomChanceWithEnchantment("minecraft:soul_fire_aspect", [0, 1, 1])
         .entityPredicate(entity => {
             global.particleBurst(
-                entity, "soul_fire_flame",
+                entity.level, entity, "soul_fire_flame",
                 6, 0.08, entity.boundingBox.size / 3.2
             )
             return true

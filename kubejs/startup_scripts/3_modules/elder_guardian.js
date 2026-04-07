@@ -11,7 +11,7 @@ function elder_guardian(context) {
         players.forEach(p => {
             p.removeEffect("minecraft:mining_fatigue");
             p.statusMessage = Text.translate("dialogue.fmn.elder_guardian");
-            global.particleBurst(p, "andromeda:knockoff_totem_particles", 14, 0.4)
+            global.particleBurst(p.level, p, "andromeda:knockoff_totem_particles", 14, 0.4)
         })
     })
 }

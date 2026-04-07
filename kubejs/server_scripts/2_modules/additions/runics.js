@@ -28,7 +28,7 @@ global.Swords.forEach(i => {
     const ini_spd = i.getAttributes("generic.attack_speed")[0].getAmount() + 4;
 
     ItemEvents.rightClicked(id, e => {
-        const { player } = e, { offhandItem } = player, { id: id2 } = offhandItem;
+        const { level, player } = e, { offhandItem } = player, { id: id2 } = offhandItem;
         if (!upgrade_items.includes(id2)) return;
 
         const { item } = e;
@@ -78,10 +78,10 @@ global.Swords.forEach(i => {
             )
         );
 
-        global.sound(player, "block.enchantment_table.use", 0.4, 1.8);
-        global.sound(player, "block.stone.break", 0.5, 0.74);
-        global.particleBurst(player, "end_rod", 5, 0.2);
-        global.particleBurst(player, "enchant", 24, 0.6, 0.5)
+        global.sound(level, player, "block.enchantment_table.use", 0.4, 1.8);
+        global.sound(level, player, "block.stone.break", 0.5, 0.74);
+        global.particleBurst(level, player, "end_rod", 5, 0.2);
+        global.particleBurst(level, player, "enchant", 24, 0.6, 0.5)
     })
 })
 
@@ -91,7 +91,7 @@ global.Armors.forEach(i => {
     const ini_tou = i.getAttributes("generic.armor_toughness")[0].getAmount();
 
     ItemEvents.rightClicked(id, e => {
-        const { player } = e, { offhandItem } = player, { id: id2 } = offhandItem;
+        const { level, player } = e, { offhandItem } = player, { id: id2 } = offhandItem;
         if (id2 != "kubejs:upgrade_runic") return;
 
         const { item } = e;
@@ -126,17 +126,17 @@ global.Armors.forEach(i => {
             "chest"
         );
 
-        global.sound(player, "block.enchantment_table.use", 0.4, 1.8);
-        global.sound(player, "block.stone.break", 0.5, 0.74);
-        global.particleBurst(player, "end_rod", 5, 0.2);
-        global.particleBurst(player, "enchant", 24, 0.6, 0.5)
+        global.sound(level, player, "block.enchantment_table.use", 0.4, 1.8);
+        global.sound(level, player, "block.stone.break", 0.5, 0.74);
+        global.particleBurst(level, player, "end_rod", 5, 0.2);
+        global.particleBurst(level, player, "enchant", 24, 0.6, 0.5)
     })
 })
 
 
 global.Upgradeables.forEach(id => {
     ItemEvents.rightClicked(id, e => {
-        const { player, item } = e, { offhandItem } = player;
+        const { player, item, level } = e, { offhandItem } = player;
         if (offhandItem.id != "kubejs:reveal_runic") return;
 
         const { nbt } = item, { revealed } = nbt;
@@ -145,9 +145,9 @@ global.Upgradeables.forEach(id => {
 
         nbt.revealed = true;
 
-        global.sound(player, "block.enchantment_table.use", 0.4, 1.8);
-        global.sound(player, "block.stone.break", 0.5, 0.74);
-        global.particleBurst(player, "end_rod", 5, 0.2);
-        global.particleBurst(player, "enchant", 24, 0.6, 0.5)
+        global.sound(level, player, "block.enchantment_table.use", 0.4, 1.8);
+        global.sound(level, player, "block.stone.break", 0.5, 0.74);
+        global.particleBurst(level, player, "end_rod", 5, 0.2);
+        global.particleBurst(level, player, "enchant", 24, 0.6, 0.5)
     })
 })

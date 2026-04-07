@@ -20,7 +20,7 @@ fish.forEach(key =>
 		newFish.setPosition(x + 0.5, y + 0.5, z + 0.5)
 		newFish.spawn();
 
-		global.sound(player, "entity.player.swim", 0.3, 1, 0.14);
+		global.sound(e.level, player, "entity.player.swim", 0.3, 1);
 		player.potionEffects.add("luck", 8, 0);
 		e.item.shrink(1);
 

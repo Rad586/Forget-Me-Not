@@ -1,35 +1,5 @@
 /* priority: 20 */
 
-// ItemEvents.rightClicked("gold_ingot", e=> {
-// 	function blockHitBehavior(e, block) {
-// 		const explosion = block.createExplosion();
-// 		explosion.strength(0.4)
-// 		explosion.damagesTerrain(false)
-// 		explosion.explode()
-// 	};
-// 	function entityHitBehavior(e, entity) {
-// 		if(global.throttle(2)) return;
-// 		const explosion = entity.block.createExplosion();
-// 		explosion.strength(0.6)
-// 		explosion.damagesTerrain(false)
-// 		explosion.explode()
-// 	};
-
-// 	shootParticle(e, 20, 1, 0.6, -0.02, 32, 1, 255, 154, 52, 0.8, 2, "minecraft:item.firecharge.use", 0.4, Math.random().toFixed(0) * 0.1 + 1.8, entityHitBehavior, blockHitBehavior);
-// });
-
-// ItemEvents.rightClicked("lapis_lazuli", e=> {
-// 	function blockHitBehavior() {};
-// 	function entityHitBehavior(e, entity) {
-// 		if(global.throttle(7)) return;
-// 		entity.attack(e.player, 1);
-// 		entity.knockback(0.00000001, e.player.getViewVector(1).x(), e.player.getViewVector(1).z());
-// 		entity.invulnerableTime = 7;
-// 	};
-// 	shootParticle(e, 0, 1, 1.2, -0.001, 32, 0.3, 76, 130, 255, 0.7, 1, "minecraft:block.end_portal_frame.fill", 0.6, Math.random().toFixed(0) * 0.1 + 0.5, entityHitBehavior, blockHitBehavior);
-// });
-
-
 // ItemEvents.rightClicked("stick", e => {
 // 	const {player, server, level} = e;
 // 	const {potionEffects} = player;
@@ -63,48 +33,6 @@
 // 		}
 // 	}
 // })
-
-//
-
-
-// const caving_dim_values = {
-// 	"diamond": 1, "ruby": 1, "sapphire": 1, "emerald": 1,
-// 	"alexandrite": 0.8, "aquamarine": 0.8, "opal": 0.8, "turquoise": 0.8,
-// 	"topaz": 0.7, "zircon": 0.7, "lapis_lazuli": 0.6, "malachite": 0.6,
-// 	"moonstone": 0.5, "schorl": 0.5, "charoite": 0.5, "rhodochrosite": 0.5,
-// 	"chalcedony": 0.4, "kunzite": 0.4, "morganite": 0.4, "citrine": 0.4,
-// 	"labradorite": 0.3, "grossular": 0.3, "kyanite": 0.3, "agate": 0.3,
-// 	"jade": 0.3, "stone": 0.01
-// };
-// for(let i = 0; i <= 15; i += 3) {
-// 	ItemEvents.rightClicked(`kubejs:level_${i}_pickaxe`, e => {
-// 		const {player, item} = e;
-// 		if(player.isCrouching()) {
-// 			let score = 0;
-// 			player.inventory.allItems.forEach(item => {
-// 				const id = item.id.split(":");
-// 				const value = caving_dim_values[id]
-// 				if(value) score += value;
-// 			});
-// 			//effect and sound
-// 			player.statusMessage = Text.translate("dialogue.fmn.sell_ores").append(score);
-// 			player.addXPLevels(score);
-// 		}
-// 		else {
-// 			let cost = (i**2)*10;
-// 			if(player.xpLevel < cost) return;
-// 			player.potionEffects.add("kubejs:timer2", 40, 0, true, false);
-// 			player.statusMessage = Text.translate("dialogue.fmn.pickaxe_level").append(cost);
-// 			if(player.hasEffect("kubejs:timer2")) {
-// 				player.addXPLevels(-cost);
-// 				item.count--;
-// 				player.give(`kubejs:level_${i+1}_pickaxe`);
-// 				//effect and sound
-// 			}
-// 		}
-// 	})
-// }
-// e.server.scoreboard.addPlayerTeam()
 
 
 // const SMP = Java.loadClass("net.minecraft.world.SimpleMenuProvider");
@@ -159,55 +87,6 @@
 
 
 
-// ItemEvents.entityInteracted(e => {
-// 	e.server.tell(e.target.displayName)
-// })
-
-
-
-
-
-// EntityEvents.hurt("pig", e => {
-// 	const {entity, level} = e;
-// 	const {persistentData: pData} = entity;
-// 	entity.potionEffects.add("resistance", 99999, 255)
-// 	entity.potionEffects.add("slowness", 99999, 255)
-// 	if(pData.t == null) pData.t = level.getTime();
-// 	else {
-// 		// e.server.tell(level.getTime() - pData.t)
-// 		pData.t = level.getTime()
-// 	}
-// })
-
-// ItemEvents.rightClicked(e => {
-// 	const Raider = Java.loadClass("net.minecraft.world.entity.raid.Raider");
-// 	const { target, player, level } = e, { entity } = target;
-// 	// if(!(entity instanceof Raider)) return
-// 	const Path = Java.loadClass("net.minecraft.world.entity.ai.navigation.GroundPathNavigation")
-// 	const {x, y, z} = player
-
-
-// 	// e.server.tell(entity.nbt.RaidId)
-// 	// e.server.tell(e.level.canSeeSky(player.block.pos))
-// 	// e.server.tell(e.level.getHeight("motion_blocking", x, z))
-
-// 	const ENTITY_TYPE_REGISTRY = Java.loadClass("net.minecraft.core.Registry").ENTITY_TYPE_REGISTRY
-// 	// e.server.tell(ENTITY_TYPE.byLocation)
-// 	// ENTITY_TYPE..forEach(type => {
-// 	// 	if (type instanceof Raider) {
-// 	// 		e.server.tell(type)
-// 	// 	}
-// 	// })
-// 	const types = Utils.getRegistry("entity_type").getIds()
-// 	types.forEach(a => {
-// 		if(a instanceof Raider) {
-// 			e.server.tell(a)
-// 		}
-// 	})
-// })
-
-
-
 //准备移除kjs additions
 //排查satin api
 //移除一些动物模组？
@@ -217,11 +96,164 @@
 //坐下的提示
 //宝箱无法破坏改为“开启宝箱吸引仇恨，宝箱内物资等待出现结果”
 
+
+
 ItemEvents.rightClicked(e => {
-    e.server.tell(Client.player.input.moveVector.x)
+    function attack(player, target, damage) {
+        target.invulnerableTime = 0;
+        target.attack(player, damage);
+    }
+    function attackable(player, target) {
+        if (target.isLiving() &&
+            target.isAlive() &&
+            target.owner != player
+        ) return true;
+
+        if (target instanceof Projectile) {
+            target.discard()
+        };
+
+        return false;
+    }
+    const hit_criteria = (player, target, range) => (
+        target != player &&
+        target.distanceToEntity(player) <= range &&
+        player.hasLineOfSight(target) &&
+        attackable(player, target)
+    )
+    function areaCheck(level, player, range, func) {
+        const aabb = player.boundingBox.inflate(range, 0.5, range);
+        const entities = level.getEntitiesWithin(aabb)
+            .filter(target => hit_criteria(player, target, range));
+        if (entities.isEmpty()) return;
+        entities.forEach(target => func(target))
+    }
     
+    function whirlwind(player, target, damage) {
+        attack(player, target, damage)
+    }
+    function arc(level, player, damage, type) {
+        const arc = level.createEntity("kubejs:arc");
+
+        arc.setDeltaMovement(player.lookAngle.scale(2));
+        arc.copyPosition(player);
+        arc.setY(player.eyeY);
+        arc.setOwner(player);
+        arc.setNoGravity(true);
+        arc.persistentData.dmg = damage;
+        arc.persistentData.type = type || "default";
+        arc.spawn();
+    }
+    function inferno(player, target, cd, damage) {
+        if (!target.isOnFire()) {
+            if (target.block.hasTag("minecraft:soul_fire_base_blocks")) {
+                target.fireType = "minecraft:soul"
+            };
+            target.setSecondsOnFire(cd / 20 + 1.2)
+        }
+        else {
+            attack(player, target, damage);
+            target.extinguish()
+        }
+    }
+    function blizzard(target, cd, duration) {
+        const { potionEffects } = target;
+        if (!target.hasEffect("slowness")) {
+            potionEffects.add("slowness", cd / 20 + 1.2, 0, false, true)
+        }
+        else {
+            potionEffects.add("slowness", duration, 1, false, true)
+        } 
+    }
+
+    const swords = {
+        "smite": (level, player, id, delay, dmg, lvl) => {
+            const damage = dmg * 1.5;
+            const cd = delay * 1.5;
+            const range = 4 * 1;
+
+            const first = global.advancedRayTraceEntity(player, range);
+            if (!first) return;
+
+            if (attackable(player, first)) attack(player, first, damage)
+            else {
+                player.server.scheduleInTicks(1, () => {
+                    const second = global.advancedRayTraceEntity(player, range);
+                    if (attackable(player, second)) attack(player, second, damage)
+                })
+            };
+
+            player.cooldowns.addCooldown(id, cd)
+        },
+        "whirlwind": (level, player, id, delay, dmg, lvl) => {
+            const damage = dmg * 0.8;
+            const cd = delay * 1.5;
+            const range = 4 * 1.2;
+
+            areaCheck(level, player, range, (target) => 
+                whirlwind(player, target, damage)
+            );
+
+            global.particleRing(level, "spread", range * 3, range, player, "sweep_attack", 0, 0.7);
+            global.sound(level, player, "block.candle.extinguish", 2, 1.4);
+            global.sound(level, player, "entity.bat.takeoff", 0.4, 1.2);
+            global.sound(level, player, "block.beacon.power_select", 0.4, 2);
+
+            // player.cooldowns.addCooldown(id, cd)
+        },
+        "lunge": () => {
+
+        },
+        "arc": (level, player, id, delay, dmg, lvl) => {
+            const damage = dmg * 0.5;
+            const cd = delay * 1;
+
+            arc(level, player, damage);
+
+            player.cooldowns.addCooldown(id, cd)
+        },
+        "vortex": (level, player, id, delay, dmg, lvl) => {
+
+        },
+        "inferno": (level, player, id, delay, dmg, lvl) => {
+            const damage = dmg * 1;
+            const cd = delay * 1.2;
+            const range = 4 * 2;
+
+            areaCheck(level, player, range, (target) => 
+                inferno(player, target, cd, damage)
+            )
+
+            player.cooldowns.addCooldown(id, cd)
+        },
+        "blizzard": (level, player, id, delay, dmg, lvl) => {
+            const duration = dmg * 20 / 2;
+            const cd = delay * 1;
+            const range = 4 * 3;
+
+            areaCheck(level, player, range, (target) => 
+                blizzard(target, cd, duration)   
+            );
+
+            player.cooldowns.addCooldown(id, cd)
+        }
+    }
+
+    swords["whirlwind"](
+        e.level,
+        e.player,
+        e.player.mainHandItem.id,
+        e.player.getCurrentItemAttackStrengthDelay() * 2,
+        e.player.getAttribute("minecraft:generic.attack_damage").getValue(), 
+        1
+    )
+
 })
-//测试globalring2
-// LevelEvents.tick(e => {
-//     Client.player.interactAt()
+
+
+// ItemEvents.rightClicked(e => {
+//     Utils.getRegistry("mob_effect").forEach(effect => {
+//         const [prefix, path, name] = String(effect.descriptionId).split(".");
+//         e.server.tell(path)
+//     })
 // })

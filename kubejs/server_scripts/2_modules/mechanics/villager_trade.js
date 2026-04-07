@@ -10,9 +10,10 @@ function villager_trade(entity, player) {
         return sum + navigation.createPath(x + Math.cos(angle), y, z + Math.sin(angle), 0.1).getNodeCount();
     }, 0);  
 
+    const { level } = entity;
     if(totalNodes < 16) {
-        global.sound(entity, "entity.villager.no");
-        entity.level.spawnParticles("angry_villager", true, x, y+1.5, z, 0.2, 0.2, 0.2, 2, 0);
+        global.sound(level, entity, "entity.villager.no");
+        level.spawnParticles("angry_villager", true, x, y+1.5, z, 0.2, 0.2, 0.2, 2, 0);
         player.statusMessage = Text.translate("dialogue.fmn.villager_denial");
         return false;
     };

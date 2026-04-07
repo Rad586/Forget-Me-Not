@@ -18,5 +18,5 @@ function slime_regen(context) {
     entity.heal(cost * base);
 
     entity.playSound("entity.puffer_fish.blow_up", 0.48, 1.4);
-    global.particleBurst(entity, "heart", 3, 0.06, 0.4, entity.eyeY)
+    global.particleBurst(level, entity, "heart", 3, 0.06, 0.4, entity.eyeY)
 }

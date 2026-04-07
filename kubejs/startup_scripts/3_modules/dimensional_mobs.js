@@ -35,6 +35,6 @@ function dimensional_mobs(entity, data) {
     itemEntity.spawn();
 
     entity.playSound(data.sound, data.volume, data.pitch);
-    global.particleBurst(entity, "large_smoke", 20, 0.06);
+    global.particleBurst(level, entity, "large_smoke", 20, 0.06);
     entity.discard();
 }

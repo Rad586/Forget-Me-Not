@@ -82,14 +82,14 @@ StartupEvents.registry("item", e => {
 			.alwaysEdible()
 			.fastToEat()
 			.eaten(ctx => {
-				const {player} = ctx;
-				if(ctx.player.level.isClientSide()) return;
+				const { player } = ctx, { level } = player;
+				if(level.isClientSide()) return;
 
 				global.updateMaxHealth(player, 1);
 				doSimpleTip(player, "soul_remnant_tip", "s2");
 
-				global.particleBurst(player, "sculk_soul", 3, 0.06, 0.08);
-				global.particleBurst(player, "soul_fire_flame", 4, 0.08, 0);
+				global.particleBurst(level, player, "sculk_soul", 3, 0.06, 0.08);
+				global.particleBurst(level, player, "soul_fire_flame", 4, 0.08, 0);
 			})
 		)
 		.tooltip(Text.translate("dialogue.fmn.soul_remnant"))

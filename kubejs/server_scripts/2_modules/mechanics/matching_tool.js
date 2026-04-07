@@ -19,6 +19,6 @@ Object.keys(toolHurtsExtra).forEach(key => {
 	
 		if(!(player.mainHandItem.item instanceof tool)) return;
 		entity.attack(player, damage);
-		if(sf) global.sound(entity, `${sf}`, 0.8, 1.2, 0.3);
+		if(sf) global.sound(e.level, entity, `${sf}`, 0.8, 1.2);
 	})
 })

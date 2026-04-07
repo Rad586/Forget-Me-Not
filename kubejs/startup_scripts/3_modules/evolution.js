@@ -78,7 +78,9 @@ global.evolutionMap = {
 };
 const keys_in_evolution = Object.keys(global.evolutionMap);
 function evolution(nether_stage, actual, score) {
-	if(!nether_stage || !actual || actual.level.isClientSide()) return;
+	if(!nether_stage || !actual);
+	const { level } = actual;
+	if(level.isClientSide()) return;
 	const {type} = actual, data = global.evolutionMap[type];
 	if(!data || actual.age < 60) return;
 
@@ -89,7 +91,7 @@ function evolution(nether_stage, actual, score) {
 	pData.evolution = result;
 	if(result < 5) return;
 
-	const evoluted = actual.level.createEntity(global.randomSelect(data));
+	const evoluted = level.createEntity(global.randomSelect(data));
 	evoluted.copyPosition(actual);
     if(evoluted instanceof CrossbowAttackMob) evoluted.setMainHandItem("minecraft:crossbow");
 	else if(evoluted instanceof RangedAttackMob) evoluted.setMainHandItem("minecraft:bow");
@@ -100,7 +102,7 @@ function evolution(nether_stage, actual, score) {
         evoluted.setHealth(100);
     });
 
-	global.particleBurst(actual, "cloud", 10, 0.05);
+	global.particleBurst(level, actual, "cloud", 10, 0.05);
 	actual.playSound("lunaslimes:entity.slime.merge", 1.2, 1.1);
 	actual.discard()
 }

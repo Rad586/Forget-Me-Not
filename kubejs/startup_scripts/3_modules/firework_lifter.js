@@ -14,5 +14,5 @@ function firework_lifter(entity) {
             server.scheduleInTicks(5, () => entity2.startFallFlying());
         }
     })
-    global.particleRing("spread", 8, 0, -0.1, entity, "cloud", 1.4);
+    global.particleRing(level, "spread", 8, 0, -0.1, entity, "cloud", 1.4);
 }

@@ -22,7 +22,7 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("soft_landing")
 		.beneficial()
 		.color(0xF4F4B7)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5)) return;
 
 			if (!entity.isOnGround()) entity.potionEffects.add("slow_falling", 6, 0, true, false);
@@ -32,36 +32,40 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("frost_walker")
 		.beneficial()
 		.color(0x70A4FC)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5)) return;
+			const { level } = entity;
 
 			if (entity.isOnFire()) {
 				entity.removeEffect("kubejs:frost_walker");
-				global.sound(entity, "block.fire.extinguish", 0.8, 1.8, 0.2);
+				global.sound(level, entity, "block.fire.extinguish", 0.8, 1.8);
 			}
 			else if (!entity.isInWater() && entity.isOnGround()) {
-				let r = 2 + level;
+				let r = 2 + lvl;
 				let { x, y, z } = entity;
-				entity.level.runCommandSilent(`fill ${(x - r).toFixed(0)} ${(y - 1).toFixed(0)} ${(z - r).toFixed(0)} ${(x + r).toFixed(0)} ${(y - 1).toFixed(0)} ${(z + r).toFixed(0)} frosted_ice replace water`);
+				level.runCommandSilent(`fill ${(x - r).toFixed(0)} ${(y - 1).toFixed(0)} ${(z - r).toFixed(0)} ${(x + r).toFixed(0)} ${(y - 1).toFixed(0)} ${(z + r).toFixed(0)} frosted_ice replace water`);
 			}
 		})
 
 	e.create("channeling")
 		.harmful()
 		.color(0x93F5FF)
-		.effectTick((entity, level) => {
-			if (!entity || entity.level.isClientSide()) return;
-			if (global.throttle(entity, 160 / (level + 1), "channeling")) return;
-			if (!entity.level.isThundering() || !entity.block.getCanSeeSky()) return;
+		.effectTick((entity, lvl) => {
+			if (!entity) return;
+			const { level } = entity;
+			if (level.isClientSide()) return;
+
+			if (global.throttle(entity, 160 / (lvl + 1), "channeling")) return;
+			if (!level.isThundering() || !entity.block.getCanSeeSky()) return;
 
 			if (entity.isInWater()) { 		//electric conduction
 				entity.attack("lightningBolt", 3);
-				global.sound(entity, "bosses_of_mass_destruction:energy_shield", 1, 0.8, 0.2);
+				global.sound(level, entity, "bosses_of_mass_destruction:energy_shield", 1, 0.8);
 				entity.potionEffects.add("minecraft:glowing", 40, 0, true, false);
 				let i = entity.getEffect("kubejs:channeling").duration + 80;
-				entity.potionEffects.add("kubejs:channeling", i, level, true, false);
+				entity.potionEffects.add("kubejs:channeling", i, lvl, true, false);
 
-				entity.level.getEntitiesWithin(entity.boundingBox.inflate(Math.min(6, level * 2 + 4))).forEach((entity2) => {
+				level.getEntitiesWithin(entity.boundingBox.inflate(Math.min(6, lvl * 2 + 4))).forEach((entity2) => {
 					if (entity2 == entity) return;
 					entity2.potionEffects.add("kubejs:channeling", 20, 0, true, false);
 					entity2.potionEffects.add("minecraft:glowing", 40, 0, true, false);
@@ -76,28 +80,32 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("burning")
 		.harmful()
 		.color(0xD15700)
-		.effectTick((entity, level) => {
-			if (!entity || entity.level.isClientSide() || entity.isOnFire()) return;
+		.effectTick((entity, lvl) => {
+			if (!entity) return;
+			const { level } = entity;
+			if (level.isClientSide() || entity.isOnFire()) return;
 
 			if (entity.isInWaterOrRain() || entity.hasEffect("kubejs:soul_burning") || entity.getTicksFrozen() > 160) {
 				entity.removeEffect("kubejs:burning");
-				global.sound(entity, "block.fire.extinguish", 0.8, 1.8, 0.2);
+				global.sound(level, entity, "block.fire.extinguish", 0.8, 1.8);
 			}
-			else entity.setSecondsOnFire((level + 1) * 2);
+			else entity.setSecondsOnFire((lvl + 1) * 2);
 		})
 
 	e.create("soul_burning")
 		.harmful()
 		.color(0x47D4EC)
-		.effectTick((entity, level) => {
-			if (!entity || entity.level.isClientSide() || entity.isOnFire()) return;
+		.effectTick((entity, lvl) => {
+			if (!entity) return;
+			const { level } = entity;
+			if (level.isClientSide() || entity.isOnFire()) return;
 
 			if (entity.isInWaterOrRain() || entity.getTicksFrozen() > 160) {
 				entity.removeEffect("kubejs:soul_burning");
-				global.sound(entity, "block.fire.extinguish", 0.8, 1.8, 0.2);
+				global.sound(level, entity, "block.fire.extinguish", 0.8, 1.8);
 			}
 			else {
-				entity.setSecondsOnFire(level + 2);
+				entity.setSecondsOnFire(lvl + 2);
 				entity.fireType = "minecraft:soul";
 			}
 		})
@@ -105,17 +113,18 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("ignition")
 		.beneficial()
 		.color(0xD15700)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 30)) return;
+			const { level } = entity;
 
 			if (entity.isInWaterOrRain() || entity.hasEffect("kubejs:freeze_aspect") || entity.hasEffect("kubejs:soul_ignition") || entity.getTicksFrozen() > 160) {
 				entity.removeEffect("kubejs:ignition");
 				entity.setTicksFrozen(0);
-				global.sound(entity, "block.fire.extinguish", 0.8, 1.8, 0.2);
+				global.sound(level, entity, "block.fire.extinguish", 0.8, 1.8);
 			}
 			else {
-				global.particleRing("spread", 20, 0, level + 1, entity, "flame", 1);
-				entity.level.getEntitiesWithin(entity.boundingBox.inflate(Math.min(5, level + 2))).forEach((entity2) => {
+				global.particleRing(level, "spread", 20, 0, lvl + 1, entity, "flame", 1);
+				level.getEntitiesWithin(entity.boundingBox.inflate(Math.min(5, lvl + 2))).forEach((entity2) => {
 					if (!entity2.isOnFire()) entity2.setSecondsOnFire(2);
 				})
 			}
@@ -124,17 +133,18 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("soul_ignition")
 		.beneficial()
 		.color(0x47D4EC)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 30)) return;
+			const { level } = entity;
 
 			if (entity.isInWaterOrRain() || entity.hasEffect("kubejs:freeze_aspect") || entity.getTicksFrozen() > 160) {
 				entity.removeEffect("kubejs:soul_ignition");
 				entity.setTicksFrozen(0);
-				global.sound(entity, "block.fire.extinguish", 0.8, 1.8, 0.2);
+				global.sound(level, entity, "block.fire.extinguish", 0.8, 1.8);
 			}
 			else {
-				global.particleRing("spread", 20, 0, level + 1, entity, "soul_fire_flame", 1);
-				entity.level.getEntitiesWithin(entity.boundingBox.inflate(Math.min(5, level + 2))).forEach((entity2) => {
+				global.particleRing(level, "spread", 20, 0, lvl + 1, entity, "soul_fire_flame", 1);
+				level.getEntitiesWithin(entity.boundingBox.inflate(Math.min(5, lvl + 2))).forEach((entity2) => {
 					if (!entity2.isOnFire()) {
 						entity2.setSecondsOnFire(2);
 						entity2.fireType = "minecraft:soul";
@@ -146,16 +156,17 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("repulsion")
 		.beneficial()
 		.color(0x65CCF2)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 3)) return;
+			const { level } = entity;
 
 			if (entity.hasEffect("kubejs:pull")) {
 				entity.removeEffect("kubejs:repulsion");
-				global.sound(entity, "minecraft:block.beacon.deactivate", 1, 1, 0.2);
+				global.sound(level, entity, "minecraft:block.beacon.deactivate", 1, 1);
 			}
 			else {
-				let i = level * 0.1 + 0.1;
-				entity.level.getEntitiesWithin(entity.boundingBox.inflate(2)).forEach((entity2) => {
+				let i = lvl * 0.1 + 0.1;
+				level.getEntitiesWithin(entity.boundingBox.inflate(2)).forEach((entity2) => {
 					if (entity2 == entity) return;
 					entity2.addMotion((entity2.x - entity.x) * i, (entity2.y - entity.y) * i, (entity2.z - entity.z) * i);
 					entity2.hurtMarked = true;
@@ -166,16 +177,17 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("pull")
 		.beneficial()
 		.color(0x65CCF2)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 3)) return;
+			const { level } = entity;
 
 			if (entity.hasEffect("kubejs:repulsion")) {
 				entity.removeEffect("kubejs:pull");
-				global.sound(entity, "minecraft:block.beacon.deactivate", 1, 1, 0.2);
+				global.sound(level, entity, "minecraft:block.beacon.deactivate", 1, 1);
 			}
 			else {
-				let i = level * 0.1 + 0.1;
-				entity.level.getEntitiesWithin(entity.boundingBox.inflate(2)).forEach((entity2) => {
+				let i = lvl * 0.1 + 0.1;
+				level.getEntitiesWithin(entity.boundingBox.inflate(2)).forEach((entity2) => {
 					if (entity2 == entity) return;
 					entity2.addMotion((entity.x - entity2.x) * i, (entity.y - entity2.y) * i, (entity.z - entity2.z) * i);
 					entity2.hurtMarked = true;
@@ -186,37 +198,42 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("aquatic_healing") 	//idea from shattered pixel dungeon
 		.beneficial()
 		.color(0x3AD6E6)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 60) || !entity.isInWaterOrRain()) return;
-			entity.heal(1 + level);
+			entity.heal(1 + lvl);
 		})
 
 	e.create("arcane_armor") 	//idea from shattered pixel dungeon
 		.beneficial()
 		.color(0xD491D0)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 30)) return;
-			if (entity.absorptionAmount < level + 1) entity.absorptionAmount = level + 1;
+			if (entity.absorptionAmount < lvl + 1) entity.absorptionAmount = lvl + 1;
 		})
 
 	e.create("caustic_ooze") 	//idea from shattered pixel dungeon
 		.harmful()
 		.color(0x2D614A)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 40)) return;
+			const { level } = entity;
 
 			if (entity.isOnFire()) {		//firedamp explosion
-				entity.level.createExplosion(entity.x, entity.y, entity.z).exploder(entity).strength(2).damagesTerrain(false).explode();
+				level.createExplosion(entity.x, entity.y, entity.z)
+					.exploder(entity)
+					.strength(2)
+					.damagesTerrain(false)
+					.explode();
 				entity.removeEffect("kubejs:caustic_ooze");
 			}
 			else if (entity.isInWaterOrRain()) {		//water washes off ooze
-				global.sound(entity, "item.bucket.empty", 0.68, 1.2, 0.2);
+				global.sound(level, entity, "item.bucket.empty", 0.68, 1.2);
 				entity.removeEffect("kubejs:caustic_ooze");
 			}
 			else if (entity.maxHealth > 100) {	//don't apply on bosses
 				entity.removeEffect("kubejs:caustic_ooze");
 			}
-			else entity.attack("magic", 1 + level);
+			else entity.attack("magic", 1 + lvl);
 		})
 
 	e.create("flame")	//8x faster than entity.boundingBox.inflate(3)!
@@ -227,17 +244,19 @@ StartupEvents.registry("mob_effect", e => {
 		.beneficial()
 		.color(0x65CCF2)
 
-	global.thunder = (entity, level) => {
-		global.particleRing("gather", 18, 0, 8, entity, "glow_squid_ink", 5);
-		global.sound(entity, "block.beacon.activate", 0.58, 1.15, 0.05);
+	global.thunder = (entity, lvl) => {
+		const { level } = entity;
+
+		global.particleRing(level, "gather", 18, 0, 8, entity, "glow_squid_ink", 5);
+		global.sound(level, entity, "block.beacon.activate", 0.58, 1.15);
 		entity.removeEffect("kubejs:thunderbrand");
 		let counter = 0
 		Utils.server.scheduleInTicks(20, callback => {
 			counter++
-			if (counter > 4) thunderbrand(entity, 6 + level * 2, 1);
+			if (counter > 4) thunderbrand(entity, 6 + lvl * 2, 1);
 			else {
-				global.sound(entity, "block.beacon.activate", 1.5 + counter * 0.1, 1.1 + counter * 0.1, 0.05);
-				global.particleRing("gather", 18, 0, 8 - counter * 2, entity, "glow_squid_ink", 6 - counter);
+				global.sound(level, entity, "block.beacon.activate", 1.5 + counter * 0.1, 1.1 + counter * 0.1);
+				global.particleRing(level, "gather", 18, 0, 8 - counter * 2, entity, "glow_squid_ink", 6 - counter);
 				callback.reschedule();
 			}
 		})
@@ -245,19 +264,19 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("thunderbrand")
 		.beneficial()
 		.color(0x9CF1FF)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5)) return;
-			global.thunder(entity, level);
+			global.thunder(entity, lvl);
 		})
 
 	e.create("vertigo") //Mob only
 		.harmful()
 		.color(0xC4C4C4)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5)) return;
 
 			if (entity.isPlayer()) entity.removeEffect("kubejs:vertigo");
-			else if (!global.throttle(entity, Math.max(5, 30 - level * 15), "vertigo")) {
+			else if (!global.throttle(entity, Math.max(5, 30 - lvl * 15), "vertigo")) {
 				let sign = Math.random() < 0.5 ? -1 : 1;
 				let i = Math.max(3, Math.random() * 3 * Math.random() * 3) * sign;
 				let { x, y, z } = entity;
@@ -268,7 +287,7 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("camouflage")
 		.beneficial()
 		.color(0x739D5B)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5) || !["oak_leaves", "hanging_roots"].includes(entity.block.material.id)) return;
 			entity.potionEffects.add("invisibility", 20, 0, false, false);
 		})
@@ -276,18 +295,19 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("destined_death_curse")
 		.harmful()
 		.color(0x530000)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 2)) return;
+			const { level } = entity;
 
 			if (entity.maxHealth >= 50) {
-				global.sound(entity, "block.beacon.power_select", 0.7, 1.8, 0.2);
+				global.sound(level, entity, "block.beacon.power_select", 0.7, 1.8);
 				entity.removeEffect("kubejs:destined_death_curse");
 			}
 			else {
 				Utils.server.scheduleInTicks(3, () => {
 					if (entity.hasEffect("kubejs:destined_death_curse")) return;
 					entity.attack("magic", 1000);
-					global.sound(entity, "entity.wither.break_block", 0.2, 1, 0.2);
+					global.sound(level, entity, "entity.wither.break_block", 0.2, 1);
 				})
 			}
 		})
@@ -295,46 +315,48 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("rampaging")
 		.beneficial()
 		.color(0xE05C00)
-		.effectTick((entity, level) => {
-			if (!entity || entity.level.isClientSide() || !entity.feetBlockState.fluidState.isEmpty()) return;
+		.effectTick((entity, lvl) => {
+			if (!entity) return;
+			const { level } = entity;
+			if (level.isClientSide() || !entity.feetBlockState.fluidState.isEmpty()) return;
 
 			const vec3 = entity.getViewVector(1);
-			entity.setMotionX(vec3.x() * (0.5 + level * 0.05));
-			entity.setMotionZ(vec3.z() * (0.5 + level * 0.05));
+			entity.setMotionX(vec3.x() * (0.5 + lvl * 0.05));
+			entity.setMotionZ(vec3.z() * (0.5 + lvl * 0.05));
 			entity.hurtMarked = true;
 			entity.potionEffects.add("resistance", 5, 1, true, false);
-			entity.level.getEntitiesWithin(entity.boundingBox.inflate(0.75)).forEach(entity2 => {
+			level.getEntitiesWithin(entity.boundingBox.inflate(0.75)).forEach(entity2 => {
 				if (entity2 == entity || !entity2.isLiving()) return;
-				if (entity2.hurtTime == 0) entity2.attack(entity, level * 1.5 + 1.5);
-				entity2.knockback(0.4 + level * 0.15, entity.x - entity2.x, entity.z - entity2.z);
+				if (entity2.hurtTime == 0) entity2.attack(entity, lvl * 1.5 + 1.5);
+				entity2.knockback(0.4 + lvl * 0.15, entity.x - entity2.x, entity.z - entity2.z);
 			})
 		})
 
 	e.create("rewind")
 		.beneficial()
 		.color(0xA786FF)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 2)) return;
 			const pData = entity.persistentData;
-			const { x, y, z } = entity;
+			const { level, x, y, z } = entity;
 
 			if (!pData.rewind) {
-				pData.rewind = { dim: entity.level.dimension.toString(), x: x, y: y, z: z };
-				global.particleRing("gather", 12, 0, 4, entity, "dragon_breath", 3);
-				global.sound(entity, "block.beacon.activate", 2, 1.8, 0.2);
+				pData.rewind = { dim: level.dimension.toString(), x: x, y: y, z: z };
+				global.particleRing(level, "gather", 12, 0, 4, entity, "dragon_breath", 3);
+				global.sound(level, entity, "block.beacon.activate", 2, 1.8);
 			}
 			else {
 				let { server } = Utils;
 				server.scheduleInTicks(3, () => {
 					if (entity.hasEffect("kubejs:rewind") || !pData.rewind || !entity.isAlive()) return;
-					global.particleBurst(entity, "minecraft:dragon_breath", 20, 0.2);
-					global.sound(entity, "entity.enderman.teleport", 1, 0.8, 0.2);
+					global.particleBurst(level, entity, "minecraft:dragon_breath", 20, 0.2);
+					global.sound(level, entity, "entity.enderman.teleport", 1, 0.8);
 					entity.teleportTo(pData.rewind.dim, pData.rewind.x, pData.rewind.y, pData.rewind.z, 0, 0);
 					pData.rewind = false;
 
 					server.scheduleInTicks(0, () => {
-						global.sound(entity, "entity.enderman.teleport", 1, 0.8, 0.2);
-						global.particleRing("spread", 18, 0, 0, entity, "dragon_breath", 4);
+						global.sound(level, entity, "entity.enderman.teleport", 1, 0.8);
+						global.particleRing(level, "spread", 18, 0, 0, entity, "dragon_breath", 4);
 					})
 				})
 			}
@@ -344,8 +366,10 @@ StartupEvents.registry("mob_effect", e => {
 		.beneficial()
 		.color(0x591C5D)
 		.effectTick((entity, lvl) => {
-			if (!entity || entity.level.isClientSide()) return;
-			const { x, eyeY, z, level, potionEffects, age } = entity;
+			if (!entity) return;
+			const { level } = entity;
+			if (level.isClientSide()) return;
+			const { x, eyeY, z, potionEffects, age } = entity;
 
 			if (age % 3 == 0) {
 				potionEffects.add("invisibility", 5, 0, true, false);
@@ -360,7 +384,7 @@ StartupEvents.registry("mob_effect", e => {
 			if (age % 20 == 0) {
 				level.spawnParticles("large_smoke", true, x, eyeY, z, 0.3, 0.8, 0.3, 28, 0);
 				level.spawnParticles("witch", true, x, eyeY + 0.05, z, 0.08, 0.08, 0.08, 8, 0);
-				global.sound(player, "entity.warden.heartbeat", 0.5, 0.64);
+				global.sound(level, player, "entity.warden.heartbeat", 0.5, 0.64);
 			}
 		})
 
@@ -376,7 +400,7 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("thorns")
 		.beneficial()
 		.color(0x39741F)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5) || takeHitCheck(entity)) return;
 			const attacker = entity.lastHurtByMob;
 			attacker.attack("thorns", random.nextInt(1, 5));
@@ -385,44 +409,45 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("vulnerability")
 		.harmful()
 		.color(0xC7C2A1)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5) || takeHitCheck(entity)) return;
 			let i = entity.lastDamageTaken;
-			entity.attack(entity.lastHurtByMob, i * (level * 0.1 + 0.1) + entity.lastDamageTaken);
+			entity.attack(entity.lastHurtByMob, i * (lvl * 0.1 + 0.1) + entity.lastDamageTaken);
 		})
 
 	e.create("bounce")
 		.beneficial()
 		.color(0xFFAFFF)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5) || takeHitCheck(entity)) return;
 			const attacker = entity.lastHurtByMob;
-			attacker.knockback(0.75 + 0.25 * level, entity.x - attacker.x, entity.z - attacker.z);
+			attacker.knockback(0.75 + 0.25 * lvl, entity.x - attacker.x, entity.z - attacker.z);
 		})
 
 	e.create("metabolism_curse")
 		.harmful()
 		.color(0x745499)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (Math.random() > 0.2 || checkWithTime(entity, 5)) return;
 
 			if (!entity.isPlayer()) entity.removeEffect("kubejs:metabolism_curse");
 			else if (!takeHitCheck(entity)) {
-				entity.foodLevel -= 2 * level + 2;
-				entity.potionEffects.add("regeneration", 50 * level + 50, 1, true, false);
+				entity.foodLevel -= 2 * lvl + 2;
+				entity.potionEffects.add("regeneration", 50 * lvl + 50, 1, true, false);
 			}
 		})
 
 	e.create("stench_curse")
 		.harmful()
 		.color(0x83CE59)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (Math.random() > 0.06 || checkWithTime(entity, 5) || takeHitCheck(entity)) return;
+			const { level } = entity;
 
 			entity.potionEffects.add("poison", 100, 1);
-			global.sound(entity, "block.fire.extinguish", 0.8, 1, 0.2);
+			global.sound(level, entity, "block.fire.extinguish", 0.8, 1);
 
-			const cloud = entity.level.createEntity("minecraft:area_effect_cloud");
+			const cloud = level.createEntity("minecraft:area_effect_cloud");
 			cloud.copyPosition(entity);
 			cloud.mergeNbt(`{Radius:2.2f,RadiusPerTick:0.007f,Duration:100,Effects:[{Id:19,Amplifier:0b,Duration:60}],Particle:"swampier_swamps:swamp_gas"}`);
 			cloud.spawn();
@@ -431,36 +456,39 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("anti_entropy_curse")
 		.harmful()
 		.color(0xC19EC1)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (Math.random() > 0.168 || checkWithTime(entity, 5) || takeHitCheck(entity)) return;
+			const { level } = entity;
 
 			const attacker = entity.lastHurtByMob;
 			attacker.setTicksFrozen(280);
 			attacker.extinguish();
-			global.sound(attacker, "minecraft:block.glass.break", 0.6, 1.1, 0.4);
+			global.sound(level, attacker, "minecraft:block.glass.break", 0.6, 1.1);
+
 			entity.setSecondsOnFire(6);
-			global.sound(entity, "block.fire.ambient", 2, 1.4, 0.6);
+			global.sound(level, entity, "block.fire.ambient", 2, 1.4);
 		})
 
 	e.create("beheading_curse")
 		.harmful()
 		.color(0x962D2A)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5) || takeHitCheck(entity)) return;
 
 			const attacker = entity.lastHurtByMob;
-			if (attacker.health / attacker.maxHealth > 0.025 + level * 0.025) return;
+			if (attacker.health / attacker.maxHealth > 0.025 + lvl * 0.025) return;
 			entity.attack(attacker, 100);
 		})
 
 	e.create("overflow_curse")
 		.harmful()
 		.color(0xC300BF)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (Math.random() > 0.08 || checkWithTime(entity, 5) || takeHitCheck(entity)) return;
+			const { level } = entity;
 
-			global.sound(entity, "block.glass.break", 0.78, 0.8, 0.3);
-			const cloud = entity.level.createEntity("minecraft:area_effect_cloud");
+			global.sound(level, entity, "block.glass.break", 0.78, 0.8);
+			const cloud = level.createEntity("minecraft:area_effect_cloud");
 			cloud.copyPosition(entity);
 			cloud.mergeNbt(`{Radius:0.5f,RadiusPerTick:0.07f,Duration:40,Effects:[{Id:${random.nextInt(0, 19)},Amplifier:0b,Duration:60}]}`);
 			cloud.spawn();
@@ -469,23 +497,25 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("blessed")
 		.beneficial()
 		.color(0xFFE811)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5)) return;
+			const { level } = entity;
+
 			if (entity.hasEffect("kubejs:outcast_curse")) {
 				entity.removeEffect("kubejs:blessed");
-				global.sound(entity, "minecraft:block.beacon.deactivate", 1, 1, 0.2);
+				global.sound(level, entity, "minecraft:block.beacon.deactivate", 1, 1);
 			}
 			else if (!takeHitCheck(entity)) {
-				if (entity.invulnerableTime <= 20) entity.invulnerableTime += level + 1;
+				if (entity.invulnerableTime <= 20) entity.invulnerableTime += lvl + 1;
 			}
 		})
 
 	e.create("outcast_curse")
 		.harmful()
 		.color(0x941F20)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5) || takeHitCheck(entity)) return;
-			entity.invulnerableTime -= level + 1;
+			entity.invulnerableTime -= lvl + 1;
 		})
 
 
@@ -495,6 +525,8 @@ StartupEvents.registry("mob_effect", e => {
 		.color(0xE27907)
 		.effectTick((entity, lvl) => {
 			if (entity.age % 4) return;
+			const { level } = entity;
+
 			if (entity.isInWaterOrRain() ||
 				entity.hasEffect("kubejs:freeze_aspect") ||
 				entity.hasEffect("kubejs:soul_fire_aspect") ||
@@ -502,7 +534,7 @@ StartupEvents.registry("mob_effect", e => {
 			) {
 				entity.removeEffect("kubejs:fire_aspect");
 				entity.setTicksFrozen(0);
-				global.sound(entity, "block.fire.extinguish", 0.8, 1.8, 0.2);
+				global.sound(level, entity, "block.fire.extinguish", 0.8, 1.8);
 			}
 		})
 
@@ -511,13 +543,15 @@ StartupEvents.registry("mob_effect", e => {
 		.color(0x65CCF2)
 		.effectTick((entity, lvl) => {
 			if (entity.age % 4) return;
+			const { level } = entity;
+
 			if (entity.isInWaterOrRain() ||
 				entity.hasEffect("kubejs:freeze_aspect") ||
 				entity.getTicksFrozen() > 160
 			) {
 				entity.removeEffect("kubejs:soul_fire_aspect");
 				entity.setTicksFrozen(0);
-				global.sound(entity, "block.fire.extinguish", 0.8, 1.8, 0.2);
+				global.sound(level, entity, "block.fire.extinguish", 0.8, 1.8);
 			}
 		})
 
@@ -530,9 +564,11 @@ StartupEvents.registry("mob_effect", e => {
 		.color(0xD15700)
 		.effectTick((entity, lvl) => {
 			if (entity.age % 4) return;
+			const { level } = entity;
+
 			if (entity.isOnFire()) {
 				entity.removeEffect("kubejs:freeze_aspect");
-				global.sound(entity, "block.fire.extinguish", 0.8, 1.8, 0.2);
+				global.sound(level, entity, "block.fire.extinguish", 0.8, 1.8);
 			}
 		})
 
@@ -559,42 +595,42 @@ StartupEvents.registry("mob_effect", e => {
 	// e.create("mountain_king")
 	// 	.beneficial()
 	// 	.color(0x6868A5)
-	// 	.effectTick((entity, level) => {
+	// 	.effectTick((entity, lvl) => {
 	// 		if(checkWithTime(entity, 5) || entity.fallDistance <= 1.5 || onHitCheck(entity)) return;
 	// 		const target = entity.lastHurtMob;
-	// 		target.attack(entity, entity.fallDistance*0.5+level*0.25 + target.lastDamageTaken);
+	// 		target.attack(entity, entity.fallDistance*0.5+lvl*0.25 + target.lastDamageTaken);
 	// 		entity.resetFallDistance();
 	// 	})
 
 	// e.create("dueling")
 	// 	.beneficial()
 	// 	.color(0xF0DCB7)
-	// 	.effectTick((entity, level) => {
+	// 	.effectTick((entity, lvl) => {
 	// 		if(checkWithTime(entity, 5) || onHitCheck(entity)) return;
 
 	// 		声声global.sound(entity, "bettercombat:staff_slash", 2, 1.1, 0.2);
 	// 		global.particleRing("spread", 18, 0, 0, entity, "cloud", 4)
 	// 		entity.level.getEntitiesWithin(entity.boundingBox.inflate(3)).forEach((entity2) => {
 	// 			if(!entity2.isLiving() || entity2 == entity.lastHurtMob) return;
-	// 			entity2.knockback(entity.fallDistance*0.02 + 0.15 + 0.2*level+0.2, x-entity2.x, z-entity2.z);
+	// 			entity2.knockback(entity.fallDistance*0.02 + 0.15 + 0.2*lvl+0.2, x-entity2.x, z-entity2.z);
 	// 		})
 	// 	})
 
 	// e.create("giant_slayer")
 	// 	.beneficial()
 	// 	.color(0xD52C2E)
-	// 	.effectTick((entity, level) => {
+	// 	.effectTick((entity, lvl) => {
 	// 		if(checkWithTime(entity, 5) || onHitCheck(entity)) return;
 
 	// 		const target = entity.lastHurtMob;
 	// 		if(target.boundingBox.getSize() < 1.8) return;
-	// 		target.attack(entity, target.maxHealth*0.015+level*0.015 + target.lastDamageTaken);
+	// 		target.attack(entity, target.maxHealth*0.015+lvl*0.015 + target.lastDamageTaken);
 	// 	})
 
 	// e.create("kinetics")
 	// 	.beneficial()
 	// 	.color(0x89F788)
-	// 	.effectTick((entity, level) => {
+	// 	.effectTick((entity, lvl) => {
 	// 		if(checkWithTime(entity, 5) || onHitCheck(entity)) return;
 
 	// 		const target = entity.lastHurtMob;
@@ -612,52 +648,52 @@ StartupEvents.registry("mob_effect", e => {
 	// e.create("beheading")
 	// 	.beneficial()
 	// 	.color(0xAF0000)
-	// 	.effectTick((entity, level) => {
+	// 	.effectTick((entity, lvl) => {
 	// 		if(checkWithTime(entity, 5) || onHitCheck(entity)) return;
 
 	// 		const target = entity.lastHurtMob;
-	// 		if(target.health/target.maxHealth > 0.025+level*0.025) return;
+	// 		if(target.health/target.maxHealth > 0.025+lvl*0.025) return;
 	// 		target.attack(entity, 100);
 	// 	})
 
 	// e.create("lethal")
 	// 	.beneficial()
 	// 	.color(0xFF2323)
-	// 	.effectTick((entity, level) => {
+	// 	.effectTick((entity, lvl) => {
 	// 		if(checkWithTime(entity, 5) || onHitCheck(entity)) return;
 
 	// 		let a = entity.armorValue;
 	// 		const target = entity.lastHurtMob
 	// 		if(a >= 14) return;
-	// 		target.attack(entity, Math.min(1.25, -0.24*a+(2*level+2)) + target.lastDamageTaken);
+	// 		target.attack(entity, Math.min(1.25, -0.24*a+(2*lvl+2)) + target.lastDamageTaken);
 	// 	})
 
 	// e.create("strike")
 	// 	.beneficial()
 	// 	.color(0xFCC25C)
-	// 	.effectTick((entity, level) => {
+	// 	.effectTick((entity, lvl) => {
 	// 		if(checkWithTime(entity, 5) || onHitCheck(entity)) return;
 
 	// 		const target = entity.lastHurtMob;
 	// 		if(target.isOnGround() || target.isInWater() || target.isInLava()) return;
-	// 		target.attack(entity, 2*level+2+target.lastDamageTaken);
+	// 		target.attack(entity, 2*lvl+2+target.lastDamageTaken);
 	// 	})
 
 	// e.create("exorcism")
 	// 	.beneficial()
 	// 	.color(0xA74CFF)
-	// 	.effectTick((entity, level) => {
+	// 	.effectTick((entity, lvl) => {
 	// 		if(checkWithTime(entity, 5) || onHitCheck(entity)) return;
 
 	// 		const target = entity.lastHurtMob;
 	// 		let enchanted = target.armorSlots.some(armor => armor.isEnchanted());
-	// 		if(enchanted) target.attack(entity, 2*level+2 + target.lastDamageTaken);
+	// 		if(enchanted) target.attack(entity, 2*lvl+2 + target.lastDamageTaken);
 	// 	})
 
 	// e.create("luna")
 	// 	.beneficial()
 	// 	.color(0xCBD3E4)
-	// 	.effectTick((entity, level) => {
+	// 	.effectTick((entity, lvl) => {
 	// 		if(checkWithTime(entity, 5) || !entity.level.isNight() || onHitCheck(entity)) return;
 
 	// 		const target = entity.lastHurtMob;
@@ -678,16 +714,17 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("oozing")
 		.harmful()
 		.color(0x89D571)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 10)) return;
 
 			Utils.server.scheduleInTicks(11, () => {
 				if (entity.deathTime != 20) return;
-				global.sound(entity, "block.slime_block.break", 2, 1, 0.3);
+				const { level } = entity;
+				global.sound(level, entity, "block.slime_block.break", 2, 1);
 
-				const cloud = entity.level.createEntity("minecraft:area_effect_cloud");
+				const cloud = level.createEntity("minecraft:area_effect_cloud");
 				cloud.copyPosition(entity);
-				cloud.mergeNbt(`{Radius:1f,RadiusPerTick:0.15f,Duration:${(level + 1) * 20},Effects:[{Id:2,Amplifier:0b,Duration:20}],Particle:"item_slime",ReapplicationDelay:10}`);
+				cloud.mergeNbt(`{Radius:1f,RadiusPerTick:0.15f,Duration:${(lvl + 1) * 20},Effects:[{Id:2,Amplifier:0b,Duration:20}],Particle:"item_slime",ReapplicationDelay:10}`);
 				cloud.spawn();
 			})
 		})
@@ -695,15 +732,16 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("vanishing_curse")
 		.harmful()
 		.color(0x506765)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 10)) return;
+			const { level } = entity;
 
 			Utils.server.scheduleInTicks(11, () => {
 				if (entity.deathTime != 20) return;
-				entity.level.getEntitiesWithin(entity.boundingBox.inflate(Math.min(4, level + 2))).forEach((entity2) => {
+				level.getEntitiesWithin(entity.boundingBox.inflate(Math.min(4, lvl + 2))).forEach((entity2) => {
 					if (entity2.type == "minecraft:item") return;
 					entity2.kill();
-					entity.level.spawnParticles("minecraft:cloud", true, entity2.x, entity2.y + 0.25, entity2.z);
+					level.spawnParticles("minecraft:cloud", true, entity2.x, entity2.y + 0.25, entity2.z);
 				})
 			})
 		})
@@ -711,17 +749,18 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("loyalty")
 		.beneficial()
 		.color(0x9F3FD3)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 10)) return;
 			const attacker = entity.lastHurtByMob;
 			if (!attacker) return;
+			const { level } = entity;
 
 			Utils.server.scheduleInTicks(11, () => {
 				if (entity.deathTime != 20) return;
-				entity.level.getEntitiesWithin(entity.boundingBox.inflate(Math.min(4, level + 2))).forEach((entity2) => {
+				level.getEntitiesWithin(entity.boundingBox.inflate(Math.min(4, lvl + 2))).forEach((entity2) => {
 					if (entity2.type == "minecraft:item") return;
 					entity2.absMoveTo(attacker.x, attacker.y, attacker.z);
-					entity.level.spawnParticles("minecraft:dragon_breath", true, entity2.x, entity2.y + 0.25, entity2.z);
+					level.spawnParticles("minecraft:dragon_breath", true, entity2.x, entity2.y + 0.25, entity2.z);
 				})
 			})
 		})
@@ -729,7 +768,7 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("destruction_curse")
 		.harmful()
 		.color(0x5E2323)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 10)) return;
 
 			Utils.server.scheduleInTicks(11, () => {
@@ -741,27 +780,29 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("combo")
 		.beneficial()
 		.color(0x868A8B)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5)) return;
+			const { level } = entity;
+
 			if (!takeHitCheck(entity)) {
 				entity.removeEffect("kubejs:combo");
-				global.sound(entity, "block.fire.extinguish", 0.8, 1, 0.2);
+				global.sound(level, entity, "block.fire.extinguish", 0.8, 1);
 			}
 			else if (!onHitCheck(entity)) {
 				const target = entity.lastHurtMob;
 				const lastdmg = target.lastDamageTaken;
-				if (level >= 9) {
+				if (lvl >= 9) {
 					if (target.health / target.maxHealth < 0.12) target.attack(entity, 100);
 					else target.attack(entity, lastdmg + 8);
-					global.particleBurst(target, blood_particle, 14, 0.1);
-					global.sound(entity, "entity.firework_rocket.blast", 0.5, 0.5, 0.2);
-					声声global.sound(entity, "bettercombat:fist_punch", 0.8, 1.2, 0.2);
+					global.particleBurst(level, target, blood_particle, 14, 0.1);
+					global.sound(level, entity, "entity.firework_rocket.blast", 0.5, 0.5);
+					声声global.sound(level, entity, "bettercombat:fist_punch", 0.8, 1.2);
 					entity.removeEffect("kubejs:combo");
 					entity.potionEffects.add("kubejs:combo", 120, 0);
 				}
 				else {
-					entity.potionEffects.add("kubejs:combo", 60, level + 1);
-					target.attack(entity, Math.min(20, lastdmg + lastdmg * (level * 0.1 + 0.1)));
+					entity.potionEffects.add("kubejs:combo", 60, lvl + 1);
+					target.attack(entity, Math.min(20, lastdmg + lastdmg * (lvl * 0.1 + 0.1)));
 				}
 			}
 		})
@@ -774,8 +815,8 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("binding_curse") //this is SO hilarious
 		.harmful()
 		.color(0x4B2163)
-		.effectTick((entity, level) => {
-			if (checkWithTime(entity, Math.max(1, 2 - level))) return;
+		.effectTick((entity, lvl) => {
+			if (checkWithTime(entity, Math.max(1, 2 - lvl))) return;
 
 			if (!entity.isPlayer()) entity.removeEffect("kubejs:binding_curse");
 			else {
@@ -789,12 +830,13 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("mind_vision") //it could be for mobs, but that would be too chaotic. idea from shattered pixel dungeon
 		.beneficial()
 		.color(0xECAAD9)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 20)) return;
+			const { level } = entity;
 
 			if (!entity.isPlayer()) entity.removeEffect("kubejs:mind_vision");
 			else {
-				entity.level.getEntitiesWithin(entity.boundingBox.inflate(Math.min(8, 6 + 2 * level))).forEach((entity2) => {
+				level.getEntitiesWithin(entity.boundingBox.inflate(Math.min(8, 6 + 2 * lvl))).forEach((entity2) => {
 					if (!entity2.isLiving()) return;
 					entity2.potionEffects.add("glowing", 21, 0, true, false);
 				})
@@ -804,13 +846,13 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("charging") 	//idea from shattered pixel dungeon
 		.beneficial()
 		.color(0xF7C956)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (!entity || entity.level.isClientSide()) return;
 
 			if (!entity.isPlayer()) entity.removeEffect("kubejs:charging");
 			else {
 				let item = entity.mainHandItem;
-				if (!entity.cooldowns.isOnCooldown(item) || global.throttle(entity, Math.max(2, 10 - level * 2), "charging")) return;
+				if (!entity.cooldowns.isOnCooldown(item) || global.throttle(entity, Math.max(2, 10 - lvl * 2), "charging")) return;
 				entity.cooldowns.removeCooldown(item);
 			}
 		})
@@ -818,7 +860,7 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("somersault")
 		.beneficial()
 		.color(0xE0E0E0)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 4)) return;
 			if (!entity.isPlayer() || entity.isOnGround()) {
 				entity.removeEffect("kubejs:somersault");
@@ -908,10 +950,10 @@ StartupEvents.registry("mob_effect", e => {
 			}
 		})
 	};
-	function temp_effect(entity, level, sign) {
-		level += 1;
+	function temp_effect(entity, lvl, sign) {
+		lvl += 1;
 		const { persistentData: pData } = entity;
-		const value = (0.05 * level) * sign;
+		const value = (0.05 * lvl) * sign;
 		const percent = JavaMath.clamp(((pData.temp || value) + value), -100, 100);
 
 		pData.temp = percent;
@@ -928,29 +970,29 @@ StartupEvents.registry("mob_effect", e => {
 	e.create("hot")
 		.beneficial()
 		.color(0xD87F2B)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5)) return;
 			if (!entity.isPlayer()) {
 				entity.removeEffect("kubejs:hot");
 				return;
 			};
-			temp_effect(entity, level, 1);
+			temp_effect(entity, lvl, 1);
 		});
 	e.create("cold")
 		.beneficial()
 		.color(0xD87F2B)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5)) return;
 			if (!entity.isPlayer()) {
 				entity.removeEffect("kubejs:cold");
 				return;
 			};
-			temp_effect(entity, level, -1);
+			temp_effect(entity, lvl, -1);
 		});
 	e.create("normal_temp")
 		.beneficial()
 		.color(0xD87F2B)
-		.effectTick((entity, level) => {
+		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5)) return;
 			if (!entity.isPlayer() ||
 				entity.hasEffect("kubejs:hot") ||
@@ -962,8 +1004,8 @@ StartupEvents.registry("mob_effect", e => {
 
 			const { persistentData: pData, potionEffects } = entity;
 			const { temp } = pData;
-			const value = (0.825 * (level + 1)) * (temp > 0 ? -1 : 1);
-			const percent = Math.abs(temp) - (0.825 * (level + 1)) < 0 ? 0 : ((temp || 0) + value);
+			const value = (0.825 * (lvl + 1)) * (temp > 0 ? -1 : 1);
+			const percent = Math.abs(temp) - (0.825 * (lvl + 1)) < 0 ? 0 : ((temp || 0) + value);
 
 			pData.temp = percent;
 			renderBar(entity, percent);
@@ -980,8 +1022,7 @@ StartupEvents.registry("mob_effect", e => {
 		.color(0xD87F2B)
 		.effectTick((entity, lvl) => {
 			const { level } = entity;
-			if (
-				!entity ||
+			if (!entity ||
 				level.isClientSide() ||
 				!entity.isPlayer() ||
 				!entity.isCrouching()
@@ -993,7 +1034,7 @@ StartupEvents.registry("mob_effect", e => {
 			dragon_breath.setDeltaMovement(entity.lookAngle.scale(0.74));
 			dragon_breath.spawn();
 
-			global.sound(entity, "block.fire.extinguish", 0.02, 2, 0.1)
+			global.sound(level, entity, "block.fire.extinguish", 0.02, 2)
 		})
 
 	e.create("midas_curse")

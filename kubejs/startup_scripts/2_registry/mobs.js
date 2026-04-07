@@ -20,14 +20,14 @@ StartupEvents.registry("entity_type", e => {
 			.canBeAffected(() => false)
 			.setHurtSound(() => "minecraft:block.stone.hit")
 			.onDeath(context => {
-				const {entity} = context;
-				const falling_block = entity.level.createEntity("falling_block");
+				const { entity } = context, { level } = entity;
+				const falling_block = level.createEntity("falling_block");
 
-				global.sound(entity, "block.stone.break", 1.2);
-				global.particleBurst(entity, "visuality:sparkle", 8, 0, 0.4);
+				global.sound(level, entity, "block.stone.break", 1.2);
+				global.particleBurst(level, entity, "visuality:sparkle", 8, 0, 0.4);
 				entity.discard();
 
-				falling_block.mergeNbt({BlockState: {Name: `minecraft:${ore}`}});
+				falling_block.mergeNbt({ BlockState: { Name: `minecraft:${ore}` } });
 				falling_block.copyPosition(entity);
 				falling_block.motionY += 0.4;
 				falling_block.spawn();
@@ -73,10 +73,10 @@ StartupEvents.registry("entity_type", e => {
 			}
 		})
 		.onLivingFall(context => {
-			const {entity} = context;
+			const { entity } = context;
 			if (entity.server && entity.tags.contains("sit")) entity.discard();
 			else entity.addTag("sit");
-        })
+		})
 })
 
 EntityJSEvents.attributes(e => {

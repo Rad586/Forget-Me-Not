@@ -4,10 +4,10 @@ const medallion_effects = {
 }
 
 function medallion(e) {
-	const entity = e.entity;
+	const {level, entity} = e;
 
 	if (
-		entity.level.dimension != "minecraft:the_nether" ||
+		level.dimension != "minecraft:the_nether" ||
 		e.source.type == "outOfWorld" ||
 		entity.isCreative()
 	) return;
@@ -20,8 +20,8 @@ function medallion(e) {
 	effectPack(medallion_effects, entity);
 
 	global.totemAnimation(entity, "kubejs:medallion_of_undying_activated")
-	global.particleBurst(entity, "minecraft:totem_of_undying", 30, 0.6);
-	global.sound(entity, "item.totem.use", 0.7, 1.8, 0.2);
+	global.particleBurst(level, entity, "minecraft:totem_of_undying", 30, 0.6);
+	global.sound(level, entity, "item.totem.use", 0.7, 1.8);
 
 	entity.setHealth(1.0);
 	e.cancel();

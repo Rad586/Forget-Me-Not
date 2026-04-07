@@ -12,8 +12,8 @@ function stick_torch_block(entity, result) {
     if (result.direction == "down") {
         const { deltaMovement } = entity;
         entity.setDeltaMovement(deltaMovement.multiply(0.7, -0.6, 0.7))
-        global.particleBurst(entity, "item_slime", 2);
-        global.sound(entity, "block.slime_block.place", 0.25, 1.1);
+        global.particleBurst(level, entity, "item_slime", 2);
+        global.sound(level, entity, "block.slime_block.place", 0.25, 1.1);
     }
     else {
         entity.discard();
@@ -24,7 +24,7 @@ function stick_torch_block(entity, result) {
         const torch_type = level
             .getBlock(result.blockPos)
             .hasTag("minecraft:soul_fire_base_blocks") ?
-            "minecraft:soul_torch" : "minecraft:torch";
+                "minecraft:soul_torch" : "minecraft:torch";
         const use_result = Item.of(torch_type)
             .useOn(new UseOnContext(
                 level, player, null, Item.of("air"), result

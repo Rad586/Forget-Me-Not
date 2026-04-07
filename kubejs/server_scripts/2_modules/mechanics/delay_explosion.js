@@ -7,7 +7,7 @@ ItemEvents.rightClicked("minecraft:gunpowder", e => {
 	entity.mergeNbt({ Fuse: final });
 
 	player.swing();
-	global.sound(player, "minecraft:block.wooden_button.click_on", 0.3, 1.2)
+	global.sound(e.level, player, "block.wooden_button.click_on", 0.3, 1.2)
 
 	const tip = Text.translate("dialogue.fmn.gunpowder").getString();
 	player.statusMessage = tip + (final / 20).toFixed(1) + "s";

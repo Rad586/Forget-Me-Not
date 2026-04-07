@@ -17,7 +17,7 @@ ItemEvents.entityInteracted("minecraft:goat_horn", e => {
         Storage: target.nbt
     });
 
-    global.sound(player, "item.bottle.fill_dragonbreath", 0.3, 1.2);
+    global.sound(e.level, player, "item.bottle.fill_dragonbreath", 0.3, 1.2);
     player.swing();
     e.cancel()
 })

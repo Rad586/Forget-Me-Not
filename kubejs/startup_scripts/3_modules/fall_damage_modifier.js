@@ -1,6 +1,5 @@
 function fall_damage_modifier(context) {
-	const { entity } = context;
-	const { level } = entity;
+	const { entity } = context, { level } = entity;
 	if (level.isClientSide()) return 0;
 
 	const { fallHeight } = context;
@@ -16,9 +15,9 @@ function fall_damage_modifier(context) {
 	pData.gliding = false;
 	if (global.within(4.76, 6.76, fallHeight)) {
 		entity.potionEffects.add("speed", 20, 0, true, false);
-		global.sound(entity, "entity.player.small_fall", 0.5);
+		global.sound(level, entity, "entity.player.small_fall", 0.5);
 	};
-	if (!nodmg) global.sound(entity, "entity.player.big_fall", 0.8);
+	if (!nodmg) global.sound(level, entity, "entity.player.big_fall", 0.8);
 
 	return nodmg ? 0 : final;
 }

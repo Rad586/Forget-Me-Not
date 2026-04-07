@@ -768,7 +768,7 @@ function portal_conversion(entity) {
 				const {level, x, y, z} = entity;
 				const {particle, sound, behavior} = effect_data;
 				if(particle) global.particleBurstBlock(level, x, y+0.125, z, particle[0], particle[1], particle[2], particle[3]);
-				if(sound) global.sound(entity, sound[0], sound[1], sound[2]);
+				if(sound) global.sound(level, entity, sound[0], sound[1], sound[2]);
 				if(behavior) behavior(entity);
 			};
 

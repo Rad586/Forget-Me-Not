@@ -14,5 +14,5 @@ PlayerEvents.advancement("kubejs:dizzying", e => {
 	potionEffects.add("minecraft:weakness", 30, 9, true, false);
 	potionEffects.add("minecraft:slowness", 20, 9, true, false);
 
-	global.particleBurst(lastHurtMob, blood_particle, 14, 0.1);
+	global.particleBurst(e.level, lastHurtMob, blood_particle, 14, 0.1);
 })

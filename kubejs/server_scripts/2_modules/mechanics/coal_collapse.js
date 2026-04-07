@@ -34,5 +34,12 @@ coal_ores.forEach(key => BlockEvents.broken(key, e => {
         })
     };
     collapse(eblock, 17, checked);
-    global.particleBurstBlock2(eblock, "campfire_cosy_smoke", 1, 0.004, 0.15)
+
+    const { x, y, z } = eblock;
+    level.spawnParticles(
+        "campfire_cosy_smoke", true,
+        x + 0.5, y + 0.5, z + 0.5,
+        0.15, 0.15, 0.15,
+        1, 0.004
+    )
 }))

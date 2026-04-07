@@ -88,7 +88,7 @@ global.Shovels.forEach(shovel => {
         nbt.remove("Start");
         player.statusMessage = cancelled_msg;
 
-        global.sound(player, "entity.item.pickup", 0.15, 1.08);
+        global.sound(e.level, player, "entity.item.pickup", 0.15, 1.08);
         player.swing()
     })
 })

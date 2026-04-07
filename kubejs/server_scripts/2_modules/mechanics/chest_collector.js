@@ -45,7 +45,7 @@ global.Chests.forEach(chest => {
                 if (!entity) return;
                 const { item } = entity;
                 inventory.insertItem(item, false);
-                global.particleBurst(entity, "reverse_portal", 3, 0.024);
+                global.particleBurst(level, entity, "reverse_portal", 3, 0.024);
                 entity.discard()
             })
         };
