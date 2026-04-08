@@ -39,6 +39,25 @@ global.particleRing = (level, count, dist, entity, particleId, speed, yOverride)
 	}
 }
 
+global.particleRingVertical = (level, count, dist, entity, particleId, speed, yOverride) => {
+	const { x, y, z, eyeHeight } = entity;
+	const finalY = y + (eyeHeight / 4) + (yOverride || 0);
+
+	for (let i = 0; i < count; i++) {
+		let angle = (i * 2 / count) * 3.14;
+
+		let px = x + Math.cos(angle) * dist;
+		let pz = z + Math.sin(angle) * dist;
+
+		level.spawnParticles(
+			particleId, true,
+			px, finalY, pz,
+			0, speed, 0,
+			0, 1
+		)
+	}
+}
+
 global.particleBridge = (level, thisEntity, nextEntity, particleId) => {
 	const { x: startX, eyeY: startY, z: startZ } = thisEntity;
 	const { x: endX, eyeY: endY, z: endZ } = nextEntity;

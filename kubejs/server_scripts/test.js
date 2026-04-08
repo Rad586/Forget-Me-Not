@@ -104,27 +104,38 @@ ItemEvents.rightClicked(e => {
         target.attack(player, damage);
     }
     function attackable(player, target) {
-        if (target.isLiving() &&
+        if (target &&
+            target.isLiving() &&
             target.isAlive() &&
+            target != player &&
             target.owner != player
         ) return true;
 
         if (target instanceof Projectile) {
+            target.playSound("fmn:destroy_projectile", 0.3, 1);
+            target.level.spawnParticles(
+                "large_smoke", false,
+                target.x, target.y + 0.2, target.z,
+                0.1, 0.12, 0.1,
+                2, 0.06
+            );
             target.discard()
         };
 
-        return false;
+        return false
     }
-    const hit_criteria = (player, target, range) => (
+    const hit_criteria = (center, player, target, range) => (
+        target &&
         target != player &&
-        target.distanceToEntity(player) <= range &&
+        target.distanceToEntity(center) <= range &&
         player.hasLineOfSight(target) &&
         attackable(player, target)
     )
-    function areaCheck(level, player, range, func) {
-        const aabb = player.boundingBox.inflate(range, 0.5, range);
+    function areaCheck(center, level, player, range, func) {
+        const aabb = center.boundingBox.inflate(range, 1, range);
         const entities = level.getEntitiesWithin(aabb)
-            .filter(target => hit_criteria(player, target, range));
+            .filter(target => hit_criteria(center, player, target, range));
+
         if (entities.isEmpty()) return;
         entities.forEach(target => func(target))
     }
@@ -144,6 +155,19 @@ ItemEvents.rightClicked(e => {
         arc.persistentData.type = type || "default";
         arc.spawn();
     }
+    function vortex(center, player, target) {
+        const target_pos = target.eyePosition;
+        const visible = player.getViewVector(1)
+            .dot(target_pos.subtract(player.eyePosition)) > 0;
+
+        if (!visible) return;
+        target.setDeltaMovement(
+            center.eyePosition.subtract(target_pos)
+                .scale(0.3)
+                .add(0, 0.2, 0)
+        );
+        target.hurtMarked = true
+    }
     function inferno(player, target, cd, damage) {
         if (!target.isOnFire()) {
             if (target.block.hasTag("minecraft:soul_fire_base_blocks")) {
@@ -158,12 +182,40 @@ ItemEvents.rightClicked(e => {
     }
     function blizzard(target, cd, duration) {
         const { potionEffects } = target;
+
         if (!target.hasEffect("slowness")) {
-            potionEffects.add("slowness", cd / 20 + 1.2, 0, false, true)
+            potionEffects.add("slowness", cd + 24, 0, false, true)
         }
         else {
             potionEffects.add("slowness", duration, 1, false, true)
         } 
+    }
+    function lunge(level, player, damage, speed, func1, func2) {
+        const { lookAngle } = player, m = lookAngle.scale(speed);
+        player.setDeltaMovement(new Vec3(
+            m.x(), Math.min(0.2, m.y()), m.z()));
+        player.hurtMarked = true;
+
+        let counter = 0;
+        player.server.scheduleInTicks(1, c => {
+            counter++;
+            if (counter > 4) return;
+
+            const target = global.advancedRayTraceEntity(player, 3.5);
+            areaCheck(player, level, player, 2, (target) => {
+                target.setDeltaMovement(lookAngle.scale(1));
+                target.hurtMarked = true;
+                func2(target)
+            });
+
+            if (attackable(player, target)) {
+                attack(player, target, damage);
+                func1(target)
+            }
+            else {
+                c.reschedule()
+            }
+        })
     }
 
     const swords = {
@@ -173,36 +225,68 @@ ItemEvents.rightClicked(e => {
             const range = 4 * 1;
 
             const first = global.advancedRayTraceEntity(player, range);
-            if (!first) return;
-
-            if (attackable(player, first)) attack(player, first, damage)
+            if (attackable(player, first)) {
+                attack(player, first, damage);
+                level.spawnParticles(
+                    "sweep_attack", true,
+                    first.x, first.eyeY - 0.3, first.z,
+                    0, 0, 0,
+                    1, 0
+                )
+            }
             else {
                 player.server.scheduleInTicks(1, () => {
                     const second = global.advancedRayTraceEntity(player, range);
-                    if (attackable(player, second)) attack(player, second, damage)
+                    if (attackable(player, second)) {
+                        attack(player, second, damage);
+                        level.spawnParticles(
+                            "sweep_attack", true,
+                            second.x, second.eyeY - 0.3, second.z,
+                            0, 0, 0,
+                            1, 0
+                        )
+                    }
+                    else {
+                        const location = global.advancedRayTraceBlock(player, 4)
+                            .location.add(player.getViewVector(1).scale(-0.25));
+                        level.spawnParticles(
+                            "sweep_attack", true,
+                            location.x(), location.y(), location.z(),
+                            0, 0, 0,
+                            1, 0
+                        )
+                    }
                 })
             };
 
-            player.cooldowns.addCooldown(id, cd)
+            global.sound(level, player, "fmn:smite", 0.24);
+
+            // player.cooldowns.addCooldown(id, cd)
         },
         "whirlwind": (level, player, id, delay, dmg, lvl) => {
             const damage = dmg * 0.8;
             const cd = delay * 1.5;
             const range = 4 * 1.2;
 
-            areaCheck(level, player, range, (target) => 
+            areaCheck(player, level, player, range, (target) => 
                 whirlwind(player, target, damage)
             );
 
-            global.particleRing(level, "spread", range * 3, range, player, "sweep_attack", 0, 0.7);
-            global.sound(level, player, "block.candle.extinguish", 2, 1.4);
-            global.sound(level, player, "entity.bat.takeoff", 0.4, 1.2);
-            global.sound(level, player, "block.beacon.power_select", 0.4, 2);
+            global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
+            global.sound(level, player, "fmn:whirlwind", 0.6);
 
             // player.cooldowns.addCooldown(id, cd)
         },
-        "lunge": () => {
+        "lunge": (level, player, id, delay, dmg, lvl) => {
+            const damage = dmg * 1;
+            const cd = delay * 1;
+            const speed = 2;
 
+            lunge(level, player, damage, speed, () => { }, () => { })
+
+            global.sound(level, player, "fmn:lunge", 0.3);
+
+            // player.cooldowns.addCooldown(id, cd)
         },
         "arc": (level, player, id, delay, dmg, lvl) => {
             const damage = dmg * 0.5;
@@ -210,36 +294,59 @@ ItemEvents.rightClicked(e => {
 
             arc(level, player, damage);
 
-            player.cooldowns.addCooldown(id, cd)
+            global.sound(level, player, "fmn:arc", 0.3);
+
+            // player.cooldowns.addCooldown(id, cd)
         },
         "vortex": (level, player, id, delay, dmg, lvl) => {
+            const damage = dmg * 1;
+            const cd = delay * 1;
+            const range = 3.5;
 
+            const center = global.advancedRayTraceEntity(player, 4);
+            if (!center) return;
+            areaCheck(center, level, player, range, (target) => {
+                vortex(center, player, target)
+            })
+            
+            global.particleRing(level, range * 3, range, center, "poof", -0.1 * range, -0.1);
+            global.sound(level, player, "fmn:vortex", 0.3);
+
+            // player.cooldowns.addCooldown(id, cd)
         },
         "inferno": (level, player, id, delay, dmg, lvl) => {
             const damage = dmg * 1;
             const cd = delay * 1.2;
             const range = 4 * 2;
 
-            areaCheck(level, player, range, (target) => 
+            areaCheck(player, level, player, range, (target) => 
                 inferno(player, target, cd, damage)
             )
 
-            player.cooldowns.addCooldown(id, cd)
+            global.particleRingVertical(level, range * 5, range, player, "lava", 0.2, -0.1);
+            global.particleRing(level, range * 2, 0.5, player, "flame", 0.4);
+            global.sound(level, player, "fmn:inferno", 0.3);
+
+            // player.cooldowns.addCooldown(id, cd)
         },
         "blizzard": (level, player, id, delay, dmg, lvl) => {
             const duration = dmg * 20 / 2;
             const cd = delay * 1;
             const range = 4 * 3;
 
-            areaCheck(level, player, range, (target) => 
+            areaCheck(player, level, player, range, (target) => 
                 blizzard(target, cd, duration)   
             );
 
-            player.cooldowns.addCooldown(id, cd)
+            global.particleRingVertical(level, range * 5, range, player, "snowflake", 0.4, -0.1);
+            global.particleRing(level, range * 2, 0.5, player, "cloud", 0.8);
+            global.sound(level, player, "fmn:blizzard", 0.3);
+
+            // player.cooldowns.addCooldown(id, cd)
         }
     }
 
-    swords["whirlwind"](
+    swords["blizzard"](
         e.level,
         e.player,
         e.player.mainHandItem.id,
@@ -250,10 +357,7 @@ ItemEvents.rightClicked(e => {
 
 })
 
-
 // ItemEvents.rightClicked(e => {
-//     Utils.getRegistry("mob_effect").forEach(effect => {
-//         const [prefix, path, name] = String(effect.descriptionId).split(".");
-//         e.server.tell(path)
-//     })
+//     const {player, level} = e;
+//     $Enchantments.THORNS.doPostHurt(player, player.rayTrace(4).entity, 2)
 // })
