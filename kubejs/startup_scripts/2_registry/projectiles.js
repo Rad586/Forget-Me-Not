@@ -98,38 +98,6 @@ StartupEvents.registry("entity_type", e => {
 		.onHitEntity(context => hook_arrow(context))
 		.onHitBlock(context => hook_arrow(context))
 
-	e.create("phantom_fireball", "entityjs:projectile")
-		.noItem()
-		.sized(1, 1)
-		.renderScale(1.2, 1.2, 1.2)
-
-		.onHitEntity(context => phantom_fireball(context.entity))
-		.onHitBlock(context => phantom_fireball(context.entity))
-
-	e.create("explosion_fireball", "entityjs:projectile")
-		.noItem()
-		.sized(1, 1)
-		.renderScale(1.2, 1.2, 1.2)
-
-		.onHitEntity(context => explosion_fireball(context.entity))
-		.onHitBlock(context => explosion_fireball(context.entity))
-
-	e.create("repulsion_fireball", "entityjs:projectile")
-		.noItem()
-		.sized(1, 1)
-		.renderScale(1.2, 1.2, 1.2)
-
-		.onHitEntity(context => repulsion_fireball(context.entity))
-		.onHitBlock(context => repulsion_fireball(context.entity))
-
-	e.create("pull_fireball", "entityjs:projectile")
-		.noItem()
-		.sized(1, 1)
-		.renderScale(1.2, 1.2, 1.2)
-
-		.onHitEntity(context => pull_fireball(context.entity))
-		.onHitBlock(context => pull_fireball(context.entity))
-
 	e.create("dragon_breath", "entityjs:projectile")
 		.noItem()
 		.sized(0.4, 0.4)
@@ -159,7 +127,7 @@ StartupEvents.registry("entity_type", e => {
 
 		.tick(entity => {
 			const { level } = entity
-			if (level.isClientSide()) return;
+			if (level.isClientSide() || entity.age % 3) return;
 			level.spawnParticles(
 				"sweep_attack", true,
 				entity.x, entity.y, entity.z,
@@ -169,8 +137,9 @@ StartupEvents.registry("entity_type", e => {
 		})
 		.onHitEntity(context => {
 			const { entity } = context;
-			if (!entity.server || entity.age % 3) return;
+			if (!entity.server) return;
 			const {owner} = entity;
+
 			if (owner) {
 				let target = context.result.entity;
 				target.invulnerableTime = 0;

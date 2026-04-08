@@ -5,8 +5,8 @@ function fiery_arrows(entity) {
 	if (nbt.inGround) {
 		entity.extinguish();
 		level.spawnParticles(
-			"large_smoke", true, 
-			entity.x, entity.eyeY + 0.2, entity.z, 
+			"large_smoke", false, 
+			entity.x, entity.y + 0.2, entity.z, 
 			0.1, 0.12, 0.1, 
 			3, 0.06
 		);
