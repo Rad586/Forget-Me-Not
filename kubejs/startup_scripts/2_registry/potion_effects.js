@@ -41,9 +41,12 @@ StartupEvents.registry("mob_effect", e => {
 				global.sound(level, entity, "block.fire.extinguish", 0.8, 1.8);
 			}
 			else if (!entity.isInWater() && entity.isOnGround()) {
-				let r = 2 + lvl;
-				let { x, y, z } = entity;
-				level.runCommandSilent(`fill ${(x - r).toFixed(0)} ${(y - 1).toFixed(0)} ${(z - r).toFixed(0)} ${(x + r).toFixed(0)} ${(y - 1).toFixed(0)} ${(z + r).toFixed(0)} frosted_ice replace water`);
+				FrostWalkerEnchantment.onEntityMoved(
+					entity,
+					level,
+					entity.blockPosition(),
+					lvl
+				)
 			}
 		})
 
@@ -123,7 +126,7 @@ StartupEvents.registry("mob_effect", e => {
 				global.sound(level, entity, "block.fire.extinguish", 0.8, 1.8);
 			}
 			else {
-				global.particleRing(level, "spread", 20, 0, lvl + 1, entity, "flame", 1);
+				global.particleRing(level, 8, 0, entity, "flame", 0.05);
 				level.getEntitiesWithin(entity.boundingBox.inflate(Math.min(5, lvl + 2))).forEach((entity2) => {
 					if (!entity2.isOnFire()) entity2.setSecondsOnFire(2);
 				})
@@ -143,7 +146,7 @@ StartupEvents.registry("mob_effect", e => {
 				global.sound(level, entity, "block.fire.extinguish", 0.8, 1.8);
 			}
 			else {
-				global.particleRing(level, "spread", 20, 0, lvl + 1, entity, "soul_fire_flame", 1);
+				global.particleRing(level, 8, 0, entity, "soul_fire_flame", 0.05);
 				level.getEntitiesWithin(entity.boundingBox.inflate(Math.min(5, lvl + 2))).forEach((entity2) => {
 					if (!entity2.isOnFire()) {
 						entity2.setSecondsOnFire(2);
@@ -247,7 +250,7 @@ StartupEvents.registry("mob_effect", e => {
 	global.thunder = (entity, lvl) => {
 		const { level } = entity;
 
-		global.particleRing(level, "gather", 18, 0, 8, entity, "glow_squid_ink", 5);
+		global.particleRing(level, 8, 0, entity, "glow_squid_ink", 0.1);
 		global.sound(level, entity, "block.beacon.activate", 0.58, 1.15);
 		entity.removeEffect("kubejs:thunderbrand");
 		let counter = 0
@@ -256,8 +259,8 @@ StartupEvents.registry("mob_effect", e => {
 			if (counter > 4) thunderbrand(entity, 6 + lvl * 2, 1);
 			else {
 				global.sound(level, entity, "block.beacon.activate", 1.5 + counter * 0.1, 1.1 + counter * 0.1);
-				global.particleRing(level, "gather", 18, 0, 8 - counter * 2, entity, "glow_squid_ink", 6 - counter);
-				callback.reschedule();
+				global.particleRing(level, 8, 0, entity, "glow_squid_ink", 0.1);
+				callback.reschedule()
 			}
 		})
 	}
@@ -342,7 +345,7 @@ StartupEvents.registry("mob_effect", e => {
 
 			if (!pData.rewind) {
 				pData.rewind = { dim: level.dimension.toString(), x: x, y: y, z: z };
-				global.particleRing(level, "gather", 12, 0, 4, entity, "dragon_breath", 3);
+				global.particleRing(level, 12, 0, entity, "dragon_breath", -0.05);
 				global.sound(level, entity, "block.beacon.activate", 2, 1.8);
 			}
 			else {
@@ -356,7 +359,7 @@ StartupEvents.registry("mob_effect", e => {
 
 					server.scheduleInTicks(0, () => {
 						global.sound(level, entity, "entity.enderman.teleport", 1, 0.8);
-						global.particleRing(level, "spread", 18, 0, 0, entity, "dragon_breath", 4);
+						global.particleRing(level, 18, 0, 0, entity, "dragon_breath", 0.1);
 					})
 				})
 			}
@@ -403,7 +406,7 @@ StartupEvents.registry("mob_effect", e => {
 		.effectTick((entity, lvl) => {
 			if (checkWithTime(entity, 5) || takeHitCheck(entity)) return;
 			const attacker = entity.lastHurtByMob;
-			attacker.attack("thorns", random.nextInt(1, 5));
+			$Enchantments.THORNS.doPostHurt(entity, attacker, lvl)
 		})
 
 	e.create("vulnerability")

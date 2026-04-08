@@ -79,6 +79,9 @@ global.class_map = {
     "DustParticleOptions": "net.minecraft.core.particles.DustParticleOptions",
     "ParticleTypes": "net.minecraft.core.particles.ParticleTypes",
 
+    "$Enchantments": "net.minecraft.world.item.enchantment.Enchantments",
+    "FrostWalkerEnchantment": "net.minecraft.world.item.enchantment.FrostWalkerEnchantment",
+
     "BlockHitResult": "net.minecraft.world.phys.BlockHitResult",
     "ClipContext": "net.minecraft.world.level.ClipContext",
     "BlockPlaceContext": "net.minecraft.world.item.context.BlockPlaceContext",
