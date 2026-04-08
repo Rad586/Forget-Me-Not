@@ -16,7 +16,7 @@ PlayerEvents.advancement("kubejs:player_attack", e => {
 			player.setMotionY(0.4);
             player.hurtMarked = true;
 
-            global.particleRing(level, "spread", 6, 0.3, 0, player, "cloud", 3, -0.5);
+            global.particleRing(level, 6, 0.3, player, "cloud", 0.1);
 			global.sound(level, player, "minecraft:block.wool.break");
 		};
 

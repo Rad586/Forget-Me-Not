@@ -18,19 +18,15 @@ global.particleBurstBlock = (level, x, y, z, particleId, count, speed, spread) =
 	)
 }
 
-const mode_map = {
-	"spread": 1, "gather": -1, "static": 0
-};
-global.particleRing = (level, mode, count, dist, entity, particleId, speed, yOverride) => {
+global.particleRing = (level, count, dist, entity, particleId, speed, yOverride) => {
 	const { x, y, z, eyeHeight } = entity;
 	const finalY = y + (eyeHeight / 4) + (yOverride || 0);
-	const index = mode_map[mode];
 
 	for (let i = 0; i < count; i++) {
 		let angle = (i * 2 / count) * 3.14;
 
-		let vx = index * Math.cos(angle) * speed;
-		let vz = index * Math.sin(angle) * speed;
+		let vx = Math.cos(angle) * speed;
+		let vz = Math.sin(angle) * speed;
 
 		level.spawnParticles(
 			particleId, true,

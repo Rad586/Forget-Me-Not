@@ -5,5 +5,5 @@ global.ally = [
 ];
 function no_friendly_fire(context) {
 	const player = context.damageSource.getPlayer();
-	return player != null && !player.isCrouching()
+	return player && !player.isCrouching()
 }

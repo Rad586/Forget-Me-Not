@@ -15,7 +15,7 @@ function recovery_pearl(entity) {
         global.sound(level, owner, "block.respawn_anchor.set_spawn", 0.4, 2);
         global.sound(level, owner, "entity.enderman.teleport", 0.4, 0.72);
         global.sound(level, owner, "block.beacon.deactivate", 2, 0.5);
-        global.particleRing(level, "spread", 18, 0, 0, owner, "dragon_breath", 4)
+        global.particleRing(level, 18, 0, owner, "dragon_breath", 0.1)
     });
 
     owner.teleportTo(
