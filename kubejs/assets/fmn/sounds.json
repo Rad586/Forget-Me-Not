@@ -138,5 +138,25 @@
             }
         ],
         "subtitle": "subtitles.skill"
+    },
+    "destroy_projectile": {
+        "sounds": [
+            {
+                "name": "fmn:destroy_projectile",
+                "volume": 1,
+                "pitch": 1.06
+            },
+            {
+                "name": "fmn:destroy_projectile",
+                "volume": 1,
+                "pitch": 0.94
+            },
+            {
+                "name": "fmn:destroy_projectile",
+                "volume": 1,
+                "pitch": 1
+            }
+        ],
+        "subtitle": "subtitles.skill"
     }
 }
