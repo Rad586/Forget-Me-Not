@@ -97,11 +97,6 @@ EntityJSEvents.modifyEntity(e => {
 		)
 	)
 
-	e.modify("minecraft:firework_rocket", modifyBuilder =>
-		modifyBuilder
-			.onAddedToWorld(entity => firework_lifter(entity))
-	)
-
 	e.modify("minecraft:wandering_trader", modifyBuilder =>
 		modifyBuilder
 			.onAddedToWorld(entity => trader_highlight(entity))
@@ -146,11 +141,6 @@ EntityJSEvents.modifyEntity(e => {
 			.isInvulnerableTo(context => wolf_hp_fix_log(context))
 			.onLivingHeal(context => wolf_hp_fix_log(context))
 			.onAddedToWorld(entity => wolf_hp_fix_refresh(entity))
-	)
-
-	e.modify("minecraft:ender_dragon", modifyBuilder =>
-		modifyBuilder
-			.onHurt(context => nan_fix(context.damageSource.actual, context.entity))
 	)
 
 	released_fish.forEach(key =>
@@ -233,11 +223,6 @@ EntityJSEvents.modifyEntity(e => {
 			.isInvulnerableTo(context => player_hurt(context))
 			.calculateFallDamage(context => fall_damage_modifier(context))
 			.canBeAffected(context => conditional_effects(context, dragon_stage))
-	)
-
-	e.modify("minecraft:dragon_fireball", modifyBuilder =>
-		modifyBuilder
-			.onAddedToWorld(entity => dragon_fireball(entity))
 	)
 
 	arrows.forEach(arrow => 
