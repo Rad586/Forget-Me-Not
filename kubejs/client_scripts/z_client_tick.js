@@ -25,6 +25,7 @@ ClientEvents.tick(e => {
 
     if (limit_old) return;
     const temp = player.getStringUuid().substring(0, 6);
+
     limit_old = "olmt" + temp;
     dynfpsing = "dfps" + temp
 })

@@ -11,6 +11,7 @@ coral_alive.concat(coral_alive.map(
         const dead_form = id.includes("waxable") ? 
             id.replace("waxablecoral:waxed_", "minecraft:dead_"): 
             id.replace(":", ":dead_");
+
         BlockEvents.rightClicked(id, e => {
             const { player } = e;
             if (!e.item.is("minecraft:flint_and_steel") || player.isCrouching()) return;
