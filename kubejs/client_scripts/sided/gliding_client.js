@@ -4,11 +4,7 @@ let can_glide = false
 let previous_press = false
 
 function gliding_client(player, level) {
-    const { input, deltaMovement: m } = player;
-    const now_press = input.jumping;
-    const needs_change = now_press && !previous_press;
-    previous_press = now_press;
-
+    const needs_change = pressedOnce("key_glide");
     if (!can_glide && !needs_change) return;
 
     function gliding(status, pitch) {
@@ -17,6 +13,7 @@ function gliding_client(player, level) {
         FootstepsConfig.setPlacementMode(!status ? GROUND_ONLY : CONTINUOUS);
         if(pitch) level.playLocalSound(pos, "item.armor.equip_generic", "players", 1.08, pitch, true)
     };
+    const { deltaMovement: m } = player;
 
     if ((needs_change || player.age % 3) && (
         m.y() > 0 ||
