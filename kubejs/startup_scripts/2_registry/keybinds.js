@@ -5,7 +5,8 @@ ClientEvents.init(e => {
     const GLFW = Java.loadClass('org.lwjgl.glfw.GLFW');
 
     const custom_keys = {
-        "key_glide": GLFW.GLFW_KEY_SPACE
+        "key_glide": GLFW.GLFW_KEY_SPACE,
+        "key_sit": GLFW.GLFW_KEY_LEFT_SHIFT
     };
     global.keybinds = {};
 

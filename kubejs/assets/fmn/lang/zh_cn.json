@@ -390,5 +390,9 @@
 	"enchantment.kubejs.shocking.desc":"连锁攻击目标外敌人",
 
 	"enchantment.kubejs.regeneration":"再生",
-	"enchantment.kubejs.regeneration.desc":"受击后缓慢再生"
+	"enchantment.kubejs.regeneration.desc":"受击后缓慢再生",
+
+	"key.categories.kubejs": "KubeJS",
+	"key.kubejs.key_glide": "滑翔（半空中按下）",
+	"key.kubejs.key_sit": "坐下（低头双击）"
 }

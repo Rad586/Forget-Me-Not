@@ -241,5 +241,9 @@
   "enchantment.kubejs.breach.desc":"Deal extra damage based on target's armor points.",
   "enchantment.kubejs.blessed.desc":"Increase invulunerable time on taking hit.",
   "enchantment.kubejs.luna.desc":"At night, deal extra damage based on moon phase.",
-  "enchantment.kubejs.shocking.desc":"Chain attack enemies."
+  "enchantment.kubejs.shocking.desc":"Chain attack enemies.",
+
+  "key.categories.kubejs": "KubeJS",
+  "key.kubejs.key_glide": "Glide(press in mid-air)",
+  "key.kubejs.key_sit": "Sit(double press on looking down)"
 }
