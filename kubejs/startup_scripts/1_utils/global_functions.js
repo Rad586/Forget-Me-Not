@@ -1,15 +1,20 @@
 /* priority: 10 */
 global.particleBurst = (level, entity, particleId, count, speed, spread, yOverride) => {
 	spread = spread || 0; speed = speed || 0;
+	const { x, y, z, eyeHeight } = entity;
+	const finalY = y + (eyeHeight / 3 * 2) + (yOverride || 0);
+
 	level.spawnParticles(
 		particleId, true, 
-		entity.x, yOverride || entity.y + entity.eyeHeight / 3 * 2, entity.z, 
+		x, finalY, z, 
 		spread, spread, spread,
 		count, speed
 	)
 }
 
 global.particleBurstBlock = (level, x, y, z, particleId, count, speed, spread) => {
+	spread = spread || 0; speed = speed || 0;
+
 	level.spawnParticles(
 		particleId, true, 
 		x + 0.5, y + 0.5, z + 0.5, 

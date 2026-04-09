@@ -119,6 +119,115 @@ StartupEvents.registry("entity_type", e => {
 		.onHitBlock(context => powder_block(context))
 		.isInvulnerableTo(context => powder_onfire(context.entity))
 
+	function attack(player, target, damage) {
+		target.invulnerableTime = 0;
+		target.attack(player, damage);
+	}
+	function attackable(player, target) {
+		if (target &&
+			target.isLiving() &&
+			target.isAlive() &&
+			target != player &&
+			target.owner != player
+		) return true;
+
+		if (target instanceof Projectile && target.type != "kubejs:arc") {
+			target.playSound("fmn:destroy_projectile", 0.3, 1);
+			target.level.spawnParticles(
+				"large_smoke", false,
+				target.x, target.y + 0.2, target.z,
+				0.1, 0.12, 0.1,
+				2, 0.06
+			);
+			target.discard()
+		};
+
+		return false
+	}
+	const hit_criteria = (center, player, target, range) => (
+		target &&
+		target != player &&
+		target.distanceToEntity(center) <= range &&
+		player.hasLineOfSight(target) &&
+		attackable(player, target)
+	)
+	function areaCheck(center, level, player, range, func) {
+		const aabb = center.boundingBox.inflate(range, 1, range);
+		const entities = level.getEntitiesWithin(aabb)
+			.filter(target => hit_criteria(center, player, target, range));
+
+		if (entities.isEmpty()) return;
+		entities.forEach(target => func(target))
+	}
+	const type_map = {
+		"nope": (level, player, hit, cd, damage) => {},
+		"whirlwind": (level, player, hit, cd, damage) => { 
+			const range = 1.5;
+			areaCheck(hit, level, player, range, (target) =>
+				attack(player, target, damage * 0.3)
+			)
+		},
+		"vortex": (level, player, hit, cd, damage) => { 
+			const range = 2.5;
+			areaCheck(hit, level, player, range, (target) => {
+				const target_pos = target.eyePosition;
+				const visible = player.getViewVector(1)
+					.dot(target_pos.subtract(player.eyePosition)) > 0;
+
+				if (!visible) return;
+				target.setDeltaMovement(
+					hit.eyePosition.subtract(target_pos)
+						.scale(0.1)
+						.add(0, 0.15, 0)
+				);
+				target.hurtMarked = true
+			});
+
+			global.particleRing(level, range * 2, range, hit, "poof", -0.1 * range, -0.1)
+		},
+		"inferno": (level, player, hit, cd, damage) => { 
+			const range = 1.5;
+			areaCheck(hit, level, player, range, (target) => {
+				if (!target.isOnFire()) {
+					if (target.block.hasTag("minecraft:soul_fire_base_blocks")) {
+						target.fireType = "minecraft:soul"
+					};
+					target.setSecondsOnFire(cd / 20 + 1.2)
+				}
+				else {
+					attack(player, target, damage);
+					target.extinguish()
+				}
+			});
+
+			global.particleRingVertical(level, range * 3, range, hit, "lava", 0.2, -0.1)
+		},
+		"blizzard": (level, player, hit, cd, damage) => { 
+			const range = 2.5;
+			areaCheck(hit, level, player, range, (target) => {
+				const { potionEffects } = target;
+
+				if (!target.hasEffect("slowness")) {
+					potionEffects.add("slowness", cd + 24, 0, false, true)
+				}
+				else {
+					potionEffects.add("slowness", damage * 20 / 2, 1, false, true)
+				}
+			})
+
+			global.particleRingVertical(level, range * 2, range, hit, "snowflake", 0.4, -0.1);
+		},
+		"lunge": (level, player, hit, cd, damage) => { 
+			const range = 1.5;
+			areaCheck(hit, level, player, range, (target) => {
+				const { lookAngle: m } = player;
+
+				target.setDeltaMovement(
+					new Vec3(m.x(), Math.min(0.4, m.y()), m.z()));
+				target.hurtMarked = true;
+			})
+		},
+	}
 	e.create("arc", "entityjs:projectile")
 		.noItem()
 		.sized(0.4, 0.4)
@@ -126,37 +235,48 @@ StartupEvents.registry("entity_type", e => {
 		.textureLocation(() => "kubejs:textures/entity/dummy.png")
 
 		.tick(entity => {
-			const { level } = entity
-			if (level.isClientSide() || entity.age % 3) return;
+			const { level, age } = entity;
+			if (level.isClientSide() || age % 3) return;
+
 			level.spawnParticles(
 				"sweep_attack", true,
 				entity.x, entity.y, entity.z,
 				0, 0, 0,
 				1, 0
-			)
+			);
+			if(age > 4) entity.discard();
 		})
 		.onHitEntity(context => {
-			const { entity } = context;
-			if (!entity.server) return;
-			const {owner} = entity;
+			const { entity } = context, { level } = entity;
+			if (level.isClientSide()) return;
 
+			const { owner } = entity;
 			if (owner) {
-				let target = context.result.entity;
-				target.invulnerableTime = 0;
-				target.attack(entity.owner, entity.persistentData.dmg)
-			}
+				let pData = entity.persistentData;
+				let hit = context.result.entity;
+				let { damage, cd, type } = pData;
+
+				type_map[type || "nope"](level, owner, hit, cd, damage);
+				attack(owner, hit, damage)
+			};
+
+			global.particleBurst(level, entity, "crit", 3, 0.5, 0, 0.2);
+			entity.playSound("fmn:destroy_projectile", 0.3, 1);
+
 			entity.discard()
 		})
 		.onHitBlock(context => {
 			const { entity } = context, { level } = entity;
 			if (level.isClientSide()) return;
 
-			entity.discard();
 			level.spawnParticles(
-				"sweep_attack", true,
-				entity.x, entity.y, entity.z,
-				0, 0, 0,
-				1, 0
-			)
+				"large_smoke", false,
+				entity.x, entity.y + 0.2, entity.z,
+				0.1, 0.12, 0.1,
+				2, 0.06
+			);
+			entity.playSound("fmn:destroy_projectile", 0.3, 1);
+
+			entity.discard()
 		})
 })
