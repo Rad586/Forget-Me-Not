@@ -42,7 +42,8 @@ if(!global.Slabs) {
                 return (item && item.isEdible() && (i instanceof CropBlock))
             },
             "Chests": (i) => i instanceof AbstractChestBlock,
-            "Leaves": (i) => i instanceof LeavesBlock
+            "Leaves": (i) => i instanceof LeavesBlock,
+            "RequiresTool": (i) => i.settings.isToolRequired()
         }
     )
 

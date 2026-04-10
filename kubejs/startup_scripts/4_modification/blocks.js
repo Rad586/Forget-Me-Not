@@ -63,6 +63,12 @@ BlockEvents.modification(e => {
 			block.setIsRandomlyTicking(false)
 		})
 	})
+
+	global.RequiresTool.forEach(block => {
+		e.modify(block.id, b => {
+			b.setRequiresTool(false)
+		})
+	})
 })
 
 
