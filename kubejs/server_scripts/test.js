@@ -275,7 +275,7 @@ ItemEvents.rightClicked(e => {
 
             smite(level, player, damage, cd, () => { });
 
-            global.sound(level, player, "fmn:smite", 0.24);
+            global.sound(level, player, "fmn:skill/smite", 0.24);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -289,7 +289,7 @@ ItemEvents.rightClicked(e => {
             );
 
             global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
-            global.sound(level, player, "fmn:whirlwind", 0.6);
+            global.sound(level, player, "fmn:skill/whirlwind", 0.6);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -302,7 +302,7 @@ ItemEvents.rightClicked(e => {
             lunge(level, player, damage, speed, range, () => { }, () => { })
 
             global.particleBurst(level, player, "cloud", 4, 0.2, 0, 0.2);
-            global.sound(level, player, "fmn:lunge", 0.3);
+            global.sound(level, player, "fmn:skill/lunge", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -313,7 +313,7 @@ ItemEvents.rightClicked(e => {
 
             arc(level, player, damage, cd, speed, "nope");
 
-            global.sound(level, player, "fmn:arc", 0.3);
+            global.sound(level, player, "fmn:skill/arc", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -328,7 +328,7 @@ ItemEvents.rightClicked(e => {
             })
             
             global.particleRing(level, range * 3, range, center, "poof", -0.1 * range, -0.1);
-            global.sound(level, player, "fmn:vortex", 0.3);
+            global.sound(level, player, "fmn:skill/vortex", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -343,7 +343,7 @@ ItemEvents.rightClicked(e => {
 
             global.particleRingVertical(level, range * 5, range, player, "lava", 0.2, -0.1);
             global.particleRing(level, range * 2, 0.5, player, "flame", 0.4);
-            global.sound(level, player, "fmn:inferno", 0.3);
+            global.sound(level, player, "fmn:skill/inferno", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -358,7 +358,7 @@ ItemEvents.rightClicked(e => {
 
             global.particleRingVertical(level, range * 5, range, player, "snowflake", 0.4, -0.1);
             global.particleRing(level, range * 2, 0.5, player, "cloud", 0.8);
-            global.sound(level, player, "fmn:blizzard", 0.3);
+            global.sound(level, player, "fmn:skill/blizzard", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -370,7 +370,7 @@ ItemEvents.rightClicked(e => {
 
             arc(level, player, damage, cd, speed, "nope");
 
-            global.sound(level, player, "fmn:arc", 0.3);
+            global.sound(level, player, "fmn:skill/arc", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -381,7 +381,7 @@ ItemEvents.rightClicked(e => {
 
             arc(level, player, damage, cd, speed, "whirlwind");
 
-            global.sound(level, player, "fmn:arc", 0.3);
+            global.sound(level, player, "fmn:skill/arc", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -392,7 +392,7 @@ ItemEvents.rightClicked(e => {
 
             arc(level, player, damage, cd, speed, "vortex");
 
-            global.sound(level, player, "fmn:arc", 0.3);
+            global.sound(level, player, "fmn:skill/arc", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -403,7 +403,7 @@ ItemEvents.rightClicked(e => {
 
             arc(level, player, damage, cd, speed, "inferno");
 
-            global.sound(level, player, "fmn:arc", 0.3);
+            global.sound(level, player, "fmn:skill/arc", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -414,7 +414,7 @@ ItemEvents.rightClicked(e => {
 
             arc(level, player, damage, cd, speed, "blizzard");
 
-            global.sound(level, player, "fmn:arc", 0.3);
+            global.sound(level, player, "fmn:skill/arc", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -425,7 +425,7 @@ ItemEvents.rightClicked(e => {
 
             arc(level, player, damage, cd, speed, "lunge");
 
-            global.sound(level, player, "fmn:arc", 0.3);
+            global.sound(level, player, "fmn:skill/arc", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -439,7 +439,7 @@ ItemEvents.rightClicked(e => {
             });
 
             global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
-            global.sound(level, player, "fmn:whirlwind", 0.6);
+            global.sound(level, player, "fmn:skill/whirlwind", 0.6);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -454,7 +454,7 @@ ItemEvents.rightClicked(e => {
             });
 
             global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
-            global.sound(level, player, "fmn:whirlwind", 0.6);
+            global.sound(level, player, "fmn:skill/whirlwind", 0.6);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -470,7 +470,7 @@ ItemEvents.rightClicked(e => {
             });
 
             global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
-            global.sound(level, player, "fmn:whirlwind", 0.6);
+            global.sound(level, player, "fmn:skill/whirlwind", 0.6);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -489,7 +489,7 @@ ItemEvents.rightClicked(e => {
             });
 
             global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
-            global.sound(level, player, "fmn:whirlwind", 0.6);
+            global.sound(level, player, "fmn:skill/whirlwind", 0.6);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -521,7 +521,7 @@ ItemEvents.rightClicked(e => {
                 inferno(player, target, damage, cd)
             })
 
-            global.sound(level, player, "fmn:smite", 0.24);
+            global.sound(level, player, "fmn:skill/smite", 0.24);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -534,7 +534,7 @@ ItemEvents.rightClicked(e => {
                 blizzard(target, duration, cd)
             })
 
-            global.sound(level, player, "fmn:smite", 0.24);
+            global.sound(level, player, "fmn:skill/smite", 0.24);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -551,7 +551,7 @@ ItemEvents.rightClicked(e => {
 
             global.particleRingVertical(level, range * 5, range, player, "lava", 0.2, -0.1);
             global.particleRing(level, range * 2, 0.5, player, "flame", 0.4);
-            global.sound(level, player, "fmn:inferno", 0.3);
+            global.sound(level, player, "fmn:skill/inferno", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -564,7 +564,7 @@ ItemEvents.rightClicked(e => {
             lunge(level, player, damage, speed, range, () => { }, () => { })
 
             global.particleBurst(level, player, "cloud", 4, 0.5, 0, 0.2);
-            global.sound(level, player, "fmn:lunge", 0.3);
+            global.sound(level, player, "fmn:skill/lunge", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -579,7 +579,7 @@ ItemEvents.rightClicked(e => {
             })
 
             global.particleBurst(level, player, "sweep_attack", 1, 0.2, 0, 0.2);
-            global.sound(level, player, "fmn:lunge", 0.3);
+            global.sound(level, player, "fmn:skill/lunge", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -596,7 +596,7 @@ ItemEvents.rightClicked(e => {
             }, () => { })
 
             global.particleBurst(level, player, "poof", 3, 0.2, 0, 0.2);
-            global.sound(level, player, "fmn:lunge", 0.3);
+            global.sound(level, player, "fmn:skill/lunge", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -611,7 +611,7 @@ ItemEvents.rightClicked(e => {
             })
 
             global.particleBurst(level, player, "flame", 6, 0.15, 0, 0.2);
-            global.sound(level, player, "fmn:lunge", 0.3);
+            global.sound(level, player, "fmn:skill/lunge", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -627,7 +627,7 @@ ItemEvents.rightClicked(e => {
             })
 
             global.particleBurst(level, player, "snowflake", 6, 0.1, 0, 0.2);
-            global.sound(level, player, "fmn:lunge", 0.3);
+            global.sound(level, player, "fmn:skill/lunge", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -644,7 +644,7 @@ ItemEvents.rightClicked(e => {
             })
 
             global.particleRing(level, range * 3, range, center, "poof", -0.1 * range, -0.1);
-            global.sound(level, player, "fmn:vortex", 0.3);
+            global.sound(level, player, "fmn:skill/vortex", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         },
@@ -661,7 +661,7 @@ ItemEvents.rightClicked(e => {
             })
 
             global.particleRing(level, range * 3, range, center, "poof", -0.1 * range, -0.1);
-            global.sound(level, player, "fmn:vortex", 0.3);
+            global.sound(level, player, "fmn:skill/vortex", 0.3);
 
             // player.cooldowns.addCooldown(id, cd)
         }
