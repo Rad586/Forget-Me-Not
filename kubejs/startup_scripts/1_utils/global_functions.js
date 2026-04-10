@@ -26,9 +26,10 @@ global.particleBurstBlock = (level, x, y, z, particleId, count, speed, spread) =
 global.particleRing = (level, count, dist, entity, particleId, speed, yOverride) => {
 	const { x, y, z, eyeHeight } = entity;
 	const finalY = y + (eyeHeight / 4) + (yOverride || 0);
+	const offset = Math.random() * 6.28;
 
 	for (let i = 0; i < count; i++) {
-		let angle = (i * 2 / count) * 3.14;
+		let angle = (i / count) * 6.28 + offset;
 
 		let vx = Math.cos(angle) * speed;
 		let vz = Math.sin(angle) * speed;
@@ -47,9 +48,10 @@ global.particleRing = (level, count, dist, entity, particleId, speed, yOverride)
 global.particleRingVertical = (level, count, dist, entity, particleId, speed, yOverride) => {
 	const { x, y, z, eyeHeight } = entity;
 	const finalY = y + (eyeHeight / 4) + (yOverride || 0);
+	const offset = Math.random() * 6.28;
 
 	for (let i = 0; i < count; i++) {
-		let angle = (i * 2 / count) * 3.14;
+		let angle = (i / count) * 6.28 + offset;
 
 		let px = x + Math.cos(angle) * dist;
 		let pz = z + Math.sin(angle) * dist;
