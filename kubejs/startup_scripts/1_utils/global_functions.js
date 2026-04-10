@@ -65,6 +65,24 @@ global.particleRingVertical = (level, count, dist, entity, particleId, speed, yO
 	}
 }
 
+global.particleWind = (level, count, entity, particleId, speed, spread) => {
+	const vec = entity.getViewVector(1).scale(-1);
+	const { x, y, z, eyeHeight } = entity;
+
+	for (let i = 0; i < count; i++) {
+		let vx = vec.x() * speed + (Math.random() - 0.5) * spread;
+		let vy = (Math.random() - 0.5) * spread
+		let vz = vec.z() * speed + (Math.random() - 0.5) * spread;
+
+		level.spawnParticles(
+			particleId, true,
+			x, y + (eyeHeight / 3 * 2), z,
+			vx, vy, vz,
+			0, 1
+		)
+	}
+}
+
 global.particleBridge = (level, thisEntity, nextEntity, particleId) => {
 	const { x: startX, eyeY: startY, z: startZ } = thisEntity;
 	const { x: endX, eyeY: endY, z: endZ } = nextEntity;
