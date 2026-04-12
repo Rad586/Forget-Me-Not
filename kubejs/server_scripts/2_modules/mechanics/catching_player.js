@@ -1,4 +1,4 @@
-function dabbing(target) {
+function catching_player(target) {
     if (target instanceof Player) {
         target.resetFallDistance();
         target.setMotionY(0.1);

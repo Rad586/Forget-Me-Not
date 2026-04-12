@@ -91,7 +91,6 @@ global.class_map = {
     "ItemTintFunction": "dev.latvian.mods.kubejs.item.ItemTintFunction",
     "ItemBuilder": "dev.latvian.mods.kubejs.item.custom.BasicItemJS$Builder",
     "blockBuilder": "dev.latvian.mods.kubejs.block.custom.BasicBlockJS$Builder",
-    "EntityOpt": "org.craftamethyst.tritium.config.TritiumConfigBase$Entities$EntityOpt",
     "DynamicSetting": "me.wesley1808.servercore.common.dynamic.DynamicSetting",
     "DynamicManager": "me.wesley1808.servercore.common.dynamic.DynamicManager",
     "KubeJS": "dev.latvian.mods.kubejs.KubeJS",

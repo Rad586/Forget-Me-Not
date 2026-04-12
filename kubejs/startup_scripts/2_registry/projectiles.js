@@ -152,7 +152,8 @@ StartupEvents.registry("entity_type", e => {
 		attackable(player, target)
 	)
 	function areaCheck(center, level, player, range, func) {
-		const aabb = center.boundingBox.inflate(range, 1, range);
+		const { x, eyeY, z } = center;
+		const aabb = AABB.of(x, eyeY, z, x, eyeY, z).inflate(range, 1, range);
 		const entities = level.getEntitiesWithin(aabb)
 			.filter(target => hit_criteria(center, player, target, range));
 
@@ -160,15 +161,20 @@ StartupEvents.registry("entity_type", e => {
 		entities.forEach(target => func(target))
 	}
 	const type_map = {
-		"nope": (level, player, hit, cd, damage) => {},
-		"whirlwind": (level, player, hit, cd, damage) => { 
-			const range = 1.5;
-			areaCheck(hit, level, player, range, (target) =>
-				attack(player, target, damage * 0.3)
-			)
+		"nope": (level, player, hit, cd, damage, lvl) => {
+			attack(player, hit, damage)
 		},
-		"vortex": (level, player, hit, cd, damage) => { 
-			const range = 2.5;
+		"whirlwind": (level, player, hit, cd, damage, lvl) => { 
+			const range = 1 + (lvl - 1) * 0.5;
+
+			areaCheck(hit, level, player, range, (target) => {
+				attack(player, target, damage)
+			})
+		},
+		"vortex": (level, player, hit, cd, damage, lvl) => { 
+			const range = 1.5 + (lvl - 1) * 0.5;
+
+			attack(player, hit, damage);
 			areaCheck(hit, level, player, range, (target) => {
 				const target_pos = target.eyePosition;
 				const visible = player.getViewVector(1)
@@ -185,8 +191,9 @@ StartupEvents.registry("entity_type", e => {
 
 			global.particleRing(level, range * 2, range, hit, "poof", -0.1 * range, -0.1)
 		},
-		"inferno": (level, player, hit, cd, damage) => { 
-			const range = 1.5;
+		"inferno": (level, player, hit, cd, damage, lvl) => { 
+			const range = 1 + (lvl - 1) * 0.5;
+
 			areaCheck(hit, level, player, range, (target) => {
 				if (!target.isOnFire()) {
 					if (target.block.hasTag("minecraft:soul_fire_base_blocks")) {
@@ -199,33 +206,40 @@ StartupEvents.registry("entity_type", e => {
 					target.extinguish()
 				}
 			});
+			attack(player, hit, damage);
 
 			global.particleRingVertical(level, range * 3, range, hit, "lava", 0.2, -0.1)
 		},
-		"blizzard": (level, player, hit, cd, damage) => { 
-			const range = 2.5;
+		"blizzard": (level, player, hit, cd, damage, lvl) => { 
+			const range = 1.5 + (lvl - 1) * 1;
+
 			areaCheck(hit, level, player, range, (target) => {
 				const { potionEffects } = target;
 
 				if (!target.hasEffect("slowness")) {
-					potionEffects.add("slowness", cd + 24, 0, false, true)
+					potionEffects.add("slowness", cd + 30, 0, false, true)
 				}
 				else {
 					potionEffects.add("slowness", damage * 20 / 2, 1, false, true)
 				}
-			})
+			});
+			attack(player, hit, damage);
 
 			global.particleRingVertical(level, range * 2, range, hit, "snowflake", 0.4, -0.1);
 		},
-		"lunge": (level, player, hit, cd, damage) => { 
+		"lunge": (level, player, hit, cd, damage, lvl) => { 
 			const range = 1.5;
+
 			areaCheck(hit, level, player, range, (target) => {
 				const { lookAngle: m } = player;
 
-				target.setDeltaMovement(
-					new Vec3(m.x(), Math.min(0.4, m.y()), m.z()));
+				target.setDeltaMovement(new Vec3(
+					m.x(), 
+					Math.min(0.4, m.y()), 
+					m.z()).scale(0.75 + (lvl - 1) * 0.25));
 				target.hurtMarked = true;
-			})
+			});
+			attack(player, hit, damage)
 		},
 	}
 	e.create("arc", "entityjs:projectile")
@@ -252,18 +266,16 @@ StartupEvents.registry("entity_type", e => {
 
 			const { owner } = entity;
 			if (owner) {
-				let pData = entity.persistentData;
 				let hit = context.result.entity;
-				let { damage, cd, type } = pData;
+				let pData = entity.persistentData;
+				let { damage, cd, type, lvl } = pData;
 
-				type_map[type || "nope"](level, owner, hit, cd, damage);
-				attack(owner, hit, damage)
+				type_map[type || "nope"](level, owner, hit, cd, damage, lvl)
 			};
+			entity.discard();
 
 			global.particleBurst(level, entity, "crit", 3, 0.5, 0, 0.2);
-			entity.playSound("fmn:destroy_projectile", 0.3, 1);
-
-			entity.discard()
+			entity.playSound("fmn:destroy_projectile", 0.3, 1)
 		})
 		.onHitBlock(context => {
 			const { entity } = context, { level } = entity;

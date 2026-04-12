@@ -1,8 +1,8 @@
 function fiery_arrows(entity) {
-	const { level, age, nbt } = entity;
+	const { level, age } = entity;
 	if (age % 3 || !entity.isOnFire()) return;
 
-	if (nbt.inGround) {
+	if (entity.inGround) {
 		entity.extinguish();
 		level.spawnParticles(
 			"large_smoke", false, 
