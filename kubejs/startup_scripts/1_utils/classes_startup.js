@@ -2,6 +2,7 @@
 
 global.class_map = {
 
+    "Block2": "net.minecraft.world.level.block.Block",
     "Blocks": "net.minecraft.world.level.block.Blocks",
 
     "LeavesBlock": "net.minecraft.world.level.block.LeavesBlock",
