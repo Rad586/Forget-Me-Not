@@ -6,7 +6,7 @@ ItemEvents.entityInteracted("minecraft:goat_horn", e => {
     ) return;
 
     const { owner } = target, { nbt } = e.item;
-    if (!owner || owner != player || 
+    if (player != owner || 
         nbt.Type || nbt.instrument == "minecraft:sing_goat_horn"
     ) return;
 
