@@ -142,7 +142,7 @@
         "then_run": {
           "type": "minecraft:block",
           "result_state": {
-            "Name": "minecraft:obsidian"
+            "Name": "minecraft:bedrock"
           }
         }
       },

@@ -1,4 +1,5 @@
 EntityJSEvents.modifyEntity(e => {
+	const { server } = Utils;
 	if (!server) return;
 
 	/* may prevent memory leak */
