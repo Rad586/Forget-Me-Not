@@ -5,10 +5,10 @@ ItemEvents.rightClicked("water_bucket", e => {
     const { target } = e, { block } = target;
     if (block.properties.waterlogged != "false") return;
 
-    const { facing } = target;
-    const c_facing = (block.id.endsWith("_stairs") && /* intuitive placing */
-        player.eyeY - target.hitY < 2.5 && 
+    const { facing } = target, delta = player.eyeY - target.hitY;
+    const c_facing = (block.hasTag("minecraft:stairs") && /* intuitive placing */
         block.y - target.hitY == -0.5 && 
+        (delta < 2.5 && delta > 0.245) && 
         facing == "UP") ? 
         player.facing.getOpposite() : facing;
 
