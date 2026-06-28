@@ -736,6 +736,9 @@ ItemEvents.rightClicked(e => {
     }
 
     const { level, player } = e;
+
+    if(!e.item.id.includes("_sword")) return;
+    
     const skill = "blizzard_vortex";
     const split = skill.split("_")
     swords[skill](
@@ -749,11 +752,15 @@ ItemEvents.rightClicked(e => {
     )
 
 })
-// ItemEvents.rightClicked(e => {
-//     const {player, level} = e;
-//     $Enchantments.THORNS.doPostHurt(player, player.rayTrace(4).entity, 2)
-// })
+BlockEvents.rightClicked(e => {
+    if(e.hand== "off_hand") return;
+    // const Block = Java.loadClass('net.minecraft.world.level.block.Block')
+    // Block2.dropResources(e.block.blockState, e.level, e.block.pos, null);
+})
 
 //战利品：对于所有武器，替换为原ID的附魔主动技能后物品
 //合成：如果有合成选项就合并，else升级（最高3，不然告诉玩家不能）
 //still-life + Lithosphere
+
+//用drop resource替代destory
+//移除骨粉投掷
