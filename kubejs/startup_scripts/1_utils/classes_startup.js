@@ -2,6 +2,8 @@
 
 global.class_map = {
 
+    "ChunkPos": "net.minecraft.world.level.ChunkPos",
+
     "Block2": "net.minecraft.world.level.block.Block",
     "Blocks": "net.minecraft.world.level.block.Blocks",
 
@@ -79,6 +81,7 @@ global.class_map = {
     "BlockParticleOption": "net.minecraft.core.particles.BlockParticleOption",
     "DustParticleOptions": "net.minecraft.core.particles.DustParticleOptions",
     "ParticleTypes": "net.minecraft.core.particles.ParticleTypes",
+    "Registry": "net.minecraft.core.Registry", 
 
     "$Enchantments": "net.minecraft.world.item.enchantment.Enchantments",
     "FrostWalkerEnchantment": "net.minecraft.world.item.enchantment.FrostWalkerEnchantment",

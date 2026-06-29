@@ -363,7 +363,7 @@ ServerEvents.recipes(e => {
 		"0"
 	], {
 		0: "minecraft:iron_ingot",
-		1: "minecraft:amethyst_shard"
+		1: "minecraft:glass"
 	})
 
 	e.shapeless("kubejs:tripwire_arrow", ["#minecraft:arrows", "minecraft:stick", "minecraft:iron_ingot", "#minecraft:planks"]);

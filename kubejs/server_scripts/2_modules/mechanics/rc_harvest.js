@@ -4,6 +4,7 @@ function tryHarvest(level, player, block, pos, state, id, max_age, e) {
 	Block2.dropResources(state, level, pos, null);
 	block.set(id);
 	player.swing();
+	level.playSound(null, pos, "item.bone_meal.use", "blocks", 1.1, 0.94);
 	if(e) e.cancel()
 }
 global.Crops.forEach(crop => {

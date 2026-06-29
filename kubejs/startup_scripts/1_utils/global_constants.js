@@ -43,7 +43,10 @@ if(!global.Slabs) {
             },
             "Chests": (i) => i instanceof AbstractChestBlock,
             "Leaves": (i) => i instanceof LeavesBlock,
-            "RequiresTool": (i) => i.settings.isToolRequired()
+            "RequiresTool": (i) => {
+                const { settings } = i;
+                settings.isToolRequired() && settings.getHardness() < 3
+            }
         }
     )
 
