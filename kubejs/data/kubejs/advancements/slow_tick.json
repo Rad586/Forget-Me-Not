@@ -1,0 +1,8 @@
+{
+  "criteria": {
+    "always_true": {
+      "trigger": "minecraft:location",
+      "conditions": {}
+    }
+  }
+}

@@ -11,7 +11,6 @@ const towers = [
     "fmn:beach3", "fmn:mountains"
 ]
 const tp_to_top_msg = Text.translate("dialogue.fmn.tp_to_top").getString()
-const { STRUCTURE_REGISTRY } = Registry
 
 function tpEffect(level, x, y, z) {
     level.playSound(null,
@@ -28,10 +27,7 @@ function tpEffect(level, x, y, z) {
         0.2
     )
 }
-PlayerEvents.advancement("kubejs:in_tower", e => {
-    const { level, player } = e;
-    player.revokeAdvancement("kubejs:in_tower");
-
+function tpToTop(server, level, manager, player, STRUCTURE_REGISTRY) {
     const { persistentData: pData } = player, { tp } = pData;
     if (tp == null) {
         pData.tp = 0;
@@ -39,7 +35,6 @@ PlayerEvents.advancement("kubejs:in_tower", e => {
     };
     if (!player.isCrouching() || player.pitch > -74.5) return;
 
-    const manager = level.structureManager();
     const registry = manager.registryAccess()
         .registryOrThrow(STRUCTURE_REGISTRY);
     const structures = manager
@@ -58,7 +53,9 @@ PlayerEvents.advancement("kubejs:in_tower", e => {
                 .getCenter()
                 .offset(0.5, 21, 0.5); /* where the waystone locates at */
             let { x: px, y: py, z: pz } = player;
-            if (py - y > 39) return;
+            let y_delta = py - y;
+            let dist = player.distanceToSqr(new Vec3(x, py, z));
+            if (y_delta >= -3 || y_delta < -51 || dist > 60) return;
 
             let r = player.hasEffect("kubejs:timer") ? tp + 1 : 0;
             pData.tp = r;
@@ -72,10 +69,10 @@ PlayerEvents.advancement("kubejs:in_tower", e => {
                 pData.tp = 0;
 
                 tpEffect(level, px, py + 1, pz);
-                e.server.scheduleInTicks(1, () => {
+                server.scheduleInTicks(1, () => {
                     tpEffect(level, x + 1, y + 1, z + 1)
                 })
             }
         }
     })
-})
+}
