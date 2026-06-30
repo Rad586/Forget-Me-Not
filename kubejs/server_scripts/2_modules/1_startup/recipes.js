@@ -149,6 +149,8 @@ ServerEvents.recipes(e => {
 	e.shapeless("2x minecraft:leather", ["minecraft:saddle"])
 	e.shapeless("2x minecraft:leather", ["minecraft:bundle"])
 
+	e.shapeless("2x minecraft:iron_ingot", ["kubejs:iron_golem"])
+
 	/* 发光物品展示框 Glow item frame */
 	e.shapeless("minecraft:glow_item_frame", ["minecraft:item_frame", "#minecraft:glowing_items"])
 
