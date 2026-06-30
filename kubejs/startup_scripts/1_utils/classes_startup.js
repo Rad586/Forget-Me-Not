@@ -90,6 +90,10 @@ global.class_map = {
     "ClipContext": "net.minecraft.world.level.ClipContext",
     "BlockPlaceContext": "net.minecraft.world.item.context.BlockPlaceContext",
 
+    "SimpleMenuProvider": "net.minecraft.world.SimpleMenuProvider",
+    "CraftingMenu": "net.minecraft.world.inventory.CraftingMenu",
+    "ContainerLevelAccess": "net.minecraft.world.inventory.ContainerLevelAccess",
+
     "$PotionBuilder": "dev.latvian.mods.kubejs.misc.PotionBuilder",
     "BlockTintFunction": "dev.latvian.mods.kubejs.block.BlockTintFunction",
     "ItemTintFunction": "dev.latvian.mods.kubejs.item.ItemTintFunction",

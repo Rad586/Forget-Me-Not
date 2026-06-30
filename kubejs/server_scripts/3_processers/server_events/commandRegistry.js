@@ -113,4 +113,21 @@ ServerEvents.commandRegistry(e => {
 
 			return 1
 		}))
+
+	/* credit: FalAut(https://discord.com/channels/303440391124942858/1257504502777380875) */
+	e.register(Commands.literal("openCraftingMenu")
+		.requires(src => src.hasPermission(1))
+		.executes(c => {
+			const { player, level } = c.source;
+
+			player.openMenu(new SimpleMenuProvider((i, inv, p) =>
+				new CraftingMenu(i, inv, (func) => {
+					func.apply(level, player.blockPosition());
+					return Optional.empty();
+				}),
+				Text.translate("container.crafting")
+			));
+
+			return 1
+		}))
 })

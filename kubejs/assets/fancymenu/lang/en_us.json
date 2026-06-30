@@ -1,7 +1,7 @@
 {
     "fancymenu.text.auto_pickup_on": "Auto Pickup: On",
     "fancymenu.text.auto_pickup_off": "Auto Pickup: Off",
-    "fancymenu.text.tiny_storage": "↑Can store items, keep on death",
+    "fancymenu.text.tiny_storage": "←Can store items, keep on death",
     "fancymenu.text.ingui_guide": "In-GUI hovered tip↓",
     "fancymenu.text.keep_inv": "Drops these 3 rows on death→",
     "fancymenu.text.toggle_pickup": "↑Toggle auto pickup",
@@ -12,5 +12,6 @@
     "fancymenu.text.furnace": "Consumption→",
     "fancymenu.text.waystone_rename": "↑Rename here",
     "fancymenu.text.waystone_edit": "↓Delete or sort↓",
-    "fancymenu.text.armor_set": "Swap armor↓"
+    "fancymenu.text.armor_set": "Swap armor↓", 
+    "fancymenu.text.c_menu": "↑Open crafting menu"
 }
