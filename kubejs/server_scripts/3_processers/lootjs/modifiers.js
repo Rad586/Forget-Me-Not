@@ -9,5 +9,7 @@ LootJS.modifiers(e => {
 	midas_curse(e);
 	deepslate_bonus(e);
 	// reveal_system(e);
-	haunting(e)
+	haunting(e);
+	conditional_drops(e);
+	iron_golem(e);
 })
