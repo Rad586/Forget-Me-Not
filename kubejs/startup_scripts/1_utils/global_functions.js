@@ -98,10 +98,10 @@ global.particleBridge = (level, thisEntity, nextEntity, particleId) => {
 	}
 }
 
-global.particleBridge2 = (level, startX, startY, startZ, endX, endY, endZ, particleId) => {
+global.particleBridge2 = (level, startX, startY, startZ, endX, endY, endZ, particleId, density) => {
 	const dist = Math.hypot(startX - endX, startY - endY, startZ - endZ);
 
-	for (let i = 0; i < dist; i += 1) {
+	for (let i = 0; i < dist; i += density) {
 		let t = i / dist;
 		let x = startX + (endX - startX) * t;
 		let y = startY - 0.5 + (endY - startY) * t;
@@ -292,6 +292,4 @@ global.structureStartAt = (registry, manager, pos, id, inStructure) => {
 		manager.getStructureWithPieceAt(pos, strcure) :
 		manager.getStructureAt(pos, strcure)
 }
-
-
 	

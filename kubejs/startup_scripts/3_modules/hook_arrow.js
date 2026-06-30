@@ -9,5 +9,5 @@ function hook_arrow(context) {
 	owner.hurtMarked = true;
 	entity.discard();
 
-	global.particleBridge2(entity.level, x, y, z, px, py, pz, "end_rod");
+	global.particleBridge2(entity.level, x, y, z, px, py, pz, "end_rod", 1);
 }

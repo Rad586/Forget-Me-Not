@@ -63,7 +63,12 @@ function tpToTop(server, registry, level, manager, player, pos) {
 
             tpEffect(level, px, py + 1, pz);
             server.scheduleInTicks(1, () => {
-                tpEffect(level, x + 1.5, y + 1, z + 1.5)
+                tpEffect(level, x + 1.5, y + 1, z + 1.5);
+                global.particleBridge2(level, 
+                    px, py + 1, pz, 
+                    x, y + 1, z, 
+                    "end_rod", 2.5
+                )
             })
         }
     })
