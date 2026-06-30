@@ -284,3 +284,14 @@ global.reloadClientScript = () => KubeJS.PROXY.reloadClientInternal();
 global.toInt = (value) => Integer.valueOf(value.toString())
 
 global.totemAnimation = (player, item) => player.sendData("totemAnimation", { item: item })
+
+/* credit: LootJS(https://www.curseforge.com/minecraft/mc-mods/lootjs) */
+global.structureStartAt = (registry, manager, pos, id, inStructure) => {
+	const strcure = registry.get(new ResourceLocation(id))
+	return inStructure ?
+		manager.getStructureWithPieceAt(pos, strcure) :
+		manager.getStructureAt(pos, strcure)
+}
+
+
+	
