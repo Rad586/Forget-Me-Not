@@ -14,7 +14,7 @@ global.dimensionalMobs = {
         pitch: 0.7 + Math.random() * 0.2
     },
     "minecraft:wither": {
-        dimension: ["minecraft:the_nether", "minecraft:the_end"],
+        dimension: ["minecraft:the_nether"],
         item: "3x minecraft:wither_skeleton_skull",
         sound: "minecraft:entity.wither.break_block",
         volume: 0.3,

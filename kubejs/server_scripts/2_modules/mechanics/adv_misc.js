@@ -8,19 +8,3 @@ PlayerEvents.advancement("kubejs:tip/updated", e => {
     const players = server.players.filter(p => p != player);
     players.forEach(p => p.unlockAdvancement("kubejs:tip/updated"))
 })
-
-PlayerEvents.advancement("kubejs:memory_removal", e => {
-    const { server } = e, { persistentData } = server;
-    if (persistentData.ender_dragon == true) return;
-
-    persistentData.ender_dragon = true;
-    global.reloadStartupScript();
-
-    server.players.forEach(player => {
-        const { level, potionEffects } = player;
-        if (level.dimension != "minecraft:the_end") return;
-        potionEffects.add("jump_boost", 999999, 9, true, false);
-        potionEffects.add("slow_falling", 999999, 0, true, false);
-        global.sound(level, player, "block.beacon.activate");
-    })
-})

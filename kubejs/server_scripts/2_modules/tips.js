@@ -1,5 +1,5 @@
 const advancements = [
-    "msg", "ender_dragon_death", "falling_star",
+    "falling_star",
     "death", "respawn", "updated", "lowhp",
     "lvl20", "glow_berries", "fish",
     "goat_horn", "protection", "amethyst",
@@ -17,7 +17,7 @@ const advancements = [
     "piglin", "spider", "creeper1",
     "tool", "witch", "wither_skeleton",
     "normal_chest_mimic", "vex", "husk",
-    "slime1", "rabbit", "ender_dragon",
+    "slime1", "rabbit",
     "iron_golem", "piglin_trade", "wolf",
     "mimic", "horse", "llama", "guard_rc",
     "blaze", "piglin2", "drowned",

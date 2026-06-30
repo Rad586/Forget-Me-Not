@@ -223,7 +223,7 @@ EntityJSEvents.modifyEntity(e => {
 			.canBeAffected(context => !context.entity.hasEffect("kubejs:purity"))
 			.isInvulnerableTo(context => player_hurt(context))
 			.calculateFallDamage(context => fall_damage_modifier(context))
-			.canBeAffected(context => conditional_effects(context, dragon_stage))
+			.canBeAffected(context => conditional_effects(context, nether_stage))
 	)
 
 	arrows.forEach(arrow => 

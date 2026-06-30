@@ -35,7 +35,7 @@ ItemEvents.tooltip(e => {
 		],
 		"horse": [
 			"minecraft:iron_horse_armor", "minecraft:golden_horse_armor", "minecraft:diamond_horse_armor",
-			"minecraft:leather_horse_armor", "minecraft:dragon_horse_armor"
+			"minecraft:leather_horse_armor"
 		],
 		"dirt": [
 			"minecraft:dirt"

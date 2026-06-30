@@ -66,9 +66,6 @@ global.class_map = {
 
     "Raider": "net.minecraft.world.entity.raid.Raider",
 
-    "WitherBoss": "net.minecraft.world.entity.boss.wither.WitherBoss",
-    "EnderDragon": "net.minecraft.world.entity.boss.enderdragon.EnderDragon",
-
     "SnowGolem": "net.minecraft.world.entity.animal.SnowGolem",
 
     "MeleeAttackGoal": "net.minecraft.world.entity.ai.goal.MeleeAttackGoal",
