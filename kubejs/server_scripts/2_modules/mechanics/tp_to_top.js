@@ -29,15 +29,11 @@ function tpEffect(level, x, y, z) {
 }
 function tpToTop(server, registry, level, manager, player, pos) {
     const { persistentData: pData } = player, { tp } = pData;
-    if (tp == null) {
-        pData.tp = 0;
-        player.setStatusMessage(Text.translate("dialogue.fmn.tp_tip"))
-    };
     if (!player.isCrouching() || player.pitch > -74.5) return;
 
     towers.forEach(id => {
         const start = global.structureStartAt(registry, manager, pos, id, false);
-        if (!start.isValid()) return;
+        if (!start || !start.isValid()) return;
 
         const { x, y, z } = start
             .getBoundingBox()
@@ -50,7 +46,7 @@ function tpToTop(server, registry, level, manager, player, pos) {
             !level.getBlock(x, y, z).id.includes("waystone")
         ) return;
 
-        const r = player.hasEffect("kubejs:timer") ? tp + 1 : 0;
+        const r = player.hasEffect("kubejs:timer") ? (tp || 0) + 1 : 0;
         pData.tp = r;
 
         if (r < 3) {
