@@ -7,6 +7,8 @@ PlayerEvents.advancement("kubejs:slow_tick", e => {
 
     player.revokeAdvancement("kubejs:slow_tick");
 
-    miningFatigue(registry, manager, player, pos);
-    tpToTop(server, registry, level, manager, player, pos)
+    if (!manager.hasAnyStructureAt(pos)) {
+        miningFatigue(registry, manager, player, pos);
+        tpToTop(server, registry, level, manager, player, pos)
+    }
 })
