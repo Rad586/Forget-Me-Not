@@ -88,8 +88,17 @@ ItemEvents.modification(e => {
 	/* drinkable dragon breath */
 	e.modify("minecraft:dragon_breath", item => 
 		item.foodProperties = food => {
+			food.hunger(0);
+			food.saturation(0);
 			food.effect("kubejs:dragon_powered", 100, 0, 1);
 			food.alwaysEdible()
+		}
+	)
+
+	e.modify("minecraft:cake", item =>
+		item.foodProperties = food => {
+			food.hunger(14);
+			food.saturation(2.8);
 		}
 	)
 
