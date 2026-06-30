@@ -3,7 +3,7 @@ PlayerEvents.advancement("kubejs:slow_tick", e => {
     const manager = level.structureManager();
     const registry = level.registryAccess()
         .registryOrThrow(Registry.STRUCTURE_REGISTRY);
-    const pos = player.blockPosition()
+    const pos = player.blockPosition();
 
     player.revokeAdvancement("kubejs:slow_tick");
 
