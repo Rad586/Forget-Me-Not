@@ -1,0 +1,21 @@
+{
+    "criteria": {
+        "tower": {
+            "conditions": {
+              "player": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "location": {
+                      "structure": "totw_reworked:regular"
+                    }
+                  }
+                }
+              ]
+            },
+            "trigger": "minecraft:location"
+        }
+    },
+    "requirements": [["tower"]]
+}

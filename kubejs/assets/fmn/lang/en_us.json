@@ -126,7 +126,7 @@
   "dialogue.fmn.not_found": "There's no item nearby this chest.",
   "dialogue.fmn.pickaxe": "Right click to place torch in your inventory.",
   "dialogue.fmn.tp_to_top": "Preparing teleport to the top: ",
-  "dialogue.fmn.tp_tip": "Sneak while looking up near the tower to teleport to the top.", 
+  "dialogue.fmn.tower": "Sneak while looking up near the tower to teleport to the top.", 
 
   "dialogue.fmn.zoom":"Press c to zoom in.",
   "dialogue.fmn.waypoint":"Press [+] to create/delete waypoint.",
