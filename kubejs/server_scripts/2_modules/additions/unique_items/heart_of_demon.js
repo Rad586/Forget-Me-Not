@@ -17,8 +17,8 @@ const demon_effects = {
     "saturation": { time: 30, amp: 2, particle: false }
 };
 
-function heart_of_demon(e) {
-    const { level, server, entity } = e;
+function heart_of_demon(e, level, entity) {
+    const { server } = e;
     const { x, y, z } = entity;
 
     if (!entity.isHoldingInAnyHand("kubejs:heart_of_demon")) return;

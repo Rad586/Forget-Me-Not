@@ -3,11 +3,8 @@ const medallion_effects = {
 	"fire_resistance": { time: 800 }
 }
 
-function medallion(e) {
-	const {level, entity} = e;
-
-	if (
-		level.dimension != "minecraft:the_nether" ||
+function medallion(e, level, entity) {
+	if (level.dimension != "minecraft:the_nether" ||
 		e.source.type == "outOfWorld" ||
 		entity.isCreative()
 	) return;

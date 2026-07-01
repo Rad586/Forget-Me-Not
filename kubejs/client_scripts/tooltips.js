@@ -233,6 +233,9 @@ ItemEvents.tooltip(e => {
 		],
 		"pickaxe": [
 			"minecraft:wooden_pickaxe", "minecraft:stone_pickaxe"
+		],
+		"hotbar_totem": [
+			"minecraft:totem_of_undying"
 		]
 	};
 

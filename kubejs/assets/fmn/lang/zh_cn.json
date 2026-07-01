@@ -173,6 +173,7 @@
 	"dialogue.fmn.elder_guardian":"远古守卫者被击杀，已移除挖掘疲劳！",
 	"dialogue.fmn.tp_to_top": "准备传送到塔顶：",
 	"dialogue.fmn.tower": "靠近塔，抬头潜行以传送至塔顶",
+	"dialogue.fmn.hotbar_totem": "快捷栏中即可生效",
 
 	"item.kubejs.medallion_of_undying":"免死金牌",
 	"item.kubejs.medallion_of_undying_activated":"免死金牌激活图标",
