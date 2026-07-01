@@ -1,14 +1,12 @@
 ItemEvents.entityInteracted("minecraft:goat_horn", e => {
-    const { target, player } = e;
+    const { target, player } = e, { ownerUUID } = target;
     if (player.cooldowns.isOnCooldown("minecraft:goat_horn") ||
-        !(target instanceof OwnableEntity) || 
+        !ownerUUID.equals(player.uuid) || 
         !target.isLiving()
     ) return;
 
-    const { owner } = target, { nbt } = e.item;
-    if (player != owner || 
-        nbt.Type || nbt.instrument == "minecraft:sing_goat_horn"
-    ) return;
+    const { nbt } = e.item;
+    if (nbt.Type || nbt.instrument == "minecraft:sing_goat_horn") return;
 
     target.discard();
     nbt.merge({
@@ -34,11 +32,19 @@ function summonMount(e, x, y, z) {
     nbt.remove("Name");
     nbt.remove("Type");
     nbt.remove("Storage");
-    mount.playSound("item.armor.equip_leather", 1, 1.2)
+    mount.playSound("item.armor.equip_leather", 1, 1.2);
+
+    return mount
 }
 ItemEvents.rightClicked("minecraft:goat_horn", e => {
-    const { x, y, z } = e.player;
-    summonMount(e, x, y, z)
+    const {player} = e, { x, y, z } = player;
+    if (player.vehicle) {
+        const mount = summonMount(e, x, y, z);
+        player.startRiding(mount)
+    }
+    else {
+        summonMount(e, x, y, z)
+    }
 })
 BlockEvents.rightClicked(e => {
     if (e.hand == "off_hand" || e.item.id != "minecraft:goat_horn") return;

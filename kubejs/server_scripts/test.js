@@ -757,3 +757,7 @@ ItemEvents.rightClicked(e => {
 //战利品：对于所有武器，替换为原ID的附魔主动技能后物品
 //合成：如果有合成选项就合并，else升级（最高3，不然告诉玩家不能）
 //still-life + Lithosphere
+
+ItemEvents.entityInteracted(e => {
+    e.server.tell(e.target.ownerUUID)
+})
