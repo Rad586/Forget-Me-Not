@@ -292,4 +292,13 @@ global.structureStartAt = (registry, manager, pos, id, inStructure) => {
 		manager.getStructureWithPieceAt(pos, strcure) :
 		manager.getStructureAt(pos, strcure)
 }
+
+global.useBlock = (level, player, block) => {
+	const { pos } = block;
+	const hitResult = new BlockHitResult(
+		Vec3.ZERO,
+		"up", pos, false);
+
+	block.blockState.use(level, player, "main_hand", hitResult);
+}
 	
