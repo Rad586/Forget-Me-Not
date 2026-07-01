@@ -73,6 +73,7 @@ global.class_map = {
     "MeleeAttackGoal": "net.minecraft.world.entity.ai.goal.MeleeAttackGoal",
     "AvoidEntityGoal": "net.minecraft.world.entity.ai.goal.AvoidEntityGoal",
     "PanicGoal": "net.minecraft.world.entity.ai.goal.PanicGoal",
+    "Attributes": "net.minecraft.world.entity.ai.attributes.Attributes",
 
     "AttributeModifier": "net.minecraft.world.entity.ai.attributes.AttributeModifier",
 
@@ -82,6 +83,7 @@ global.class_map = {
     "ParticleTypes": "net.minecraft.core.particles.ParticleTypes",
     "Registry": "net.minecraft.core.Registry", 
 
+    "EnchantmentHelper": "net.minecraft.world.item.enchantment.EnchantmentHelper",
     "$Enchantments": "net.minecraft.world.item.enchantment.Enchantments",
     "FrostWalkerEnchantment": "net.minecraft.world.item.enchantment.FrostWalkerEnchantment",
 

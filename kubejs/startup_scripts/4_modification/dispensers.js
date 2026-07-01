@@ -86,3 +86,38 @@ global.Pickaxes.concat(global.Shovels, global.Axes).forEach(i => {
 		return item
 	})
 })
+
+global.Swords.forEach(i => {
+	DispenserBlock.registerBehavior(i, (block, item) => {
+		const { level, pos } = block;
+		if (level.isClientSide()) return item;
+
+		const dispenser = level.getBlock(pos);
+		const { facing } = dispenser.properties;
+		const aabb = AABB.ofBlock(dispenser[facing].pos);
+
+		level.getEntitiesWithin(aabb).forEach(entity => {
+			if(!entity.isLiving() || !entity.isAlive()) return;
+
+			entity.attack(global.itemDamage(item, entity));
+			entity.knockback(0.4, pos.x - entity.x, pos.z - entity.z)
+		});
+
+		const c = aabb.getCenter();
+		const x = c.x(), y = c.y(), z = c.z();
+		level.spawnParticles(
+			"sweep_attack", true,
+			x, y, z,
+			0, 0, 0,
+			1, 0
+		);
+		level.playSound(
+			null, x, y, z, 
+			"entity.player.attack.sweep", 
+			"blocks", 
+			0.3, 1
+		);
+
+		return item
+	})
+})

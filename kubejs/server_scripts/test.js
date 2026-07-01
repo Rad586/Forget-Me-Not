@@ -738,9 +738,9 @@ ItemEvents.rightClicked(e => {
 
     const { level, player } = e;
 
-    if(!e.item.id.includes("_sword")) return;
-    
-    const skill = "blizzard_vortex";
+    if (!e.item.id.includes("_sword")) return;
+
+    const skill = "smite";
     const split = skill.split("_")
     swords[skill](
         level,
@@ -758,6 +758,7 @@ ItemEvents.rightClicked(e => {
 //合成：如果有合成选项就合并，else升级（最高3，不然告诉玩家不能）
 //still-life + Lithosphere
 
-ItemEvents.entityInteracted(e => {
-    e.server.tell(e.target.ownerUUID)
+ItemEvents.rightClicked(e => {
+    const {level, player} = e;
+    e.server.tell(player.block.offset())
 })
