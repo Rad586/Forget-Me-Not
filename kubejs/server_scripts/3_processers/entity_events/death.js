@@ -1,5 +1,5 @@
 EntityEvents.death("minecraft:player", e => {
-	const {entity} = e;
+	const { level, entity } = e;
 
 	hotbar_totem(e, level, entity);
 	medallion(e, level, entity);

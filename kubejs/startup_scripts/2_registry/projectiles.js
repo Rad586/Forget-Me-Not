@@ -43,16 +43,6 @@ StartupEvents.registry("entity_type", e => {
 		.onHitEntity(context => sticky_ender_pearl_entity(context.entity, context.result.entity))
 		.onHitBlock(context => sticky_ender_pearl_block(context.entity, context.result))
 
-	e.create("magic", "entityjs:projectile")
-		.noItem()
-		.sized(0.4, 0.4)
-		.renderScale(0, 0, 0)
-		.textureLocation(() => "kubejs:textures/entity/dummy.png")
-
-		.tick(entity => magic_tick(entity))
-		.onHitEntity(context => magic_entity(context))
-		.onHitBlock(context => magic_block(context))
-
 	e.create("falling_star", "entityjs:projectile")
 		.noItem()
 		.sized(0.4, 0.4)
