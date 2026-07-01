@@ -12,4 +12,5 @@ LootJS.modifiers(e => {
 	haunting(e);
 	conditional_drops(e);
 	iron_golem(e);
+	item_toss(e)
 })

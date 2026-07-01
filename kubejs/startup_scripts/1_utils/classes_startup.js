@@ -60,6 +60,7 @@ global.class_map = {
 
     "Boat": "net.minecraft.world.entity.vehicle.Boat",
 
+    "ItemEntity": "net.minecraft.world.entity.item.ItemEntity",
     "PrimedTnt": "net.minecraft.world.entity.item.PrimedTnt",
 
     "Player": "net.minecraft.world.entity.player.Player",
