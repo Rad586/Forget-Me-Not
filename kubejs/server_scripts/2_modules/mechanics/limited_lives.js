@@ -1,10 +1,5 @@
 function limited_lives(player) {
 	const { stages } = player;
-	if (stages.has("end")) {
-		end_dim_fix_respawn(player);
-		stages.remove("end");
-		return;
-	};
 
 	if (stages.has("no_limited_lives")) return;
 	const { level, persistentData: pData } = player;
