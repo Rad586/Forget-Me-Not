@@ -16,6 +16,7 @@ global.class_map = {
     "CampfireBlock": "net.minecraft.world.level.block.CampfireBlock",
     "DispenserBlock": "net.minecraft.world.level.block.DispenserBlock",
     "AbstractChestBlock": "net.minecraft.world.level.block.AbstractChestBlock",
+    "SignBlock": "net.minecraft.world.level.block.SignBlock",
 
     "Properties": "net.minecraft.world.level.block.state.BlockBehaviour$Properties",
 
