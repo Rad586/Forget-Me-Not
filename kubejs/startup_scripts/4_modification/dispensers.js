@@ -9,15 +9,6 @@ function ender_pearl(key, block, item) {
 
 	item.shrink(1);
 
-	const ender_pearl = level.createEntity(key);
-	ender_pearl.setPosition(
-		x + 0.5 + x1 * 0.5,
-		y + 0.5 + y1 * 0.5,
-		z + 0.5 + z1 * 0.5
-	);
-	ender_pearl.setMotion(x1, y1, z1);
-	ender_pearl.spawn();
-
 	const newDispenser = level.createEntity("falling_block");
 	newDispenser.mergeNbt({
 		BlockState: {
@@ -26,9 +17,19 @@ function ender_pearl(key, block, item) {
 		},
 		TileEntityData: { Items: oldDispenser.entityData.Items }
 	});
-	newDispenser.copyPosition(ender_pearl);
-	newDispenser.startRiding(ender_pearl);
+	newDispenser.setPosition(
+		x + 0.5 + x1 * 0.5,
+		999999,
+		z + 0.5 + z1 * 0.5
+	);
 	newDispenser.spawn();
+
+	const ender_pearl = level.createEntity(key);
+	ender_pearl.copyPosition(newDispenser);
+	ender_pearl.setY(y + 0.5 + y1 * 0.5);
+	ender_pearl.setMotion(x1, y1, z1);
+	ender_pearl.setOwner(newDispenser);
+	ender_pearl.spawn();
 
 	oldDispenser.inventory.clear();
 	oldDispenser.set("air");
