@@ -11,7 +11,7 @@ Object.keys(global.biomeList).forEach(temp => {
 			const {player} = e;
 			player.revokeAdvancement(keyHandler);
 
-			if(criteria(player) || level.getDayTime() / 24000 < 32) return;
+			if(criteria(player) || level.difficulty.getKey() != "hard") return;
 			player.potionEffects.add(effectId, 21, level-1, true, false);
 		})
 	})

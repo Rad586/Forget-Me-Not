@@ -18,7 +18,7 @@ EntityEvents.death("minecraft:player", e => {
 	});
 
 	const keep = [], clear = [];
-	if (["PEACEFUL", "EASY"].includes(`${e.level.difficulty}`)) {
+	if (["peaceful", "easy"].includes(`${e.level.difficulty.getKey()}`)) {
 		player.nbt.Inventory.forEach(i =>
 			keep.push(i)
 		)
