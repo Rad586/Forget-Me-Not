@@ -898,8 +898,7 @@ StartupEvents.registry("mob_effect", e => {
 			},
 			criteria: player => {
 				const caving = player.level.isOverworld() && player.y < 24;
-				if (
-					player.armorValue <= 15 ||
+				if (player.armorValue <= 15 ||
 					player.isInWaterOrRain() ||
 					player.ticksFrozen > 0 ||
 					global.isNearHome(player, 64) ||
@@ -922,8 +921,7 @@ StartupEvents.registry("mob_effect", e => {
 			},
 			criteria: player => {
 				const caving = player.level.isOverworld() && player.y < 24;
-				if (
-					global.checkFullArmor(player) ||
+				if (global.checkFullArmor(player) ||
 					player.isSprinting() ||
 					player.isOnFire() ||
 					global.isNearHome(player, 64) ||

@@ -1,18 +1,19 @@
-Object.keys(global.biomeList).forEach(temp => {
-	const data = global.biomeList[temp];
-	const {biomes, criteria} = data;
-	const effectId = temp == "hot" ? "kubejs:hot" : "kubejs:cold";
+function temperature(level, player, pos) {
+	if (level.difficulty.getKey() != "hard") return;
 
-	Object.keys(biomes).forEach(biome => {
-		const keyHandler = `kubejs:${biome.split(":").join("_")}`;
-		const level = biomes[biome];
+	const biome = global.getBiome(pos);
+	const hot_biomes_info = global.biomeList["hot"].biomes;
+	const cold_biomes_info = global.biomeList["cold"].biomes;
 
-		PlayerEvents.advancement(keyHandler, e => {
-			const {player} = e;
-			player.revokeAdvancement(keyHandler);
+	const temp_hot = hot_biomes_info[biome];
+	const temp_cold = cold_biomes_info[biome];
 
-			if(criteria(player) || level.difficulty.getKey() != "hard") return;
-			player.potionEffects.add(effectId, 21, level-1, true, false);
-		})
-	})
-})
+	if (temp_hot) {
+		if (hot_biomes_info.criteria(player)) return;
+		player.potionEffects.add("kubejs:hot", 21, temp_hot - 1, true, false)
+	}
+	else if (temp_cold) {
+		if (cold_biomes_info.criteria(player)) return;
+		player.potionEffects.add("kubejs:cold", 21, temp_cold - 1, true, false)
+	}
+}

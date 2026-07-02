@@ -1,6 +1,6 @@
 const advancements = [
     "falling_star",
-    "death", "respawn", "updated", "lowhp",
+    "death", "respawn", "lowhp",
     "lvl20", "glow_berries", "fish",
     "goat_horn", "protection", "amethyst",
     "chest", "golden_key",

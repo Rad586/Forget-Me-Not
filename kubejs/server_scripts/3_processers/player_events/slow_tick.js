@@ -10,5 +10,9 @@ PlayerEvents.advancement("kubejs:slow_tick", e => {
     if (manager.hasAnyStructureAt(pos)) {
         miningFatigue(registry, manager, player, pos);
         tpToTop(server, registry, level, manager, player, pos)
-    }
+    };
+
+    server.scheduleInTicks(1, () => {
+        temperature(level, player, pos)
+    })
 })
