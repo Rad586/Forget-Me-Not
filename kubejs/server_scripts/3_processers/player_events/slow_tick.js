@@ -12,7 +12,5 @@ PlayerEvents.advancement("kubejs:slow_tick", e => {
         tpToTop(server, registry, level, manager, player, pos)
     };
 
-    server.scheduleInTicks(1, () => {
-        temperature(level, player, pos)
-    })
+    temperature(level, player, pos)
 })

@@ -5,7 +5,7 @@ global.Cakes.forEach(cake => {
     BlockEvents.rightClicked(cake.id, e => {
         const { block, level, player } = e, { pos, properties } = block;
 
-        e.server.scheduleInTicks(0, () => {
+        e.server.scheduleInTicks(1, () => {
             const newBlock = level.getBlock(pos);
             if (properties.bites == newBlock.properties.bites) return;
 

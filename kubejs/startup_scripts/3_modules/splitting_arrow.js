@@ -13,7 +13,7 @@ function splitting_arrow (entity, server) {
         arrow.copyPosition(entity);
         arrow.addTag("split")
     
-        server.scheduleInTicks(0, () => {
+        server.scheduleInTicks(1, () => {
             arrow.setDeltaMovement(entity.deltaMovement);
             arrow.addMotion(
                 0.6 * (Math.random() > 0.5 ? 1 : -1) + Math.random() * 0.2,

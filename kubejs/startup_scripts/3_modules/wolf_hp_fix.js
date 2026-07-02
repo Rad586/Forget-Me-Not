@@ -2,7 +2,7 @@ function wolf_hp_fix_log(context) {
     const { entity } = context, { server } = entity;
     if (!server || !entity.owner) return false;
 
-    server.scheduleInTicks(0, () => {
+    server.scheduleInTicks(1, () => {
         entity.persistentData.health = entity.health
     })
     return false;

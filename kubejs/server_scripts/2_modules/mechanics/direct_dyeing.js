@@ -52,22 +52,20 @@ Object.keys(colored_blocks).forEach(key => {
 
 		const shape = block.blockState.getCollisionShape(level, block.pos);
 		if (shape.empty) return;
-		e.server.scheduleInTicks(1, () => {
-			const { xsize, ysize, zsize } = shape.bounds();
 
-			const facingMap = {
-				"east": [xsize / 2 + 0.15, 0, 0, 0, ysize, zsize], "west": [-xsize / 2 - 0.15, 0, 0, 0, ysize, zsize],
-				"south": [0, 0, zsize / 2 + 0.15, xsize, ysize, 0], "north": [0, 0, -zsize / 2 - 0.15, xsize, ysize, 0],
-				"up": [0, ysize / 2 + 0.15, 0, xsize, 0, zsize], "down": [0, -ysize / 2 - 0.15, 0, xsize, 0, zsize]
-			};
-			const data = facingMap[facing];
-			level.spawnParticles(
-				new DustParticleOptions(hexToRgb(Color[`${color.toUpperCase()}_DYE`].createTextColorJS()), 0.6), true,
-				x + data[0] + 0.5, y + data[1] + ysize / 2, z + data[2] + 0.5,
-				data[3] * 0.18, data[4] * 0.18, data[5] * 0.18,
-				6, 0
-			)
-		});
+		const { xsize, ysize, zsize } = shape.bounds();
+		const facingMap = {
+			"east": [xsize / 2 + 0.15, 0, 0, 0, ysize, zsize], "west": [-xsize / 2 - 0.15, 0, 0, 0, ysize, zsize],
+			"south": [0, 0, zsize / 2 + 0.15, xsize, ysize, 0], "north": [0, 0, -zsize / 2 - 0.15, xsize, ysize, 0],
+			"up": [0, ysize / 2 + 0.15, 0, xsize, 0, zsize], "down": [0, -ysize / 2 - 0.15, 0, xsize, 0, zsize]
+		};
+		const data = facingMap[facing];
+		level.spawnParticles(
+			new DustParticleOptions(hexToRgb(Color[`${color.toUpperCase()}_DYE`].createTextColorJS()), 0.6), true,
+			x + data[0] + 0.5, y + data[1] + ysize / 2, z + data[2] + 0.5,
+			data[3] * 0.18, data[4] * 0.18, data[5] * 0.18,
+			6, 0
+		);
 
 		e.cancel()
 	})

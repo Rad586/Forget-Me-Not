@@ -902,7 +902,6 @@ StartupEvents.registry("mob_effect", e => {
 					player.isInWaterOrRain() ||
 					player.ticksFrozen > 0 ||
 					global.isNearHome(player, 64) ||
-					player.hasEffect("minecraft:fire_resistance") ||
 					caving
 				) return true;
 				return false;
