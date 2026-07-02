@@ -1,5 +1,5 @@
-function splitting_arrow (entity, dragon_stage, server) {
-    if(!dragon_stage || Math.random() > 0.05 || entity.tags.contains("split")) return;
+function splitting_arrow (entity, server) {
+    if(Math.random() > 0.05 || entity.level.moonBrightness < 1 || entity.tags.contains("split")) return;
     const {level} = entity;
 
     const {owner} = entity;

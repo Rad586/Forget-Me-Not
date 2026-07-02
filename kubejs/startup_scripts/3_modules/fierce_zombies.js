@@ -1,4 +1,5 @@
-function fierce_zombies(entity, dragon_stage) {
-    if(!dragon_stage || entity.level.isClientSide()) return;
+function fierce_zombies(entity) {
+    const { level } = entity;
+    if (level.isClientSide() || level.moonBrightness < 1) return;
     entity.potionEffects.add("minecraft:resistance", 40, 0, true, false);
 }

@@ -18,10 +18,5 @@ function serverStartup(server) {
 
 	const { scoreboard } = server;
 	const team = scoreboard.addPlayerTeam("deathitem");
-	team.setColor("aqua");
-
-	if(server.isHardcore()) {
-		sData.nether_stage = true;
-		global.reloadStartupScript()
-	}
+	team.setColor("aqua")
 }

@@ -1,8 +1,9 @@
-function debuff_arrow(entity, nether_stage) {
-	if(
-        !nether_stage || 
-        Math.random() > 0.03 || 
-        entity.level.isClientSide() || 
+function debuff_arrow(entity) {
+    if (Math.random() > 0.03) return;
+    const { level } = entity
+    if(
+        level.isClientSide() || 
+        level.getDayTime() / 24000 < 32 ||
         entity.tags.contains("kjsed")
     ) return;
 

@@ -32,8 +32,8 @@ function slime_ball_entity(entity, result) {
         target.playSound("entity.puffer_fish.blow_up", 0.48, 1.4);
         global.particleBurst(level, target, "heart", 3, 0.06, 0.4, entity.eyeY);
     }
-    else if(Object.keys(global.evolutionMap).includes(target.type) && server.persistentData.nether_stage){
-        evolution(server.persistentData.nether_stage, target, 1);
+    else if(Object.keys(global.evolutionMap).includes(target.type)){
+        evolution(target, 1);
         target.potionEffects.add("slowness", 24, 0);
         target.playSound("entity.generic.eat", 0.55, 0.8);
     };

@@ -12,20 +12,16 @@ EntityJSEvents.modifyEntity(e => {
 		arrows, raiders
 	} = global;
 
-	const pdata = server.persistentData;
-	const nether_stage = server == null ? null : pdata.nether_stage;
-	const dragon_stage = server == null ? null : pdata.ender_dragon;
-
 	zombies.forEach(zombie => 
 		e.modify(zombie, modifyBuilder =>
 			modifyBuilder
 				.canDisableShield(entity => armed_zombie(entity))
 				.onAddedToWorld(entity => {
 					if (!entity.server) return;
-					mounted_mobs(entity, nether_stage, "minecraft:creeper")
+					mounted_mobs(entity, "minecraft:creeper")
 					zombie_thrower(entity)
 				})
-				.onHurtTarget(context => fierce_zombies(context.entity, dragon_stage))
+				.onHurtTarget(context => fierce_zombies(context.entity))
 		)
 	)
 
@@ -127,13 +123,13 @@ EntityJSEvents.modifyEntity(e => {
 		const score = preys[key];
 		e.modify(key, modifyBuilder =>
 			modifyBuilder
-				.onDeath(context => evolution(nether_stage, context.damageSource.actual, score))
+				.onDeath(context => evolution(context.damageSource.actual, score))
 		)
 	});
 	Object.keys(evolutionMap).forEach(key =>
 		e.modify(key, modifyBuilder =>
 			modifyBuilder
-				.thunderHit(context => evolution(nether_stage, context.entity))
+				.thunderHit(context => evolution(context.entity))
 		)
 	)
 
@@ -169,8 +165,8 @@ EntityJSEvents.modifyEntity(e => {
 		e.modify(key, modifyBuilder =>
 			modifyBuilder
 				.onHurtTarget(context => spider_spit(context))
-				.onTargetChanged(context => spider_speedup(context.entity, dragon_stage))
-				.onAddedToWorld(entity => mounted_mobs(entity, nether_stage, "minecraft:zombie"))
+				.onTargetChanged(context => spider_speedup(context.entity))
+				.onAddedToWorld(entity => mounted_mobs(entity, "minecraft:zombie"))
 		)
 	)
 
@@ -189,7 +185,7 @@ EntityJSEvents.modifyEntity(e => {
 		const data = mob_variant_map[key];
 		e.modify(key, modifyBuilder =>
 			modifyBuilder
-				.onAddedToWorld(entity => mob_variants(entity, data, nether_stage, dragon_stage))
+				.onAddedToWorld(entity => mob_variants(entity, data))
 		)
 	})
 
@@ -200,7 +196,7 @@ EntityJSEvents.modifyEntity(e => {
 					chain_explosion(context)
 				})
 				.onAddedToWorld(entity => {
-					mounted_mobs(entity, nether_stage, "minecraft:skeleton")
+					mounted_mobs(entity, "minecraft:skeleton")
 				})
 		)
 	)
@@ -208,7 +204,7 @@ EntityJSEvents.modifyEntity(e => {
 	skeletons.forEach(skeleton => 
 		e.modify(skeleton, modifyBuilder =>
 			modifyBuilder
-				.onAddedToWorld(entity => debuff_arrow(entity, nether_stage))
+				.onAddedToWorld(entity => debuff_arrow(entity))
 				.onHurt(context => wither_conversion(context))
 		)
 	)
@@ -223,7 +219,7 @@ EntityJSEvents.modifyEntity(e => {
 			.canBeAffected(context => !context.entity.hasEffect("kubejs:purity"))
 			.isInvulnerableTo(context => player_hurt(context))
 			.calculateFallDamage(context => fall_damage_modifier(context))
-			.canBeAffected(context => conditional_effects(context, nether_stage))
+			.canBeAffected(context => conditional_effects(context))
 	)
 
 	arrows.forEach(arrow => 
@@ -233,7 +229,7 @@ EntityJSEvents.modifyEntity(e => {
 					const { server } = entity;
 					if (!server) return;
 					flame_effect(entity);
-					splitting_arrow(entity, dragon_stage, server)
+					splitting_arrow(entity, server)
 				})
 				.tick(entity => {
 					if (!entity.server) return;
@@ -246,7 +242,7 @@ EntityJSEvents.modifyEntity(e => {
 		modifyBuilder
 			.onDeath(context => {
 				const { damageSource } = context;
-				evolution(nether_stage, damageSource.actual)
+				evolution(damageSource.actual)
 			})
 			.isInvulnerableTo(context => no_friendly_fire(context))
 	)

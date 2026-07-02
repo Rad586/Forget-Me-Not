@@ -99,7 +99,7 @@ global.Swords.forEach(i => {
 		level.getEntitiesWithin(aabb).forEach(entity => {
 			if(!entity.isLiving() || !entity.isAlive()) return;
 
-			entity.attack(global.itemDamage(item, entity));
+			entity.attack(global.itemDamage(item/*, entity*/));
 			entity.knockback(0.4, pos.x - entity.x, pos.z - entity.z)
 		});
 

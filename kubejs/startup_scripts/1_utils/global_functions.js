@@ -302,7 +302,7 @@ global.useBlock = (level, player, block) => {
 	block.blockState.use(level, player, "main_hand", hitResult);
 }
 
-global.itemDamage = (stack, entity) => {
+global.itemDamage = (stack/*, entity*/) => {
 	const modifier_map = {
 		"ADDITION": (m) => addition += m.getAmount(),
 		"MULTIPLY_BASE": (m) => m_base += m.getAmount(),
@@ -318,7 +318,7 @@ global.itemDamage = (stack, entity) => {
 	});
 
 	const base = (1 + addition) * (1 + m_base) * m_total;
-	const ench = EnchantmentHelper
-		.getDamageBonus(stack, !entity ? null : entity.getMobType());
-	return base + ench
+	/* const ench = EnchantmentHelper
+		.getDamageBonus(stack, !entity ? null : entity.getMobType()); */
+	return base/* + ench*/
 }

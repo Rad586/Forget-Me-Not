@@ -760,5 +760,26 @@ ItemEvents.rightClicked(e => {
 
 ItemEvents.rightClicked(e => {
     const {level, player} = e;
-    e.server.tell(player.block.offset())
+
+    function timeDifficulty(difficulty, worldDays, chunkDays, moonLight /*0 ~ 1*/) {
+        const d_map = {
+            "easy": 1,
+            "normal": 2,
+            "hard": 3
+        };
+
+        const world_d = (Math.min(63, worldDays) * 24000 - 72000) / 5760000;
+        const chunk_d1 = Math.min(1, (chunkDays * 24000) / 3600000)
+            * (difficulty == "hard" ? 1 : 0.75);
+        const chunk_d2 = chunk_d1 + Math.min(world_d, (moonLight || 0.5) / 4)
+            * (difficulty == "easy" ? 0.5 : 1)
+
+        return (0.75 + world_d + chunk_d2) * d_map[difficulty]
+    }
+    
+
+    // e.server.tell(timeDifficulty("normal", 64, 16))
+    e.server.tell(e.level.getDayTime() / 24000)
 })
+
+/* nether难度 2.25 */

@@ -77,10 +77,11 @@ global.evolutionMap = {
 	"illagerexp:provoker": ["minecraft:evoker"]
 };
 const keys_in_evolution = Object.keys(global.evolutionMap);
-function evolution(nether_stage, actual, score) {
-	if(!nether_stage || !actual);
+function evolution(actual, score) {
+	if(!actual) return;
 	const { level } = actual;
-	if(level.isClientSide()) return;
+	if(level.isClientSide() || level.getDayTime() / 24000 < 32) return;
+
 	const {type} = actual, data = global.evolutionMap[type];
 	if(!data || actual.age < 60) return;
 
