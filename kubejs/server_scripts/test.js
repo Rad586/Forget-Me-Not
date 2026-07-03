@@ -758,11 +758,11 @@ ItemEvents.rightClicked(e => {
 //合成：如果有合成选项就合并，else升级（最高3，不然告诉玩家不能）
 //still-life + Lithosphere
 
-ItemEvents.rightClicked(e => {
+BlockEvents.rightClicked(e => {
     const {level, player} = e;
     const pos = player.blockPosition();
 
-    e.server.tell((Object.keys(global.biomeList["hot"].biomes)).concat(Object.keys(global.biomeList["cold"].biomes)))
+    player.tell(is2x2(level, e.block.pos, "minecraft:dark_oak_sapling"))
 })
 
 /* nether难度 2.25 */
