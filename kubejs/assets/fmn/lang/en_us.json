@@ -123,6 +123,7 @@
   "dialogue.fmn.tp_to_top": "Preparing teleport to the top: ",
   "dialogue.fmn.tower": "Sneak while looking up near the tower to teleport to the top.",
   "dialogue.fmn.hotbar_totem": "Works in horbar.",
+  "dialogue.fmn.sapling_growing": "Requires 2x2 saplings of same type.",
 
   "dialogue.fmn.zoom":"Press c to zoom in.",
   "dialogue.fmn.waypoint":"Press [+] to create/delete waypoint.",
