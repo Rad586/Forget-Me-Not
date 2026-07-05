@@ -1,8 +1,7 @@
 const towers = [
     "totw_reworked:derelict", "totw_modded:derelict", "totw_reworked:derelict_grass",
     "totw_modded:derelict_grass", "totw_reworked:ice", "totw_modded:ice",
-    "totw_reworked:ocean_warm", "totw_modded:ocean_warm", "totw_reworked:regular",
-    "totw_modded:regular", "totw_reworked:ocean", "totw_modded:ocean",
+    "totw_reworked:regular", "totw_modded:regular",
     "totw_reworked:jungle", "totw_modded:jungle", "totw_modded:desert",
     "totw_modded:badlands", "fmn:sakura", "fmn:yellowstone",
     "fmn:icespikes", "fmn:mushroom", "fmn:mushroom2",
