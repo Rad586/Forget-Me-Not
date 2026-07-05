@@ -1,9 +1,8 @@
 const ClipContext = Java.loadClass("net.minecraft.world.level.ClipContext")
 const { CONTINUOUS, GROUND_ONLY } = Java.loadClass('dev.footstepstrail.config.FootprintPlacementMode')
 let can_glide = false
-let previous_press = false
 
-function gliding_client(player, level) {
+function gliding_client(level, player, age) {
     const needs_change = pressedOnce("key_glide");
     if (!can_glide && !needs_change) return;
 
@@ -11,11 +10,15 @@ function gliding_client(player, level) {
         can_glide = status;
         player.sendData("gliding", {status: status});
         FootstepsConfig.setPlacementMode(!status ? GROUND_ONLY : CONTINUOUS);
-        if(pitch) level.playLocalSound(pos, "item.armor.equip_generic", "players", 1.08, pitch, true)
+        if (pitch) {
+            Client.soundManager.play(
+                SimpleSoundInstance.forUI("item.armor.equip_generic", pitch, 0.68)
+            )
+        }
     };
     const { deltaMovement: m } = player;
 
-    if ((needs_change || player.age % 3) && (
+    if ((needs_change || age % 3) && (
         m.y() > 0 ||
         player.horizontalCollision ||
         !level.getFluidState(player.blockPosition()).isEmpty() ||
