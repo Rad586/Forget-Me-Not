@@ -20,6 +20,7 @@ EntityJSEvents.modifyEntity(e => {
 					if (!entity.server) return;
 					mounted_mobs(entity, "minecraft:creeper")
 					zombie_thrower(entity)
+					no_baby(entity)
 				})
 				.onHurtTarget(context => fierce_zombies(context.entity))
 		)
