@@ -13,5 +13,8 @@
     "fancymenu.text.waystone_rename": "↑Rename here",
     "fancymenu.text.waystone_edit": "↓Delete or sort↓",
     "fancymenu.text.armor_set": "Swap armor↓", 
-    "fancymenu.text.c_menu": "↑Open crafting menu"
+    "fancymenu.text.c_menu": "↑Open crafting menu",
+    "fancymenu.text.back_to_inv": "↑Back to inventory",
+    "fancymenu.text.recipe_guide1": "Press [R] to see recipe",
+    "fancymenu.text.recipe_guide2": "Press [U] to see usage"
 }

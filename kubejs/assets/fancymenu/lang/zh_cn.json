@@ -13,5 +13,8 @@
     "fancymenu.text.waystone_rename": "↑在这里重命名",
     "fancymenu.text.waystone_edit": "↓在这里排序或删除↓",
     "fancymenu.text.armor_set": "三套装备切换↓",
-    "fancymenu.text.c_menu": "↑打开合成界面"
+    "fancymenu.text.c_menu": "↑打开合成界面",
+    "fancymenu.text.back_to_inv": "↑返回玩家背包",
+    "fancymenu.text.recipe_guide1": "按 [R] 查看配方",
+    "fancymenu.text.recipe_guide2": "按 [U] 查看用途"
 }

@@ -130,4 +130,11 @@ ServerEvents.commandRegistry(e => {
 
 			return 1
 		}))
+
+	e.register(Commands.literal("openInventory")
+		.requires(src => src.hasPermission(1))
+		.executes(c => {
+			c.source.player.sendData("open_inv");
+			return 1
+		}))
 })
