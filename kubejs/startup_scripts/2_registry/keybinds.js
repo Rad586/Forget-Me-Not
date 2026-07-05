@@ -6,7 +6,9 @@ ClientEvents.init(e => {
 
     const custom_keys = {
         "key_glide": GLFW.GLFW_KEY_SPACE,
-        "key_sit": GLFW.GLFW_KEY_LEFT_SHIFT
+        "key_sit": GLFW.GLFW_KEY_LEFT_SHIFT,
+        "key_remove": GLFW.GLFW_KEY_BACKSPACE,
+        "key_show": GLFW.GLFW_KEY_ENTER
     };
     global.keybinds = {};
 

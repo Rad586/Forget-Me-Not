@@ -111,6 +111,7 @@
 	"dialogue.fmn.not_found": "未在箱子附近发现物品",
 	"dialogue.fmn.pickaxe": "右键放置背包内火把",
 	"dialogue.fmn.sapling_growing": "需要2x2同种树苗",
+	"dialogue.fmn.showitem": "展示了：",
 	
 	"dialogue.fmn.zoom":"按c进行缩放",
 	"dialogue.fmn.waypoint":"按+创建/删除标记点",
@@ -392,5 +393,7 @@
 
 	"key.categories.kubejs": "KubeJS",
 	"key.kubejs.key_glide": "滑翔（半空中按下）",
-	"key.kubejs.key_sit": "坐下（低头双击）"
+	"key.kubejs.key_sit": "坐下（低头双击）",
+	"key.kubejs.key_remove": "移除物品",
+	"key.kubejs.key_show": "发送物品信息"
 }

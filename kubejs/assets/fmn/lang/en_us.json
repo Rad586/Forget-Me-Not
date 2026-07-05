@@ -124,6 +124,7 @@
   "dialogue.fmn.tower": "Sneak while looking up near the tower to teleport to the top.",
   "dialogue.fmn.hotbar_totem": "Works in horbar.",
   "dialogue.fmn.sapling_growing": "Requires 2x2 saplings of same type.",
+  "dialogue.fmn.showitem": " showed: ",
 
   "dialogue.fmn.zoom":"Press c to zoom in.",
   "dialogue.fmn.waypoint":"Press [+] to create/delete waypoint.",
@@ -243,5 +244,7 @@
 
   "key.categories.kubejs": "KubeJS",
   "key.kubejs.key_glide": "Glide(press in mid-air)",
-  "key.kubejs.key_sit": "Sit(double press on looking down)"
+  "key.kubejs.key_sit": "Sit(double press on looking down)",
+  "key.kubejs.key_remove": "Remove item", 
+  "key.kubejs.key_show": "Send item info"
 }

@@ -2,8 +2,13 @@ const { keybinds: global_keybinds } = global
 const global_keybinds_keys = Object.keys(global_keybinds)
 global_keybinds_keys.forEach(n => this[n + "once"] = false)
 
-function pressedOnce(name) {
-    const pressing = global_keybinds[name].isDown();
+function pressedOnce(name, always) {
+    const pressing = !always ? 
+        global_keybinds[name].isDown() : 
+        GLFW.glfwGetKey(
+            Client.window.window,
+            global_keybinds[name].getKey().getValue()
+        ) == 1;
     const needs_change = pressing && !this[name + "once"];
     this[name + "once"] = pressing;
 

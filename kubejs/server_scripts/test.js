@@ -757,12 +757,9 @@ ItemEvents.rightClicked(e => {
 //战利品：对于所有武器，替换为原ID的附魔主动技能后物品
 //合成：如果有合成选项就合并，else升级（最高3，不然告诉玩家不能）
 //still-life + Lithosphere
-
-BlockEvents.rightClicked(e => {
+ItemEvents.rightClicked(e => {
     const {level, player} = e;
-    const pos = player.blockPosition();
 
-    player.tell(is2x2(level, e.block.pos, "minecraft:dark_oak_sapling"))
 })
 
 /* nether难度 2.25 */
