@@ -340,3 +340,17 @@ global.timeDifficulty = (difficulty, worldDays, chunkDays, moonLight /*0 ~ 1*/) 
 }
 
 global.getBiome = (pos) => String(level.getBiome(pos).unwrapKey().get().location())
+
+global.hasTrinket = (player, id) => TrinketsApi
+	.getTrinketComponent(player).get()
+	.isEquipped(Item.of(id).item)
+
+global.getTrinkets = (player) => {
+	const component = TrinketsApi.getTrinketComponent(player).get();
+	const ids = [];
+	component.forEach((slot, stack) => {
+		const item = Item.of(stack);
+		if (!item.isEmpty()) ids.push(item.id)
+	});
+	return ids
+}

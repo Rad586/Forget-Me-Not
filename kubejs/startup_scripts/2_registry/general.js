@@ -10,7 +10,7 @@ ItemEvents.toolTierRegistry(e => {
 		tier.uses = 1200;
 		tier.enchantmentValue = 20;
 	})
-	for(let i = 0; i <= 15; i += 3) {
+	for (let i = 0; i <= 15; i += 3) {
 		e.add(`caving${i}`, tier => {
 			tier.uses = 0
 			tier.speed = 1 + i
@@ -71,26 +71,26 @@ StartupEvents.registry("item", e => {
 
 	//Caving dimension
 	caving_dim.filter(i => i != "random").forEach(key => e.create(key));
-	for(let i = 0; i <= 15; i += 3) e.create(`level_${i}_pickaxe`, "pickaxe").tier(`caving${i}`);
+	for (let i = 0; i <= 15; i += 3) e.create(`level_${i}_pickaxe`, "pickaxe").tier(`caving${i}`);
 
 	//soul remnant
 	e.create("soul_remnant")
-		.food(food => 
+		.food(food =>
 			food
-			.hunger(0)
-			.saturation(0)
-			.alwaysEdible()
-			.fastToEat()
-			.eaten(ctx => {
-				const { player } = ctx, { level } = player;
-				if(level.isClientSide()) return;
+				.hunger(0)
+				.saturation(0)
+				.alwaysEdible()
+				.fastToEat()
+				.eaten(ctx => {
+					const { player } = ctx, { level } = player;
+					if (level.isClientSide()) return;
 
-				global.updateMaxHealth(player, 1);
-				doSimpleTip(player, "soul_remnant_tip", "s2");
+					global.updateMaxHealth(player, 1);
+					doSimpleTip(player, "soul_remnant_tip", "s2");
 
-				global.particleBurst(level, player, "sculk_soul", 3, 0.06, 0.08);
-				global.particleBurst(level, player, "soul_fire_flame", 4, 0.08, 0);
-			})
+					global.particleBurst(level, player, "sculk_soul", 3, 0.06, 0.08);
+					global.particleBurst(level, player, "soul_fire_flame", 4, 0.08, 0);
+				})
 		)
 		.tooltip(Text.translate("dialogue.fmn.soul_remnant"))
 
@@ -104,7 +104,7 @@ StartupEvents.registry("item", e => {
 	e.create("fire_extinguisher").fireResistant(true).maxStackSize(1).rarity("epic")
 
 	const golems = {
-		"kubejs:iron_golem": "minecraft:iron_golem", 
+		"kubejs:iron_golem": "minecraft:iron_golem",
 		"kubejs:snow_golem": "minecraft:snow_golem"
 	}
 	Object.keys(golems).forEach(key => {
@@ -121,7 +121,7 @@ StartupEvents.registry("item", e => {
 
 				const golem = level.createEntity(id);
 				let block, nohit;
-				if(entity.isCrouching()) {
+				if (entity.isCrouching()) {
 					let result = entity.rayTrace(4);
 					let hit_block = result.block;
 					if (!hit_block) nohit = true;
@@ -133,24 +133,24 @@ StartupEvents.registry("item", e => {
 					if (result.type == "MISS") nohit = true;
 					else block = hit_block[result.direction]
 				};
-				if(nohit == true) return item;
+				if (nohit == true) return item;
 
 				const { x, y, z } = block, { eyeHeight } = golem;
 				if (id == "minecraft:iron_golem") {
 					golem.mergeNbt({ PlayerCreated: true })
-				};				
+				};
 				golem.setPosition(x + 0.5, y, z + 0.5);
 				golem.spawn();
 
 				level.spawnParticles(
-					global.itemParticle(key), true, 
-					x + 0.5, y + eyeHeight + 0.5, z + 0.5, 
-					0.3, 0.3, 0.3, 
+					global.itemParticle(key), true,
+					x + 0.5, y + eyeHeight + 0.5, z + 0.5,
+					0.3, 0.3, 0.3,
 					4, 0
 				);
-				level.playSound(null, 
-					x + 0.5, y + eyeHeight + 0.5, z + 0.5, 
-					id.replace(":", ":entity.") + ".hurt", 
+				level.playSound(null,
+					x + 0.5, y + eyeHeight + 0.5, z + 0.5,
+					id.replace(":", ":entity.") + ".hurt",
 					"master", 0.4, 1.2
 				);
 				if (entity.isPlayer()) {
@@ -174,11 +174,41 @@ StartupEvents.registry("item", e => {
 		})
 		.useDuration(item => 8) /* cooldown */
 		.finishUsing((item, level, entity) => {
-			if(level.isClientSide()) return item;
+			if (level.isClientSide()) return item;
 
 			Utils.server.tell("finish")
 			return item
 		})
 
+	/* credit: Uncandango(https://discord.com/channels/303440391124942858/1165201311457890364) */
+	function createTrinket(name, attribute, amount, operation) {
+		e.create(name)
+			.maxStackSize(1)
+			.tag("trinkets:chest/necklace")
+			.subtypes(stack => {
+				const operations = {
+					"add": 0, /* 1 + 2 */
+					"multiply_base": 1, /* 1 + (1×0.2) + (1×0.2) */
+					"multiply_total": 2 /* 1 x 1.2 x 1.2 */
+				};
+				const list = Utils.newList();
 
+				stack.nbt = `{TrinketAttributeModifiers:[{
+                	AttributeName: "${attribute}",
+                	Name: "trinket",
+                	Amount: ${amount},
+                	Operation: ${operations[operation || "add"]},
+                	UUID: [I;1,1,1,1]
+            	}]}`;
+
+				list.add(stack);
+				return list
+			})
+	}
+	function trinketWithLevel(name, max_level, attribute, base, step, operation) {
+		for(let i = 1; i <= max_level; i++) {
+			createTrinket(name + "_" + i, attribute, base + step * (i - 1), operation)
+		}
+	}
+	trinketWithLevel("dmg_rune", 3, "minecraft:generic.attack_damage", 0.5, 0.25)
 })
