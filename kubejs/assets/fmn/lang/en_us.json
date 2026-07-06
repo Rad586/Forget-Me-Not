@@ -194,6 +194,10 @@
   "item.kubejs.meat_sliced":"Raw Meat Slice",
   "item.kubejs.cooked_meat_sliced":"Cooked Meat Slice", 
   "dialogue.fmn.soul_remnant": "§8+1 max health after consuming.",
+  
+  "item.kubejs.dmg_rune_1": "Rune of Attack Ⅰ",
+  "item.kubejs.dmg_rune_2": "Rune of Attack Ⅱ",
+  "item.kubejs.dmg_rune_3": "Rune of Attack Ⅲ",
 
   "item.kubejs.upgrade_runic": "Upgrade Runic",
   "dialogue.fmn.upgrade_runic": "§8Slightly increase damage/armor.",

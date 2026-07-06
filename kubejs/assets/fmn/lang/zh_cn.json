@@ -285,6 +285,10 @@
 	"item.kubejs.jade":"翡翠",
 	"item.kubejs.stone":"石块",
 
+	"item.kubejs.dmg_rune_1": "伤害符文 Ⅰ",
+	"item.kubejs.dmg_rune_2": "伤害符文 Ⅱ",
+	"item.kubejs.dmg_rune_3": "伤害符文 Ⅲ",
+
 	"enchantment.kubejs.stench_curse":"恶臭诅咒",
 	"enchantment.kubejs.stench_curse.desc":"受击概率排放毒气",
 

@@ -759,13 +759,17 @@ ItemEvents.rightClicked(e => {
 //still-life + Lithosphere
 
 
-
-// ItemEvents.rightClicked(e => {
-//     const {level, player} = e;
-//     player.tell(global.getTrinkets(player))
-// })
-
+/*死亡保留饰品 */
 ItemEvents.rightClicked(e => {
-    Utils.server.tell(global.getTrinkets(e.player))
+    const {level, player} = e;
 
+    const ts = player.nbt.cardinal_components["trinkets:trinkets"]
+
+    player.persistentData.lastTrinkets = ts
+    Utils.server.tell(player.persistentData.lastTrinkets)
+    player.mergeNbt({
+        cardinal_components: {
+            "trinkets:trinkets": player.persistentData.lastTrinkets
+        }
+    })
 })

@@ -210,5 +210,6 @@ StartupEvents.registry("item", e => {
 			createTrinket(name + "_" + i, attribute, base + step * (i - 1), operation)
 		}
 	}
+
 	trinketWithLevel("dmg_rune", 3, "minecraft:generic.attack_damage", 0.5, 0.25)
 })
