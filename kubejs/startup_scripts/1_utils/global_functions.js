@@ -339,7 +339,7 @@ global.timeDifficulty = (difficulty, worldDays, chunkDays, moonLight /*0 ~ 1*/) 
 	return (0.75 + world_d + chunk_d2) * d_map[difficulty]
 }
 
-global.getBiome = (pos) => String(level.getBiome(pos).unwrapKey().get().location())
+global.getBiomeAt = (pos) => String(level.getBiome(pos).unwrapKey().get().location())
 
 global.hasTrinket = (player, id) => TrinketsApi
 	.getTrinketComponent(player).get()

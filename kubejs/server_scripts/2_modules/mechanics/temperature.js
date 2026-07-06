@@ -1,7 +1,7 @@
 function temperature(level, player, pos) {
 	if (level.difficulty.getKey() != "hard") return;
 
-	const biome = global.getBiome(pos);
+	const biome = global.getBiomeAt(pos);
 	const hot_biomes_info = global.biomeList["hot"].biomes;
 	const cold_biomes_info = global.biomeList["cold"].biomes;
 
