@@ -69,7 +69,7 @@
   "dialogue.fmn.furnace":"Furnace smelts 2x faster than vanilla.",
   "dialogue.fmn.shield":"Shields can only block limited amount of damage.",
   "dialogue.fmn.piglin_trade":"You can trade gold blocks or gold nuggets with piglins.",
-  "dialogue.fmn.diamond":"In inventory, ctrl + enter to send the info of hovered item to chat.",
+  "dialogue.fmn.diamond":"In inventory, press [enter] to send the info of hovered item to chat.",
   "dialogue.fmn.glow_berries":"Glow berries can make you glow.",
   "dialogue.fmn.normal_chest_mimic":"You can use mimic handbell to tame mimics.",
   "dialogue.fmn.hot_biome":"Take off armors/touch water/be underground/stay near respawn point to cool down.",
@@ -125,6 +125,7 @@
   "dialogue.fmn.hotbar_totem": "Works in horbar.",
   "dialogue.fmn.sapling_growing": "Requires 2x2 saplings of same type.",
   "dialogue.fmn.showitem": " showed: ",
+  "dialogue.fmn.oak_log": "You can mine stones without tools.",
 
   "dialogue.fmn.zoom":"Press c to zoom in.",
   "dialogue.fmn.waypoint":"Press [+] to create/delete waypoint.",

@@ -12,8 +12,7 @@ Ingredient.of("#minecraft:wooden_doors").getItemIds().forEach(id => {
         ];
 
         const { properties: n_properties } = neighbor;
-        if (
-            neighbor.id != id ||
+        if (neighbor.id != id ||
             n_properties.facing != facing ||
             n_properties.open != open ||
             n_properties.hinge == hinge

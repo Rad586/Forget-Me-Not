@@ -1,5 +1,5 @@
 ItemEvents.rightClicked("minecraft:bell", e => {
-    const { level, player} = e, { x, y, z } = player;
+    const { level, player} = e;
     let raiders = 0;
 
     player.addItemCooldown("minecraft:bell", 80);

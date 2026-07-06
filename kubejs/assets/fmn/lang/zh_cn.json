@@ -66,7 +66,7 @@
 	"dialogue.fmn.furnace":"熔炉烧炼速度为原版两倍",
 	"dialogue.fmn.shield":"盾牌有格挡量上限",
 	"dialogue.fmn.piglin_trade":"你可以用金块或金粒与猪灵交易",
-	"dialogue.fmn.diamond":"背包中，ctrl+回车键可发送对准物品的信息",
+	"dialogue.fmn.diamond":"背包中，按回车键以发送对准物品的信息",
 	"dialogue.fmn.glow_berries":"食用发光浆果将使你发光",
 	"dialogue.fmn.normal_chest_mimic":"你可以使用宝箱怪手铃驯服宝箱怪",
 	"dialogue.fmn.hot_biome":"脱护甲/接触水/进地下/靠近重生点 以降温",
@@ -112,6 +112,7 @@
 	"dialogue.fmn.pickaxe": "右键放置背包内火把",
 	"dialogue.fmn.sapling_growing": "需要2x2同种树苗",
 	"dialogue.fmn.showitem": "展示了：",
+	"dialogue.fmn.oak_log": "你可以空手挖掘石头",
 	
 	"dialogue.fmn.zoom":"按c进行缩放",
 	"dialogue.fmn.waypoint":"按+创建/删除标记点",

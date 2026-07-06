@@ -1,13 +1,15 @@
 {
   "criteria": {
     "c": {
-      "trigger": "minecraft:item_durability_changed",
+      "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "item": {
-          "items": [
-            "minecraft:stone_pickaxe"
-          ]
-        }
+        "items": [
+          {
+            "items": [
+              "minecraft:stone"
+            ]
+          }
+        ]
       }
     }
   }
