@@ -15,6 +15,7 @@ PlayerEvents.loggedIn(e => {
 
     pData.basehealth = 20;
     global.updateMaxHealth(player);
+    player.revokeAdvancement("kubejs:slow_tick");
 
     const { stages } = player;
     if (stages.has("loggedin")) return;
