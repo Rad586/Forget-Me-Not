@@ -180,36 +180,48 @@ StartupEvents.registry("item", e => {
 			return item
 		})
 
-	/* credit: Uncandango(https://discord.com/channels/303440391124942858/1165201311457890364) */
-	function createTrinket(name, attribute, amount, operation) {
-		e.create(name)
-			.maxStackSize(1)
-			.tag("trinkets:chest/necklace")
-			.subtypes(stack => {
-				const operations = {
-					"add": 0, /* 1 + 2 */
-					"multiply_base": 1, /* 1 + (1×0.2) + (1×0.2) */
-					"multiply_total": 2 /* 1 x 1.2 x 1.2 */
-				};
-				const list = Utils.newList();
+	global.trinkets = {
+		"dmg": {
+			attribute: "minecraft:generic.attack_damage",
+			step: 0.3
+		},
+		"spd": {
+			attribute: "minecraft:generic.movement_speed",
+			step: 0.05,
+			operation: "multiply_base"
+		},
+		"amr": {
+			attribute: "minecraft:generic.armor",
+			step: 1.5
+		},
+		"mh": {
+			attribute: "minecraft:generic.max_health",
+			step: 1
+		},
 
-				stack.nbt = `{TrinketAttributeModifiers:[{
-                	AttributeName: "${attribute}",
-                	Name: "trinket",
-                	Amount: ${amount},
-                	Operation: ${operations[operation || "add"]},
-                	UUID: [I;1,1,1,1]
-            	}]}`;
-
-				list.add(stack);
-				return list
-			})
-	}
-	function trinketWithLevel(name, max_level, attribute, base, step, operation) {
-		for(let i = 1; i <= max_level; i++) {
-			createTrinket(name + "_" + i, attribute, base + step * (i - 1), operation)
+		"luck": {
+			attribute: "minecraft:generic.luck",
+			step: 0.2
+		},
+		"as": {
+			attribute: "minecraft:generic.attack_speed",
+			step: 0.025,
+			operation: "multiply_base"
+		},
+		"at": {
+			attribute: "minecraft:generic.armor_toughness",
+			step: 0.85
 		}
 	}
 
-	trinketWithLevel("dmg_rune", 3, "minecraft:generic.attack_damage", 0.5, 0.25)
+	function createTrinket(name, maxLvl) {
+		for (let i = 1; i <= (maxLvl || 3); i++) {
+			e.create(`${name}_rune_${i}`)
+				.maxStackSize(1)
+				.tag("trinkets:chest/necklace")
+		}
+	}
+
+	Object.keys(global.trinkets).forEach(n => 
+		createTrinket(n, global.trinkets[n].maxLvl))
 })
