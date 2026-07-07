@@ -348,3 +348,13 @@ global.hasTrinket = (player, id) => TrinketsApi
 global.getTrinkets = (player) => TrinketsApi
 	.getTrinketComponent(player).get()
 	.getAllEquipped().map(p => p.b)
+
+global.mergeTrinkets = (trinkets) => {
+	const result = [];
+	trinkets.forEach(stack => {
+		const merged = result.find(s => s.is(stack));
+		if (merged) merged.count += stack.count;
+		else result.push(stack.copy());
+	});
+	return result
+}
