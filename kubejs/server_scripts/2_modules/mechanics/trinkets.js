@@ -13,12 +13,12 @@ function trinkets(player) {
     global.mergeTrinkets(global.getTrinkets(player)).forEach(stack => {
         const split = stack.idLocation.path.split("_rune_");
         const info = global.trinkets[split[0]];
-        const { attribute, step, operation } = info;
+        const { attribute } = info;
         if (!attribute) return;
 
         modifiers[attribute] = {
-            amount: step * split[1] * stack.count,
-            operation: operation || "addition"
+            amount: info.step * split[1] * stack.count,
+            operation: info.operation || "addition"
         }
     });
 

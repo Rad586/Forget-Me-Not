@@ -1,4 +1,3 @@
-const horns = ["ponder", "sing", "seek", "feel", "admire", "call", "yearn", "dream"];
 const pillager_weapon_skills = {
     "minecraft:wooden_sword": () => { },
     "minecraft:stone_sword": () => { },
