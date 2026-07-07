@@ -1,9 +1,9 @@
 function stick_torch_entity(entity, target) {
     const { server } = entity;
     if (!server) return;
-    target.setSecondsOnFire(2);
-    entity.discard();
-};
+    global.setSecondsOnFire(entity.level, target, 2);
+    entity.discard()
+}
 
 function stick_torch_block(entity, result) {
     const { level } = entity;

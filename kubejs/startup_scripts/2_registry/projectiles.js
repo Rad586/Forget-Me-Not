@@ -189,7 +189,7 @@ StartupEvents.registry("entity_type", e => {
 					if (target.block.hasTag("minecraft:soul_fire_base_blocks")) {
 						target.fireType = "minecraft:soul"
 					};
-					target.setSecondsOnFire(cd / 20 + 1.2)
+					global.setSecondsOnFire(level, target, cd / 20 + 1.2)
 				}
 				else {
 					attack(player, target, damage);

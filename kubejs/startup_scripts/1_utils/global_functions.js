@@ -358,3 +358,10 @@ global.mergeTrinkets = (trinkets) => {
 	});
 	return result
 }
+
+global.setSecondsOnFire = (level, entity, seconds) => {
+	entity.setSecondsOnFire(seconds);
+	if (level.getBlock(entity.x, entity.y - 0.5, entity.z).hasTag("minecraft:soul_fire_base_blocks")) {
+		entity.fireType = "minecraft:soul"
+	}
+}

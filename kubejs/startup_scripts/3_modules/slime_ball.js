@@ -38,7 +38,7 @@ function slime_ball_entity(entity, result) {
         target.playSound("entity.generic.eat", 0.55, 0.8);
     };
 
-    if(entity.isOnFire()) target.setSecondsOnFire(1.5);
+    if (entity.isOnFire()) global.setSecondsOnFire(level, target, 1.5);
 
     entity.discard();
 

@@ -91,8 +91,8 @@ StartupEvents.registry("mob_effect", e => {
 			if (entity.isInWaterOrRain() || entity.hasEffect("kubejs:soul_burning") || entity.getTicksFrozen() > 160) {
 				entity.removeEffect("kubejs:burning");
 				global.sound(level, entity, "block.fire.extinguish", 0.8, 1.8);
-			}
-			else entity.setSecondsOnFire((lvl + 1) * 2);
+			} 
+			else global.setSecondsOnFire(level, entity, (lvl + 1) * 2);
 		})
 
 	e.create("soul_burning")
@@ -128,7 +128,7 @@ StartupEvents.registry("mob_effect", e => {
 			else {
 				global.particleRing(level, 8, 0, entity, "flame", 0.05);
 				level.getEntitiesWithin(entity.boundingBox.inflate(Math.min(5, lvl + 2))).forEach((entity2) => {
-					if (!entity2.isOnFire()) entity2.setSecondsOnFire(2);
+					if (!entity2.isOnFire()) global.setSecondsOnFire(level, entity2, 2);
 				})
 			}
 		})
@@ -468,7 +468,7 @@ StartupEvents.registry("mob_effect", e => {
 			attacker.extinguish();
 			global.sound(level, attacker, "minecraft:block.glass.break", 0.6, 1.1);
 
-			entity.setSecondsOnFire(6);
+			global.setSecondsOnFire(level, entity, 6);
 			global.sound(level, entity, "block.fire.ambient", 2, 1.4);
 		})
 
@@ -894,7 +894,7 @@ StartupEvents.registry("mob_effect", e => {
 			},
 			action: player => {
 				player.unlockAdvancement("kubejs:hot_biome");
-				player.setSecondsOnFire(1);
+				global.setSecondsOnFire(player.level, player, 1)
 			},
 			criteria: player => {
 				const caving = player.level.isOverworld() && player.y < 24;

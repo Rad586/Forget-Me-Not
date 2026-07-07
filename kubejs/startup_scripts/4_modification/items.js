@@ -131,9 +131,10 @@ ItemEvents.modification(e => {
 				const builder =
 					new ItemBuilder(id)
 						.hurtEnemy(c => {
-							const { target } = c;
-							if (target.isOnFire()) return;
-							target.setSecondsOnFire(1);
+							const { target } = c, { level } = target;
+							if (level.isClientSide() || target.isOnFire()) return;
+
+							global.setSecondsOnFire(level, target, 1);
 							if (soul == true) {
 								target.setFireType("minecraft:soul")
 							}

@@ -54,8 +54,7 @@ global.swords = {
                 if(en instanceof Projectile) en.discard()
             }
             else {
-                en.setSecondsOnFire(delay + 1.2);
-                if (en.block.hasTag("minecraft:soul_fire_base_blocks")) en.fireType = "minecraft:soul"
+                global.setSecondsOnFire(level, en, delay + 1.2)
             }
         })
     },
