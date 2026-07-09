@@ -206,3 +206,57 @@ ClientEvents.lang("en_us", e => {
 		e.add("minecraft", "enchantment.level." + i, intToRoman(i))
 	}
 })
+
+ClientEvents.lang("zh_cn", e => {
+	const rune_names = {
+		"dmg": "伤害",
+		"spd": "速度",
+		"amr": "护甲",
+		"mh": "生命",
+		"luck": "幸运",
+		"as": "攻速",
+		"at": "韧性",
+		"fire": "火焰",
+		"thorns": "荆棘"
+	}
+	const num = {
+		"1": "Ⅰ", "2": "Ⅱ", "3": "Ⅲ",
+		"4": "Ⅳ", "5": "Ⅴ", "6": "Ⅵ",
+	}
+
+	Object.keys(global.trinkets).forEach(name => {
+		for (let i = 1; i <= (global.trinkets[name].maxLvl || 3); i++) {
+			e.add(
+				`item.kubejs.${name}_rune_${i}`, 
+				`${rune_names[name]}符文 ${num[i]}`
+			)
+		}
+	})
+})
+
+ClientEvents.lang("en_us", e => {
+	const rune_names = {
+		"dmg": "Damage",
+		"spd": "Speed",
+		"amr": "Armor",
+		"mh": "Health",
+		"luck": "Luck",
+		"as": "Attack Speed",
+		"at": "Toughness",
+		"fire": "Fire",
+		"thorns": "Thorns"
+	}
+	const num = {
+		"1": "I", "2": "II", "3": "III",
+		"4": "IV", "5": "V", "6": "VI",
+	}
+
+	Object.keys(global.trinkets).forEach(name => {
+		for (let i = 1; i <= (global.trinkets[name].maxLvl || 3); i++) {
+			e.add(
+				`item.kubejs.${name}_rune_${i}`,
+				`${rune_names[name]} Rune ${num[i]}`
+			)
+		}
+	})
+})

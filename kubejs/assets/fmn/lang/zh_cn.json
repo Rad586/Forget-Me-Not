@@ -285,9 +285,16 @@
 	"item.kubejs.jade":"翡翠",
 	"item.kubejs.stone":"石块",
 
-	"item.kubejs.dmg_rune_1": "伤害符文 Ⅰ",
-	"item.kubejs.dmg_rune_2": "伤害符文 Ⅱ",
-	"item.kubejs.dmg_rune_3": "伤害符文 Ⅲ",
+	"dialogue.fmn.dmg_rune": "每级提供+0.3攻击伤害",
+	"dialogue.fmn.spd_rune": "每级提供+5%移动速度",
+	"dialogue.fmn.amr_rune": "每级提供+1.5护甲值",
+	"dialogue.fmn.mh_rune": "每级提供+1最大生命",
+	"dialogue.fmn.luck_rune": "每级提供+0.2幸运",
+	"dialogue.fmn.as_rune": "每级提供+2.5%攻击速度",
+	"dialogue.fmn.at_rune": "每级提供+0.3盔甲韧性",
+	"dialogue.fmn.fire_rune": "每级提供+1s火焰附加",
+	"dialogue.fmn.thorns_rune": "每级提供15%反击率",
+
 
 	"enchantment.kubejs.stench_curse":"恶臭诅咒",
 	"enchantment.kubejs.stench_curse.desc":"受击概率排放毒气",
