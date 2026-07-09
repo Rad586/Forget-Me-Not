@@ -64,4 +64,16 @@ ServerEvents.tags("item", e => {
   //   if (i.maxDamage) global.Upgradeables.push(i)
   // });
   // global.Upgradeables.forEach(key => e.add("kubejs:upgradeables", key))
+
+  global.Durables.forEach(item => {
+    e.add("kubejs:durables", item.id)
+  })
+
+  Object.keys(global.trinkets).forEach(name => {
+    const info = global.trinkets[name];
+
+    for (let i = 1; i <= (info.maxLvl || 3); i++) {
+      e.add("kubejs:runes", `kubejs:${name}_rune_${i}`)
+    }
+  })
 })
