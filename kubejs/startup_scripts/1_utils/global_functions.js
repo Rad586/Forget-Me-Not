@@ -349,19 +349,26 @@ global.getTrinkets = (player) => TrinketsApi
 	.getTrinketComponent(player).get()
 	.getAllEquipped().map(p => p.b)
 
-global.mergeTrinkets = (trinkets) => {
-	const result = [];
-	trinkets.forEach(stack => {
-		const merged = result.find(s => s.is(stack));
-		if (merged) merged.count += stack.count;
-		else result.push(stack.copy());
-	});
-	return result
+global.mergedTrinkets = (player) => {
+	const map = {};
+	
+	TrinketsApi
+		.getTrinketComponent(player).get()
+		.getAllEquipped().map(p => p.b)
+		.forEach(stack => {
+			const split = stack.idLocation.path.split("_rune_");
+			const name = split[0], lvl = split[1];
+
+			map[name] = (map[name] || 0) + lvl * stack.count;
+		});
+
+	return Object.keys(map).map(n => Item.of(`kubejs:${n}_rune_1`, map[n]))
 }
 
 global.setSecondsOnFire = (level, entity, seconds) => {
 	entity.setSecondsOnFire(seconds);
-	if (level.getBlock(entity.x, entity.y - 0.5, entity.z).hasTag("minecraft:soul_fire_base_blocks")) {
+	if (level.getBlock(entity.x, entity.y - 0.5, entity.z)
+		.hasTag("minecraft:soul_fire_base_blocks")) {
 		entity.fireType = "minecraft:soul"
 	}
 }
