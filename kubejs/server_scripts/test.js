@@ -203,10 +203,7 @@ ItemEvents.rightClicked(e => {
     }
     function inferno(player, target, damage, cd) {
         if (!target.isOnFire()) {
-            target.setSecondsOnFire(cd / 20 + 1.2);
-            if (target.block.down.hasTag("minecraft:soul_fire_base_blocks")) {
-                target.fireType = "minecraft:soul"
-            }
+            global.setSecondsOnFire(target.level, target, cd / 20 + 1.2)
         }
         else {
             attack(player, target, damage);
@@ -762,14 +759,36 @@ ItemEvents.rightClicked(e => {
 /*死亡保留饰品 */
 ItemEvents.rightClicked(e => {
     const {level, player} = e;
+    player.tell(getFinalDamage(player, 100, null))
 
-    const ts = player.nbt.cardinal_components["trinkets:trinkets"]
+})
 
-    player.persistentData.lastTrinkets = ts
-    Utils.server.tell(player.persistentData.lastTrinkets)
-    player.mergeNbt({
-        cardinal_components: {
-            "trinkets:trinkets": player.persistentData.lastTrinkets
-        }
+EntityEvents.hurt(e => {
+	const { entity } = e;
+	if(!entity.isLiving() || !entity.isAlive()/* || e.damage < 1.5 */) return;
+
+    const { player } = e.source;
+    if (!player) return;
+
+    global.mergedTrinkets(player).forEach(stack => {
+        const split = stack.idLocation.path.split("_rune_");
+        const { action } = global.trinkets[split[0]];
+
+        if (!action) return;
+        action(e.level, player, entity, split[1] * stack.count)
+    })
+})
+
+EntityEvents.hurt("player", e => {
+    const { entity: player } = e;
+    const { actual } = e.source;
+    if (!actual) return;
+
+    global.mergedTrinkets(player).forEach(stack => {
+        const split = stack.idLocation.path.split("_rune_");
+        const { action } = global.trinkets[split[0]];
+
+        if (!action) return;
+        action(e.level, player, actual, split[1] * stack.count)
     })
 })

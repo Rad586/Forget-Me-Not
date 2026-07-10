@@ -181,6 +181,7 @@ StartupEvents.registry("item", e => {
 		})
 
 	global.trinkets = {
+		/* common attribute */
 		"dmg": {
 			attribute: "minecraft:generic.attack_damage",
 			step: 0.3
@@ -199,6 +200,7 @@ StartupEvents.registry("item", e => {
 			step: 1
 		},
 
+		/* rare attribute */
 		"luck": {
 			attribute: "minecraft:generic.luck",
 			step: 0.2
@@ -211,6 +213,58 @@ StartupEvents.registry("item", e => {
 		"at": {
 			attribute: "minecraft:generic.armor_toughness",
 			step: 0.85
+		},
+
+		/* on attack */
+		"fire": {
+			action: (level, player, target, amount) => {
+				global.setSecondsOnFire(level, target, amount)
+			}
+		},
+		"leech": {
+			action: (level, player, target, amount) => {
+				player.heal(amount * 0.45 * player.getAttackStrengthScale(0))
+			}
+		},
+		"execution": {
+			action: (level, player, target, amount) => {
+				if(target.health / target.maxHealth > 0.04 * amount) return; //4%
+				target.attack(player, 9999)
+			}
+		},
+		"grim": {
+			action: (level, player, target, amount) => {
+				if(Math.random() > amount * 0.01) return;
+				target.attack(player, 100)
+			}
+		},
+
+		/* take hit */
+		"thorns": {
+			action: (level, player, target, amount) => {
+				target.attack(player, amount * 0.75)
+			}
+		},
+		"absorption": {
+			action: (level, player, target, amount) => {
+				amount *= 0.45
+				if (player.absorptionAmount >= amount) return;
+				player.setAbsorptionAmount(amount)
+			}
+		},
+		"evasion": {
+			action: (level, player, target, amount) => {
+				if (Math.random() >= amount * 0.015) return;
+				player.invulnerableTime = 20
+			}
+		},
+		"guard": {
+			action: (level, player, target, amount) => {
+				player.server.scheduleInTicks(1, () => {
+					if (player.invulnerableTime < 19) return;
+					player.invulnerableTime += amount * 2 //0.1s
+				})
+			}
 		}
 	}
 
@@ -219,6 +273,7 @@ StartupEvents.registry("item", e => {
 			e.create(`${name}_rune_${i}`)
 				.maxStackSize(1)
 				.tag("trinkets:chest/necklace")
+				.tooltip(Text.translate(`dialogue.fmn.${name}_rune`))
 		}
 	}
 

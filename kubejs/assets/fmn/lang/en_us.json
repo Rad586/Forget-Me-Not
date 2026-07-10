@@ -203,7 +203,7 @@
   "dialogue.fmn.as_rune": "+2.5% Attack Speed per level",
   "dialogue.fmn.at_rune": "+0.3 Armor Toughness per level",
   "dialogue.fmn.fire_rune": "+1s Fire Duration per level",
-  "dialogue.fmn.thorns_rune": "+15% Thron Chance per level",
+  "dialogue.fmn.thorns_rune": "+0.75 Thorns Damage per level",
 
   "item.kubejs.upgrade_runic": "Upgrade Runic",
   "dialogue.fmn.upgrade_runic": "§8Slightly increase damage/armor.",

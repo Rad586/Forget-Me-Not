@@ -75,8 +75,8 @@ global.evolutionMap = {
 	"minecraft:illusioner": ["minecraft:evoker"],
 	"illagerexp:sorcerer": ["minecraft:evoker"],
 	"illagerexp:provoker": ["minecraft:evoker"]
-};
-const keys_in_evolution = Object.keys(global.evolutionMap);
+}
+
 function evolution(actual, score) {
 	if(!actual) return;
 	const { level } = actual;
