@@ -1,8 +1,9 @@
-function dynamic_iframe(target, player, delay) {
+function dynamic_iframe(target, delay) {
+    const { invulnerableTime } = target;
+    if (invulnerableTime < 19) return; /* applies on actually taking hit */
     target.invulnerableTime = JavaMath.clamp(
-        (delay * 2) - 1,
-        player.hasEffect("strength") ? 10 : 5,
-        20
+        (invulnerableTime - 19) + (delay * 2) - 1,
+        13, 20 /* has to be ≥ 13 to work properly */
     )
 }
 function dynamic_kb(target, mul) {
@@ -31,7 +32,7 @@ function sword_attack(server, level, player, target) {
 
     server.scheduleInTicks(1, () => {
         fall_attack(level, player, target, player.fallDistance);
-        dynamic_iframe(target, player, delay);
+        dynamic_iframe(target, delay);
         dynamic_kb(target, mul)
     })
 }
