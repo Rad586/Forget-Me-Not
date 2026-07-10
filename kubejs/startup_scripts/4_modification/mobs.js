@@ -11,6 +11,7 @@ EntityJSEvents.modifyEntity(e => {
 		attackable_pets, creepers, zombies, 
 		arrows, raiders
 	} = global;
+	if(!zombies) return;
 
 	zombies.forEach(zombie => 
 		e.modify(zombie, modifyBuilder =>
