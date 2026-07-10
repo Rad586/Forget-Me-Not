@@ -394,3 +394,23 @@ global.spawnEntity = (level, type, pos) =>
 		"command",
 		true, false
 	)
+
+global.calculateDamage = (entity, damage/*, source*/) => {
+	damage = CombatRules.getDamageAfterAbsorb(
+		damage,
+		entity.armorValue,
+		entity.getAttribute("minecraft:generic.armor_toughness").getValue()
+	);
+
+	const resistance = entity.getEffect("minecraft:resistance");
+	if (resistance) {
+		damage *= 1 - (resistance.amplifier + 1) * 0.2
+	};
+
+	/*const protection = EnchantmentHelper.getDamageProtection(entity.armorSlots, source)
+	if (protection > 0) {
+		damage = CombatRules.getDamageAfterMagicAbsorb(damage, protection)
+	};*/
+
+	return Math.max(0, damage - entity.absorptionAmount)
+}

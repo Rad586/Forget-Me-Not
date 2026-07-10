@@ -1,6 +1,7 @@
 /* priority: 20 */
 
 global.class_map = {
+    "CombatRules": "net.minecraft.world.damagesource.CombatRules",
 
     "ChunkPos": "net.minecraft.world.level.ChunkPos",
 
