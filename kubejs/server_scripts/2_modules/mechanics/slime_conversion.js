@@ -1,5 +1,5 @@
 ItemEvents.entityInteracted("minecraft:flint_and_steel", e => {
-    const { target, level } = e;
+    const { level, target } = e;
     if (target.type != "minecraft:slime") return;
 
     const magma_cube = level.createEntity("minecraft:magma_cube")

@@ -4,11 +4,7 @@ function mounted_mobs(entity, riderData) {
     if(level.getDayTime() / 24000 < 32 || entity.tags.contains("kjsed")) return;
     entity.addTag("kjsed");
 
-    const rider = level.createEntity(riderData);
-    if(riderData == "minecraft:skeleton") rider.setMainHandItem("bow");
-    
-    rider.copyPosition(entity);
-    rider.startRiding(entity);
-    rider.addTag("kjsed");
-    rider.spawn();
+    const rider = global.spawnEntity(level, 
+        riderData, entity.blockPosition());
+    rider.startRiding(entity)
 }

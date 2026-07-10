@@ -386,3 +386,11 @@ global.getEffects = entity => {
 
 	return result
 }
+
+global.spawnEntity = (level, type, pos) => 
+	EntityType.byString(type).get().spawn(
+		level, null, null, null,
+		pos,
+		"command",
+		true, false
+	)

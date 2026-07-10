@@ -88,19 +88,13 @@ function evolution(actual, score) {
 	const {persistentData: pData} = actual, {evolution} = pData;
 	score = score || 5;
 
-	const result = evolution ? evolution+score : score;
+	const result = evolution ? evolution + score : score;
 	pData.evolution = result;
 	if(result < 5) return;
 
-	const evoluted = level.createEntity(global.randomSelect(data));
-	evoluted.copyPosition(actual);
-    if(evoluted instanceof CrossbowAttackMob) evoluted.setMainHandItem("minecraft:crossbow");
-	else if(evoluted instanceof RangedAttackMob) evoluted.setMainHandItem("minecraft:bow");
-	evoluted.spawn();
-
-	server.scheduleInTicks(10, () => {
-        evoluted.extinguish();
-        evoluted.setHealth(100);
+	server.scheduleInTicks(1, () => {
+		global.spawnEntity(level, 
+			global.randomSelect(data), actual.blockPosition())
     });
 
 	global.particleBurst(level, actual, "cloud", 10, 0.05);

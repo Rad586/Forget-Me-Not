@@ -64,13 +64,9 @@ function mob_variants(entity, data) {
     if (level.moonBrightness == 1) nether.concat(fullmoon);
     if (nether.length <= 0) return;
 
-    const new_entity = level.createEntity(global.randomSelect(nether));
-    new_entity.copyPosition(entity);
-    new_entity.spawn();
+    const new_entity = global.spawnEntity(level, 
+        global.randomSelect(nether), entity.blockPosition());
     new_entity.addTag("kjsed");
 
-    if (new_entity instanceof CrossbowAttackMob) new_entity.setMainHandItem("minecraft:crossbow");
-    else if (new_entity instanceof RangedAttackMob) new_entity.setMainHandItem("minecraft:bow");
-
-    entity.discard();
+    entity.discard()
 }

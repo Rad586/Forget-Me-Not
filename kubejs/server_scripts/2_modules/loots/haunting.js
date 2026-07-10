@@ -16,11 +16,10 @@ function haunting(e) {
 
             if (pData.victim % 9 || haunting_off == true) return true;
 
-            const vex = level.createEntity("minecraft:vex");
-            vex.copyPosition(entity);
+            const vex = global.spawnEntity(level, 
+                "minecraft:vex", entity.eyePosition);
             vex.setMainHandItem(Item.of("minecraft:wooden_sword").enchant("minecraft:vanishing_curse", 1));
             vex.setTarget(entity.lastHurtByMob || null)
-            vex.spawn();
 
             const { x, y, z } = entity;
             entity.playSound("minecraft:entity.vex.death");
