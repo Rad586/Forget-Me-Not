@@ -1,22 +1,21 @@
-PlayerEvents.advancement("kubejs:fight_back", e => {
-	const {player} = e;
-	player.revokeAdvancement("kubejs:fight_back");
+function fight_back_attack(player, amount) {
+	if(amount < 3) return;
 
 	const effect = player.getEffect("kubejs:fight_back");
-	if(!effect || global.throttle(player, 20, 'fb')) return;
+	if (!effect || global.throttle(player, 20, 'fb')) return;
 
-	const {amplifier} = effect;
+	const { amplifier } = effect;
 	player.removeEffect("kubejs:fight_back");
 	player.heal(1);
 
-	if(amplifier <= 0) return;
+	if (amplifier <= 0) return;
 	player.potionEffects.add(
 		"kubejs:fight_back",
-		Math.min(60, effect.duration + 40), 
+		Math.min(60, effect.duration + 40),
 		effect.amplifier - 1,
 		true, false
 	)
-})
+}
 
 function fight_back_hurt(player, amount) {
 	if(amount < 2.1) return;
