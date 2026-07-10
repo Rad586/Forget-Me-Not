@@ -6,11 +6,10 @@ const player_effects = {
 }
 
 function player_immune(e, entity, type) {
-    const { type } = source;
-
     const effects = global.getEffects(entity);
+
     for (const id in effects) {
-        if (effects[id](entity, type)) e.cancel()
+        if (player_effects[id](entity, type)) e.cancel()
     };
 
     if (entity.getTicksFrozen() > 60 && ["inFire", "onFire"].includes(type)) {

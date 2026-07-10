@@ -19,7 +19,7 @@ EntityEvents.hurt(e => {
 	};
 
 	/* player attack */
-	if(actual.isPlayer()) {
+	if(actual && actual.isPlayer()) {
 		sword_attack(server, level, actual, entity);
 		fight_back_attack(actual, damage);
 		dizzying(level, entity, damage)
