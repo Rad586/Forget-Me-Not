@@ -1,19 +1,22 @@
-/* Player related */
-EntityEvents.hurt("minecraft:player", e => {
-	const {entity, source, damage, server} = e;
-	half_heart_protection(e, entity, damage);
+EntityEvents.hurt(e => {
+	const { entity } = e;
+	if (!entity.isLiving() || !entity.isAlive()) return;
+	const { server, level, source, damage } = e;
 
-	if(source.actual) {
-		on_hit_effect(e, entity, damage);
-		server.scheduleInTicks(0, () => fight_back_hurt(entity, entity.lastDamageTaken))
-	};
+	if(entity.isPlayer()) {
+		half_heart_protection(e, entity, damage);
 
-	if(entity.isBlocking() && entity.isOnFire()) {
-		let { mainHandItem } = entity;
-		let { id } = mainHandItem.item instanceof ShieldItem ?
-			mainHandItem :
-			entity.offHandItem;
-		entity.addItemCooldown(id, 10);
-		entity.stopUsingItem()
+		if (source.actual) {
+			on_hit_effect(e, entity, damage);
+			underwater(level, entity);
+			server.scheduleInTicks(1, () => fight_back_hurt(entity, entity.lastDamageTaken))
+		};
+
+		fire_disables_shield(entity);
+
+		player_immune(e, entity, source.type)
+	}
+	else {
+		/* player attack, rune */
 	}
 })

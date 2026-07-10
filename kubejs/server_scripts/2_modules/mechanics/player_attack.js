@@ -2,7 +2,7 @@ PlayerEvents.advancement("kubejs:player_attack", e => {
 	const { player, level } = e;
 	player.revokeAdvancement("kubejs:player_attack");
 
-    if (!global.Swords.find(i => i.id == player.mainHandItem.id)) return;
+    if (!(player.mainHandItem.item instanceof SwordItem)) return;
     const delay = player.getCurrentItemAttackStrengthDelay(), mul = delay / 12.5;
 
 	e.server.scheduleInTicks(1, () => {
@@ -17,7 +17,7 @@ PlayerEvents.advancement("kubejs:player_attack", e => {
             player.hurtMarked = true;
 
             global.particleRing(level, 6, 0.3, player, "cloud", 0.1);
-			global.sound(level, player, "minecraft:block.wool.break");
+			global.sound(level, player, "block.wool.break");
 		};
 
         lastHurtMob.invulnerableTime = JavaMath.clamp(

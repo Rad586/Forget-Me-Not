@@ -323,7 +323,7 @@ global.itemDamage = (stack/*, entity*/) => {
 	return base/* + ench*/
 }
 
-global.timeDifficulty = (difficulty, worldDays, chunkDays, moonLight /*0 ~ 1*/) => {
+global.getTimeDifficulty = (difficulty, worldDays, chunkDays, moonLight /*0 ~ 1*/) => {
 	const d_map = {
 		"easy": 1,
 		"normal": 2,
@@ -371,4 +371,18 @@ global.setSecondsOnFire = (level, entity, seconds) => {
 		.hasTag("minecraft:soul_fire_base_blocks")) {
 		entity.fireType = "minecraft:soul"
 	}
+}
+
+global.getEffects = entity => {
+	const result = {};
+
+	entity.activeEffects.forEach(effect => {
+		const id = effect.descriptionId.slice(7).replace(".", ":");
+		result[id] = {
+			amplifier: effect.amplifier,
+			duration: effect.duration
+		}
+	})
+
+	return result
 }
