@@ -214,6 +214,13 @@ StartupEvents.registry("item", e => {
 			attribute: "minecraft:generic.armor_toughness",
 			step: 0.85
 		},
+		"bless": {
+			action: (level, player, target, amount, healAmount) => {
+				player.health += healAmount * 
+					amount * 0.08 * 
+					(1 - 2 * player.isInvertedHealAndHarm())
+			}
+		},
 
 		/* on attack */
 		"fire": {
@@ -228,7 +235,7 @@ StartupEvents.registry("item", e => {
 		},
 		"execution": {
 			action: (level, player, target, amount) => {
-				if(target.health / target.maxHealth > 0.04 * amount) return; //4%
+				if(target.health / target.maxHealth > 0.04 * amount) return;
 				target.attack(player, 9999)
 			}
 		},
@@ -262,21 +269,27 @@ StartupEvents.registry("item", e => {
 			action: (level, player, target, amount) => {
 				player.server.scheduleInTicks(1, () => {
 					if (player.invulnerableTime < 19) return;
-					player.invulnerableTime += amount * 2 //0.1s
+					player.invulnerableTime += amount * 2
 				})
 			}
 		}
 	}
 
-	function createTrinket(name, maxLvl) {
-		for (let i = 1; i <= (maxLvl || 3); i++) {
+	function createTrinket(name/*, maxLvl*/) {
+		const rarity = {
+			"1": "rare",
+			"2": "epic", 
+			"3": "uncommon"
+		};
+		for (let i = 1; i <= (/*maxLvl || */3); i++) {
 			e.create(`${name}_rune_${i}`)
 				.maxStackSize(1)
 				.tag("trinkets:chest/necklace")
-				.tooltip(Text.translate(`dialogue.fmn.${name}_rune`))
+				.rarity(rarity[i])
+				.tooltip(Text.translate(`dialogue.fmn.${name}_rune`).darkGray())
 		}
 	}
 
 	Object.keys(global.trinkets).forEach(n => 
-		createTrinket(n, global.trinkets[n].maxLvl))
+		createTrinket(n/*, global.trinkets[n].maxLvl*/))
 })

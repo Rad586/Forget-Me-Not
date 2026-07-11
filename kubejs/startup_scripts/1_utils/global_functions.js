@@ -341,9 +341,9 @@ global.getTimeDifficulty = (difficulty, worldDays, chunkDays, moonLight /*0 ~ 1*
 
 global.getBiomeAt = (pos) => String(level.getBiome(pos).unwrapKey().get().location())
 
-global.hasTrinket = (player, id) => TrinketsApi
-	.getTrinketComponent(player).get()
-	.isEquipped(Item.of(id).item)
+// global.hasTrinket = (player, id) => TrinketsApi
+// 	.getTrinketComponent(player).get()
+// 	.isEquipped(Item.of(id).item)
 
 global.getTrinkets = (player) => TrinketsApi
 	.getTrinketComponent(player).get()
@@ -363,6 +363,22 @@ global.mergedTrinkets = (player) => {
 		});
 
 	return Object.keys(map).map(n => Item.of(`kubejs:${n}_rune_1`, map[n]))
+}
+
+global.trinketAmount = (player, name) => {
+	let amount = 0;
+
+	TrinketsApi
+		.getTrinketComponent(player).get()
+		.getAllEquipped().map(p => p.b)
+		.forEach(stack => {
+			const split = stack.idLocation.path.split("_rune_");
+			const name2 = split[0], lvl = split[1];
+
+			if (name2 == name) amount += stack.count * lvl;
+		});
+
+	return amount
 }
 
 global.setSecondsOnFire = (level, entity, seconds) => {

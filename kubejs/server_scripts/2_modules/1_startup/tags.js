@@ -72,7 +72,7 @@ ServerEvents.tags("item", e => {
   Object.keys(global.trinkets).forEach(name => {
     const info = global.trinkets[name];
 
-    for (let i = 1; i <= (info.maxLvl || 3); i++) {
+    for (let i = 1; i <= (/*info.maxLvl || */3); i++) {
       e.add("kubejs:runes", `kubejs:${name}_rune_${i}`)
     }
   })

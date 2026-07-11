@@ -199,11 +199,21 @@
   "dialogue.fmn.spd_rune": "+5% Movement Speed per level",
   "dialogue.fmn.amr_rune": "+1.5 Armor per level",
   "dialogue.fmn.mh_rune": "+1 Max Health per level",
+
   "dialogue.fmn.luck_rune": "+0.2 Luck per level",
   "dialogue.fmn.as_rune": "+2.5% Attack Speed per level",
   "dialogue.fmn.at_rune": "+0.3 Armor Toughness per level",
+  "dialogue.fmn.heal_rune": "+8% Regeneration per level",
+
   "dialogue.fmn.fire_rune": "+1s Fire Duration per level",
+  "dialogue.fmn.leech_rune": "+0.45 Life Steal per level",
+  "dialogue.fmn.execution_rune": "+4% Execution Threshold per level",
+  "dialogue.fmn.grim_rune": "+1% Instant Kill Chance per level",
+
   "dialogue.fmn.thorns_rune": "+0.75 Thorns Damage per level",
+  "dialogue.fmn.absorption_rune": "+0.45 Absorption per level",
+  "dialogue.fmn.evasion_rune": "+1.5% Evasion Chance per level",
+  "dialogue.fmn.guard_rune": "+0.1s I-Frames per level",
 
   "item.kubejs.upgrade_runic": "Upgrade Runic",
   "dialogue.fmn.upgrade_runic": "§8Slightly increase damage/armor.",

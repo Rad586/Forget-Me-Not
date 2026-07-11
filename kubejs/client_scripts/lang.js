@@ -213,19 +213,29 @@ ClientEvents.lang("zh_cn", e => {
 		"spd": "速度",
 		"amr": "护甲",
 		"mh": "生命",
+
 		"luck": "幸运",
 		"as": "攻速",
 		"at": "韧性",
+		"bless": "生命恢复",
+
 		"fire": "火焰",
-		"thorns": "荆棘"
-	}
+		"leech": "吸血",
+		"execution": "斩杀",
+		"grim": "死神",
+
+		"thorns": "荆棘",
+		"absorption": "伤害吸收",
+		"evasion": "闪避",
+		"guard": "庇护"
+	};
 	const num = {
 		"1": "Ⅰ", "2": "Ⅱ", "3": "Ⅲ",
 		"4": "Ⅳ", "5": "Ⅴ", "6": "Ⅵ",
-	}
+	};
 
 	Object.keys(global.trinkets).forEach(name => {
-		for (let i = 1; i <= (global.trinkets[name].maxLvl || 3); i++) {
+		for (let i = 1; i <= (/*global.trinkets[name].maxLvl || */3); i++) {
 			e.add(
 				`item.kubejs.${name}_rune_${i}`, 
 				`${rune_names[name]}符文 ${num[i]}`
@@ -240,19 +250,29 @@ ClientEvents.lang("en_us", e => {
 		"spd": "Speed",
 		"amr": "Armor",
 		"mh": "Health",
+
 		"luck": "Luck",
 		"as": "Attack Speed",
 		"at": "Toughness",
+		"bless": "Bless",
+
 		"fire": "Fire",
-		"thorns": "Thorns"
-	}
+		"leech": "Leech",
+		"execution": "Execution",
+		"grim": "Grim",
+
+		"thorns": "Thorns",
+		"absorption": "Absorption",
+		"evasion": "Evasion",
+		"guard": "Guard"
+	};
 	const num = {
 		"1": "I", "2": "II", "3": "III",
 		"4": "IV", "5": "V", "6": "VI",
-	}
+	};
 
 	Object.keys(global.trinkets).forEach(name => {
-		for (let i = 1; i <= (global.trinkets[name].maxLvl || 3); i++) {
+		for (let i = 1; i <= (/*global.trinkets[name].maxLvl || */3); i++) {
 			e.add(
 				`item.kubejs.${name}_rune_${i}`,
 				`${rune_names[name]} Rune ${num[i]}`

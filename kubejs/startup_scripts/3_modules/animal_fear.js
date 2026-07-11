@@ -1,4 +1,4 @@
-function animal_fear(entity, server) {
+function animal_fear(entity) {
     const { level } = entity;
     const entities = level
         .getEntitiesWithin(entity.boundingBox.inflate(24));
