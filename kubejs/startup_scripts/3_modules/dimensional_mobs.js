@@ -22,9 +22,7 @@ global.dimensionalMobs = {
     }
 };
 function dimensional_mobs(entity, data) {
-    const {level} = entity;
-    if(level.isClientSide()) return;
-
+    const { level } = entity;
     if(data.dimension.includes(level.dimension.toString())) return;
 
     const itemEntity = level.createEntity("minecraft:item");

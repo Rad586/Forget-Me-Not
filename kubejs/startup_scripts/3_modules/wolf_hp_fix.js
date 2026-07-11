@@ -8,8 +8,6 @@ function wolf_hp_fix_log(context) {
     return false;
 }
 function wolf_hp_fix_refresh(entity) {
-    if (!entity.server) return;
-
-    const { persistentData: { health } } = entity;
+    const { health } = entity.persistentData;
     if (!isNaN(health)) entity.setHealth(health);
 }

@@ -1,7 +1,4 @@
 function mindful_death(entity) {
-    if (entity.tags.contains("kjsed")) return;
-    entity.addTag("kjsed");
-
     const { level, x, y, z, server } = entity;
     const { scoreboard } = server;
     level.getEntitiesWithin(AABB.of(x, y, z, x + 0.0001, y + 0.0001, z + 0.0001)).forEach(dead => {

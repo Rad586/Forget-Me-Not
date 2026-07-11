@@ -6,10 +6,8 @@ const Dyes = DyeColor.values().map(i => `minecraft:${i}_dye`);
 Dyes.forEach(key => zombie_throwables.push(key));
 
 function zombie_thrower(entity) {
-    if(Math.random() > 0.03 ||
-        entity.tags.contains("kjsed") ||
+    if (Math.random() > 0.03 ||
         !entity.mainHandItem.isEmpty()
     ) return;
     entity.setMainHandItem(global.randomSelect(zombie_throwables));
-    entity.addTag("kjsed")
 }

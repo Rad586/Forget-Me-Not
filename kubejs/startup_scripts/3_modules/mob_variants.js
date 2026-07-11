@@ -55,10 +55,7 @@ const mob_variant_map = {
 function mob_variants(entity, data) {
     if (Math.random() > 0.05) return;
     const { level } = entity;
-    if (level.isClientSide() ||
-        level.getDayTime() / 24000 < 32 ||
-        entity.tags.contains("kjsed")
-    ) return;
+    if (level.getDayTime() / 24000 < 32) return;
 
     const { nether, fullmoon } = data;
     if (level.moonBrightness == 1) nether.concat(fullmoon);

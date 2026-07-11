@@ -1,5 +1,5 @@
 function projectile_randomness(entity, server) {
-	if (Math.random() > 0.5 || entity.tags.contains("randomness")) return;
+	if (Math.random() > 0.5) return;
 	const { owner } = entity;
 	if (!owner || owner.isPlayer()) return;
 
@@ -10,6 +10,4 @@ function projectile_randomness(entity, server) {
 			)
 		)
 	})
-
-	entity.addTag('randomness')
 }

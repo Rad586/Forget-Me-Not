@@ -48,8 +48,6 @@ global.class_map = {
     "WaterAnimal": "net.minecraft.world.entity.animal.WaterAnimal",
     "EntityType": "net.minecraft.world.entity.EntityType",
 
-    "CrossbowAttackMob": "net.minecraft.world.entity.monster.CrossbowAttackMob",
-    "RangedAttackMob": "net.minecraft.world.entity.monster.RangedAttackMob",
     "Ghast": "net.minecraft.world.entity.monster.Ghast",
     "Witch": "net.minecraft.world.entity.monster.Witch",
     "Drowned": "net.minecraft.world.entity.monster.Drowned",
@@ -59,6 +57,7 @@ global.class_map = {
     "Creeper": "net.minecraft.world.entity.monster.Creeper",
     "Spider": "net.minecraft.world.entity.monster.Spider",
     "Zombie": "net.minecraft.world.entity.monster.Zombie",
+    "IronGolem": "net.minecraft.world.entity.animal.IronGolem",
 
     "Boat": "net.minecraft.world.entity.vehicle.Boat",
 

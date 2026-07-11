@@ -1,18 +1,17 @@
-function splitting_arrow (entity, server) {
-    if(Math.random() > 0.05 || entity.level.moonBrightness < 1 || entity.tags.contains("split")) return;
-    const {level} = entity;
+function splitting_arrow(entity, server) {
+    if (Math.random() > 0.05 || entity.level.moonBrightness < 1) return;
 
-    const {owner} = entity;
-    if(!owner || !(owner instanceof Skeleton)) return;
+    const { owner, level } = entity;
+    if (!owner || !(owner instanceof Skeleton)) return;
 
     owner.setDeltaMovement(owner.lookAngle.scale(-0.5));
     owner.setMotionY(0.25);
 
-    for(let i = 0; i < 0.5 + Math.random(); i++) {
+    for (let i = 0; i < 0.5 + Math.random(); i++) {
         let arrow = level.createEntity("minecraft:arrow");
         arrow.copyPosition(entity);
-        arrow.addTag("split")
-    
+        arrow.addTag("kjsed")
+
         server.scheduleInTicks(1, () => {
             arrow.setDeltaMovement(entity.deltaMovement);
             arrow.addMotion(

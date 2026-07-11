@@ -9,13 +9,11 @@ const debuffs = [
 function deadlier_witch(entity) {
     if(Math.random() > 0.25 ||
         !entity.owner ||
-        entity.owner.type != "minecraft:witch" ||
-        entity.tags.contains("kjsed")
+        entity.owner.type != "minecraft:witch"
     ) return;
     const {nbt} = entity;
     if(nbt.Item.tag.Potion != "poison") return;
 
     nbt.Item.tag.Potion = global.randomSelect(debuffs);
-    entity.nbt = nbt;
-    entity.addTag("kjsed");
+    entity.nbt = nbt
 }

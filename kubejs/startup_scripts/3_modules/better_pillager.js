@@ -14,9 +14,8 @@ const pillager_weapon_skills = {
 };
 
 function pillager_spawn(entity) {
-    if (Math.random() > 0.33 || entity.tags.contains("kjsed")) return;
+    if (Math.random() > 0.33) return;
 
-    entity.addTag("kjsed");
     entity.goalSelector.addGoal(1, new MeleeAttackGoal(entity, 1, true));
     if (!entity.isPatrolLeader()) {
         entity.setMainHandItem(global.randomSelect(pillager_weapon_skills))
@@ -27,11 +26,6 @@ function pillager_spawn(entity) {
 
     entity.setAttributeBaseValue("minecraft:generic.attack_damage", 1);
     entity.setAttributeBaseValue("minecraft:generic.movement_speed", 0.3);
-};
-function vindicator_spawn(entity) {
-    if (entity.tags.contains("kjsed")) return;
-    entity.addTag("kjsed");
-    entity.setMainHandItem("minecraft:iron_sword")
 };
 function illusioner(entity) {
     if (Math.random() > 0.0001 ||
