@@ -293,7 +293,7 @@
 	"dialogue.fmn.luck_rune": "每级+0.2幸运",
 	"dialogue.fmn.as_rune": "每级+2.5%攻击速度",
 	"dialogue.fmn.at_rune": "每级+0.3盔甲韧性",
-	"dialogue.fmn.heal_rune": "每级+8%生命回复",
+	"dialogue.fmn.bless_rune": "每级+8%生命回复",
 
 	"dialogue.fmn.fire_rune": "每级+1s火焰附加",
 	"dialogue.fmn.leech_rune": "每级+0.45吸血",

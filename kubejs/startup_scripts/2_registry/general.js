@@ -228,6 +228,11 @@ StartupEvents.registry("item", e => {
 				global.setSecondsOnFire(level, target, amount)
 			}
 		},
+		"poison": {//
+			action: (level, player, target, amount) => {
+				target.potionEffects.add("poison", amount * 20, 0, false, true)
+			}
+		},
 		"leech": {
 			action: (level, player, target, amount) => {
 				player.heal(amount * 0.45 * player.getAttackStrengthScale(0))

@@ -203,7 +203,7 @@
   "dialogue.fmn.luck_rune": "+0.2 Luck per level",
   "dialogue.fmn.as_rune": "+2.5% Attack Speed per level",
   "dialogue.fmn.at_rune": "+0.3 Armor Toughness per level",
-  "dialogue.fmn.heal_rune": "+8% Regeneration per level",
+  "dialogue.fmn.bless_rune": "+8% Regeneration per level",
 
   "dialogue.fmn.fire_rune": "+1s Fire Duration per level",
   "dialogue.fmn.leech_rune": "+0.45 Life Steal per level",
