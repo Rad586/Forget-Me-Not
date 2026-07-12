@@ -15,6 +15,7 @@ function global_modifiers(e) {
 		.replaceLoot(pchests, "minecraft:chest")
 		.removeLoot("minecraft:saddle")
 		.removeLoot("minecraft:experience_bottle")
+		.removeLoot(Ingredient.of(/honey/))
 
 	e.addLootTypeModifier(LootType.CHEST, LootType.UNKNOWN).removeLoot(Ingredient.of(/fishofthieves/))
 }
