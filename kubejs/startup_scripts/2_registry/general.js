@@ -189,6 +189,7 @@ StartupEvents.registry("item", e => {
 		"spd": {
 			attribute: "minecraft:generic.movement_speed",
 			step: 0.05,
+			percent: true,
 			operation: "multiply_base"
 		},
 		"amr": {
@@ -208,6 +209,7 @@ StartupEvents.registry("item", e => {
 		"as": {
 			attribute: "minecraft:generic.attack_speed",
 			step: 0.025,
+			percent: true,
 			operation: "multiply_base"
 		},
 		"at": {
@@ -215,83 +217,125 @@ StartupEvents.registry("item", e => {
 			step: 0.85
 		},
 		"bless": {
+			step: 0.08,
+			percent: true,
 			action: (level, player, target, amount, healAmount) => {
+				const { step } = global.trinkets["bless"];
+
 				player.health += healAmount * 
-					amount * 0.08 * 
+					amount * step * 
 					(1 - 2 * player.isInvertedHealAndHarm())
 			}
 		},
 
 		/* on attack */
 		"fire": {
+			step: 1,
 			action: (level, player, target, amount) => {
-				global.setSecondsOnFire(level, target, amount)
+				const { step } = global.trinkets["fire"];
+
+				global.setSecondsOnFire(level, target, amount * step)
 			}
 		},
-		"poison": {//
+		"poison": {
+			step: 1,
 			action: (level, player, target, amount) => {
-				target.potionEffects.add("poison", amount * 20, 0, false, true)
+				const { step } = global.trinkets["poison"];
+
+				target.potionEffects.add("poison", amount * step * 20, 0, false, true)
 			}
 		},
 		"leech": {
+			step: 0.45,
 			action: (level, player, target, amount) => {
-				player.heal(amount * 0.45 * player.getAttackStrengthScale(0))
+				const { step } = global.trinkets["leech"];
+
+				player.heal(amount * step * player.getAttackStrengthScale(0))
 			}
 		},
 		"execution": {
+			step: 0.04,
+			percent: true,
 			action: (level, player, target, amount) => {
-				if(target.health / target.maxHealth > 0.04 * amount) return;
+				const { step } = global.trinkets["execution"];
+
+				if(target.health / target.maxHealth > amount * step) return;
 				target.attack(player, 9999)
 			}
 		},
 		"grim": {
+			step: 0.01,
+			percent: true,
 			action: (level, player, target, amount) => {
-				if(Math.random() > amount * 0.01) return;
+				const { step } = global.trinkets["grim"];
+
+				if(Math.random() > amount * step) return;
 				target.attack(player, 100)
 			}
 		},
 
 		/* take hit */
 		"thorns": {
+			step: 0.75,
 			action: (level, player, target, amount) => {
-				target.attack(player, amount * 0.75)
+				const { step } = global.trinkets["thorns"];
+
+				target.attack(player, amount * step)
 			}
 		},
 		"absorption": {
+			step: 0.45,
 			action: (level, player, target, amount) => {
-				amount *= 0.45
-				if (player.absorptionAmount >= amount) return;
-				player.setAbsorptionAmount(amount)
+				const { step } = global.trinkets["absorption"];
+
+				if (player.absorptionAmount >= amount * step) return;
+				player.setAbsorptionAmount(amount * step)
 			}
 		},
 		"evasion": {
+			step: 0.015,
+			percent: true,
 			action: (level, player, target, amount) => {
-				if (Math.random() >= amount * 0.015) return;
+				const { step } = global.trinkets["evasion"];
+
+				if (Math.random() >= amount * step) return;
 				player.invulnerableTime = 20
 			}
 		},
 		"guard": {
+			step: 0.1,
 			action: (level, player, target, amount) => {
+				const { step } = global.trinkets["guard"];
+
 				player.server.scheduleInTicks(1, () => {
 					if (player.invulnerableTime < 19) return;
-					player.invulnerableTime += amount * 2
+					player.invulnerableTime += amount * step * 20
 				})
 			}
 		}
 	}
 
-	function createTrinket(name/*, maxLvl*/) {
+	function createTrinket(name) {
 		const rarity = {
-			"1": "rare",
-			"2": "epic", 
-			"3": "uncommon"
+			1: "rare",
+			2: "epic",
+			3: "uncommon"
 		};
-		for (let i = 1; i <= (/*maxLvl || */3); i++) {
+
+		const { step, percent } = global.trinkets[name];
+		const unit = percent ? 100 : 1;
+
+		for (let i = 1; i <= (3/* || global.trinkets[n].maxLvl*/); i++) {
+			let value = +(i * step * unit).toFixed(2);
+
 			e.create(`${name}_rune_${i}`)
 				.maxStackSize(1)
 				.tag("trinkets:chest/necklace")
 				.rarity(rarity[i])
-				.tooltip(Text.translate(`dialogue.fmn.${name}_rune`).darkGray())
+				.tooltip(Text.of("+" + value)
+					.append(Text.translate(`dialogue.fmn.${name}_rune`))
+					.darkGray()
+				)
 		}
 	}
 
