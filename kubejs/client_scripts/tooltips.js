@@ -246,8 +246,8 @@ ItemEvents.tooltip(e => {
 		e.addAdvanced(items, (stack, isAdvanced, tooltip) => {
 			if (e.isShift()) tooltip.add(dialogue);
 			else tooltip.add(shift);
-		});
-	});
+		})
+	})
 
 	/*upgrade or reforge amount*/
 	const upgrade = Text.translate("dialogue.fmn.upgrade").getString();

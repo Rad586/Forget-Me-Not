@@ -759,15 +759,11 @@ ItemEvents.rightClicked(e => {
 /*死亡保留饰品 */
 ItemEvents.rightClicked(e => {
     const {level, player} = e;
-    // player.tell(global.trinketAmount(player, "dmg"))
-    function removeEnchantments(entity) {
-        entity.handSlots.concat(entity.armorSlots).forEach(stack => {
-            if (!stack.isEnchanted()) return;
-            stack.setNbt(null)
-        })
-    }
 
-    removeEnchantments(player)
+    // const num = 1
+    // player.server.persistentData["drop_requires_player"] = true
+    // player.tell(global["drop_requires_player"])
+    player.tell(player.server.persistentData["drop_requires_player"] == true)
 })
 
 EntityEvents.hurt(e => {

@@ -7,12 +7,11 @@ ItemEvents.entityInteracted(e => {
         catching_player(target)
     }
     else if (type == "minecraft:villager") {
-        if (!villager_trade(target, entity)) e.cancel();
-        target.unRide()
+        villager_trade(target, entity, e)
     };
 
     if (type == "guardvillagers:guard") e.cancel();
 
     unleash(entity, target, e);
-    iron_golem_lead(target, item, e)
+    leash_iron_golem(target, item, e)
 })

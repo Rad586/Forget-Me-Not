@@ -14,7 +14,7 @@ function haunting(e) {
             const { victim } = pData;
             pData.victim = (victim || 0) + (entity.persistentData.victim || 0) + 1;
 
-            if (pData.victim % 9 || haunting_off == true) return true;
+            if (pData.victim % 9 || global.haunting == false) return true;
 
             const vex = global.spawnEntity(level, 
                 "minecraft:vex", entity.eyePosition);

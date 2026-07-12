@@ -1,21 +1,21 @@
-function villager_trade(entity, player) {
-    if(trade_lock_off == true) return true;
+function villager_trade(entity, player, e) {
+    if (global.trade_lock == false) return;
 
-    if(player.hasEffect("kubejs:timer")) return false;
+    if (player.hasEffect("kubejs:timer")) return;
     player.potionEffects.add("kubejs:timer", 5, 0, true, false);
 
-    const {x, y, z, navigation} = entity;
+    const { x, y, z, navigation } = entity;
     const totalNodes = [0, 1, 2, 3].reduce((sum, i) => {
-        const angle = i * Math.PI / 2;
+        const angle = i * 3.14 / 2;
         return sum + navigation.createPath(x + Math.cos(angle), y, z + Math.sin(angle), 0.1).getNodeCount();
-    }, 0);  
+    }, 0);
 
     const { level } = entity;
-    if(totalNodes < 16) {
+    if (totalNodes < 16) {
         global.sound(level, entity, "entity.villager.no");
-        level.spawnParticles("angry_villager", true, x, y+1.5, z, 0.2, 0.2, 0.2, 2, 0);
+        level.spawnParticles("angry_villager", true, x, y + 1.5, z, 0.2, 0.2, 0.2, 2, 0);
         player.statusMessage = Text.translate("dialogue.fmn.villager_denial");
-        return false;
-    };
-    return true;
+
+        e.cancel()
+    }
 }
