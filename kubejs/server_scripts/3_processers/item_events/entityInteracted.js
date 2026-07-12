@@ -1,6 +1,6 @@
 ItemEvents.entityInteracted(e => {
     if (e.hand == "off_hand") return;
-    const { entity, target } = e, { type } = target;
+    const { entity, target, item } = e, { type } = target;
 
     if (entity.isCrouching()) {
         dismount_manually(target);
@@ -13,6 +13,6 @@ ItemEvents.entityInteracted(e => {
 
     if (type == "guardvillagers:guard") e.cancel();
 
-    give_lead(entity, target, e);
-    iron_golem_lead(target, e)
+    unleash(entity, target, e);
+    iron_golem_lead(target, item, e)
 })
