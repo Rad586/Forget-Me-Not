@@ -13,4 +13,5 @@ LootJS.modifiers(e => {
 	conditional_drops(e);
 	iron_golem(e);
 	item_toss(e)
+	golden_tool(e)
 })

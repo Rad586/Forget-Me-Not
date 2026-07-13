@@ -91,6 +91,10 @@ global.class_map = {
     "ClipContext": "net.minecraft.world.level.ClipContext",
     "BlockPlaceContext": "net.minecraft.world.item.context.BlockPlaceContext",
 
+    "LootContextBuilder": "net.minecraft.world.level.storage.loot.LootContext$Builder",
+    "LootContextParams": "net.minecraft.world.level.storage.loot.parameters.LootContextParams",
+    "LootContextParamSets": "net.minecraft.world.level.storage.loot.parameters.LootContextParamSets",
+
     "SimpleMenuProvider": "net.minecraft.world.SimpleMenuProvider",
     "CraftingMenu": "net.minecraft.world.inventory.CraftingMenu",
     "ContainerLevelAccess": "net.minecraft.world.inventory.ContainerLevelAccess",

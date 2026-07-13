@@ -430,3 +430,27 @@ global.calculateDamage = (entity, damage/*, source*/) => {
 
 	return Math.max(0, damage - entity.absorptionAmount)
 }
+
+global.getBlockLoot = (level, player, item, block) => {
+    const { blockState } = block;
+    const builder = new LootContextBuilder(level)
+		.withParameter(LootContextParams.ORIGIN, new Vec3(
+			block.x + 0.5,
+			block.y + 0.5,
+			block.z + 0.5
+		))
+        .withParameter(LootContextParams.BLOCK_STATE, blockState)
+        .withParameter(LootContextParams.TOOL, item)
+        .withOptionalParameter(LootContextParams.THIS_ENTITY, player);
+
+    const context = builder.create(LootContextParamSets.BLOCK);
+	global.processingBlockLoot = true;
+
+	try {
+		return context
+			.getLootTable(blockState.block.lootTable)
+			.getRandomItems(context)
+	} finally {
+		global.processingBlockLoot = false
+	}
+}

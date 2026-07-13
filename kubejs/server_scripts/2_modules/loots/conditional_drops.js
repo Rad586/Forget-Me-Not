@@ -8,6 +8,7 @@ function conditional_drops(e) {
     e.addLootTypeModifier(LootType.BLOCK)
         .playerPredicate(player => player && player.isCrouching())
         .apply(ctx => {
+            if (global.processingBlockLoot == true) return;
             const block = ctx.destroyedBlock;
             if (!annoying_blocks.some(i => block.id.endsWith(i))) return;
 

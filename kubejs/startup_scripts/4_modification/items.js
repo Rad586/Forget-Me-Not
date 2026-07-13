@@ -66,6 +66,7 @@ const effectMap = {
 }
 
 
+
 ItemEvents.modification(e => {
 	/* fire resistant */
 	fireResistant.forEach(itemName => e.modify(itemName, item => item.fireResistant = true));
@@ -200,4 +201,16 @@ ItemEvents.modification(e => {
 				item.setItemBuilder(builder);
 			})
 		})
+
+	const golden_tool = [
+		"minecraft:golden_pickaxe", "minecraft:golden_axe", 
+		"minecraft:golden_shovel", "minecraft:golden_hoe"
+	]
+	golden_tool.forEach(id => { /* 待验证 */
+		e.modify(id, item => {
+			item.tier = tier => {
+				tier.speed = 6
+			}
+		})
+	})
 })
