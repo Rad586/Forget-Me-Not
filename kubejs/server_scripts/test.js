@@ -761,29 +761,9 @@ ItemEvents.rightClicked(e => {
 ItemEvents.rightClicked(e => {
     const { level, player } = e;
 
-    player.tell(player.mainHandItem.item.digSpeed)
+    player.tell(player.rayTrace(4).entity.invulnerableTime)
 })
 
-
-// global.createBlockLootContext = (level, block, item, entity, blockEntity) => {
-//     const builder = new LootContextBuilder(level);
-
-//     builder.withParameter(LootContextParams.ORIGIN, block.pos.offset(0.5, 0.5, 0.5));
-//     builder.withParameter(LootContextParams.BLOCK_STATE, block.blockState);
-//     builder.withParameter(LootContextParams.TOOL, item);
-
-//     builder.withOptionalParameter(LootContextParams.THIS_ENTITY, entity);
-//     builder.withOptionalParameter(LootContextParams.BLOCK_ENTITY, blockEntity);
-
-//     return builder.create(LootContextParamSets.BLOCK)
-// }
-
-// global.getBlockLoot = (level, block, item, entity, blockEntity) => {
-//     const context = global.createBlockLootContext(level, block, item, entity, blockEntity);
-//     const table = context.getLootTable(block.blockState.block.lootTable);
-
-//     return table.getRandomItems(context);
-// }
 
 EntityEvents.hurt(e => {
 	const { entity } = e;

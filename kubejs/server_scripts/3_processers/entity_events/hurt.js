@@ -23,7 +23,7 @@ EntityEvents.hurt(e => {
 	if(actual && actual.isPlayer()) {
 		/* trinkets() */
 		sword_attack(server, level, actual, entity);
-		fight_back_attack(actual, damage);
+		fight_back_attack(actual, entity, damage);
 		dizzying(level, entity, final_dmg)
 	}
 })

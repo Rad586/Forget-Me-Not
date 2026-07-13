@@ -209,7 +209,10 @@ ItemEvents.modification(e => {
 	golden_tool.forEach(id => {
 		e.modify(id, item => {
 			item.setDigSpeed(6);
-			item.tier = tier => tier.speed = 6
+			item.tier = tier => {
+				tier.speed = 6;
+				tier.level = 2
+			}
 		})
 	})
 })

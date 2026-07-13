@@ -1,9 +1,8 @@
-function fight_back_attack(player, amount) {
+function fight_back_attack(player, target, amount) {
 	if(amount < 3) return;
 
 	const effect = player.getEffect("kubejs:fight_back");
-	if (!effect || global.throttle(player, 20, 'fb')) return;
-
+	if (!effect || target.invulnerableTime > 0) return;
 	const { amplifier } = effect;
 	player.removeEffect("kubejs:fight_back");
 	player.heal(1);
