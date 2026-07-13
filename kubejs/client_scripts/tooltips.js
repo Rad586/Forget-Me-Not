@@ -236,6 +236,10 @@ ItemEvents.tooltip(e => {
 		],
 		"hotbar_totem": [
 			"minecraft:totem_of_undying"
+		],
+		"golden_tool": [
+			"minecraft:golden_pickaxe", "minecraft:golden_axe", 
+			"minecraft:golden_hoe", "minecraft:golden_shovel",
 		]
 	};
 

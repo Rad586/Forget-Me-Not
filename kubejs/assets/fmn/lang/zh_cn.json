@@ -113,6 +113,7 @@
 	"dialogue.fmn.sapling_growing": "需要2x2同种树苗",
 	"dialogue.fmn.showitem": "展示了：",
 	"dialogue.fmn.oak_log": "你可以空手挖掘石头",
+	"dialogue.fmn.golden_tool": "自带精准采集与自动熔炼",
 	
 	"dialogue.fmn.zoom":"按c进行缩放",
 	"dialogue.fmn.waypoint":"按+创建/删除标记点",
