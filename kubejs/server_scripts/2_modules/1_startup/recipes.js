@@ -119,10 +119,10 @@ ServerEvents.recipes(e => {
 
 	/* 更多烧炼配方 More smelting recipes */
 	const recycle = {
-		"#minecraft:iron_nugget_items": "minecraft:iron_nugget",
+		"#minecraft:iron_nugget_items": "minecraft:iron_ingot",
 		"#minecraft:iron_ingot_items": "minecraft:iron_ingot",
 		"minecraft:anvil": "minecraft:iron_block",
-		"#minecraft:gold_nugget_items": "minecraft:gold_nugget",
+		"#minecraft:gold_nugget_items": "minecraft:gold_ingot",
 		"#minecraft:gold_ingot_items": "minecraft:gold_ingot"
 		/* gold and iron block recipes are in datapack */
 	}
@@ -133,8 +133,8 @@ ServerEvents.recipes(e => {
 	})
 
 	/* 手撕物品 Tear them apart! */
-	e.shapeless("minecraft:iron_nugget", ["#minecraft:iron_nugget_items"]);
-	e.shapeless("minecraft:gold_nugget", ["#minecraft:gold_nugget_items"]);
+	e.shapeless("minecraft:iron_ingot", ["#minecraft:iron_nugget_items"]);
+	e.shapeless("minecraft:gold_ingot", ["#minecraft:gold_nugget_items"]);
 	e.shapeless("minecraft:iron_ingot", ["#minecraft:iron_ingot_items"]);
 	e.shapeless("minecraft:gold_ingot", ["#minecraft:gold_ingot_items"]);
 
@@ -186,7 +186,7 @@ ServerEvents.recipes(e => {
 	], {
 		0: "#minecraft:stone_crafting_materials"
 	})
-	e.smelting("minecraft:iron_nugget", "illagerexp:hatchet")
+	e.smelting("minecraft:iron_ingot", "illagerexp:hatchet")
 
 	/* 畜肉 Meat */
 	e.smelting("kubejs:cooked_meat", "kubejs:meat")
@@ -200,7 +200,8 @@ ServerEvents.recipes(e => {
 
 	const banned_output = [
 		"patchouli:guide_book", "minecraft:recovery_compass", 
-		"#minecraft:chestsandkeys", "#minecraft:fancydyes"
+		"#minecraft:chestsandkeys", "#minecraft:fancydyes",
+		"minecraft:gold_nugget", "minecraft:iron_nugget"
 	];
 	banned_output.forEach(key => e.remove({ output: key }))
 
