@@ -9,10 +9,11 @@ const toggles = {
     "trade_lock": (server, level, player, value) => { }, 
     "haunting": (server, level, player, value) => { }
 }
+global.toggles = {};
 Object.keys(toggles).forEach(name => {
     global.toggles[name] = (server, level, player, value) => {
         server.persistentData[name] = value;
         global[name] = value;
-        toggles[name](server, level, player, value);
+        toggles[name](server, level, player, value)
     }
 })
