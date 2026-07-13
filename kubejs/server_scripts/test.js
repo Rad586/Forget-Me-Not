@@ -757,14 +757,33 @@ ItemEvents.rightClicked(e => {
 
 
 /*死亡保留饰品 */
-ItemEvents.rightClicked(e => {
-    const {level, player} = e;
 
-    // const num = 1
-    // player.server.persistentData["drop_requires_player"] = true
-    // player.tell(global["drop_requires_player"])
-    player.tell(player.server.persistentData["drop_requires_player"] == true)
+ItemEvents.rightClicked(e => {
+    const { level, player } = e;
+
+    player.tell(player.mainHandItem.item.digSpeed)
 })
+
+
+// global.createBlockLootContext = (level, block, item, entity, blockEntity) => {
+//     const builder = new LootContextBuilder(level);
+
+//     builder.withParameter(LootContextParams.ORIGIN, block.pos.offset(0.5, 0.5, 0.5));
+//     builder.withParameter(LootContextParams.BLOCK_STATE, block.blockState);
+//     builder.withParameter(LootContextParams.TOOL, item);
+
+//     builder.withOptionalParameter(LootContextParams.THIS_ENTITY, entity);
+//     builder.withOptionalParameter(LootContextParams.BLOCK_ENTITY, blockEntity);
+
+//     return builder.create(LootContextParamSets.BLOCK)
+// }
+
+// global.getBlockLoot = (level, block, item, entity, blockEntity) => {
+//     const context = global.createBlockLootContext(level, block, item, entity, blockEntity);
+//     const table = context.getLootTable(block.blockState.block.lootTable);
+
+//     return table.getRandomItems(context);
+// }
 
 EntityEvents.hurt(e => {
 	const { entity } = e;
@@ -795,3 +814,16 @@ EntityEvents.hurt("player", e => {
         action(e.level, player, actual, split[1] * stack.count)
     })
 })
+
+const mainhand_weapon = {
+    "minecraft:golden_sword": (level, player, target) => {
+        global.setSecondsOnFire(level, target, 3)
+    }
+}
+/* 金工具自动烧炼，精准采集 */
+/* 移除木制工具 */
+/* 金工具铁速度 */
+/* 移除金粒和铁粒 recipe */
+/* 精准采集不要对铜方块 */
+
+

@@ -206,11 +206,10 @@ ItemEvents.modification(e => {
 		"minecraft:golden_pickaxe", "minecraft:golden_axe", 
 		"minecraft:golden_shovel", "minecraft:golden_hoe"
 	]
-	golden_tool.forEach(id => { /* 待验证 */
+	golden_tool.forEach(id => {
 		e.modify(id, item => {
-			item.tier = tier => {
-				tier.speed = 6
-			}
+			item.setDigSpeed(6);
+			item.tier = tier => tier.speed = 6
 		})
 	})
 })
