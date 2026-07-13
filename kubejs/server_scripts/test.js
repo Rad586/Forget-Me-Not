@@ -761,7 +761,11 @@ ItemEvents.rightClicked(e => {
 ItemEvents.rightClicked(e => {
     const { level, player } = e;
 
-    player.tell(player.rayTrace(4).entity.invulnerableTime)
+    player.tell(global.getBlockLoot(
+        level,
+        player.mainHandItem,
+        player.rayTrace(4).block
+    ))
 })
 
 
