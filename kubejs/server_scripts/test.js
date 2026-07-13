@@ -758,20 +758,22 @@ ItemEvents.rightClicked(e => {
 
 /*死亡保留饰品 */
 
-ItemEvents.rightClicked(e => {
-    const { level, player } = e;
+// ItemEvents.rightClicked(e => {
+//     const { level, player } = e;
+//     const ServerScriptManager = Java.loadClass("dev.latvian.mods.kubejs.server.ServerScriptManager")
+// })
 
-    player.tell(global.getBlockLoot(
-        level,
-        player.mainHandItem,
-        player.rayTrace(4).block
-    ))
+ItemEvents.rightClicked(e => {
+    const { server } = e
+
+    Client.reloadResourcePacks()
+    server.reloadResources(server.getPackRepository().getSelectedIds())
 })
 
 
 EntityEvents.hurt(e => {
-	const { entity } = e;
-	if(!entity.isLiving() || !entity.isAlive()/* || e.damage < 1.5 */) return;
+    const { entity } = e;
+    if (!entity.isLiving() || !entity.isAlive()/* || e.damage < 1.5 */) return;
 
     const { player } = e.source;
     if (!player) return;
@@ -804,10 +806,5 @@ const mainhand_weapon = {
         global.setSecondsOnFire(level, target, 3)
     }
 }
-/* 金工具自动烧炼，精准采集 */
 /* 移除木制工具 */
-/* 金工具铁速度 */
-/* 移除金粒和铁粒 recipe */
-/* 精准采集不要对铜方块 */
-
 

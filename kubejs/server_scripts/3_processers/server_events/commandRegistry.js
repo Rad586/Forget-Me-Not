@@ -37,10 +37,10 @@ ServerEvents.commandRegistry(e => {
 	e.register(Commands.literal("togglePickup")
 		.requires(src => src.hasPermission(1))
 		.executes(c => {
-			const { player } = c.source, {persistentData: pData} = player;
-			const {auto_pickup} = pData, status = !(auto_pickup == null ? true : auto_pickup);
+			const { player } = c.source, { persistentData: pData } = player;
+			const { auto_pickup } = pData, status = !(auto_pickup == null ? true : auto_pickup);
 			pData.auto_pickup = status;
-			player.sendData("auto_pickup", {status: status});
+			player.sendData("auto_pickup", { status: status });
 			return 1
 		}))
 
@@ -93,4 +93,60 @@ ServerEvents.commandRegistry(e => {
 			c.source.player.sendData("open_inv");
 			return 1
 		}))
+
+	e.register(
+		Commands.literal("rr")
+			.requires(src => src.hasPermission(2))
+
+			.then(
+				Commands.literal("scripts")
+					.executes(c => {
+						const server = c.source.server;
+
+						global.reloadClientScript();
+						global.reloadStartupScript();
+						global.reloadServerScript();
+
+
+						server.scheduleInTicks(1, () => {
+							server.tell(Text.green("✔"))
+						});
+						return 1
+					})
+			)
+
+			.then(
+				Commands.literal("game")
+					.executes(c => {
+						const server = c.source.server;
+
+						Client.reloadResourcePacks();
+						server.reloadResources(server.getPackRepository().getSelectedIds());
+
+						server.scheduleInTicks(1, () => {
+							server.tell(Text.green("✔"))
+						});
+						return 1
+					})
+			)
+
+			.then(
+				Commands.literal("all")
+					.executes(c => {
+						const server = c.source.server;
+
+						global.reloadClientScript();
+						global.reloadStartupScript();
+						global.reloadServerScript();
+
+						Client.reloadResourcePacks();
+						server.reloadResources(server.getPackRepository().getSelectedIds());
+
+						server.scheduleInTicks(1, () => {
+							server.tell(Text.green("✔"))
+						});
+						return 1
+					})
+			)
+	)
 })
