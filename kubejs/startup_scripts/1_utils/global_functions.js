@@ -5,8 +5,8 @@ global.particleBurst = (level, entity, particleId, count, speed, spread, yOverri
 	const finalY = y + (eyeHeight / 3 * 2) + (yOverride || 0);
 
 	level.spawnParticles(
-		particleId, true, 
-		x, finalY, z, 
+		particleId, true,
+		x, finalY, z,
 		spread, spread, spread,
 		count, speed
 	)
@@ -16,9 +16,9 @@ global.particleBurstBlock = (level, x, y, z, particleId, count, speed, spread) =
 	spread = spread || 0; speed = speed || 0;
 
 	level.spawnParticles(
-		particleId, true, 
-		x + 0.5, y + 0.5, z + 0.5, 
-		spread, spread, spread, 
+		particleId, true,
+		x + 0.5, y + 0.5, z + 0.5,
+		spread, spread, spread,
 		count, speed
 	)
 }
@@ -278,8 +278,10 @@ global.itemParticle = (id) => new ItemParticleOption(ITEM, id)
 global.blockParticle = (id) => new BlockParticleOption(BLOCK, Block.get(id).defaultBlockState())
 global.blockStateParticle = (state) => new BlockParticleOption(BLOCK, state)
 
-global.reloadStartupScript = () => KubeJS.getStartupScriptManager().reload(null);
-global.reloadClientScript = () => KubeJS.PROXY.reloadClientInternal();
+global.reloadStartupScript = () => KubeJS.getStartupScriptManager().reload(null)
+global.reloadClientScript = () => KubeJS.PROXY.reloadClientInternal()
+global.reloadServerScript = () => ServerScriptManager.instance
+	.reloadScriptManager(Utils.server.getResourceManager())
 
 global.toInt = (value) => Integer.valueOf(value.toString())
 
@@ -351,7 +353,7 @@ global.getTrinkets = (player) => TrinketsApi
 
 global.mergedTrinkets = (player) => {
 	const map = {};
-	
+
 	TrinketsApi
 		.getTrinketComponent(player).get()
 		.getAllEquipped().map(p => p.b)
@@ -403,7 +405,7 @@ global.getEffects = entity => {
 	return result
 }
 
-global.spawnEntity = (level, type, pos) => 
+global.spawnEntity = (level, type, pos) =>
 	EntityType.byString(type).get().spawn(
 		level, null, null, null,
 		pos,
@@ -431,26 +433,31 @@ global.calculateDamage = (entity, damage/*, source*/) => {
 	return Math.max(0, damage - entity.absorptionAmount)
 }
 
-global.getBlockLoot = (level, item, block) => { /* will trigger lootjs */
-	if (global.processingBlockLoot == true) return;
-	global.processingBlockLoot = true;
+global.noLoop = (key, fn) => {
+	if (global[key]) return;
 
-    const { blockState } = block;
-    const builder = new LootContextBuilder(level)
+	global[key] = true;
+	try {
+		fn();
+	} finally {
+		global[key] = false;
+	}
+}
+
+global.getBlockLoot = (level, player, item, block) => { /* triggers lootjs, be aware of loop */
+	const { blockState } = block;
+	const builder = new LootContextBuilder(level)
 		.withParameter(LootContextParams.ORIGIN, new Vec3(
 			block.x + 0.5,
 			block.y + 0.5,
 			block.z + 0.5
 		))
-        .withParameter(LootContextParams.BLOCK_STATE, blockState)
-        .withParameter(LootContextParams.TOOL, item);
+		.withParameter(LootContextParams.BLOCK_STATE, blockState)
+		.withParameter(LootContextParams.TOOL, item)
+		.withOptionalParameter(LootContextParams.THIS_ENTITY, player);
 
-    const context = builder.create(LootContextParamSets.BLOCK);
-	try {
-		return context
-			.getLootTable(blockState.block.lootTable)
-			.getRandomItems(context)
-	} finally {
-		global.processingBlockLoot = false
-	}
+	const context = builder.create(LootContextParamSets.BLOCK);
+	return context
+		.getLootTable(blockState.block.lootTable)
+		.getRandomItems(context)
 }

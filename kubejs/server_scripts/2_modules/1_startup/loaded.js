@@ -12,7 +12,7 @@ ServerEvents.loaded(e => {
     serverStartup(server);
 
     global.reloadStartupScript(); /* make sure some global constants are loaded */
-    server.runCommandSilent("kjs reload server_scripts");
+    global.reloadServerScript();
 
     const vd = server.playerList.getViewDistance();
     DynamicSetting.CHUNK_TICK_DISTANCE.set(Math.ceil(vd / 3), DynamicManager.getInstance(server))

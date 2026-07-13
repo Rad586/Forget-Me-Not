@@ -108,6 +108,7 @@ global.class_map = {
     "DynamicManager": "me.wesley1808.servercore.common.dynamic.DynamicManager",
     "KubeJS": "dev.latvian.mods.kubejs.KubeJS",
     "TrinketsApi": "dev.emi.trinkets.api.TrinketsApi",
+    "ServerScriptManager": "dev.latvian.mods.kubejs.server.ServerScriptManager",
 
     "UUID": "java.util.UUID",
     "Integer": "java.lang.Integer"
