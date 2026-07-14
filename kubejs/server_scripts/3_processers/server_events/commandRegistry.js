@@ -97,56 +97,52 @@ ServerEvents.commandRegistry(e => {
 	e.register(
 		Commands.literal("rr")
 			.requires(src => src.hasPermission(2))
+			.then(Commands.literal("scripts")
+				.executes(c => {
+					const { server } = c.source;
 
-			.then(
-				Commands.literal("scripts")
-					.executes(c => {
-						const server = c.source.server;
-
-						global.reloadClientScript();
-						global.reloadStartupScript();
-						global.reloadServerScript();
+					global.reloadClientScript();
+					global.reloadStartupScript();
+					global.reloadServerScript();
 
 
-						server.scheduleInTicks(1, () => {
-							server.tell(Text.green("✔"))
-						});
-						return 1
-					})
+					server.scheduleInTicks(1, () => {
+						server.tell(Text.green("✔"))
+					});
+					return 1
+				})
 			)
+			.then(Commands.literal("data")
+				.executes(c => {
+					const { server } = c.source;
 
-			.then(
-				Commands.literal("game")
-					.executes(c => {
-						const server = c.source.server;
+					global.reloadClientScript();
+					global.reloadServerScript();
+					global.reloadStartupScript();
+					server.reloadResources(server.getPackRepository().getSelectedIds());
 
-						Client.reloadResourcePacks();
-						server.reloadResources(server.getPackRepository().getSelectedIds());
-
-						server.scheduleInTicks(1, () => {
-							server.tell(Text.green("✔"))
-						});
-						return 1
-					})
+					server.scheduleInTicks(1, () => {
+						server.tell(Text.green("✔"))
+					});
+					return 1
+				})
 			)
+			.then(Commands.literal("all")
+				.executes(c => {
+					const { server } = c.source;
 
-			.then(
-				Commands.literal("all")
-					.executes(c => {
-						const server = c.source.server;
+					global.reloadClientScript();
+					global.reloadStartupScript();
+					global.reloadServerScript();
 
-						global.reloadClientScript();
-						global.reloadStartupScript();
-						global.reloadServerScript();
+					Client.reloadResourcePacks();
+					server.reloadResources(server.getPackRepository().getSelectedIds());
 
-						Client.reloadResourcePacks();
-						server.reloadResources(server.getPackRepository().getSelectedIds());
-
-						server.scheduleInTicks(1, () => {
-							server.tell(Text.green("✔"))
-						});
-						return 1
-					})
+					server.scheduleInTicks(1, () => {
+						server.tell(Text.green("✔"))
+					});
+					return 1
+				})
 			)
 	)
 })
