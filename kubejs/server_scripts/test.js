@@ -96,648 +96,859 @@
 //坐下的提示
 //宝箱无法破坏改为“开启宝箱吸引仇恨，宝箱内物资等待出现结果”
 
+const skill_formulas = {
+    "smite": {
+        damage: (dmg, lvl) => dmg * (1.5 + (lvl - 1) * 0.25),
+        cd: (delay) => delay * 1.5
+    },
+    "whirlwind": {
+        range: (lvl) => 4 + ((lvl - 1) * 1),
+        cd: (delay) => delay * 1,
+        damage: (dmg) => dmg * 0.75
+    },
+    "lunge": {
+        speed: (lvl) => 1.5 + ((lvl - 1) * 0.5),
+        cd: (delay) => delay * 1,
+        damage: (dmg) => dmg * 1,
+        range: () => 1.5
+    },
+    "arc": {
+        speed: (lvl) => 1 + ((lvl - 1) * 1),
+        cd: (delay) => delay * 0.75,
+        damage: (dmg) => dmg * 0.5
+    },
+    "vortex": {
+        range: (lvl) => 2.5 * (1 + (lvl - 1) * 0.5),
+        cd: (delay) => delay * 1
+    },
+    "parry": {
+        damage: (dmg, lvl) => dmg * (1 + (lvl - 1) * 0.5),
+        cd: (delay) => delay * 1
+    },
+    "sacrifice": {
+        cost: (lvl) => lvl * 0.2,
+        amp: (lvl) => lvl,
+        cd: (delay) => delay * 2
+    },
+    "inferno": {
+        range: (lvl) => 6 + ((lvl - 1) * 2),
+        damage: (dmg) => dmg * 1
+    },
+    "blizzard": {
+        range: (lvl) => 8 + ((lvl - 1) * 2),
+        duration: (dmg) => dmg * 20 / 2
+    },
+    "gernic_cd": (delay) => delay * 1.25
+}
 
-ItemEvents.rightClicked(e => {
-    function attack(player, target, damage) {
-        target.invulnerableTime = 0;
-        target.attack(player, damage);
-    }
-    function attackable(player, target) {
-        if (target &&
-            target.isLiving() &&
-            target.isAlive() &&
-            target != player &&
-            target.owner != player &&
-            !player.isOnSameTeam(target)
-        ) return true;
-
-        if (target instanceof Projectile && !target.inGround) {
-            target.discard();
-
-            global.particleBurst(level, target, "large_smoke", 2, 0.06, 0.1);
-            target.playSound("fmn:destroy_projectile", 0.3, 1)
-        };
-
-        return false
-    }
-    const hit_criteria = (center, player, target, range) => (
-        target &&
+function attack(player, target, damage) {
+    target.invulnerableTime = 0;
+    target.attack(player, damage);
+}
+function attackable(player, target) {
+    if (target &&
+        target.isLiving() &&
+        target.isAlive() &&
         target != player &&
-        target.distanceToEntity(center) <= range &&
-        player.hasLineOfSight(target) &&
-        attackable(player, target)
-    )
-    function areaCheck(center, level, player, range, func) {
-        const aabb = center.boundingBox.inflate(range, 1, range);
-        const entities = level.getEntitiesWithin(aabb)
-            .filter(target => hit_criteria(center, player, target, range));
+        target.owner != player &&
+        !player.isOnSameTeam(target)
+    ) return true;
 
-        if (entities.isEmpty()) return;
-        entities.forEach(target => func(target))
+    if (target instanceof Projectile && !target.inGround) {
+        target.discard();
+
+        global.particleBurst(level, target, "large_smoke", 2, 0.06, 0.1);
+        target.playSound("fmn:destroy_projectile", 0.3, 1)
+    };
+
+    return false
+}
+const hit_criteria = (center, player, target, range) => (
+    (target && player) &&
+    target != player &&
+    target.distanceToEntity(center) <= range &&
+    player.hasLineOfSight(target) &&
+    attackable(player, target)
+)
+function areaCheck(center, level, player, range, func) {
+    const aabb = center.boundingBox.inflate(range, 1, range);
+    const entities = level.getEntitiesWithin(aabb)
+        .filter(target => hit_criteria(center, player, target, range));
+
+    if (entities.isEmpty()) return;
+    entities.forEach(target => func(target))
+}
+function findCenter(level, player) {
+    let center = global.advancedRayTraceEntity(player, 4);
+    if (!center) {
+        let dummy = level.createEntity("kubejs:dummy");
+        let dist = Math.min(5, 4 + Math.abs(player.pitch) * 0.1);
+        let l = global.advancedRayTraceBlock(player, dist)
+            .location.add(player.getViewVector(1).scale(-0.25));
+
+        dummy.setPosition(l.x(), l.y(), l.z());
+        dummy.spawn();
+
+        center = dummy
+    };
+    return center
+}
+
+
+function smite(level, player, damage, cd, func) {
+    function temp(target) {
+        attack(player, target, damage);
+        func(player, target, damage, cd);
+
+        global.particleBurst(level, target, "sweep_attack", 1)
+    };
+
+    const first_try = global.advancedRayTraceEntity(player, 4);
+    if (attackable(player, first_try)) {
+        temp(first_try)
     }
-    function findCenter(level, player) {
-        let center = global.advancedRayTraceEntity(player, 4);
-        if (!center) {
-            let dummy = level.createEntity("kubejs:dummy");
-            let dist = Math.min(5, 4 + Math.abs(player.pitch) * 0.1);
-            let l = global.advancedRayTraceBlock(player, dist)
-                .location.add(player.getViewVector(1).scale(-0.25));
-
-            dummy.setPosition(l.x(), l.y(), l.z());
-            dummy.spawn();
-
-            center = dummy
-        };
-        return center
-    }
-
-
-    function smite(level, player, damage, cd, func) {
-        function temp(target) {
-            attack(player, target, damage);
-            func(player, target, damage, cd);
-
-            global.particleBurst(level, target, "sweep_attack", 1)
-        };
-
-        const first_try = global.advancedRayTraceEntity(player, 4);
-        if (attackable(player, first_try)) {
-            temp(first_try)
-        }
-        else {
-            player.server.scheduleInTicks(1, () => {
-                temp(findCenter(level, player))
-            })
-        }
-    }
-    function whirlwind(player, target, damage) {
-        attack(player, target, damage)
-    }
-    function arc(level, player, damage, cd, speed, type, lvl) {
-        const arc = level.createEntity("kubejs:arc");
-
-        arc.setDeltaMovement(player.lookAngle.scale(speed));
-        arc.copyPosition(player);
-        arc.setY(player.eyeY - 0.2);
-        arc.setOwner(player);
-        arc.setNoGravity(true);
-        arc.persistentData.damage = damage;
-        arc.persistentData.cd = cd;
-        arc.persistentData.type = type;
-        arc.persistentData.lvl = lvl;
-        arc.spawn();
-    }
-    function vortex(center, player, target, str) {
-        str = str || 0.3;
-        const target_pos = target.eyePosition;
-        const visible = player.getViewVector(1)
-            .dot(target_pos.subtract(player.eyePosition)) > 0;
-
-        if (!visible) return;
-        target.setDeltaMovement(
-            center.eyePosition.subtract(target_pos)
-                .scale(str)
-                .add(0, 0.2, 0)
-        );
-        target.hurtMarked = true
-    }
-    function inferno(player, target, damage, cd) {
-        if (!target.isOnFire()) {
-            global.setSecondsOnFire(target.level, target, cd / 20 + 1.2)
-        }
-        else {
-            attack(player, target, damage);
-            target.extinguish()
-        }
-    }
-    function blizzard(target, duration, cd) {
-        const { potionEffects } = target;
-
-        if (!target.hasEffect("slowness")) {
-            potionEffects.add("slowness", cd + 24, 0, false, true);
-            potionEffects.add("slow_falling", 8, 0, false, false)
-        }
-        else {
-            potionEffects.add("slowness", duration, 1, false, true);
-            potionEffects.add("slow_falling", 20, 0, false, false)
-        }
-    }
-    function lunge(level, player, damage, speed, range, func1, func2) {
-        const { lookAngle } = player, m = lookAngle.scale(speed);
-        const movement = new Vec3(m.x(), Math.min(0.2, m.y()), m.z());
-
-        player.setDeltaMovement(movement);
-        player.hurtMarked = true;
-
-        let counter = 0, hit = [];
-        player.server.scheduleInTicks(1, c => {
-            counter++;
-            if (counter > 1 + speed * 2) return;
-
-            const target = global.advancedRayTraceEntity(player, 3.5);
-            player.potionEffects.add("kubejs:invincible", 8, 0, false, false);
-
-            if (attackable(player, target)) {
-                if (target && hit.length == 0) {
-                    attack(player, target, damage);
-                    func1(target);
-                    hit.push(target.stringUuid)
-                }
-            };
-
-            areaCheck(player, level, player, range, (target) => {
-                if (target && !hit.includes(target.stringUuid)) {
-                    target.setDeltaMovement(movement);
-                    target.hurtMarked = true;
-                    func2(target);
-                    hit.push(target.stringUuid);
-                }
-            });
-
-            c.reschedule()
+    else {
+        Utils.server.scheduleInTicks(1, () => {
+            temp(findCenter(level, player))
         })
     }
+}
+function whirlwind(player, target, damage) {
+    attack(player, target, damage)
+}
+function arc(level, player, damage, cd, speed, type, lvl) {
+    const arc = level.createEntity("kubejs:arc");
 
-    const skill_formulas = {
-        "smite": {
-            damage: (dmg, lvl) => dmg * (1.5 + (lvl - 1) * 0.25),
-            cd: (delay) => delay * 1.5
-        },
-        "whirlwind": {
-            range: (lvl) => 4 + ((lvl - 1) * 1),
-            cd: (delay) => delay * 1,
-            damage: (dmg) => dmg * 0.75
-        },
-        "lunge": {
-            speed: (lvl) => 1.5 + ((lvl - 1) * 0.5),
-            cd: (delay) => delay * 1,
-            damage: (dmg) => dmg * 1,
-            range: () => 1.5
-        },
-        "arc": {
-            speed: (lvl) => 1 + ((lvl - 1) * 1),
-            cd: (delay) => delay * 0.75,
-            damage: (dmg) => dmg * 0.5
-        },
-        "vortex": {
-            range: (lvl) => 2.5 * (1 + (lvl - 1) * 0.5),
-            cd: (delay) => delay * 1
-        },
-        "inferno": {
-            range: (lvl) => 6 + ((lvl - 1) * 2),
-            damage: (dmg) => dmg * 1
-        },
-        "blizzard": {
-            range: (lvl) => 8 + ((lvl - 1) * 2),
-            duration: (dmg) => dmg * 20 / 2
-        },
-        "gernic_cd": (delay) => delay * 1.25
+    arc.setDeltaMovement(player.lookAngle.scale(speed));
+    arc.copyPosition(player);
+    arc.setY(player.eyeY - 0.2);
+    arc.setOwner(player);
+    arc.setNoGravity(true);
+
+    arc.persistentData.damage = damage;
+    arc.persistentData.cd = cd;
+    arc.persistentData.type = type;
+    arc.persistentData.lvl = lvl;
+    arc.spawn();
+}
+function vortex(center, player, target, str) {
+    str = str || 0.3;
+    const target_pos = target.eyePosition;
+    const visible = player.getViewVector(1)
+        .dot(target_pos.subtract(player.eyePosition)) > 0;
+
+    if (!visible) return;
+    target.setDeltaMovement(
+        center.eyePosition.subtract(target_pos)
+            .scale(str)
+            .add(0, 0.2, 0)
+    );
+    target.hurtMarked = true
+}
+function inferno(player, target, damage, cd) {
+    if (!target.isOnFire()) {
+        global.setSecondsOnFire(target.level, target, cd / 20 + 1.2)
     }
+    else {
+        attack(player, target, damage);
+        target.extinguish()
+    }
+}
+function blizzard(target, duration, cd) {
+    const { potionEffects } = target;
 
-    const swords = {
-        "smite": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg, lvl);
-            const cd = info.cd(delay);
+    if (!target.hasEffect("slowness")) {
+        potionEffects.add("slowness", cd + 24, 0, false, true);
+        potionEffects.add("slow_falling", 8, 0, false, false)
+    }
+    else {
+        potionEffects.add("slowness", duration, 1, false, true);
+        potionEffects.add("slow_falling", 20, 0, false, false)
+    }
+}
+function lunge(level, player, damage, speed, range, func1, func2) {
+    const { lookAngle } = player, m = lookAngle.scale(speed);
+    const movement = new Vec3(m.x(), Math.min(0.2, m.y()), m.z());
 
-            smite(level, player, damage, cd, () => { });
+    player.setDeltaMovement(movement);
+    player.hurtMarked = true;
 
-            global.sound(level, player, "fmn:skill/smite", 0.3);
+    let counter = 0, hit = [];
+    player.server.scheduleInTicks(1, c => {
+        counter++;
+        if (counter > 1 + speed * 2) return;
 
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "whirlwind": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg);
-            const cd = info.cd(delay);
-            const range = info.range(lvl);
+        const target = global.advancedRayTraceEntity(player, 3.5);
+        player.potionEffects.add("kubejs:invincible", 8, 0, false, false);
 
-            areaCheck(player, level, player, range, (target) =>
-                whirlwind(player, target, damage)
-            );
-
-            global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
-            global.sound(level, player, "fmn:skill/whirlwind", 0.3);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "lunge": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg);
-            const cd = info.cd(delay);
-            const speed = info.speed(lvl);
-            const range = info.range();
-
-            lunge(level, player, damage, speed, range, () => { }, () => { })
-
-            global.particleWind(level, 4, player, "cloud", 0.8, 1);
-            global.sound(level, player, "fmn:skill/lunge", 0.3);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "arc": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg);
-            const cd = info.cd(delay);
-            const speed = info.speed(lvl);
-
-            arc(level, player, damage, cd, speed, null, lvl);
-
-            global.sound(level, player, "fmn:skill/arc", 0.3);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "vortex": (level, player, info, delay, dmg, lvl, id) => {
-            const cd = info.cd(delay);
-            const range = info.range(lvl);
-
-            const center = findCenter(level, player);
-
-            areaCheck(center, level, player, range, (target) => {
-                vortex(center, player, target)
-            })
-
-            global.particleRing(level, range * 3, range, center, "poof", -0.1 * range, -0.1);
-            global.sound(level, player, "fmn:skill/vortex", 0.3);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "inferno": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = dmg * 1;
-            const cd = skill_formulas["gernic_cd"](delay);
-            const range = info.range(lvl);
-
-            areaCheck(player, level, player, range, (target) =>
-                inferno(player, target, damage, cd)
-            )
-
-            global.particleRingVertical(level, range * 5, range, player, "lava", 0.2, -0.1);
-            global.particleRing(level, range * 2, 0.5, player, "flame", 0.4);
-            global.sound(level, player, "fmn:skill/inferno", 0.3);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "blizzard": (level, player, info, delay, dmg, lvl, id) => {
-            const duration = info.duration(dmg);
-            const cd = skill_formulas["gernic_cd"](delay);
-            const range = info.range(lvl);
-
-            areaCheck(player, level, player, range, (target) =>
-                blizzard(target, duration, cd)
-            );
-
-            global.particleRingVertical(level, range * 5, range, player, "snowflake", 0.4, -0.1);
-            global.particleRing(level, range * 2, 0.5, player, "cloud", 0.8);
-            global.sound(level, player, "fmn:skill/blizzard", 0.3);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-
-        "smite_arc": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = (skill_formulas["smite"].damage(dmg, lvl) + info.damage(dmg)) / 2;
-            const cd = info.cd(delay);
-            const speed = info.speed(lvl);
-
-            arc(level, player, damage, cd, speed, null, lvl);
-
-            global.sound(level, player, "fmn:skill/arc", 0.3);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "whirlwind_arc": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg) - 1;
-            const cd = info.cd(delay);
-            const speed = info.speed(lvl);
-
-            arc(level, player, damage, cd, speed, "whirlwind", lvl);
-
-            global.sound(level, player, "fmn:skill/arc", 0.3);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "vortex_arc": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg);
-            const cd = info.cd(delay);
-            const speed = info.speed(lvl);
-
-            arc(level, player, damage, cd, speed, "vortex", lvl);
-
-            global.sound(level, player, "fmn:skill/arc", 0.3);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "inferno_arc": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg);
-            const cd = info.cd(delay);
-            const speed = info.speed(lvl);
-
-            arc(level, player, damage, cd, speed, "inferno", lvl);
-
-            global.sound(level, player, "fmn:skill/arc", 0.3);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "blizzard_arc": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg);
-            const cd = info.cd(delay);
-            const speed = info.speed(lvl);
-
-            arc(level, player, damage, cd, speed, "blizzard", lvl);
-
-            global.sound(level, player, "fmn:skill/arc", 0.3);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "lunge_arc": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg);
-            const cd = info.cd(delay);
-            const speed = info.speed(lvl);
-
-            arc(level, player, damage, cd, speed, "lunge", lvl);
-
-            global.sound(level, player, "fmn:skill/arc", 0.3);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "smite_whirlwind": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = (info.damage(dmg) + skill_formulas["smite"].damage(dmg, lvl)) / 2.25;
-            const cd = info.cd(delay);
-            const range = info.range(lvl);
-
-            areaCheck(player, level, player, range, (target) => {
-                whirlwind(player, target, damage)
-            });
-
-            global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
-            global.sound(level, player, "fmn:skill/whirlwind", 0.3);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "inferno_whirlwind": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg);
-            const cd = info.cd(delay);
-            const range = info.range(lvl);
-            const range2 = skill_formulas["inferno"].range(lvl);
-
-            areaCheck(player, level, player, range2, (target) => {
-                if (target.distanceToEntity(player) <= range) {
-                    whirlwind(player, target, damage)
-                };
-                inferno(player, target, damage, cd)
-            });
-
-            global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
-            global.particleRingVertical(level, range * 5, range2, player, "lava", 0.2, -0.1);
-            global.sound(level, player, "fmn:skill/whirlwind", 0.3);
-            global.sound(level, player, "fmn:skill/inferno", 0.1);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "blizzard_whirlwind": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg);
-            const cd = info.cd(delay);
-            const range = info.range(lvl);
-            const range2 = skill_formulas["blizzard"].range(lvl);
-            const duration = skill_formulas["blizzard"].duration(damage);
-
-            areaCheck(player, level, player, range2, (target) => {
-                if (target.distanceToEntity(player) <= range) {
-                    whirlwind(player, target, damage)
-                };
-                blizzard(target, duration, cd)
-            });
-
-            global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
-            global.particleRingVertical(level, range * 5, range2, player, "snowflake", 0.4, -0.1);
-            global.sound(level, player, "fmn:skill/whirlwind", 0.3);
-            global.sound(level, player, "fmn:skill/blizzard", 0.08);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "vortex_whirlwind": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg);
-            const cd = info.cd(delay);
-            const range = info.range(lvl);
-            const range2 = skill_formulas["vortex"].range(lvl);
-
-            areaCheck(player, level, player, range + range2, (target) => {
-                if (target.distanceToEntity(player) <= range) {
-                    whirlwind(player, target, damage)
-                }
-                else {
-                    vortex(player, player, target, 0.075)
-                }
-            });
-
-            global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
-            global.particleRing(level, range * 4, range + range2, player, "poof", -0.1 * range, -0.1);
-            global.sound(level, player, "fmn:skill/whirlwind", 0.3);
-            global.sound(level, player, "fmn:skill/vortex", 0.1);
-
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "vortex_smite": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg, lvl) / 3;
-            const cd = info.cd(delay);
-            const range = skill_formulas["vortex"].range(lvl);
-
-            const center = findCenter(level, player);
-
-            areaCheck(center, level, player, range, (target) => {
+        if (attackable(player, target)) {
+            if (target && hit.length == 0) {
                 attack(player, target, damage);
-                vortex(center, player, target)
+                func1(target);
+                hit.push(target.stringUuid)
+            }
+        };
+
+        areaCheck(player, level, player, range, (target) => {
+            if (target && !hit.includes(target.stringUuid)) {
+                target.setDeltaMovement(movement);
+                target.hurtMarked = true;
+                func2(target);
+                hit.push(target.stringUuid);
+            }
+        });
+
+        c.reschedule()
+    })
+}
+function parry1(type, player, lvl, damage, cd, range, speed, duration) {
+    player.persistentData.parry = {
+        type: type,
+        lvl: lvl,
+        damage: damage,
+        cd: cd,
+        range: range,
+        speed: speed,
+        duration: duration
+    };
+    player.potionEffects.add("kubejs:parry", 5, 0, false, true);
+}
+function parry2(player, target, lvl, damage) {
+    attack(player, target, damage)
+    player.heal(lvl * 2)
+}
+function sacrifice(player, cost) {
+    player.health -= Math.max(0, player.maxHealth * cost);
+}
+
+const swords = {
+    "smite": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg, lvl);
+        const cd = info.cd(delay);
+
+        smite(level, player, damage, cd, () => { });
+
+        global.sound(level, player, "fmn:skill/smite", 0.3);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "whirlwind": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg);
+        const cd = info.cd(delay);
+        const range = info.range(lvl);
+
+        areaCheck(player, level, player, range, (target) =>
+            whirlwind(player, target, damage)
+        );
+
+        global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
+        global.sound(level, player, "fmn:skill/whirlwind", 0.3);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "lunge": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg);
+        const cd = info.cd(delay);
+        const speed = info.speed(lvl);
+        const range = info.range();
+
+        lunge(level, player, damage, speed, range, () => { }, () => { })
+
+        global.particleWind(level, 4, player, "cloud", 0.8, 1);
+        global.sound(level, player, "fmn:skill/lunge", 0.3);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "arc": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg);
+        const cd = info.cd(delay);
+        const speed = info.speed(lvl);
+
+        arc(level, player, damage, cd, speed, null, lvl);
+
+        global.sound(level, player, "fmn:skill/arc", 0.3);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "vortex": (level, player, info, delay, dmg, lvl, id) => {
+        const cd = info.cd(delay);
+        const range = info.range(lvl);
+
+        const center = findCenter(level, player);
+
+        areaCheck(center, level, player, range, (target) => {
+            vortex(center, player, target)
+        });
+
+        global.particleRing(level, range * 3, range, center, "poof", -0.1 * range, -0.1);
+        global.sound(level, player, "fmn:skill/vortex", 0.3);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "inferno": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg);
+        const cd = skill_formulas["gernic_cd"](delay);
+        const range = info.range(lvl);
+
+        areaCheck(player, level, player, range, (target) =>
+            inferno(player, target, damage, cd)
+        );
+
+        global.particleRingVertical(level, range * 5, range, player, "lava", 0.2, -0.1);
+        global.particleRing(level, range * 2, 0.5, player, "flame", 0.4);
+        global.sound(level, player, "fmn:skill/inferno", 0.3);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "blizzard": (level, player, info, delay, dmg, lvl, id) => {
+        const duration = info.duration(dmg);
+        const cd = skill_formulas["gernic_cd"](delay);
+        const range = info.range(lvl);
+
+        areaCheck(player, level, player, range, (target) =>
+            blizzard(target, duration, cd)
+        );
+
+        global.particleRingVertical(level, range * 5, range, player, "snowflake", 0.4, -0.1);
+        global.particleRing(level, range * 2, 0.5, player, "cloud", 0.8);
+        global.sound(level, player, "fmn:skill/blizzard", 0.3);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+
+    "smite_arc": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = (skill_formulas["smite"].damage(dmg, lvl) + info.damage(dmg)) / 2;
+        const cd = info.cd(delay);
+        const speed = info.speed(lvl);
+
+        arc(level, player, damage, cd, speed, null, lvl);
+
+        global.sound(level, player, "fmn:skill/arc", 0.3);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "whirlwind_arc": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg) - 1;
+        const cd = info.cd(delay);
+        const speed = info.speed(lvl);
+
+        arc(level, player, damage, cd, speed, "whirlwind", lvl);
+
+        global.sound(level, player, "fmn:skill/arc", 0.3);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "vortex_arc": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg);
+        const cd = info.cd(delay);
+        const speed = info.speed(lvl);
+
+        arc(level, player, damage, cd, speed, "vortex", lvl);
+
+        global.sound(level, player, "fmn:skill/arc", 0.3);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "inferno_arc": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg);
+        const cd = info.cd(delay);
+        const speed = info.speed(lvl);
+
+        arc(level, player, damage, cd, speed, "inferno", lvl);
+
+        global.sound(level, player, "fmn:skill/arc", 0.3);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "blizzard_arc": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg);
+        const cd = info.cd(delay);
+        const speed = info.speed(lvl);
+
+        arc(level, player, damage, cd, speed, "blizzard", lvl);
+
+        global.sound(level, player, "fmn:skill/arc", 0.3);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "lunge_arc": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg);
+        const cd = info.cd(delay);
+        const speed = info.speed(lvl);
+
+        arc(level, player, damage, cd, speed, "lunge", lvl);
+
+        global.sound(level, player, "fmn:skill/arc", 0.3);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "smite_whirlwind": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = (info.damage(dmg) + skill_formulas["smite"].damage(dmg, lvl)) / 2.25;
+        const cd = info.cd(delay);
+        const range = info.range(lvl);
+
+        areaCheck(player, level, player, range, (target) => {
+            whirlwind(player, target, damage)
+        });
+
+        global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
+        global.sound(level, player, "fmn:skill/whirlwind", 0.3);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "inferno_whirlwind": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg);
+        const cd = info.cd(delay);
+        const range = info.range(lvl);
+        const range2 = skill_formulas["inferno"].range(lvl);
+
+        areaCheck(player, level, player, range2, (target) => {
+            if (target.distanceToEntity(player) <= range) {
+                whirlwind(player, target, damage)
+            };
+            inferno(player, target, damage, cd)
+        });
+
+        global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
+        global.particleRingVertical(level, range * 5, range2, player, "lava", 0.2, -0.1);
+        global.sound(level, player, "fmn:skill/whirlwind", 0.3);
+        global.sound(level, player, "fmn:skill/inferno", 0.1);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "blizzard_whirlwind": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg);
+        const cd = info.cd(delay);
+        const range = info.range(lvl);
+        const range2 = skill_formulas["blizzard"].range(lvl);
+        const duration = skill_formulas["blizzard"].duration(damage);
+
+        areaCheck(player, level, player, range2, (target) => {
+            if (target.distanceToEntity(player) <= range) {
+                whirlwind(player, target, damage)
+            };
+            blizzard(target, duration, cd)
+        });
+
+        global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
+        global.particleRingVertical(level, range * 5, range2, player, "snowflake", 0.4, -0.1);
+        global.sound(level, player, "fmn:skill/whirlwind", 0.3);
+        global.sound(level, player, "fmn:skill/blizzard", 0.08);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "vortex_whirlwind": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg);
+        const cd = info.cd(delay);
+        const range = info.range(lvl);
+        const range2 = skill_formulas["vortex"].range(lvl);
+
+        areaCheck(player, level, player, range + range2, (target) => {
+            if (target.distanceToEntity(player) <= range) {
+                whirlwind(player, target, damage)
+            }
+            else {
+                vortex(player, player, target, 0.075)
+            }
+        });
+
+        global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
+        global.particleRing(level, range * 4, range + range2, player, "poof", -0.1 * range, -0.1);
+        global.sound(level, player, "fmn:skill/whirlwind", 0.3);
+        global.sound(level, player, "fmn:skill/vortex", 0.1);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "vortex_smite": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg, lvl) / 3;
+        const cd = info.cd(delay);
+        const range = skill_formulas["vortex"].range(lvl);
+
+        const center = findCenter(level, player);
+
+        areaCheck(center, level, player, range, (target) => {
+            attack(player, target, damage);
+            vortex(center, player, target)
+        });
+
+        global.particleRing(level, range * 4, range, center, "poof", -0.1 * range, -0.1);
+        global.particleBurst(level, center, "sweep_attack", 1);
+        global.sound(level, player, "fmn:skill/smite", 0.3);
+        global.sound(level, player, "fmn:skill/vortex", 0.1);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "inferno_smite": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg, lvl);
+        const damage2 = skill_formulas["inferno"].damage(dmg)
+        const range = skill_formulas["inferno"].range(lvl);
+        const cd = info.cd(delay);
+
+        smite(level, player, damage, cd, (player, target, damage, cd) => {
+            areaCheck(target, level, player, range, (target) => {
+                inferno(player, target, damage2, cd);
             });
 
-            global.particleRing(level, range * 4, range, center, "poof", -0.1 * range, -0.1);
-            global.particleBurst(level, center, "sweep_attack", 1);
-            global.sound(level, player, "fmn:skill/smite", 0.3);
-            global.sound(level, player, "fmn:skill/vortex", 0.1);
+            if (target.block.down.hasTag("minecraft:soul_fire_base_blocks")) {
+                global.particleBurst(level, target, "soul_fire_flame", 4, 0.1)
+            }
+            else {
+                global.particleBurst(level, target, "flame", 4, 0.1)
+            };
+            global.particleBurst(level, target, "sweep_attack", 1);
+            global.particleRingVertical(level, range * 5, range, target, "lava", 0.2, -0.1);
+        });
 
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "inferno_smite": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg, lvl);
-            const damage2 = skill_formulas["inferno"].damage(dmg)
-            const range = skill_formulas["inferno"].range(lvl);
-            const cd = info.cd(delay);
+        global.sound(level, player, "fmn:skill/smite", 0.3);
+        global.sound(level, player, "fmn:skill/inferno", 0.1);
 
-            smite(level, player, damage, cd, (player, target, damage, cd) => {
-                areaCheck(target, level, player, range, (target) => {
-                    inferno(player, target, damage2, cd);
-                });
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "blizzard_smite": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg, lvl);
+        const cd = info.cd(delay);
+        const range = skill_formulas["blizzard"].range(lvl);
+        const duration = skill_formulas["blizzard"].duration(damage);
 
-                if (target.block.down.hasTag("minecraft:soul_fire_base_blocks")) {
-                    global.particleBurst(level, target, "soul_fire_flame", 4, 0.1)
-                }
-                else {
-                    global.particleBurst(level, target, "flame", 4, 0.1)
-                };
-                global.particleBurst(level, target, "sweep_attack", 1);
-                global.particleRingVertical(level, range * 5, range, target, "lava", 0.2, -0.1);
+        smite(level, player, damage, cd, (player, target, damage, cd) => {
+            areaCheck(target, level, player, range, (target) => {
+                blizzard(target, duration, cd);
             });
 
-            global.sound(level, player, "fmn:skill/smite", 0.3);
-            global.sound(level, player, "fmn:skill/inferno", 0.1);
+            global.particleBurst(level, target, "snowflake", 4, 0.1);
+            global.particleBurst(level, target, "sweep_attack", 1);
+            global.particleRingVertical(level, range * 5, range, target, "snowflake", 0.4, -0.1)
+        })
 
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "blizzard_smite": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg, lvl);
-            const cd = info.cd(delay);
-            const range = skill_formulas["blizzard"].range(lvl);
-            const duration = skill_formulas["blizzard"].duration(damage);
+        global.sound(level, player, "fmn:skill/smite", 0.3);
+        global.sound(level, player, "fmn:skill/blizzard", 0.08);
 
-            smite(level, player, damage, cd, (player, target, damage, cd) => {
-                areaCheck(target, level, player, range, (target) => {
-                    blizzard(target, duration, cd);
-                });
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "blizzard_inferno": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage();
+        const cd = skill_formulas["gernic_cd"](delay);
+        const range = (info.range(lvl) + skill_formulas["blizzard"].range(lvl)) / 2;
+        const duration = skill_formulas["blizzard"].duration(damage);
 
-                global.particleBurst(level, target, "snowflake", 4, 0.1);
-                global.particleBurst(level, target, "sweep_attack", 1);
-                global.particleRingVertical(level, range * 5, range, target, "snowflake", 0.4, -0.1)
-            })
+        areaCheck(player, level, player, range, (target) => {
+            inferno(player, target, damage, cd);
+            blizzard(target, duration, cd)
+        })
 
-            global.sound(level, player, "fmn:skill/smite", 0.3);
-            global.sound(level, player, "fmn:skill/blizzard", 0.08);
+        global.particleRingVertical(level, range * 5, range, player, "snowflake", 0.2, -0.1);
+        global.particleRing(level, range * 2, 0.5, player, "flame", 0.4);
+        global.sound(level, player, "fmn:skill/inferno", 0.15);
+        global.sound(level, player, "fmn:skill/blizzard", 0.12);
 
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "blizzard_inferno": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage();
-            const cd = skill_formulas["gernic_cd"](delay);
-            const range = (info.range(lvl) + skill_formulas["blizzard"].range(lvl)) / 2;
-            const duration = skill_formulas["blizzard"].duration(damage);
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "smite_lunge": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = (info.damage(dmg) + skill_formulas["smite"].damage(dmg, lvl)) / 2;
+        const cd = info.cd(delay);
+        const speed = info.speed(lvl);
+        const range = info.range();
 
-            areaCheck(player, level, player, range, (target) => {
-                inferno(player, target, damage, cd);
-                blizzard(target, duration, cd)
-            })
+        lunge(level, player, damage, speed, range, () => { }, () => { })
 
-            global.particleRingVertical(level, range * 5, range, player, "snowflake", 0.2, -0.1);
-            global.particleRing(level, range * 2, 0.5, player, "flame", 0.4);
-            global.sound(level, player, "fmn:skill/inferno", 0.15);
-            global.sound(level, player, "fmn:skill/blizzard", 0.12);
+        global.particleWind(level, 4, player, "cloud", 0.8, 1);
+        global.sound(level, player, "fmn:skill/lunge", 0.3);
 
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "smite_lunge": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = (info.damage(dmg) + skill_formulas["smite"].damage(dmg, lvl)) / 2;
-            const cd = info.cd(delay);
-            const speed = info.speed(lvl);
-            const range = info.range();
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "whirlwind_lunge": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = (info.damage(dmg) + skill_formulas["whirlwind"].damage(dmg)) / 2;
+        const cd = info.cd(delay);
+        const speed = info.speed(lvl);
+        const range = (info.range() + skill_formulas["whirlwind"].range(lvl)) / 4;
 
-            lunge(level, player, damage, speed, range, () => { }, () => { })
+        lunge(level, player, damage, speed, range, () => { }, (target) => {
+            whirlwind(player, target, damage);
+        })
 
-            global.particleWind(level, 4, player, "cloud", 0.8, 1);
-            global.sound(level, player, "fmn:skill/lunge", 0.3);
+        global.particleBurst(level, player, "sweep_attack", 1, 0.2, 0, 0.2);
+        global.sound(level, player, "fmn:skill/lunge", 0.3);
 
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "whirlwind_lunge": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = (info.damage(dmg) + skill_formulas["whirlwind"].damage(dmg)) / 2;
-            const cd = info.cd(delay);
-            const speed = info.speed(lvl);
-            const range = (info.range() + skill_formulas["whirlwind"].range(lvl)) / 4;
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "vortex_lunge": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg);
+        const cd = info.cd(delay);
+        const speed = info.speed(lvl);
+        const range = info.range();
+        const range2 = skill_formulas["vortex"].range(lvl);
 
-            lunge(level, player, damage, speed, range, () => { }, (target) => {
-                whirlwind(player, target, damage);
-            })
+        lunge(level, player, damage, speed, range, (target) => {
+            areaCheck(target, level, player, range2, (target2) => {
+                vortex(target, player, target2)
+            });
 
-            global.particleBurst(level, player, "sweep_attack", 1, 0.2, 0, 0.2);
-            global.sound(level, player, "fmn:skill/lunge", 0.3);
+            global.particleRing(level, range * 3, range, target, "poof", -0.1 * range, -0.1)
+        }, () => { })
 
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "vortex_lunge": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg);
-            const cd = info.cd(delay);
-            const speed = info.speed(lvl);
-            const range = info.range();
-            const range2 = skill_formulas["vortex"].range(lvl);
+        global.particleWind(level, 4, player, "cloud", 0.2, 0.5);
+        global.sound(level, player, "fmn:skill/lunge", 0.3);
 
-            lunge(level, player, damage, speed, range, (target) => {
-                areaCheck(target, level, player, range2, (target2) => {
-                    vortex(target, player, target2)
-                });
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "inferno_lunge": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg);
+        const damage2 = skill_formulas["inferno"].damage(dmg);
+        const cd = info.cd(delay);
+        const speed = info.speed(lvl);
+        const range = (info.range() + skill_formulas["inferno"].range(lvl)) / 4;
 
-                global.particleRing(level, range * 3, range, target, "poof", -0.1 * range, -0.1)
-            }, () => { })
+        lunge(level, player, damage, speed, range, () => { }, (target) => {
+            inferno(player, target, damage2, cd)
+        })
 
-            global.particleWind(level, 4, player, "cloud", 0.2, 0.5);
-            global.sound(level, player, "fmn:skill/lunge", 0.3);
+        global.particleWind(level, 4, player, "flame", 0.5, 1);
+        global.sound(level, player, "fmn:skill/lunge", 0.3);
 
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "inferno_lunge": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg);
-            const damage2 = skill_formulas["inferno"].damage(dmg);
-            const cd = info.cd(delay);
-            const speed = info.speed(lvl);
-            const range = (info.range() + skill_formulas["inferno"].range(lvl)) / 4;
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "blizzard_lunge": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg);
+        const cd = info.cd(delay);
+        const speed = info.speed(lvl);
+        const range = (info.range() + skill_formulas["blizzard"].range(lvl)) / 4;
+        const duration = skill_formulas["blizzard"].duration(damage);
 
-            lunge(level, player, damage, speed, range, () => { }, (target) => {
-                inferno(player, target, damage2, cd)
-            })
+        lunge(level, player, damage, speed, range, () => { }, (target) => {
+            blizzard(target, duration, cd)
+        })
 
-            global.particleWind(level, 4, player, "flame", 0.5, 1);
-            global.sound(level, player, "fmn:skill/lunge", 0.3);
+        global.particleWind(level, 6, player, "snowflake", 0.5, 1);
+        global.sound(level, player, "fmn:skill/lunge", 0.3);
 
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "blizzard_lunge": (level, player, info, delay, dmg, lvl, id) => {
-            const damage = info.damage(dmg);
-            const cd = info.cd(delay);
-            const speed = info.speed(lvl);
-            const range = (info.range() + skill_formulas["blizzard"].range(lvl)) / 4;
-            const duration = skill_formulas["blizzard"].duration(damage);
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "inferno_vortex": (level, player, info, delay, dmg, lvl, id) => {
+        const cd = info.cd(delay);
+        const range = (info.range(lvl) + skill_formulas["inferno"].range(lvl)) / 3;
+        const damage = skill_formulas["inferno"].damage(dmg);
 
-            lunge(level, player, damage, speed, range, () => { }, (target) => {
-                blizzard(target, duration, cd)
-            })
+        const center = findCenter(level, player);
 
-            global.particleWind(level, 6, player, "snowflake", 0.5, 1);
-            global.sound(level, player, "fmn:skill/lunge", 0.3);
+        areaCheck(center, level, player, range, (target) => {
+            vortex(center, player, target);
+            inferno(player, target, damage, cd)
+        })
 
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "inferno_vortex": (level, player, info, delay, dmg, lvl, id) => {
-            const cd = info.cd(delay);
-            const range = (info.range(lvl) + skill_formulas["inferno"].range(lvl)) / 3;
-            const damage = skill_formulas["inferno"].damage(dmg);
+        global.particleRing(level, range * 3, range, center, "flame", -0.1 * range);
+        global.sound(level, player, "fmn:skill/vortex", 0.3);
 
-            const center = findCenter(level, player);
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "blizzard_vortex": (level, player, info, delay, dmg, lvl, id) => {
+        const cd = info.cd(delay);
+        const range = (info.range(lvl) + skill_formulas["blizzard"].range(lvl)) / 3;
+        const duration = skill_formulas["blizzard"].duration(dmg);
 
-            areaCheck(center, level, player, range, (target) => {
-                vortex(center, player, target);
-                inferno(player, target, damage, cd)
-            })
+        const center = findCenter(level, player);
 
-            global.particleRing(level, range * 3, range, center, "flame", -0.1 * range);
-            global.sound(level, player, "fmn:skill/vortex", 0.3);
+        areaCheck(center, level, player, range, (target) => {
+            vortex(center, player, target);
+            blizzard(target, duration, cd)
+        })
 
-            player.cooldowns.addCooldown(id, cd)
-        },
-        "blizzard_vortex": (level, player, info, delay, dmg, lvl, id) => {
-            const cd = info.cd(delay);
-            const range = (info.range(lvl) + skill_formulas["blizzard"].range(lvl)) / 3;
-            const duration = skill_formulas["blizzard"].duration(dmg);
+        global.particleRing(level, range * 3, range, center, "snowflake", -0.1 * range, 0.3);
+        global.sound(level, player, "fmn:skill/vortex", 0.3);
 
-            const center = findCenter(level, player);
+        player.cooldowns.addCooldown(id, cd)
+    },
 
-            areaCheck(center, level, player, range, (target) => {
-                vortex(center, player, target);
-                blizzard(target, duration, cd)
-            })
 
-            global.particleRing(level, range * 3, range, center, "snowflake", -0.1 * range, 0.3);
-            global.sound(level, player, "fmn:skill/vortex", 0.3);
+    "parry": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg, lvl);
+        const cd = info.cd(delay);
 
-            player.cooldowns.addCooldown(id, cd)
-        }
+        parry1("nope", player, lvl, damage, cd, null, null, null);
 
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "smite_parry": (level, player, info, delay, dmg, lvl, id) => {
+        const cd = info.cd(delay);
+
+        parry1("smite", player, lvl, damage, cd, null, null, null);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "whirlwind_parry": (level, player, info, delay, dmg, lvl, id) => {
+        const cd = info.cd(delay);
+        const range = skill_formulas["whirlwind"].range(lvl);
+
+        parry1("whirlwind", player, lvl, damage, cd, range, null, null);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "lunge_parry": (level, player, info, delay, dmg, lvl, id) => {
+        const cd = info.cd(delay);
+        const speed = skill_formulas["lunge"].speed(lvl);
+        const range = skill_formulas["lunge"].range();
+
+        parry1("lunge", player, lvl, damage, cd, range, speed, null);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "arc_parry": (level, player, info, delay, dmg, lvl, id) => {
+        const cd = info.cd(delay);
+        const speed = skill_formulas["arc"].speed(lvl);
+
+        parry1("arc", player, lvl, damage, cd, range, speed, null);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "vortex_parry": (level, player, info, delay, dmg, lvl, id) => {
+        const cd = info.cd(delay);
+        const range = skill_formulas["vortex"].range(lvl);
+
+        parry1("vortex", player, lvl, damage, cd, range, null, null);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "inferno_parry": (level, player, info, delay, dmg, lvl, id) => {
+        const cd = info.cd(delay);
+        const range = skill_formulas["inferno"].range(lvl);
+
+        parry1("inferno", player, lvl, damage, cd, range, null, null);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "blizzard_parry": (level, player, info, delay, dmg, lvl, id) => {
+        const duration = skill_formulas["blizzard"].duration(dmg);
+        const cd = info.cd(delay);
+        const range = skill_formulas["blizzard"].range(lvl);
+
+        parry1("blizzard", player, lvl, damage, cd, range, null, duration);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+
+
+    "sacrifice": (level, player, info, delay, dmg, lvl, id) => {
+        const cost = info.cost(lvl);
+        const amp = info.amp(lvl);
+        const cd = info.cd(delay);
+
+        sacrifice(player, cost);
+        dmg *= 1 + ((lvl - 1) * 0.5);
+
+        smite(level, player, dmg, cd, () => { });
+        sacrifice(player, cost);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "sacrifice_smite": (level, player, info, delay, dmg, lvl, id) => {
+        const cost = skill_formulas["sacrifice"].cost(lvl);
+        const cd = skill_formulas["sacrifice"].cd(delay);
+        lvl += skill_formulas["sacrifice"].amp(lvl);
+        sacrifice(player, cost);
+
+        const damage = info.damage(dmg, lvl);
+
+        smite(level, player, damage, cd, () => { });
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "sacrifice_whirlwind": (level, player, info, delay, dmg, lvl, id) => {
+        const cost = skill_formulas["sacrifice"].cost(lvl);
+        const cd = skill_formulas["sacrifice"].cd(delay);
+        lvl += skill_formulas["sacrifice"].amp(lvl);
+        sacrifice(player, cost);
+
+        const damage = skill_formulas["whirlwind"].damage(dmg);
+        const range = skill_formulas["whirlwind"].range(lvl);
+
+        areaCheck(player, level, player, range, (target) =>
+            whirlwind(player, target, damage)
+        );
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+
+    "sacrifice_lunge": (level, player, info, delay, dmg, lvl, id) => {
+        const cost = skill_formulas["sacrifice"].cost(lvl);
+        const cd = skill_formulas["sacrifice"].cd(delay);
+        lvl += skill_formulas["sacrifice"].amp(lvl);
+        sacrifice(player, cost);
+
+        const damage = info.damage(dmg);
+        const speed = info.speed(lvl);
+        const range = info.range();
+
+        lunge(level, player, damage, speed, range, () => { }, () => { })
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "sacrifice_arc": (level, player, info, delay, dmg, lvl, id) => {
+        const cost = skill_formulas["sacrifice"].cost(lvl);
+        const cd = skill_formulas["sacrifice"].cd(delay);
+        lvl += skill_formulas["sacrifice"].amp(lvl);
+        sacrifice(player, cost);
+        
+        const damage = info.damage(dmg);
+        const speed = info.speed(lvl);
+
+        arc(level, player, damage, cd, speed, null, lvl);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "sacrifice_vortex": (level, player, info, delay, dmg, lvl, id) => {
+        const cost = skill_formulas["sacrifice"].cost(lvl);
+        const cd = skill_formulas["sacrifice"].cd(delay);
+        lvl += skill_formulas["sacrifice"].amp(lvl);
+        sacrifice(player, cost);
+
+        const range = info.range(lvl);
+
+        const center = findCenter(level, player);
+
+        areaCheck(center, level, player, range, (target) => {
+            vortex(center, player, target)
+        })
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "sacrifice_inferno": (level, player, info, delay, dmg, lvl, id) => {
+        const cost = skill_formulas["sacrifice"].cost(lvl);
+        const cd = skill_formulas["sacrifice"].cd(delay);
+        lvl += skill_formulas["sacrifice"].amp(lvl);
+        sacrifice(player, cost);
+
+        const damage = info.damage(dmg);
+        const range = info.range(lvl);
+
+        areaCheck(player, level, player, range, (target) =>
+            inferno(player, target, damage, cd)
+        );
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "sacrifice_blizzard": (level, player, info, delay, dmg, lvl, id) => {
+        const cost = skill_formulas["sacrifice"].cost(lvl);
+        const cd = skill_formulas["sacrifice"].cd(delay);
+        lvl += skill_formulas["sacrifice"].amp(lvl);
+        sacrifice(player, cost);
+
+        const duration = info.duration(dmg);
+        const range = info.range(lvl);
+
+        areaCheck(player, level, player, range, (target) =>
+            blizzard(target, duration, cd)
+        );
+
+        player.cooldowns.addCooldown(id, cd)
     }
+}
 
+ItemEvents.rightClicked(e => {
     const { level, player } = e;
 
     if (!e.item.id.includes("_sword")) return;
 
     const skill = "smite";
+
     const split = skill.split("_")
     swords[skill](
         level,
@@ -751,23 +962,75 @@ ItemEvents.rightClicked(e => {
 
 })
 
-//战利品：对于所有武器，替换为原ID的附魔主动技能后物品
 //合成：如果有合成选项就合并，else升级（最高3，不然告诉玩家不能）
-//still-life + Lithosphere
 
+const effect_parry = {
+    "nope": (level, player, target, lvl, damage, cd, range, speed, duration) => {
+        damage = skill_formulas["parry"].damage(damage, lvl);
 
-/*死亡保留饰品 */
+        parry2(player, target, lvl, damage)
+    },
+    "smite": (level, player, target, lvl, damage, cd, range, speed, duration) => {
+        damage = skill_formulas["parry"].damage(damage, lvl);
 
-// ItemEvents.rightClicked(e => {
-//     const { level, player } = e;
-//     const ServerScriptManager = Java.loadClass("dev.latvian.mods.kubejs.server.ServerScriptManager")
-// })
+        parry2(player, target, lvl, 
+            skill_formulas["smite"].damage(damage, lvl))
+    },
+    "whirlwind": (level, player, target, lvl, damage, cd, range, speed, duration) => {
+        damage = skill_formulas["parry"].damage(damage, lvl);
 
+        areaCheck(player, level, player, range, (target) =>
+            whirlwind(player, target, damage)
+        );
+        player.heal(lvl * 2)
+    },
+    "lunge": (level, player, target, lvl, damage, cd, range, speed, duration) => {
+        damage = skill_formulas["parry"].damage(damage, lvl);
+
+        lunge(level, player, damage, speed, range, () => { }, () => { });
+        player.heal(lvl * 2)
+    },
+    "arc": (level, player, target, lvl, damage, cd, range, speed, duration) => {
+        damage = skill_formulas["parry"].damage(damage, lvl);
+
+        arc(level, player, damage, cd, speed, "parry", lvl);
+        player.heal(lvl * 2)
+    },
+    "vortex": (level, player, target, lvl, damage, cd, range, speed, duration) => {
+        damage = skill_formulas["parry"].damage(damage, lvl);
+
+        let counter = 0;
+        Utils.server.scheduleInTicks(5, c => {
+            counter++
+            areaCheck(target, level, player, range, (target) => {
+                vortex(center, player, target)
+            })
+            if(counter < 40 / 5) c.reschedule()
+        })
+
+        parry2(player, target, lvl, damage)
+    },
+    "inferno": (level, player, target, lvl, damage, cd, range, speed, duration) => {
+        damage = skill_formulas["parry"].damage(damage, lvl);
+
+        areaCheck(target, level, player, 4, (target) =>
+            inferno(player, target, damage, cd, range)
+        );
+        parry2(player, target, lvl, damage)
+    },
+    "blizzard": (level, player, target, lvl, damage, cd, range, speed, duration) => {
+        damage = skill_formulas["parry"].damage(damage, lvl);
+
+        areaCheck(target, level, player, 4, (target) => {
+            blizzard(target, duration, cd)
+            parry2(player, target, lvl, damage / 2)
+        });
+    }
+}
 ItemEvents.rightClicked(e => {
-    const { server } = e
+    const { level, player } = e;
 
-    Client.reloadResourcePacks()
-    server.reloadResources(server.getPackRepository().getSelectedIds())
+    player
 })
 
 

@@ -231,6 +231,23 @@ StartupEvents.registry("entity_type", e => {
 			});
 			attack(player, hit, damage)
 		},
+		"parry": (level, player, hit, cd, damage, lvl) => {
+			const range = 1.5 + (lvl - 1) * 1;
+
+			areaCheck(hit, level, player, range, (target) => {
+				const { potionEffects } = target;
+
+				if (!target.hasEffect("slowness")) {
+					potionEffects.add("slowness", cd + 30, 0, false, true)
+				}
+				else {
+					potionEffects.add("slowness", damage * 20 / 2, 1, false, true)
+				}
+			});
+			attack(player, hit, damage);
+
+			global.particleRingVertical(level, range * 2, range, hit, "snowflake", 0.4, -0.1);
+		}
 	}
 	e.create("arc", "entityjs:projectile")
 		.noItem()
@@ -254,15 +271,14 @@ StartupEvents.registry("entity_type", e => {
 			const { entity } = context, { level } = entity;
 			if (level.isClientSide()) return;
 
-			const { owner } = entity;
+			const { owner, persistentData: pData } = entity;
 			if (owner) {
 				let hit = context.result.entity;
-				let pData = entity.persistentData;
 				let { damage, cd, type, lvl } = pData;
 
 				type_map[type || "nope"](level, owner, hit, cd, damage, lvl)
 			};
-			entity.discard();
+			if (pData.type != "parry") entity.discard();
 
 			global.particleBurst(level, entity, "crit", 3, 0.5, 0, 0.2);
 			entity.playSound("fmn:destroy_projectile", 0.3, 1)
