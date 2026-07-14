@@ -201,7 +201,10 @@ ServerEvents.recipes(e => {
 	const banned_output = [
 		"patchouli:guide_book", "minecraft:recovery_compass", 
 		"#minecraft:chestsandkeys", "#minecraft:fancydyes",
-		"minecraft:gold_nugget", "minecraft:iron_nugget"
+		"minecraft:gold_nugget", "minecraft:iron_nugget",
+		"minecraft:wooden_sword", "minecraft:wooden_shovel",
+		"minecraft:wooden_axe", "minecraft:wooden_hoe", 
+		"minecraft:wooden_pickaxe"
 	];
 	banned_output.forEach(key => e.remove({ output: key }))
 
@@ -480,4 +483,19 @@ ServerEvents.recipes(e => {
 		0: "minecraft:carved_pumpkin",
 		1: "minecraft:snow_block"
 	})
+
+	e.remove({ input: "minecraft:iron_nugget" });
+	e.remove({ input: "minecraft:gold_nugget" });
+	e.shapeless("minecraft:lantern", ["minecraft:iron_ingot", "minecraft:torch"]);
+	e.shapeless("minecraft:soul_lantern", ["minecraft:iron_ingot", "minecraft:soul_torch"]);
+	e.shaped("3x minecraft:iron_chain", [
+		"0",
+		"0",
+	], {
+		0: "minecraft:iron_ingot"
+	})
+	e.shapeless("minecraft:name_tag", ["minecraft:paper", "minecraft:iron_ingot"]);
+
+	e.shapeless("minecraft:golden_carrot", ["minecraft:carrot", "minecraft:gold_ingot"]);
+	e.shapeless("minecraft:soul_lantern", ["minecraft:gold_ingot", "minecraft:soul_torch"]);
 })
