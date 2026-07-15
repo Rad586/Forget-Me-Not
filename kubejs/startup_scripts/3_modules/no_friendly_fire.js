@@ -3,7 +3,10 @@ global.ally = [
 	"minecraft:snow_golem", "minecraft:chest_boat"
 ];
 function no_friendly_fire(context) {
-	if (context.entity.level.isClientSide()) return;
+	const { entity } = context;
+	if (entity.level.isClientSide()) return false;
+
 	const { player } = context.damageSource;
-	return player && !player.isCrouching()
+	if(!player) return false;
+	return !player.isCrouching() && entity.target != player;
 }

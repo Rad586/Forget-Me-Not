@@ -427,12 +427,12 @@ global.calculateDamage = (level, entity, source, damage) => {
 	damage = CombatRules.getDamageAfterAbsorb(
 		damage,
 		entity.armorValue,
-		entity.getAttribute("minecraft:generic.armor_toughness").getValue()
+		entity.getAttribute("generic.armor_toughness").getValue()
 	);
 
-	const resistance = entity.getEffect("minecraft:resistance");
+	const resistance = entity.getEffect("resistance");
 	if (resistance) {
-		damage *= 1 - (resistance.amplifier + 1) * 0.2
+		damage *= 1 - (Math.max(4, resistance.amplifier) + 1) * 0.2
 	};
 
 	/*const protection = EnchantmentHelper.getDamageProtection(entity.armorSlots, source)

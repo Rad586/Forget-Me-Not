@@ -29,12 +29,12 @@ function fight_back_hurt(player, amount) {
 		)
 	}
 	else {
-		player.removeEffect("kubejs:fight_back");
 		player.potionEffects.add(
 			"kubejs:fight_back",
 			Math.min(60, effect.duration + 40), 
-			Math.min(10, amount/2 + effect.amplifier) - 1,
+			Math.min(10, amount / 2 + effect.amplifier) - 1,
 			true, false
-		)
+		);
+		player.removeEffect("kubejs:fight_back");
 	}
 }
