@@ -1074,9 +1074,9 @@ EntityEvents.hurt("player", e => {
     if (!attacker) return;
     const { player } = e;
 
-    console.log(["calculated: ", global.calculateDamage(e.level, e.entity, e.source, e.damage)])
+    e.server.tell(["calculated: ", global.calculateDamage(e.level, e.entity, e.source, e.damage)])
     e.server.scheduleInTicks(1, () => {
-        console.log(["actual damage: ", player.maxHealth - player.health])
+        e.server.tell(["actual damage: ", player.maxHealth - player.health])
         player.setHealth(100)
     })
 })

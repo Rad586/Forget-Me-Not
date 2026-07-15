@@ -414,6 +414,16 @@ global.spawnEntity = (level, type, pos) =>
 	)
 
 global.calculateDamage = (level, entity, source, damage) => {
+	const difficulty = {
+		"peaceful": (dmg) => 0,
+		"easy": (dmg) => Math.min(dmg / 2 + 1, dmg),
+		"normal": (dmg) => dmg,
+		"hard": (dmg) => dmg * 1.5,
+	};
+	damage = source.scalesWithDifficulty() ?
+		difficulty[level.difficulty.getKey()](damage) :
+		damage
+
 	damage = CombatRules.getDamageAfterAbsorb(
 		damage,
 		entity.armorValue,
@@ -424,16 +434,6 @@ global.calculateDamage = (level, entity, source, damage) => {
 	if (resistance) {
 		damage *= 1 - (resistance.amplifier + 1) * 0.2
 	};
-
-	const difficulty = {
-		"peaceful": (dmg) => 0,
-		"easy": (dmg) => Math.min(dmg / 2 + 1, dmg),
-		"normal": (dmg) => dmg,
-		"hard": (dmg) => dmg * 1.5,
-	};
-	damage = source.scalesWithDifficulty() ? 
-		difficulty[level.difficulty.getKey()](damage) : 
-		damage
 
 	/*const protection = EnchantmentHelper.getDamageProtection(entity.armorSlots, source)
 	if (protection > 0) {
