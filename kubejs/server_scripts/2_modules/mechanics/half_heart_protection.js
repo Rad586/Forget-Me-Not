@@ -10,8 +10,10 @@ function half_heart_protection(e, entity, damage) {
 
     if (protection == null || protection <= currentDay - 6) {
         pData.protection = currentDay;
+        
         entity.unlockAdvancement("kubejs:tip/protection");
         global.sound(level, entity, "block.large_amethyst_bud.break", 2, 1);
+
         entity.setHealth(1);
         e.cancel();
     }

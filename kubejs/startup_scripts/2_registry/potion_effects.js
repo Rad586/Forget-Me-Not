@@ -15,6 +15,10 @@ function takeHitCheck(entity) {
 
 StartupEvents.registry("mob_effect", e => {
 	//Self-applied
+	e.create("parry")
+		.beneficial()
+		.color(0xF7A400)
+
 	e.create("invincible")
 		.beneficial()
 		.color(0xF7A400)
