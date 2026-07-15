@@ -87,14 +87,10 @@
 
 
 
-//准备移除kjs additions
 //排查satin api
 //移除一些动物模组？
-//击败宝箱怪概率使之成为伙伴
 //unique_item 独特物品掉落修改（vsc搜索）
 //移除末地相关：要塞X better stronghold，末影龙X enderdragon,true ending/，鞘翅X，潜影盒（流星），末影之眼，烈焰粉，龙蛋，音乐，开局提示，末地相关修复（kjs），相关配方（鞘翅，末影水晶，末影箱），末地相关改动（末影龙火球），龙息，龙蛋龙头，末影水晶相关修改（kjs），紫颂果，爆裂紫颂果
-//坐下的提示
-//宝箱无法破坏改为“开启宝箱吸引仇恨，宝箱内物资等待出现结果”
 
 const skill_formulas = {
     "smite": {
@@ -123,12 +119,7 @@ const skill_formulas = {
     },
     "parry": {
         damage: (dmg, lvl) => dmg * (1 + (lvl - 1) * 0.5),
-        cd: (delay) => delay * 1
-    },
-    "sacrifice": {
-        cost: (lvl) => lvl * 0.2,
-        amp: (lvl) => lvl,
-        cd: (delay) => delay * 2
+        cd: (delay) => /* delay * 1 */ 0
     },
     "inferno": {
         range: (lvl) => 6 + ((lvl - 1) * 2),
@@ -137,6 +128,11 @@ const skill_formulas = {
     "blizzard": {
         range: (lvl) => 8 + ((lvl - 1) * 2),
         duration: (dmg) => dmg * 20 / 2
+    },
+    "sacrifice": {
+        cost: (lvl) => lvl * 0.2,
+        amp: (lvl) => 2.5 + (3 * lvl * (lvl - 1)) / 4,
+        cd: (delay) => delay * 2
     },
     "gernic_cd": (delay) => delay * 1.25
 }
@@ -245,27 +241,6 @@ function vortex(center, player, target, str) {
     );
     target.hurtMarked = true
 }
-function inferno(player, target, damage, cd) {
-    if (!target.isOnFire()) {
-        global.setSecondsOnFire(target.level, target, cd / 20 + 1.2)
-    }
-    else {
-        attack(player, target, damage);
-        target.extinguish()
-    }
-}
-function blizzard(target, duration, cd) {
-    const { potionEffects } = target;
-
-    if (!target.hasEffect("slowness")) {
-        potionEffects.add("slowness", cd + 24, 0, false, true);
-        potionEffects.add("slow_falling", 8, 0, false, false)
-    }
-    else {
-        potionEffects.add("slowness", duration, 1, false, true);
-        potionEffects.add("slow_falling", 20, 0, false, false)
-    }
-}
 function lunge(level, player, damage, speed, range, func1, func2) {
     const { lookAngle } = player, m = lookAngle.scale(speed);
     const movement = new Vec3(m.x(), Math.min(0.2, m.y()), m.z());
@@ -301,24 +276,44 @@ function lunge(level, player, damage, speed, range, func1, func2) {
         c.reschedule()
     })
 }
-function parry1(type, player, lvl, damage, cd, range, speed, duration) {
+function parry1(type, player, lvl, cd, range, speed, duration) {
     player.persistentData.parry = {
         type: type,
         lvl: lvl,
-        damage: damage,
         cd: cd,
         range: range,
         speed: speed,
         duration: duration
     };
-    player.potionEffects.add("kubejs:parry", 5, 0, false, true);
+    player.potionEffects.add("kubejs:parry", 40, 0, false, true);
 }
 function parry2(player, target, lvl, damage) {
     attack(player, target, damage)
     player.heal(lvl * 2)
 }
+function inferno(player, target, damage, cd) {
+    if (!target.isOnFire()) {
+        global.setSecondsOnFire(target.level, target, cd / 20 + 1.2)
+    }
+    else {
+        attack(player, target, damage);
+        target.extinguish()
+    }
+}
+function blizzard(target, duration, cd) {
+    const { potionEffects } = target;
+
+    if (!target.hasEffect("slowness")) {
+        potionEffects.add("slowness", cd + 24, 0, false, true);
+        potionEffects.add("slow_falling", 8, 0, false, false)
+    }
+    else {
+        potionEffects.add("slowness", duration, 1, false, true);
+        potionEffects.add("slow_falling", 20, 0, false, false)
+    }
+}
 function sacrifice(player, cost) {
-    player.health -= Math.max(0, player.maxHealth * cost);
+    player.attack("magic", player.maxHealth * cost)
 }
 
 const swords = {
@@ -763,14 +758,14 @@ const swords = {
         const damage = info.damage(dmg, lvl);
         const cd = info.cd(delay);
 
-        parry1("nope", player, lvl, damage, cd, null, null, null);
+        parry1("nope", player, lvl, cd, null, null, null);
 
         player.cooldowns.addCooldown(id, cd)
     },
     "smite_parry": (level, player, info, delay, dmg, lvl, id) => {
         const cd = info.cd(delay);
 
-        parry1("smite", player, lvl, damage, cd, null, null, null);
+        parry1("smite", player, lvl, cd, null, null, null);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -778,7 +773,7 @@ const swords = {
         const cd = info.cd(delay);
         const range = skill_formulas["whirlwind"].range(lvl);
 
-        parry1("whirlwind", player, lvl, damage, cd, range, null, null);
+        parry1("whirlwind", player, lvl, cd, range, null, null);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -787,7 +782,7 @@ const swords = {
         const speed = skill_formulas["lunge"].speed(lvl);
         const range = skill_formulas["lunge"].range();
 
-        parry1("lunge", player, lvl, damage, cd, range, speed, null);
+        parry1("lunge", player, lvl, cd, range, speed, null);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -795,7 +790,7 @@ const swords = {
         const cd = info.cd(delay);
         const speed = skill_formulas["arc"].speed(lvl);
 
-        parry1("arc", player, lvl, damage, cd, range, speed, null);
+        parry1("arc", player, lvl, cd, range, speed, null);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -803,7 +798,7 @@ const swords = {
         const cd = info.cd(delay);
         const range = skill_formulas["vortex"].range(lvl);
 
-        parry1("vortex", player, lvl, damage, cd, range, null, null);
+        parry1("vortex", player, lvl, cd, range, null, null);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -811,7 +806,7 @@ const swords = {
         const cd = info.cd(delay);
         const range = skill_formulas["inferno"].range(lvl);
 
-        parry1("inferno", player, lvl, damage, cd, range, null, null);
+        parry1("inferno", player, lvl, cd, range, null, null);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -820,7 +815,7 @@ const swords = {
         const cd = info.cd(delay);
         const range = skill_formulas["blizzard"].range(lvl);
 
-        parry1("blizzard", player, lvl, damage, cd, range, null, duration);
+        parry1("blizzard", player, lvl, cd, range, null, duration);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -832,17 +827,17 @@ const swords = {
         const cd = info.cd(delay);
 
         sacrifice(player, cost);
-        dmg *= 1 + ((lvl - 1) * 0.5);
+        dmg *= 1.5 + ((lvl - 1) * 0.5);
 
         smite(level, player, dmg, cd, () => { });
         sacrifice(player, cost);
 
         player.cooldowns.addCooldown(id, cd)
     },
-    "sacrifice_smite": (level, player, info, delay, dmg, lvl, id) => {
+    "sacrifice_smite": (level, player, info, delay, dmg, lvl, id) => { //1.75 2.125 2.5 
         const cost = skill_formulas["sacrifice"].cost(lvl);
         const cd = skill_formulas["sacrifice"].cd(delay);
-        lvl += skill_formulas["sacrifice"].amp(lvl);
+        lvl = skill_formulas["sacrifice"].amp(lvl);
         sacrifice(player, cost);
 
         const damage = info.damage(dmg, lvl);
@@ -854,7 +849,7 @@ const swords = {
     "sacrifice_whirlwind": (level, player, info, delay, dmg, lvl, id) => {
         const cost = skill_formulas["sacrifice"].cost(lvl);
         const cd = skill_formulas["sacrifice"].cd(delay);
-        lvl += skill_formulas["sacrifice"].amp(lvl);
+        lvl = skill_formulas["sacrifice"].amp(lvl);
         sacrifice(player, cost);
 
         const damage = skill_formulas["whirlwind"].damage(dmg);
@@ -870,7 +865,7 @@ const swords = {
     "sacrifice_lunge": (level, player, info, delay, dmg, lvl, id) => {
         const cost = skill_formulas["sacrifice"].cost(lvl);
         const cd = skill_formulas["sacrifice"].cd(delay);
-        lvl += skill_formulas["sacrifice"].amp(lvl);
+        lvl = skill_formulas["sacrifice"].amp(lvl);
         sacrifice(player, cost);
 
         const damage = info.damage(dmg);
@@ -884,7 +879,7 @@ const swords = {
     "sacrifice_arc": (level, player, info, delay, dmg, lvl, id) => {
         const cost = skill_formulas["sacrifice"].cost(lvl);
         const cd = skill_formulas["sacrifice"].cd(delay);
-        lvl += skill_formulas["sacrifice"].amp(lvl);
+        lvl = skill_formulas["sacrifice"].amp(lvl);
         sacrifice(player, cost);
         
         const damage = info.damage(dmg);
@@ -897,7 +892,7 @@ const swords = {
     "sacrifice_vortex": (level, player, info, delay, dmg, lvl, id) => {
         const cost = skill_formulas["sacrifice"].cost(lvl);
         const cd = skill_formulas["sacrifice"].cd(delay);
-        lvl += skill_formulas["sacrifice"].amp(lvl);
+        lvl = skill_formulas["sacrifice"].amp(lvl);
         sacrifice(player, cost);
 
         const range = info.range(lvl);
@@ -910,10 +905,22 @@ const swords = {
 
         player.cooldowns.addCooldown(id, cd)
     },
+    "sacrifice_parry": (level, player, info, delay, dmg, lvl, id) => {
+        const cost = skill_formulas["sacrifice"].cost(lvl);
+        const cd = skill_formulas["sacrifice"].cd(delay);
+        lvl = skill_formulas["sacrifice"].amp(lvl);
+        sacrifice(player, cost);
+
+        const damage = info.damage(dmg, lvl);
+
+        parry1("nope", player, lvl, cd, null, null, null);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
     "sacrifice_inferno": (level, player, info, delay, dmg, lvl, id) => {
         const cost = skill_formulas["sacrifice"].cost(lvl);
         const cd = skill_formulas["sacrifice"].cd(delay);
-        lvl += skill_formulas["sacrifice"].amp(lvl);
+        lvl = skill_formulas["sacrifice"].amp(lvl);
         sacrifice(player, cost);
 
         const damage = info.damage(dmg);
@@ -928,7 +935,7 @@ const swords = {
     "sacrifice_blizzard": (level, player, info, delay, dmg, lvl, id) => {
         const cost = skill_formulas["sacrifice"].cost(lvl);
         const cd = skill_formulas["sacrifice"].cd(delay);
-        lvl += skill_formulas["sacrifice"].amp(lvl);
+        lvl = skill_formulas["sacrifice"].amp(lvl);
         sacrifice(player, cost);
 
         const duration = info.duration(dmg);
@@ -947,7 +954,7 @@ ItemEvents.rightClicked(e => {
 
     if (!e.item.id.includes("_sword")) return;
 
-    const skill = "smite";
+    const skill = "parry";
 
     const split = skill.split("_")
     swords[skill](
@@ -961,8 +968,6 @@ ItemEvents.rightClicked(e => {
     )
 
 })
-
-//合成：如果有合成选项就合并，else升级（最高3，不然告诉玩家不能）
 
 const effect_parry = {
     "nope": (level, player, target, lvl, damage, cd, range, speed, duration) => {
@@ -1004,7 +1009,7 @@ const effect_parry = {
             counter++
             areaCheck(target, level, player, range, (target) => {
                 vortex(center, player, target)
-            })
+            });
             if(counter < 40 / 5) c.reschedule()
         })
 
@@ -1024,13 +1029,12 @@ const effect_parry = {
         areaCheck(target, level, player, 4, (target) => {
             blizzard(target, duration, cd)
             parry2(player, target, lvl, damage / 2)
-        });
+        })
     }
 }
 ItemEvents.rightClicked(e => {
     const { level, player } = e;
 
-    player
 })
 
 
@@ -1050,17 +1054,48 @@ EntityEvents.hurt(e => {
     })
 })
 
+function parry_effect(level, player, immediate, pData, final_dmg, e) {
+    if (!immediate || !player.hasEffect("kubejs:parry")) return
+    // player.removeEffect("kubejs:parry");
+
+    const { parry } = pData;
+    if (!parry) return;
+
+    const { type, lvl, cd, range, speed, duration } = parry;
+    effect_parry[type](
+        level, player, immediate, lvl, final_dmg, cd, range, speed, duration);
+    // pData.remove("parry");
+    player.statusMessage = "parry";//
+    e.cancel()
+}
+
 EntityEvents.hurt("player", e => {
-    const { entity: player } = e;
-    const { actual } = e.source;
-    if (!actual) return;
+    const { actual: attacker } = e.source;
+    if (!attacker) return;
+    const { player } = e;
+
+    console.log(["calculated: ", global.calculateDamage(e.level, e.entity, e.source, e.damage)])
+    e.server.scheduleInTicks(1, () => {
+        console.log(["actual damage: ", player.maxHealth - player.health])
+        player.setHealth(100)
+    })
+})
+
+
+EntityEvents.hurt("player", e => {
+    const { actual: attacker, immediate } = e.source;
+    if (!attacker) return;
+    const { level, player } = e, pData = player.persistentData;
+    const final_dmg = global.calculateDamage(level, player, e.source, e.damage);
+    
+    parry_effect(level, player, immediate, pData, final_dmg, e);
 
     global.mergedTrinkets(player).forEach(stack => {
         const split = stack.idLocation.path.split("_rune_");
         const { action } = global.trinkets[split[0]];
 
         if (!action) return;
-        action(e.level, player, actual, split[1] * stack.count)
+        action(level, player, attacker, split[1] * stack.count)
     })
 })
 

@@ -4,7 +4,7 @@ EntityEvents.hurt(e => {
 
 	const { server, level, source, damage } = e;
 	const { actual, type } = source;
-	const final_dmg = global.calculateDamage(entity, damage);
+	const final_dmg = global.calculateDamage(level, entity, source, damage);
 
 	/* player hurt */
 	if(entity.isPlayer()) {

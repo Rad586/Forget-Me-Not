@@ -341,7 +341,7 @@ global.getTimeDifficulty = (difficulty, worldDays, chunkDays, moonLight /*0 ~ 1*
 	return (0.75 + world_d + chunk_d2) * d_map[difficulty]
 }
 
-global.getBiomeAt = (pos) => String(level.getBiome(pos).unwrapKey().get().location())
+global.getBiomeAt = (level, pos) => String(level.getBiome(pos).unwrapKey().get().location())
 
 // global.hasTrinket = (player, id) => TrinketsApi
 // 	.getTrinketComponent(player).get()
@@ -413,7 +413,7 @@ global.spawnEntity = (level, type, pos) =>
 		true, false
 	)
 
-global.calculateDamage = (entity, damage/*, source*/) => {
+global.calculateDamage = (level, entity, source, damage) => {
 	damage = CombatRules.getDamageAfterAbsorb(
 		damage,
 		entity.armorValue,
@@ -425,23 +425,22 @@ global.calculateDamage = (entity, damage/*, source*/) => {
 		damage *= 1 - (resistance.amplifier + 1) * 0.2
 	};
 
+	const difficulty = {
+		"peaceful": (dmg) => 0,
+		"easy": (dmg) => Math.min(dmg / 2 + 1, dmg),
+		"normal": (dmg) => dmg,
+		"hard": (dmg) => dmg * 1.5,
+	};
+	damage = source.scalesWithDifficulty() ? 
+		difficulty[level.difficulty.getKey()](damage) : 
+		damage
+
 	/*const protection = EnchantmentHelper.getDamageProtection(entity.armorSlots, source)
 	if (protection > 0) {
 		damage = CombatRules.getDamageAfterMagicAbsorb(damage, protection)
 	};*/
 
 	return Math.max(0, damage - entity.absorptionAmount)
-}
-
-global.noLoop = (key, fn) => {
-	if (global[key]) return;
-
-	global[key] = true;
-	try {
-		fn();
-	} finally {
-		global[key] = false;
-	}
 }
 
 global.getBlockLoot = (level, player, item, block) => { /* triggers lootjs, be aware of loop */
