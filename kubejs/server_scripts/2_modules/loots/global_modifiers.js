@@ -17,6 +17,11 @@ function global_modifiers(e) {
 		.removeLoot("minecraft:experience_bottle")
 		.removeLoot(Ingredient.of(/honey/))
 		.removeLoot(["minecraft:iron_nugget", "minecraft:gold_nugget"])
+		.removeLoot([
+			"minecraft:wooden_sword", "minecraft:wooden_pickaxe",
+			"minecraft:wooden_hoe", "minecraft:wooden_shovel", 
+			"minecraftLwooden_axe"
+		])
 
 	e.addLootTypeModifier(LootType.CHEST, LootType.UNKNOWN).removeLoot(Ingredient.of(/fishofthieves/))
 }

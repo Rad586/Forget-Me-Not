@@ -1,5 +1,5 @@
 global.custom_sounds = [
-    "skill/whirlwind", "skill/smite", "skill/arc",
+    "skill/whirlwind", "skill/smite", "skill/slash",
     "skill/blizzard", "skill/inferno", "skill/vortex",
     "skill/lunge", "destroy_projectile"
 ]

@@ -1,84 +1,84 @@
-global.swords = {
-    "smite": (level, player, id, delay, dmg) => {
-        player.cooldowns.addCooldown(id, delay * 1.5);
+// global.swords = {
+//     "smite": (level, player, id, delay, dmg) => {
+//         player.cooldowns.addCooldown(id, delay * 1.5);
 
-        const first = player.rayTrace(4).entity;
-        if(!first) return;
-        if(first instanceof Projectile) {
-            first.discard();
-            player.server.scheduleInTicks(1, () => {
-                const second = player.rayTrace(4).entity
-                if (second) second.attack(player, dmg * 2)
-            })
-        }
-        else {
-            first.attack(player, dmg * 2)
-        }
-    },
-    "whirlwind": (level, player, id, delay, dmg) => {
-        player.cooldowns.addCooldown(id, delay * 1.5);
+//         const first = player.rayTrace(4).entity;
+//         if(!first) return;
+//         if(first instanceof Projectile) {
+//             first.discard();
+//             player.server.scheduleInTicks(1, () => {
+//                 const second = player.rayTrace(4).entity
+//                 if (second) second.attack(player, dmg * 2)
+//             })
+//         }
+//         else {
+//             first.attack(player, dmg * 2)
+//         }
+//     },
+//     "whirlwind": (level, player, id, delay, dmg) => {
+//         player.cooldowns.addCooldown(id, delay * 1.5);
 
-        level.getEntitiesWithin(player.boundingBox.inflate(1.2, 0, 1.2)).forEach(en => {
-            if(!en.isLiving() || !en.isAlive()) return;
-            if(en.distanceToEntity(player) > 1.5) return;
-            en.attack(player, dmg * 0.8)
-        })
-    },
-    "lunge": () => {
+//         level.getEntitiesWithin(player.boundingBox.inflate(1.2, 0, 1.2)).forEach(en => {
+//             if(!en.isLiving() || !en.isAlive()) return;
+//             if(en.distanceToEntity(player) > 1.5) return;
+//             en.attack(player, dmg * 0.8)
+//         })
+//     },
+//     "lunge": () => {
 
-    },
-    "arc": (level, player, id, delay, dmg) => {
-        player.cooldowns.addCooldown(id, delay * 1);
+//     },
+//     "slash": (level, player, id, delay, dmg) => {
+//         player.cooldowns.addCooldown(id, delay * 1);
 
-        const arc = level.createEntity("kubejs:arc");
+//         const slash = level.createEntity("kubejs:slash");
 
-        arc.setDeltaMovement(player.lookAngle.scale(2));
-        arc.copyPosition(player);
-        arc.setY(player.eyeY);
-        arc.setOwner(player);
-        arc.persistentData.dmg = dmg;
-        arc.spawn();
-    },
-    "vortex": (level, player, id, delay, dmg) => {
+//         slash.setDeltaMovement(player.lookAngle.scale(2));
+//         slash.copyPosition(player);
+//         slash.setY(player.eyeY);
+//         slash.setOwner(player);
+//         slash.persistentData.dmg = dmg;
+//         slash.spawn();
+//     },
+//     "vortex": (level, player, id, delay, dmg) => {
 
-    },
-    "inferno": (level, player, id, delay, dmg) => {
-        player.cooldowns.addCooldown(id, delay * 1.5);
+//     },
+//     "inferno": (level, player, id, delay, dmg) => {
+//         player.cooldowns.addCooldown(id, delay * 1.5);
 
-        level.getEntitiesWithin(player.boundingBox.inflate(6, 0, 6)).forEach(en => {
-            if (!en.isAlive()) return;
-            if (en.distanceToEntity(player) > 6.5) return;
+//         level.getEntitiesWithin(player.boundingBox.inflate(6, 0, 6)).forEach(en => {
+//             if (!en.isAlive()) return;
+//             if (en.distanceToEntity(player) > 6.5) return;
 
-            if(en.isOnFire()) {
-                en.attack(player, dmg)
-                if(en instanceof Projectile) en.discard()
-            }
-            else {
-                global.setSecondsOnFire(level, en, delay + 1.2)
-            }
-        })
-    },
-    "blizzard": (level, player, id, delay, dmg) => {
-        player.cooldowns.addCooldown(id, delay * 1.5);
+//             if(en.isOnFire()) {
+//                 en.attack(player, dmg)
+//                 if(en instanceof Projectile) en.discard()
+//             }
+//             else {
+//                 global.setSecondsOnFire(level, en, delay + 1.2)
+//             }
+//         })
+//     },
+//     "blizzard": (level, player, id, delay, dmg) => {
+//         player.cooldowns.addCooldown(id, delay * 1.5);
 
-        level.getEntitiesWithin(player.boundingBox.inflate(6, 0, 6)).forEach(en => {
-            if (!en.isAlive() || en.distanceToEntity(player) > 6.5) return;
+//         level.getEntitiesWithin(player.boundingBox.inflate(6, 0, 6)).forEach(en => {
+//             if (!en.isAlive() || en.distanceToEntity(player) > 6.5) return;
 
-            if (!en.isLiving()) {
-                if (en.ticksFrozen > 400) {
-                    en.potionEffects.add("slowness", dmg * 10, 1, true, false);
-                    en.ticksFrozen = 0
-                }
-                else {
-                    en.ticksFrozen += 140;
-                }
-            }
-            else if(en instanceof Projectile) {
-                en.setDeltaMovement(en.deltaMovement.scale(0.5))
-            }
-        })
-    }
-}
+//             if (!en.isLiving()) {
+//                 if (en.ticksFrozen > 400) {
+//                     en.potionEffects.add("slowness", dmg * 10, 1, true, false);
+//                     en.ticksFrozen = 0
+//                 }
+//                 else {
+//                     en.ticksFrozen += 140;
+//                 }
+//             }
+//             else if(en instanceof Projectile) {
+//                 en.setDeltaMovement(en.deltaMovement.scale(0.5))
+//             }
+//         })
+//     }
+// }
 
 // ItemEvents.modification(e => {
 

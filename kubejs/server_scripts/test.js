@@ -108,7 +108,7 @@ const skill_formulas = {
         damage: (dmg) => dmg * 1,
         range: () => 1.5
     },
-    "arc": {
+    "slash": {
         speed: (lvl) => 1 + ((lvl - 1) * 1),
         cd: (delay) => delay * 0.75,
         damage: (dmg) => dmg * 0.5
@@ -130,9 +130,9 @@ const skill_formulas = {
         duration: (dmg) => dmg * 20 / 2
     },
     "sacrifice": {
-        cost: (lvl) => lvl * 0.2,
+        cost: (lvl) => 0.2 + ((lvl - 1) * 0.2),
         amp: (lvl) => 2.5 + (3 * lvl * (lvl - 1)) / 4,
-        cd: (delay) => delay * 2
+        cd: (delay) => delay * 1
     },
     "gernic_cd": (delay) => delay * 1.25
 }
@@ -212,20 +212,21 @@ function smite(level, player, damage, cd, func) {
 function whirlwind(player, target, damage) {
     attack(player, target, damage)
 }
-function arc(level, player, damage, cd, speed, type, lvl) {
-    const arc = level.createEntity("kubejs:arc");
+function slash(level, player, damage, cd, speed, type, lvl) {
+    const slash = level.createEntity("kubejs:slash");
 
-    arc.setDeltaMovement(player.lookAngle.scale(speed));
-    arc.copyPosition(player);
-    arc.setY(player.eyeY - 0.2);
-    arc.setOwner(player);
-    arc.setNoGravity(true);
+    slash.setDeltaMovement(player.lookAngle.scale(0.2));
+    slash.copyPosition(player);
+    slash.setY(player.eyeY - 0.2);
+    slash.setOwner(player);
+    slash.setNoGravity(true);
+    slash.persistentData.damage = damage;
+    slash.persistentData.cd = cd;
+    slash.persistentData.type = type;
+    slash.persistentData.lvl = lvl;
+    slash.spawn();
 
-    arc.persistentData.damage = damage;
-    arc.persistentData.cd = cd;
-    arc.persistentData.type = type;
-    arc.persistentData.lvl = lvl;
-    arc.spawn();
+    Utils.server.tell(slash.deltaMovement.length())
 }
 function vortex(center, player, target, str) {
     str = str || 0.3;
@@ -285,7 +286,7 @@ function parry1(type, player, lvl, cd, range, speed, duration) {
         speed: speed,
         duration: duration
     };
-    player.potionEffects.add("kubejs:parry", 40, 0, false, true);
+    player.potionEffects.add("kubejs:parry", 40/* 7 */, 0, false, true);
 }
 function parry2(player, target, lvl, damage) {
     attack(player, target, damage)
@@ -354,14 +355,14 @@ const swords = {
 
         player.cooldowns.addCooldown(id, cd)
     },
-    "arc": (level, player, info, delay, dmg, lvl, id) => {
+    "slash": (level, player, info, delay, dmg, lvl, id) => {
         const damage = info.damage(dmg);
         const cd = info.cd(delay);
         const speed = info.speed(lvl);
 
-        arc(level, player, damage, cd, speed, null, lvl);
+        slash(level, player, damage, cd, speed, null, lvl);
 
-        global.sound(level, player, "fmn:skill/arc", 0.3);
+        global.sound(level, player, "fmn:skill/slash", 0.3);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -411,69 +412,69 @@ const swords = {
         player.cooldowns.addCooldown(id, cd)
     },
 
-    "smite_arc": (level, player, info, delay, dmg, lvl, id) => {
+    "smite_slash": (level, player, info, delay, dmg, lvl, id) => {
         const damage = (skill_formulas["smite"].damage(dmg, lvl) + info.damage(dmg)) / 2;
         const cd = info.cd(delay);
         const speed = info.speed(lvl);
 
-        arc(level, player, damage, cd, speed, null, lvl);
+        slash(level, player, damage, cd, speed, null, lvl);
 
-        global.sound(level, player, "fmn:skill/arc", 0.3);
+        global.sound(level, player, "fmn:skill/slash", 0.3);
 
         player.cooldowns.addCooldown(id, cd)
     },
-    "whirlwind_arc": (level, player, info, delay, dmg, lvl, id) => {
+    "whirlwind_slash": (level, player, info, delay, dmg, lvl, id) => {
         const damage = info.damage(dmg) - 1;
         const cd = info.cd(delay);
         const speed = info.speed(lvl);
 
-        arc(level, player, damage, cd, speed, "whirlwind", lvl);
+        slash(level, player, damage, cd, speed, "whirlwind", lvl);
 
-        global.sound(level, player, "fmn:skill/arc", 0.3);
+        global.sound(level, player, "fmn:skill/slash", 0.3);
 
         player.cooldowns.addCooldown(id, cd)
     },
-    "vortex_arc": (level, player, info, delay, dmg, lvl, id) => {
+    "vortex_slash": (level, player, info, delay, dmg, lvl, id) => {
         const damage = info.damage(dmg);
         const cd = info.cd(delay);
         const speed = info.speed(lvl);
 
-        arc(level, player, damage, cd, speed, "vortex", lvl);
+        slash(level, player, damage, cd, speed, "vortex", lvl);
 
-        global.sound(level, player, "fmn:skill/arc", 0.3);
+        global.sound(level, player, "fmn:skill/slash", 0.3);
 
         player.cooldowns.addCooldown(id, cd)
     },
-    "inferno_arc": (level, player, info, delay, dmg, lvl, id) => {
+    "inferno_slash": (level, player, info, delay, dmg, lvl, id) => {
         const damage = info.damage(dmg);
         const cd = info.cd(delay);
         const speed = info.speed(lvl);
 
-        arc(level, player, damage, cd, speed, "inferno", lvl);
+        slash(level, player, damage, cd, speed, "inferno", lvl);
 
-        global.sound(level, player, "fmn:skill/arc", 0.3);
+        global.sound(level, player, "fmn:skill/slash", 0.3);
 
         player.cooldowns.addCooldown(id, cd)
     },
-    "blizzard_arc": (level, player, info, delay, dmg, lvl, id) => {
+    "blizzard_slash": (level, player, info, delay, dmg, lvl, id) => {
         const damage = info.damage(dmg);
         const cd = info.cd(delay);
         const speed = info.speed(lvl);
 
-        arc(level, player, damage, cd, speed, "blizzard", lvl);
+        slash(level, player, damage, cd, speed, "blizzard", lvl);
 
-        global.sound(level, player, "fmn:skill/arc", 0.3);
+        global.sound(level, player, "fmn:skill/slash", 0.3);
 
         player.cooldowns.addCooldown(id, cd)
     },
-    "lunge_arc": (level, player, info, delay, dmg, lvl, id) => {
+    "lunge_slash": (level, player, info, delay, dmg, lvl, id) => {
         const damage = info.damage(dmg);
         const cd = info.cd(delay);
         const speed = info.speed(lvl);
 
-        arc(level, player, damage, cd, speed, "lunge", lvl);
+        slash(level, player, damage, cd, speed, "lunge", lvl);
 
-        global.sound(level, player, "fmn:skill/arc", 0.3);
+        global.sound(level, player, "fmn:skill/slash", 0.3);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -786,11 +787,11 @@ const swords = {
 
         player.cooldowns.addCooldown(id, cd)
     },
-    "arc_parry": (level, player, info, delay, dmg, lvl, id) => {
+    "slash_parry": (level, player, info, delay, dmg, lvl, id) => {
         const cd = info.cd(delay);
-        const speed = skill_formulas["arc"].speed(lvl);
+        const speed = skill_formulas["slash"].speed(lvl);
 
-        parry1("arc", player, lvl, cd, range, speed, null);
+        parry1("slash", player, lvl, cd, null, speed, null);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -834,7 +835,7 @@ const swords = {
 
         player.cooldowns.addCooldown(id, cd)
     },
-    "sacrifice_smite": (level, player, info, delay, dmg, lvl, id) => { //1.75 2.125 2.5 
+    "sacrifice_smite": (level, player, info, delay, dmg, lvl, id) => {
         const cost = skill_formulas["sacrifice"].cost(lvl);
         const cd = skill_formulas["sacrifice"].cd(delay);
         lvl = skill_formulas["sacrifice"].amp(lvl);
@@ -876,7 +877,7 @@ const swords = {
 
         player.cooldowns.addCooldown(id, cd)
     },
-    "sacrifice_arc": (level, player, info, delay, dmg, lvl, id) => {
+    "sacrifice_slash": (level, player, info, delay, dmg, lvl, id) => {
         const cost = skill_formulas["sacrifice"].cost(lvl);
         const cd = skill_formulas["sacrifice"].cd(delay);
         lvl = skill_formulas["sacrifice"].amp(lvl);
@@ -885,7 +886,7 @@ const swords = {
         const damage = info.damage(dmg);
         const speed = info.speed(lvl);
 
-        arc(level, player, damage, cd, speed, null, lvl);
+        slash(level, player, damage, cd, speed, null, lvl);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -910,8 +911,6 @@ const swords = {
         const cd = skill_formulas["sacrifice"].cd(delay);
         lvl = skill_formulas["sacrifice"].amp(lvl);
         sacrifice(player, cost);
-
-        const damage = info.damage(dmg, lvl);
 
         parry1("nope", player, lvl, cd, null, null, null);
 
@@ -954,7 +953,7 @@ ItemEvents.rightClicked(e => {
 
     if (!e.item.id.includes("_sword")) return;
 
-    const skill = "parry";
+    const skill = "slash";
 
     const split = skill.split("_")
     swords[skill](
@@ -963,7 +962,7 @@ ItemEvents.rightClicked(e => {
         skill_formulas[split[1] || split[0]],
         player.getCurrentItemAttackStrengthDelay() * 2,
         player.getAttribute("minecraft:generic.attack_damage").getValue(),
-        1,
+        2,
         player.mainHandItem.id
     )
 
@@ -984,57 +983,63 @@ const effect_parry = {
     "whirlwind": (level, player, target, lvl, damage, cd, range, speed, duration) => {
         damage = skill_formulas["parry"].damage(damage, lvl);
 
-        areaCheck(player, level, player, range, (target) =>
-            whirlwind(player, target, damage)
+        areaCheck(player, level, player, range, (target2) =>
+            whirlwind(player, target2, damage)
         );
         player.heal(lvl * 2)
     },
     "lunge": (level, player, target, lvl, damage, cd, range, speed, duration) => {
         damage = skill_formulas["parry"].damage(damage, lvl);
 
-        lunge(level, player, damage, speed, range, () => { }, () => { });
+        lunge(level, player, damage, speed, range, () => { }, (target2) => {
+            attack(player, target2, damage)
+        })
         player.heal(lvl * 2)
     },
-    "arc": (level, player, target, lvl, damage, cd, range, speed, duration) => {
+    "slash": (level, player, target, lvl, damage, cd, range, speed, duration) => {
         damage = skill_formulas["parry"].damage(damage, lvl);
 
-        arc(level, player, damage, cd, speed, "parry", lvl);
+        slash(level, player, damage, cd, speed, "parry", lvl);
         player.heal(lvl * 2)
     },
     "vortex": (level, player, target, lvl, damage, cd, range, speed, duration) => {
         damage = skill_formulas["parry"].damage(damage, lvl);
 
-        let counter = 0;
-        Utils.server.scheduleInTicks(5, c => {
-            counter++
-            areaCheck(target, level, player, range, (target) => {
-                vortex(center, player, target)
-            });
-            if(counter < 40 / 5) c.reschedule()
+        areaCheck(target, level, player, range, (target2) => {
+            parry2(player, target2, lvl, damage)
+            vortex(target, player, target2)
         })
-
-        parry2(player, target, lvl, damage)
     },
     "inferno": (level, player, target, lvl, damage, cd, range, speed, duration) => {
         damage = skill_formulas["parry"].damage(damage, lvl);
 
-        areaCheck(target, level, player, 4, (target) =>
-            inferno(player, target, damage, cd, range)
+        areaCheck(target, level, player, 4, (target2) =>
+            inferno(player, target2, damage, cd, range)
         );
         parry2(player, target, lvl, damage)
     },
     "blizzard": (level, player, target, lvl, damage, cd, range, speed, duration) => {
         damage = skill_formulas["parry"].damage(damage, lvl);
 
-        areaCheck(target, level, player, 4, (target) => {
-            blizzard(target, duration, cd)
-            parry2(player, target, lvl, damage / 2)
+        areaCheck(target, level, player, 4, (target2) => {
+            blizzard(target, duration, cd);
+            parry2(player, target2, lvl, damage / 2)
         })
+    },
+    "sacrifice": (level, player, target, lvl, damage, cd, range, speed, duration) => {
+        lvl = skill_formulas["sacrifice"].amp(lvl);
+        damage = skill_formulas["parry"].damage(damage, lvl);
+
+        parry2(player, target, lvl, damage)
     }
 }
 ItemEvents.rightClicked(e => {
     const { level, player } = e;
 
+
+    parry_effect(
+        level, player, player.rayTrace(4).entity, 
+        player.persistentData, 4, e)
 })
 
 
@@ -1069,18 +1074,6 @@ function parry_effect(level, player, immediate, pData, final_dmg, e) {
     e.cancel()
 }
 
-EntityEvents.hurt("player", e => {
-    const { actual: attacker } = e.source;
-    if (!attacker) return;
-    const { player } = e;
-
-    e.server.tell(["calculated: ", global.calculateDamage(e.level, e.entity, e.source, e.damage)])
-    e.server.scheduleInTicks(1, () => {
-        e.server.tell(["actual damage: ", player.maxHealth - player.health])
-        player.setHealth(100)
-    })
-})
-
 
 EntityEvents.hurt("player", e => {
     const { actual: attacker, immediate } = e.source;
@@ -1104,5 +1097,15 @@ const mainhand_weapon = {
         global.setSecondsOnFire(level, target, 3)
     }
 }
-/* 移除木制工具 */
 
+// EntityEvents.hurt("player", e => {
+//     const { actual: attacker } = e.source;
+//     if (!attacker) return;
+//     const { player } = e;
+
+//     e.server.tell(["calculated: ", global.calculateDamage(e.level, e.entity, e.source, e.damage)])
+//     e.server.scheduleInTicks(1, () => {
+//         e.server.tell(["actual damage: ", player.maxHealth - player.health])
+//         player.setHealth(100)
+//     })
+// })

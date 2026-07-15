@@ -414,31 +414,36 @@ global.spawnEntity = (level, type, pos) =>
 	)
 
 global.calculateDamage = (level, entity, source, damage) => {
-	const difficulty = {
-		"peaceful": (dmg) => 0,
-		"easy": (dmg) => Math.min(dmg / 2 + 1, dmg),
-		"normal": (dmg) => dmg,
-		"hard": (dmg) => dmg * 1.5,
-	};
-	damage = source.scalesWithDifficulty() ?
-		difficulty[level.difficulty.getKey()](damage) :
-		damage
-
-	damage = CombatRules.getDamageAfterAbsorb(
-		damage,
-		entity.armorValue,
-		entity.getAttribute("generic.armor_toughness").getValue()
-	);
-
-	const resistance = entity.getEffect("resistance");
-	if (resistance) {
-		damage *= 1 - (Math.max(4, resistance.amplifier) + 1) * 0.2
+	if (source.scalesWithDifficulty()) {
+		let difficulty = {
+			"peaceful": (dmg) => 0,
+			"easy": (dmg) => Math.min(dmg / 2 + 1, dmg),
+			"normal": (dmg) => dmg,
+			"hard": (dmg) => dmg * 1.5,
+		};
+		damage = difficulty[level.difficulty.getKey()](damage)
 	};
 
-	/*const protection = EnchantmentHelper.getDamageProtection(entity.armorSlots, source)
-	if (protection > 0) {
-		damage = CombatRules.getDamageAfterMagicAbsorb(damage, protection)
-	};*/
+	if (!source.isBypassArmor()) {
+		damage = CombatRules.getDamageAfterAbsorb(damage,
+			entity.armorValue,
+			entity.getAttribute("generic.armor_toughness").getValue()
+		)
+	};
+
+	if (!source.isBypassMagic()) {
+		let resistance = entity.getEffect("resistance");
+		if (resistance) {
+			damage *= 1 - (Math.max(4, resistance.amplifier) + 1) * 0.2
+		}
+	};
+
+	/* if (!source.isBypassEnchantments()) {
+		let protection = EnchantmentHelper.getDamageProtection(entity.armorSlots, source)
+		if (protection > 0) {
+			damage = CombatRules.getDamageAfterMagicAbsorb(damage, protection)
+		}
+	} */
 
 	return Math.max(0, damage - entity.absorptionAmount)
 }

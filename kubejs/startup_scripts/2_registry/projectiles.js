@@ -121,7 +121,7 @@ StartupEvents.registry("entity_type", e => {
 			target.owner != player
 		) return true;
 
-		if (target instanceof Projectile && target.type != "kubejs:arc") {
+		if (target instanceof Projectile && target.type != "kubejs:slash") {
 			target.playSound("fmn:destroy_projectile", 0.3, 1);
 			target.level.spawnParticles(
 				"large_smoke", false,
@@ -232,32 +232,20 @@ StartupEvents.registry("entity_type", e => {
 			attack(player, hit, damage)
 		},
 		"parry": (level, player, hit, cd, damage, lvl) => {
-			const range = 1.5 + (lvl - 1) * 1;
-
-			areaCheck(hit, level, player, range, (target) => {
-				const { potionEffects } = target;
-
-				if (!target.hasEffect("slowness")) {
-					potionEffects.add("slowness", cd + 30, 0, false, true)
-				}
-				else {
-					potionEffects.add("slowness", damage * 20 / 2, 1, false, true)
-				}
-			});
-			attack(player, hit, damage);
-
-			global.particleRingVertical(level, range * 2, range, hit, "snowflake", 0.4, -0.1);
+			attack(player, hit, damage)
 		}
 	}
-	e.create("arc", "entityjs:projectile")
+
+	e.create("slash", "entityjs:projectile")
 		.noItem()
-		.sized(0.4, 0.4)
+		.sized(0.5, 0.1)
 		.renderScale(0, 0, 0)
 		.textureLocation(() => "kubejs:textures/entity/dummy.png")
 
 		.tick(entity => {
-			const { level, age } = entity;
-			if (level.isClientSide() || age % 3) return;
+			const { level, age, persistentData: pData } = entity;
+			if (level.isClientSide() || 
+				age % Math.max(1, 6 - pData.lvl)) return;
 
 			level.spawnParticles(
 				"sweep_attack", true,
