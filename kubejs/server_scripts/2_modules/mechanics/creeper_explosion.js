@@ -42,8 +42,7 @@ function creeper_explosion(level, exploder, x, y, z, size) {
 
     level.createExplosion(x, y, z)
         .exploder(exploder)
-        .damagesTerrain(Boolean(
-            exploder.nbt.ignited))
+        .damagesTerrain(exploder.hasTag("ignited"))
         .strength(size *
             (exploder.isInWater() ? 0.7 : 1) *
             JavaMath.clamp(exploder.health / 20, size * 0.33, size * 1.1))
@@ -60,3 +59,9 @@ function creeper_explosion(level, exploder, x, y, z, size) {
     cloud.spawn();
     exploder.playSound("block.fire.extinguish", 0.8, 1.5)
 }
+
+ItemEvents.entityInteracted("flint_and_steel", e => {
+    const { target } = e;
+    if (!(e.target instanceof Creeper)) return;
+    target.addTag("ignited")
+})
