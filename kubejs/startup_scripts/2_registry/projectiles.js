@@ -245,7 +245,7 @@ StartupEvents.registry("entity_type", e => {
 		.tick(entity => {
 			const { level, age, persistentData: pData } = entity;
 			if (level.isClientSide() || 
-				age % Math.max(1, 6 - pData.lvl)) return;
+				age % Math.max(1, 3 - Math.floor((0.5 * pData.slash.damage - 1) / 3))) return;
 
 			level.spawnParticles(
 				"sweep_attack", true,
@@ -259,15 +259,17 @@ StartupEvents.registry("entity_type", e => {
 			const { entity } = context, { level } = entity;
 			if (level.isClientSide()) return;
 
-			const { owner, persistentData: pData } = entity;
+			const { owner } = entity, { slash } = entity.persistentData;
+			const hit = context.result.entity;
+
 			if (owner) {
-				let hit = context.result.entity;
-				let { damage, cd, type, lvl } = pData;
-
-				type_map[type || "nope"](level, owner, hit, cd, damage, lvl)
+				type_map[slash.type](
+					level, owner, hit, 
+					slash.cd, slash.damage, slash.lvl)
 			};
-			if (pData.type != "parry") entity.discard();
+			if (!["lunge"].includes(slash.type)) entity.discard();
 
+			global.particleBurst(level, entity, "sweep_attack", 1)
 			global.particleBurst(level, entity, "crit", 3, 0.5, 0, 0.2);
 			entity.playSound("fmn:destroy_projectile", 0.3, 1)
 		})

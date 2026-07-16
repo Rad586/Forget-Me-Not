@@ -26,7 +26,8 @@ function gliding_client(level, player, age) {
         player.onClimbable() ||
         player.isPassenger() ||
         player.invulnerableTime > 0 ||
-        player.abilities.flying
+        player.abilities.flying ||
+        new Vec3(m.x(), 0, m.z()).length() > 1.2
     )) {
         gliding(false);
         return;
