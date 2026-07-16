@@ -445,7 +445,11 @@ global.calculateDamage = (level, entity, source, damage) => {
 		}
 	} */
 
-	return Math.max(0, damage - entity.absorptionAmount)
+	if (entity.absorptionAmount) {
+		damage = Math.max(0, damage - entity.absorptionAmount)
+	};
+
+	return damage
 }
 
 global.getBlockLoot = (level, player, item, block) => { /* triggers lootjs, be aware of loop */
