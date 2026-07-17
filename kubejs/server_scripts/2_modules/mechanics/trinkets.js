@@ -32,6 +32,12 @@ function trinkets(player) {
             "trinket",
             amount,
             modifier ? modifier.operation : "addition"
-        )
+        );
+
+        if (attribute == "minecraft:generic.max_health" &&
+            player.health > player.maxHealth
+        ) {
+            player.setHealth(player.maxHealth)
+        }
     })
 }
