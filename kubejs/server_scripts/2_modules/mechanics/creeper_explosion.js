@@ -42,7 +42,7 @@ function creeper_explosion(level, exploder, x, y, z, size) {
 
     level.createExplosion(x, y, z)
         .exploder(exploder)
-        .damagesTerrain(exploder.hasTag("ignited"))
+        .damagesTerrain(exploder.tags.contains("ignited"))
         .strength(size *
             (exploder.isInWater() ? 0.7 : 1) *
             JavaMath.clamp(exploder.health / 20, size * 0.33, size * 1.1))

@@ -1070,33 +1070,11 @@ const effect_parry = {
 }
 ItemEvents.rightClicked(e => {
     const { level, player } = e;
+    player.setHealth(100)
 
     parry_effect(
         level, player, player.rayTrace(4).entity, 
         player.persistentData, 4, e)
-})
-
-
-EntityEvents.hurt(e => {
-    const { entity } = e;
-    if (!entity.isLiving() || 
-        !entity.isAlive() || 
-        entity.invulnerableTime > 10
-        /* || e.damage < 1.5 */) return;
-
-
-    const { player } = e.source;
-    if (!player) return;
-    global.mergedTrinkets(player).forEach(stack => {
-        const split = stack.idLocation.path.split("_rune_");
-        const info = global.trinkets_attack[split[0]];
-        if (!info) return;
-
-        const { action } = info;
-        if (!action) return;
-
-        action(e.level, player, entity, split[1] * stack.count)
-    })
 })
 
 function parry_effect(level, player, immediate, pData, final_dmg, e) {
@@ -1118,32 +1096,13 @@ EntityEvents.hurt("player", e => {
     if (!attacker) return;
 
     const { level, player } = e, pData = player.persistentData;
-    if(player.invulnerableTime > 10) return;
     const final_dmg = global.calculateDamage(level, player, e.source, e.damage);
     
     parry_effect(level, player, immediate, pData, final_dmg, e);
 
-    global.mergedTrinkets(player).forEach(stack => {
-        const split = stack.idLocation.path.split("_rune_");
-        const info = global.trinkets_hurt[split[0]];
-        if(!info) return;
-        
-        const { action } = global.trinkets_hurt[split[0]];
-        if (!action) return;
-
-        action(level, player, attacker, split[1] * stack.count)
-    })
-
     Utils.server.scheduleInTicks(1, () => {
-        player.tell(["damage: ", 20 - player.health])
+        // player.tell(["damage: ", 20 - player.health])
         player.setHealth(100)
         player.setFoodLevel(100)
     })
 })
-
-
-const mainhand_weapon = {
-    "minecraft:golden_sword": (level, player, target) => {
-        global.setSecondsOnFire(level, target, 2)
-    }
-}

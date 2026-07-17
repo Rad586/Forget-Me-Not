@@ -43,3 +43,34 @@ function trinkets(player) {
         }
     })
 }
+
+let hurt_processing = false;
+function trinkets_attack(level, player, target) {
+    if (hurt_processing) return;
+
+    global.mergedTrinkets(player).forEach(stack => {
+        const split = stack.idLocation.path.split("_rune_");
+        const info = global.trinkets_attack[split[0]];
+        if (!info) return;
+
+        const { action } = info;
+        if (!action) return;
+
+        action(level, player, target, split[1] * stack.count)
+    });
+
+    hurt_processing = false
+}
+
+function trinkets_hurt(level, player, attacker) {
+    global.mergedTrinkets(player).forEach(stack => {
+        const split = stack.idLocation.path.split("_rune_");
+        const info = global.trinkets_hurt[split[0]];
+        if (!info) return;
+
+        const { action } = info;
+        if (!action) return;
+
+        action(level, player, attacker, split[1] * stack.count)
+    })
+}

@@ -1,40 +1,32 @@
-function fight_back_attack(player, target, amount) {
-	if(amount < 3) return;
-
+function fight_back_attack(player, amount) {
 	const effect = player.getEffect("kubejs:fight_back");
-	if (!effect || target.invulnerableTime > 0) return;
+	if (!effect) return;
 	const { amplifier } = effect;
-	player.removeEffect("kubejs:fight_back");
-	player.heal(1);
 
-	if (amplifier <= 0) return;
-	player.potionEffects.add(
-		"kubejs:fight_back",
-		Math.min(60, effect.duration + 40),
-		effect.amplifier - 1,
-		true, false
-	)
+	player.heal(amount * (amplifier + 1) / 5);
+	player.removeEffect("kubejs:fight_back")
 }
 
 function fight_back_hurt(player, amount) {
-	if(amount < 2.1) return;
+	if(amount < 3) return;
+	const amp = (amount) => amount / 3;
+	const time = (amount) => amount * 13;
 
 	const effect = player.getEffect("kubejs:fight_back");
 	if(!effect) {
 		player.potionEffects.add(
 			"kubejs:fight_back",
-			JavaMath.clamp(amount * 6, 40, 60), 
-			Math.min(10, amount/2) - 1,
+			Math.min(60, time(amount)), 
+			Math.min(3, amp(amount)) - 1,
 			true, false
 		)
 	}
 	else {
 		player.potionEffects.add(
 			"kubejs:fight_back",
-			Math.min(60, effect.duration + 40), 
-			Math.min(10, amount / 2 + effect.amplifier) - 1,
+			Math.min(60, time(amount)), 
+			Math.min(4, amp(amount) + effect.amplifier),
 			true, false
-		);
-		player.removeEffect("kubejs:fight_back");
+		)
 	}
 }

@@ -5,7 +5,9 @@ EntityEvents.hurt(e => {
 	const { server, level, source, damage } = e;
 	if (isNaN(damage)) e.cancel();
 	const { actual, type } = source;
+
 	const final_dmg = global.calculateDamage(level, entity, source, damage);
+	const actual_hurt = entity.invulnerableTime <= 10;
 
 	/* player hurt */
 	if(entity.isPlayer()) {
@@ -14,18 +16,24 @@ EntityEvents.hurt(e => {
 		fire_disables_shield(entity);
 
 		if (actual) {
-			on_hit_effect(e, entity, damage);
-			underwater(level, entity);
-			fight_back_hurt(entity, final_dmg)
-			zombie_leech(actual, final_dmg)
+			if(actual_hurt) {
+				trinkets_hurt(level, entity, actual);
+				on_hit_effect(e, entity, damage);
+				underwater(level, entity);
+				fight_back_hurt(entity, final_dmg);
+				zombie_leech(actual, final_dmg)
+			}
 		}
 	};
 
 	/* player attack */
 	if(actual && actual.isPlayer()) {
-		/* trinkets() */
-		sword_attack(server, level, actual, entity);
-		fight_back_attack(actual, entity, damage);
-		dizzying(level, entity, final_dmg)
+		if(actual_hurt) {
+			trinkets_attack(level, actual, entity);
+			main_hand_weapon(level, actual, entity);
+			sword_attack(server, level, actual, entity);
+			fight_back_attack(actual, final_dmg);
+			dizzying(level, entity, final_dmg)
+		}
 	}
 })
