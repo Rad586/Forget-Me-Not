@@ -9,7 +9,9 @@ function trinkets(player) {
     const modifiers = {};
     global.mergedTrinkets(player).forEach(stack => {
         const split = stack.idLocation.path.split("_rune_");
-        const info = global.trinkets[split[0]];
+        const info = global.trinkets_common[split[0]];
+        if(!info) return;
+
         const { attribute } = info;
         if (!attribute) return;
 

@@ -180,141 +180,6 @@ StartupEvents.registry("item", e => {
 			return item
 		})
 
-	global.trinkets = {
-		/* common attribute */
-		"dmg": {
-			attribute: "minecraft:generic.attack_damage",
-			step: 0.3
-		},
-		"spd": {
-			attribute: "minecraft:generic.movement_speed",
-			step: 0.05,
-			percent: true,
-			operation: "multiply_base"
-		},
-		"amr": {
-			attribute: "minecraft:generic.armor",
-			step: 1.5
-		},
-		"mh": {
-			attribute: "minecraft:generic.max_health",
-			step: 1
-		},
-
-		/* rare attribute */
-		"luck": {
-			attribute: "minecraft:generic.luck",
-			step: 0.2
-		},
-		"as": {
-			attribute: "minecraft:generic.attack_speed",
-			step: 0.025,
-			percent: true,
-			operation: "multiply_base"
-		},
-		"at": {
-			attribute: "minecraft:generic.armor_toughness",
-			step: 0.85
-		},
-		"bless": {
-			step: 0.08,
-			percent: true,
-			action: (level, player, target, amount, healAmount) => {
-				const { step } = global.trinkets["bless"];
-
-				player.health += healAmount * 
-					amount * step * 
-					(1 - 2 * player.isInvertedHealAndHarm())
-			}
-		},
-
-		/* on attack */
-		"fire": {
-			step: 1,
-			action: (level, player, target, amount) => {
-				const { step } = global.trinkets["fire"];
-
-				global.setSecondsOnFire(level, target, amount * step)
-			}
-		},
-		"poison": {
-			step: 1,
-			action: (level, player, target, amount) => {
-				const { step } = global.trinkets["poison"];
-
-				target.potionEffects.add("poison", amount * step * 20, 0, false, true)
-			}
-		},
-		"leech": {
-			step: 0.45,
-			action: (level, player, target, amount) => {
-				const { step } = global.trinkets["leech"];
-
-				player.heal(amount * step * player.getAttackStrengthScale(0))
-			}
-		},
-		"execution": {
-			step: 0.04,
-			percent: true,
-			action: (level, player, target, amount) => {
-				const { step } = global.trinkets["execution"];
-
-				if(target.health / target.maxHealth > amount * step) return;
-				target.attack(player, 9999)
-			}
-		},
-		"grim": {
-			step: 0.01,
-			percent: true,
-			action: (level, player, target, amount) => {
-				const { step } = global.trinkets["grim"];
-
-				if(Math.random() > amount * step) return;
-				target.attack(player, 100)
-			}
-		},
-
-		/* take hit */
-		"thorns": {
-			step: 0.75,
-			action: (level, player, target, amount) => {
-				const { step } = global.trinkets["thorns"];
-
-				target.attack(player, amount * step)
-			}
-		},
-		"absorption": {
-			step: 0.45,
-			action: (level, player, target, amount) => {
-				const { step } = global.trinkets["absorption"];
-
-				if (player.absorptionAmount >= amount * step) return;
-				player.setAbsorptionAmount(amount * step)
-			}
-		},
-		"evasion": {
-			step: 0.015,
-			percent: true,
-			action: (level, player, target, amount) => {
-				const { step } = global.trinkets["evasion"];
-
-				if (Math.random() >= amount * step) return;
-				player.invulnerableTime = 20
-			}
-		},
-		"guard": {
-			step: 0.1,
-			action: (level, player, target, amount) => {
-				const { step } = global.trinkets["guard"];
-
-				player.server.scheduleInTicks(1, () => {
-					if (player.invulnerableTime < 19) return;
-					player.invulnerableTime += amount * step * 20
-				})
-			}
-		}
-	}
-
 	function createTrinket(name) {
 		const rarity = {
 			1: "rare",
@@ -342,3 +207,147 @@ StartupEvents.registry("item", e => {
 	Object.keys(global.trinkets).forEach(n => 
 		createTrinket(n/*, global.trinkets[n].maxLvl*/))
 })
+
+global.trinkets_common = {
+	/* common attribute */
+	"dmg": {
+		attribute: "minecraft:generic.attack_damage",
+		step: 0.3
+	},
+	"spd": {
+		attribute: "minecraft:generic.movement_speed",
+		step: 0.05,
+		percent: true,
+		operation: "multiply_base"
+	},
+	"amr": {
+		attribute: "minecraft:generic.armor",
+		step: 1.5
+	},
+	"mh": {
+		attribute: "minecraft:generic.max_health",
+		step: 1
+	},
+
+	/* rare attribute */
+	"luck": {
+		attribute: "minecraft:generic.luck",
+		step: 0.2
+	},
+	"as": {
+		attribute: "minecraft:generic.attack_speed",
+		step: 0.025,
+		percent: true,
+		operation: "multiply_base"
+	},
+	"at": {
+		attribute: "minecraft:generic.armor_toughness",
+		step: 0.85
+	},
+	"bless": {
+		step: 0.08,
+		percent: true,
+		action: (level, player, target, amount, healAmount) => {
+			const { step } = global.trinkets["bless"];
+
+			player.health += healAmount *
+				amount * step *
+				(1 - 2 * player.isInvertedHealAndHarm())
+		}
+	}
+}
+
+global.trinkets_attack = {
+	"fire": {
+		step: 1,
+		action: (level, player, target, amount) => {
+			const { step } = global.trinkets["fire"];
+
+			global.setSecondsOnFire(level, target, (amount + 1) * step)
+		}
+	},
+	"poison": {
+		step: 1,
+		action: (level, player, target, amount) => {
+			const { step } = global.trinkets["poison"];
+
+			target.potionEffects.add("poison", (amount + 1) * step * 20 + 20, 0, false, true)
+		}
+	},
+	"leech": {
+		step: 0.45,
+		action: (level, player, target, amount) => {
+			const { step } = global.trinkets["leech"];
+
+			player.heal(amount * step * player.getAttackStrengthScale(0))
+		}
+	},
+	"execution": {
+		step: 0.04,
+		percent: true,
+		action: (level, player, target, amount) => {
+			const { step } = global.trinkets["execution"];
+
+			if (target.health / target.maxHealth > amount * step) return;
+			target.attack(player, 9999)
+		}
+	},
+	"grim": {
+		step: 0.01,
+		percent: true,
+		action: (level, player, target, amount) => {
+			const { step } = global.trinkets["grim"];
+
+			if (Math.random() > amount * step) return;
+			target.attack(player, 100)
+		}
+	}
+}
+
+global.trinkets_hurt = {
+	"thorns": {
+		step: 0.75,
+		action: (level, player, target, amount) => {
+			const { step } = global.trinkets["thorns"];
+
+			target.attack(player, amount * step)
+		}
+	},
+	"absorption": {
+		step: 0.25,
+		action: (level, player, target, amount) => {
+			const { step } = global.trinkets["absorption"];
+
+			if (player.absorptionAmount >= amount * step) return;
+			player.setAbsorptionAmount(amount * step)
+		}
+	},
+	"evasion": {
+		step: 0.015,
+		percent: true,
+		action: (level, player, target, amount) => {
+			const { step } = global.trinkets["evasion"];
+
+			if (Math.random() >= amount * step) return;
+			player.invulnerableTime = 20
+		}
+	},
+	"guard": {
+		step: 0.1,
+		action: (level, player, target, amount) => {
+			const { step } = global.trinkets["guard"];
+
+			player.server.scheduleInTicks(1, () => {
+				if (player.invulnerableTime < 19) return;
+				player.invulnerableTime += amount * step * 20
+			})
+		}
+	}
+}
+
+global.trinkets = Object.assign(
+	{},
+	global.trinkets_common,
+	global.trinkets_attack,
+	global.trinkets_hurt
+)

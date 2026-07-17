@@ -3,6 +3,7 @@ EntityEvents.hurt(e => {
 	if (!entity.isLiving() || !entity.isAlive()) return;
 
 	const { server, level, source, damage } = e;
+	if (isNaN(damage)) e.cancel();
 	const { actual, type } = source;
 	const final_dmg = global.calculateDamage(level, entity, source, damage);
 
