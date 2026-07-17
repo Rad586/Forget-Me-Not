@@ -211,8 +211,10 @@ ItemEvents.modification(e => {
 			item.setDigSpeed(6);
 			item.tier = tier => {
 				tier.speed = 6;
-				tier.level = 2
 			}
 		})
+	})
+	e.modify("golden_sword", item => {
+		item.attackDamage = 4
 	})
 })

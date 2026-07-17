@@ -370,4 +370,14 @@ ItemEvents.tooltip(e => {
 			tooltip.add(["\uE004 ", Text.translate("item.minecraft.firework_star.trail").darkGray()])
 		}
 	})
+
+	e.addAdvanced("minecraft:golden_sword", (stack, isAdvanced, tooltip) => {
+		tooltip[3] = Component.literal(" ")
+			.withStyle("dark_green")
+			.append(Component.translatable(
+				"attribute.modifier.equals.0",
+				"5",
+				Component.translatable("attribute.name.generic.attack_damage")
+			))
+	})
 })
