@@ -91,7 +91,7 @@
 //移除一些动物模组？
 //unique_item 独特物品掉落修改（vsc搜索）
 //移除末地相关：要塞X better stronghold，末影龙X enderdragon,true ending/，鞘翅X，潜影盒（流星），末影之眼，烈焰粉，龙蛋，音乐，开局提示，末地相关修复（kjs），相关配方（鞘翅，末影水晶，末影箱），末地相关改动（末影龙火球），龙息，龙蛋龙头，末影水晶相关修改（kjs），紫颂果，爆裂紫颂果
-const test_skill = "sacrifice_lunge";
+const test_skill = "slash";
 const test_lvl = 3;
 
 
@@ -113,8 +113,8 @@ const skill_formulas = {
         range: () => 1.5
     },
     "slash": {
-        damage: (dmg, lvl) => dmg * (0.75 + (lvl - 1) * 0.5),
-        cd: (delay) => delay * 1.25,
+        damage: (dmg, lvl) => dmg * (Math.max(0.75, 0.5 + (lvl - 1) * 0.5)),
+        cd: (delay) => delay * 0.75,
         speed: (dmg) => 0.5 * dmg - 1
     },
     "vortex": {
@@ -1019,13 +1019,14 @@ const effect_parry = {
         })
         player.heal(lvl * 2)
     },
-    "slash": (level, player, target, lvl, damage, cd, range, speed, duration) => { /** */
-        damage = skill_formulas["parry"].damage(damage, lvl);
-        damage = skill_formulas["slash"].damage(damage)
+    "slash": (level, player, target, lvl, damage, cd, range, speed, duration) => {
+        const d1 = skill_formulas["parry"].damage(damage, lvl);
+        const d2 = skill_formulas["slash"].damage(damage, lvl);
+        damage = (d1 + d2) / 2;
         speed = 2;
         const count = 6;
 
-        const base = -player.yaw * 3.14 / 180;
+        const base = player.yaw * 3.14 / 180;
         for (let i = 0; i < count; i++) {
             let angle = base + i * 3.14 * 2 / count;
 
@@ -1036,8 +1037,8 @@ const effect_parry = {
             ).scale(speed);
 
             slash(level, player, damage, cd, speed, "parry", lvl, motion);
-        }
-        player.heal(lvl * 2)
+        };
+        player.heal(lvl * 2);
     },
     "vortex": (level, player, target, lvl, damage, cd, range, speed, duration) => {
         damage = skill_formulas["parry"].damage(damage, lvl) * 0.75;
@@ -1069,6 +1070,7 @@ const effect_parry = {
 }
 ItemEvents.rightClicked(e => {
     const { level, player } = e;
+    player.tell(global.zombies[0])
 
 
     parry_effect(
@@ -1076,21 +1078,31 @@ ItemEvents.rightClicked(e => {
         player.persistentData, 4, e)
 })
 
-
+let hurt_processing = false;
 EntityEvents.hurt(e => {
     const { entity } = e;
-    if (!entity.isLiving() || !entity.isAlive()/* || e.damage < 1.5 */) return;
+    if (hurt_processing || 
+        !entity.isLiving() || 
+        !entity.isAlive() || 
+        entity.invulnerableTime > 10
+        /* || e.damage < 1.5 */) return;
+    hurt_processing = true;
 
     const { player } = e.source;
-    if (!player) return;
+    if (player) {
+        global.mergedTrinkets(player).forEach(stack => {
+            const split = stack.idLocation.path.split("_rune_");
+            const info = global.trinkets_attack[split[0]];
+            if(!info) return;
 
-    global.mergedTrinkets(player).forEach(stack => {
-        const split = stack.idLocation.path.split("_rune_");
-        const { action } = global.trinkets[split[0]];
+            const { action } = info;
+            if (!action) return;
 
-        if (!action) return;
-        action(e.level, player, entity, split[1] * stack.count)
-    })
+            action(e.level, player, entity, split[1] * stack.count)
+        })
+    };
+
+    hurt_processing = false
 })
 
 function parry_effect(level, player, immediate, pData, final_dmg, e) {
@@ -1107,30 +1119,37 @@ function parry_effect(level, player, immediate, pData, final_dmg, e) {
     // e.cancel()
 }
 
-
 EntityEvents.hurt("player", e => {
     const { actual: attacker, immediate } = e.source;
     if (!attacker) return;
+
     const { level, player } = e, pData = player.persistentData;
+    if(player.invulnerableTime > 10) return;
     const final_dmg = global.calculateDamage(level, player, e.source, e.damage);
     
     parry_effect(level, player, immediate, pData, final_dmg, e);
 
     global.mergedTrinkets(player).forEach(stack => {
         const split = stack.idLocation.path.split("_rune_");
-        const { action } = global.trinkets[split[0]];
-
+        const info = global.trinkets_hurt[split[0]];
+        if(!info) return;
+        
+        const { action } = global.trinkets_hurt[split[0]];
         if (!action) return;
+
         action(level, player, attacker, split[1] * stack.count)
+    })
+
+    Utils.server.scheduleInTicks(1, () => {
+        player.tell(["damage: ", 20 - player.health])
+        player.setHealth(100)
+        player.setFoodLevel(100)
     })
 })
 
+
 const mainhand_weapon = {
     "minecraft:golden_sword": (level, player, target) => {
-        global.setSecondsOnFire(level, target, 3)
+        global.setSecondsOnFire(level, target, 2)
     }
 }
-
-
-
-/* 世界无法保存的问题,新建世界也会这样吗？ */

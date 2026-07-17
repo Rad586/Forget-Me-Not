@@ -247,12 +247,7 @@ StartupEvents.registry("entity_type", e => {
 			if (level.isClientSide() || 
 				age % Math.max(1, 3 - Math.floor((0.5 * pData.slash.damage - 1) / 3))) return;
 
-			level.spawnParticles(
-				"sweep_attack", true,
-				entity.x, entity.y, entity.z,
-				0, 0, 0,
-				1, 0
-			);
+			global.particleBurst(level, entity, "sweep_attack", 1)
 			if(age > 4) entity.discard();
 		})
 		.onHitEntity(context => {
