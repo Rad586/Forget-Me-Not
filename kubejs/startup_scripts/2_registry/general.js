@@ -289,7 +289,7 @@ global.trinkets_attack = {
 			const { step } = global.trinkets["execution"];
 
 			if (target.health / target.maxHealth > amount * step) return;
-			target.attack(player, 9999)
+			target.attack(player, 999)
 		}
 	},
 	"grim": {

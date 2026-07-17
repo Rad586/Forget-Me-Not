@@ -17,6 +17,7 @@ EntityEvents.hurt(e => {
 			on_hit_effect(e, entity, damage);
 			underwater(level, entity);
 			fight_back_hurt(entity, final_dmg)
+			zombie_leech(actual, final_dmg)
 		}
 	};
 

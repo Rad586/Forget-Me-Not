@@ -1070,39 +1070,33 @@ const effect_parry = {
 }
 ItemEvents.rightClicked(e => {
     const { level, player } = e;
-    player.tell(global.zombies[0])
-
 
     parry_effect(
         level, player, player.rayTrace(4).entity, 
         player.persistentData, 4, e)
 })
 
-let hurt_processing = false;
+
 EntityEvents.hurt(e => {
     const { entity } = e;
-    if (hurt_processing || 
-        !entity.isLiving() || 
+    if (!entity.isLiving() || 
         !entity.isAlive() || 
         entity.invulnerableTime > 10
         /* || e.damage < 1.5 */) return;
-    hurt_processing = true;
+
 
     const { player } = e.source;
-    if (player) {
-        global.mergedTrinkets(player).forEach(stack => {
-            const split = stack.idLocation.path.split("_rune_");
-            const info = global.trinkets_attack[split[0]];
-            if(!info) return;
+    if (!player) return;
+    global.mergedTrinkets(player).forEach(stack => {
+        const split = stack.idLocation.path.split("_rune_");
+        const info = global.trinkets_attack[split[0]];
+        if (!info) return;
 
-            const { action } = info;
-            if (!action) return;
+        const { action } = info;
+        if (!action) return;
 
-            action(e.level, player, entity, split[1] * stack.count)
-        })
-    };
-
-    hurt_processing = false
+        action(e.level, player, entity, split[1] * stack.count)
+    })
 })
 
 function parry_effect(level, player, immediate, pData, final_dmg, e) {
