@@ -1,9 +1,8 @@
-const t_attributes = [
-    "minecraft:generic.attack_damage", "minecraft:generic.movement_speed",
-    "minecraft:generic.armor", "minecraft:generic.max_health",
-    "minecraft:generic.luck", "minecraft:generic.attack_speed",
-    "minecraft:generic.armor_toughness"
-]
+const t_attributes = []
+Object.keys(global.trinkets_common).forEach(name => {
+    const { attribute: at } = global.trinkets_common[name];
+    if (at) t_attributes.push(at)
+})
 
 function trinkets(player) {
     const modifiers = {};
@@ -44,33 +43,28 @@ function trinkets(player) {
     })
 }
 
-let hurt_processing = false;
-function trinkets_attack(level, player, target) {
-    if (hurt_processing) return;
-
+function trinkets_action(level, player, target, ref) {
     global.mergedTrinkets(player).forEach(stack => {
         const split = stack.idLocation.path.split("_rune_");
-        const info = global.trinkets_attack[split[0]];
+        const info = ref[split[0]];
         if (!info) return;
 
         const { action } = info;
         if (!action) return;
 
         action(level, player, target, split[1] * stack.count)
-    });
+    })
+}
+
+let hurt_processing = false
+function trinkets_attack(level, player, target) {
+    if (hurt_processing) return;
+
+    trinkets_action(level, player, target, global.trinkets_attack)
 
     hurt_processing = false
 }
 
 function trinkets_hurt(level, player, attacker) {
-    global.mergedTrinkets(player).forEach(stack => {
-        const split = stack.idLocation.path.split("_rune_");
-        const info = global.trinkets_hurt[split[0]];
-        if (!info) return;
-
-        const { action } = info;
-        if (!action) return;
-
-        action(level, player, attacker, split[1] * stack.count)
-    })
+    trinkets_action(level, player, attacker, global.trinkets_hurt)
 }

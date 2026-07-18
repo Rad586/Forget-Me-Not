@@ -208,6 +208,11 @@ StartupEvents.registry("item", e => {
 		createTrinket(n/*, global.trinkets[n].maxLvl*/))
 })
 
+function attack(player, target, amount) {
+	target.invulnerableTime = 0;
+	target.attack(player, amount)
+}
+
 global.trinkets_common = {
 	/* common attribute */
 	"dmg": {
@@ -262,16 +267,18 @@ global.trinkets_attack = {
 		step: 1,
 		action: (level, player, target, amount) => {
 			const { step } = global.trinkets["fire"];
+			amount += 1;
 
-			global.setSecondsOnFire(level, target, (amount + 1) * step)
+			global.setSecondsOnFire(level, target, amount * step)
 		}
 	},
 	"poison": {
 		step: 1,
 		action: (level, player, target, amount) => {
 			const { step } = global.trinkets["poison"];
+			amount += 1;
 
-			target.potionEffects.add("poison", (amount + 1) * step * 20 + 20, 0, false, true)
+			target.potionEffects.add("poison", amount * step * 20, 0, false, true)
 		}
 	},
 	"leech": {
@@ -279,7 +286,8 @@ global.trinkets_attack = {
 		action: (level, player, target, amount) => {
 			const { step } = global.trinkets["leech"];
 
-			player.heal(amount * step * player.getAttackStrengthScale(0))
+			if(global.throttle(player, 1, "leech")) return;
+			player.heal(amount * step)
 		}
 	},
 	"execution": {
@@ -289,17 +297,17 @@ global.trinkets_attack = {
 			const { step } = global.trinkets["execution"];
 
 			if (target.health / target.maxHealth > amount * step) return;
-			target.attack(player, 999)
+			attack(player, target, 999)
 		}
 	},
 	"grim": {
-		step: 0.01,
+		step: 0.075,
 		percent: true,
 		action: (level, player, target, amount) => {
 			const { step } = global.trinkets["grim"];
 
 			if (Math.random() > amount * step) return;
-			target.attack(player, 100)
+			attack(player, target, 100)
 		}
 	}
 }
@@ -310,7 +318,7 @@ global.trinkets_hurt = {
 		action: (level, player, target, amount) => {
 			const { step } = global.trinkets["thorns"];
 
-			target.attack(player, amount * step)
+			attack(player, target, amount * step)
 		}
 	},
 	"absorption": {

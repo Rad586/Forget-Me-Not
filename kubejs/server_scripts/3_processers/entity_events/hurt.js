@@ -16,6 +16,8 @@ EntityEvents.hurt(e => {
 		fire_disables_shield(entity);
 
 		if (actual) {
+			parry_effect(level, entity, actual, final_dmg, e);
+
 			if(actual_hurt) {
 				trinkets_hurt(level, entity, actual);
 				on_hit_effect(e, entity, damage);
@@ -28,6 +30,7 @@ EntityEvents.hurt(e => {
 
 	/* player attack */
 	if(actual && actual.isPlayer()) {
+		Utils.server.tell(damage);
 		if(actual_hurt) {
 			trinkets_attack(level, actual, entity);
 			main_hand_weapon(level, actual, entity);
