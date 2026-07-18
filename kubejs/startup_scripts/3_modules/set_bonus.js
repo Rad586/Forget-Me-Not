@@ -26,7 +26,7 @@ bonuses.forEach(info => {
 function set_bonus(context) {
     const { entity, previousStack, currentStack } = context;
     const p_id = String(previousStack.id), c_id = String(currentStack.id);
-    if (!entity.server || p_id == c_id) return;
+    if (entity.level.isClientSide() || p_id == c_id) return;
     const { potionEffects, armorSlots } = entity;
 
     function add(stuff) {

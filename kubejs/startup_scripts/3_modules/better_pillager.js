@@ -55,7 +55,7 @@ function illusioner(entity) {
 };
 function pillager_skill(context) {
     const { entity, targetEntity } = context;
-    if (!entity.server) return;
+    if (entity.level.isClientSide()) return;
 
     const skill = pillager_weapon_skills[entity.mainHandItem.id];
     if (skill) skill(targetEntity, entity);

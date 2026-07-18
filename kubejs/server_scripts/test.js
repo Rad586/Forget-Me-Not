@@ -34,66 +34,14 @@
 // 	}
 // })
 
-
-// const SMP = Java.loadClass("net.minecraft.world.SimpleMenuProvider");
-// const MerchantMenu = Java.loadClass("net.minecraft.world.inventory.MerchantMenu");
-// const MerchantOffers = Java.loadClass("net.minecraft.world.item.trading.MerchantOffers");
-// const MerchantOffer = Java.loadClass("net.minecraft.world.item.trading.MerchantOffer");
-
-// ItemEvents.entityInteracted(e => {
-// 	if(e.hand == "off_hand") return;
-// 	const offers = new MerchantOffers();
-// 	const offer = new MerchantOffer(
-// 		"minecraft:acacia_boat", //costA
-// 		"minecraft:air", //costB
-// 		"minecraft:emerald", //result
-// 		0, //number of trades before requiring restock
-// 		20, //maxuses
-// 		10, //xp
-// 		0.05, //price multiplier
-// 		-24 //demand
-// 	)
-// 	offers.add(offer);
-// 	e.server.tell("1 " + offers.getFirst().demand)
-
-// 	const menu = new SMP((i, inv, items) => {
-// 		const merchantMenu = new MerchantMenu(i, inv);
-// 		merchantMenu.setOffers(offers);
-// 		e.server.tell("2 " + merchantMenu.getOffers().getFirst().demand)
-// 		return merchantMenu;
-// 	}, "guiname2");
-
-// 	e.player.openMenu(menu);
-// })
-
-
-// EntityEvents.spawned("lightning_bolt", e => {
-// 	const {block} = e.entity;
-// 	if(block.down.id != "minecraft:bedrock") return;
-
-// 	e.server.scheduleInTicks(5, () => {
-// 		const c = e.level.createEntity("end_crystal")
-// 		c.setPosition(block.x+0.5, block.y, block.z+0.5)
-// 		c.spawn()
-// 	})
-// })
-
-
-
-
-// const attribute = Item.of("minecraft:diamond_sword").getAttributes("generic.attack_damage")
-// item.removeAttribute("generic.attack_damage", attribute.id);
-// item.addAttribute("generic.attack_damage", attribute.id, attribute.name, attribute.amount + 10, attribute.operation)
-
-
-
 //排查satin api
 //移除一些动物模组？
 //unique_item 独特物品掉落修改（vsc搜索）
 //移除末地相关：要塞X better stronghold，末影龙X enderdragon,true ending/，鞘翅X，潜影盒（流星），末影之眼，烈焰粉，龙蛋，音乐，开局提示，末地相关修复（kjs），相关配方（鞘翅，末影水晶，末影箱），末地相关改动（末影龙火球），龙息，龙蛋龙头，末影水晶相关修改（kjs），紫颂果，爆裂紫颂果
-const test_skill = "slash";
-const test_lvl = 3;
 
+
+const test_skill = "parry";
+const test_lvl = 1;
 
 
 const skill_formulas = {
@@ -969,6 +917,7 @@ const swords = {
 
 ItemEvents.rightClicked(e => {
     const { level, player } = e;
+    player.setHealth(10)
 
     if (!e.item.id.includes("_sword")) return;
 
@@ -987,118 +936,16 @@ ItemEvents.rightClicked(e => {
 
 })
 
-const effect_parry = {
-    "nope": (level, player, target, lvl, damage, cd, range, speed, duration) => {
-        damage = skill_formulas["parry"].damage(damage, lvl);
 
-        parry2(player, target, lvl, damage)
-    },
-    "smite": (level, player, target, lvl, damage, cd, range, speed, duration) => {
-        const d1 = skill_formulas["parry"].damage(damage, lvl);
-        const d2 = skill_formulas["smite"].damage(damage, lvl);
-        damage = (d1 + d2) / 1.5
-
-        parry2(player, target, lvl, damage)
-    },
-    "whirlwind": (level, player, target, lvl, damage, cd, range, speed, duration) => {
-        damage = skill_formulas["parry"].damage(damage, lvl);
-        damage = skill_formulas["whirlwind"].damage(damage)
-
-        areaCheck(player, level, player, range, (target2) =>
-            whirlwind(player, target2, damage)
-        );
-        player.heal(lvl * 2)
-    },
-    "lunge": (level, player, target, lvl, damage, cd, range, speed, duration) => {
-        damage = skill_formulas["parry"].damage(damage, lvl);
-        damage = skill_formulas["lunge"].damage(damage)
-
-        lunge(level, player, damage, speed, range, () => { }, (target2) => {
-            attack(player, target2, damage);
-            target2.potionEffects.add("weakness", 40, 0, true, false)
-        })
-        player.heal(lvl * 2)
-    },
-    "slash": (level, player, target, lvl, damage, cd, range, speed, duration) => {
-        const d1 = skill_formulas["parry"].damage(damage, lvl);
-        const d2 = skill_formulas["slash"].damage(damage, lvl);
-        damage = (d1 + d2) / 2;
-        speed = 2;
-        const count = 6;
-
-        const base = player.yaw * 3.14 / 180;
-        for (let i = 0; i < count; i++) {
-            let angle = base + i * 3.14 * 2 / count;
-
-            let motion = new Vec3(
-                -Math.sin(angle),
-                0,
-                Math.cos(angle)
-            ).scale(speed);
-
-            slash(level, player, damage, cd, speed, "parry", lvl, motion);
-        };
-        player.heal(lvl * 2);
-    },
-    "vortex": (level, player, target, lvl, damage, cd, range, speed, duration) => {
-        damage = skill_formulas["parry"].damage(damage, lvl) * 0.75;
-
-        areaCheck(target, level, player, range, (target2) => {
-            parry2(player, target2, lvl, damage)
-            vortex(target, player, target2)
-        })
-    },
-    "inferno": (level, player, target, lvl, damage, cd, range, speed, duration) => {
-        damage = skill_formulas["parry"].damage(damage, lvl);
-        damage = skill_formulas["inferno"].damage(damage);
-
-        areaCheck(target, level, player, range, (target2) => {
-            inferno(player, target2, damage, cd, range);
-            target2.knockback(1, player.x - target2.x, player.z - target2.z)
-        });
-        parry2(player, target, lvl, damage)
-    },
-    "blizzard": (level, player, target, lvl, damage, cd, range, speed, duration) => {
-        damage = skill_formulas["parry"].damage(damage, lvl);
-
-        areaCheck(target, level, player, range, (target2) => {
-            blizzard(target2, duration, cd);
-            target2.knockback(1, player.x - target2.x, player.z - target2.z)
-        });
-        parry2(player, target, lvl, damage / 2)
-    }
-}
 ItemEvents.rightClicked(e => {
     const { level, player } = e;
-    player.setHealth(100)
-
-    parry_effect(
-        level, player, player.rayTrace(4).entity, 
-        player.persistentData, 4, e)
+    parry_effect(level, player, player.rayTrace(4).entity, 4, e)
 })
 
-function parry_effect(level, player, immediate, pData, final_dmg, e) {
-    if (!immediate || !player.hasEffect("kubejs:parry")) return
-    // player.removeEffect("kubejs:parry");
 
-    const { parry } = pData;
-    if (!parry) return;
-
-    const { type, lvl, cd, range, speed, duration } = parry;
-    effect_parry[type](
-        level, player, immediate, lvl, final_dmg, cd, range, speed, duration);
-    // pData.remove("parry");
-    // e.cancel()
-}
 
 EntityEvents.hurt("player", e => {
-    const { actual: attacker, immediate } = e.source;
-    if (!attacker) return;
-
-    const { level, player } = e, pData = player.persistentData;
-    const final_dmg = global.calculateDamage(level, player, e.source, e.damage);
-    
-    parry_effect(level, player, immediate, pData, final_dmg, e);
+    const { player } = e;
 
     Utils.server.scheduleInTicks(1, () => {
         // player.tell(["damage: ", 20 - player.health])

@@ -18,7 +18,7 @@ EntityJSEvents.modifyEntity(e => {
 			modifyBuilder
 				.canDisableShield(entity => armed_zombie(entity))
 				.onAddedToWorld(entity => {
-					if (!entity.server) return;
+					if (!entity.level.isClientSide()) return;
 					if (entity.tags.contains("kjsed")) return;
 
 					mounted_mobs(entity, "minecraft:creeper")
@@ -35,7 +35,7 @@ EntityJSEvents.modifyEntity(e => {
 	e.modify("minecraft:item", modifyBuilder =>
 		modifyBuilder
 			.onAddedToWorld(entity => {
-				if (!entity.server) return;
+				if (entity.level.isClientSide()) return;
 				if (entity.tags.contains("kjsed")) return;
 
 				no_flying_item(entity);
@@ -54,7 +54,7 @@ EntityJSEvents.modifyEntity(e => {
 	e.modify("minecraft:potion", modifyBuilder =>
 		modifyBuilder
 			.onAddedToWorld(entity => {
-				if (!entity.server) return;
+				if (entity.level.isClientSide()) return;
 				if (entity.tags.contains("kjsed")) return;
 
 				deadlier_witch(entity);
@@ -71,7 +71,7 @@ EntityJSEvents.modifyEntity(e => {
 	e.modify("minecraft:pillager", modifyBuilder =>
 		modifyBuilder
 			.onAddedToWorld(entity => {
-				if (!entity.server) return;
+				if (entity.level.isClientSide()) return;
 				if (entity.tags.contains("kjsed")) return;
 
 				pillager_spawn(entity)
@@ -79,9 +79,10 @@ EntityJSEvents.modifyEntity(e => {
 				entity.addTag("kjsed")
 			})
 			.onHurt(context => {
-				if (!context.damageSource.actual) return;
 				const { entity } = context;
-				if (!entity.server) return;
+				if (entity.level.isClientSide()) return;
+				if (!context.damageSource.actual) return;
+
 				illusioner(entity);
 				loot_goat_horn(entity);
 				sai(entity);
@@ -91,7 +92,7 @@ EntityJSEvents.modifyEntity(e => {
 	e.modify("minecraft:vindicator", modifyBuilder =>
 		modifyBuilder
 			.onAddedToWorld(entity => {
-				if (!entity.server) return;
+				if (entity.level.isClientSide()) return;
 				if (entity.tags.contains("kjsed")) return;
 
 				entity.setMainHandItem("minecraft:iron_sword")
@@ -108,7 +109,7 @@ EntityJSEvents.modifyEntity(e => {
 	e.modify("minecraft:piglin", modifyBuilder =>
 		modifyBuilder
 			.onAddedToWorld(entity => {
-				if (!entity.server) return;
+				if (entity.level.isClientSide()) return;
 				if (entity.tags.contains("kjsed")) return;
 
 				if (Math.random() < 0.65) {
@@ -123,7 +124,7 @@ EntityJSEvents.modifyEntity(e => {
 	e.modify("minecraft:piglin_brute", modifyBuilder =>
 		modifyBuilder
 			.onAddedToWorld(entity => {
-				if (!entity.server) return;
+				if (entity.level.isClientSide()) return;
 				if (entity.tags.contains("kjsed")) return;
 
 				entity.setMainHandItem("minecraft:golden_sword");
@@ -143,7 +144,7 @@ EntityJSEvents.modifyEntity(e => {
 	e.modify("minecraft:wandering_trader", modifyBuilder =>
 		modifyBuilder
 			.onAddedToWorld(entity => {
-				if (!entity.server) return;
+				if (entity.level.isClientSide()) return;
 				if (entity.tags.contains("kjsed")) return;
 
 				entity.potionEffects.add("glowing", 100, 0, true, false);
@@ -157,7 +158,7 @@ EntityJSEvents.modifyEntity(e => {
 		e.modify(key, modifyBuilder =>
 			modifyBuilder
 				.onAddedToWorld(entity => {
-					if (!entity.server) return;
+					if (entity.level.isClientSide()) return;
 					if (entity.tags.contains("kjsed")) return;
 
 					dimensional_mobs(entity, data);
@@ -171,7 +172,7 @@ EntityJSEvents.modifyEntity(e => {
 		e.modify(key, modifyBuilder =>
 			modifyBuilder
 				.onAddedToWorld(entity => {
-					if (!entity.server) return;
+					if (entity.level.isClientSide()) return;
 					if (entity.tags.contains("kjsed")) return;
 
 					motion_plus(entity);
@@ -201,7 +202,7 @@ EntityJSEvents.modifyEntity(e => {
 			.isInvulnerableTo(context => wolf_hp_fix_log(context))
 			.onLivingHeal(context => wolf_hp_fix_log(context))
 			.onAddedToWorld(entity => {
-				if (!entity.server) return;
+				if (entity.level.isClientSide()) return;
 
 				wolf_hp_fix_refresh(entity);
 
@@ -219,7 +220,7 @@ EntityJSEvents.modifyEntity(e => {
 		e.modify(key, modifyBuilder =>
 			modifyBuilder
 				.tick(entity => {
-					if (!entity.server) return;
+					if (entity.level.isClientSide()) return;
 					fireball_modify_tick(entity)
 				})
 		)
@@ -231,7 +232,7 @@ EntityJSEvents.modifyEntity(e => {
 				.onHurtTarget(context => spider_spit(context))
 				.onTargetChanged(context => spider_speedup(context.entity))
 				.onAddedToWorld(entity => {
-					if (!entity.server) return;
+					if (entity.level.isClientSide()) return;
 					if (entity.tags.contains("kjsed")) return;
 
 					mounted_mobs(entity, "minecraft:zombie");
@@ -244,7 +245,7 @@ EntityJSEvents.modifyEntity(e => {
 	e.modify("minecraft:lightning_bolt", modifyBuilder =>
 		modifyBuilder
 			.onAddedToWorld(entity => {
-				if (!entity.server) return;
+				if (entity.level.isClientSide()) return;
 
 				animal_fear(entity);
 				lightning_conversion(entity);
@@ -258,7 +259,7 @@ EntityJSEvents.modifyEntity(e => {
 		e.modify(key, modifyBuilder =>
 			modifyBuilder
 				.onAddedToWorld(entity => {
-					if (!entity.server) return;
+					if (entity.level.isClientSide()) return;
 					if (entity.tags.contains("kjsed")) return;
 
 					mob_variants(entity, data);
@@ -275,7 +276,7 @@ EntityJSEvents.modifyEntity(e => {
 					chain_explosion(context)
 				})
 				.onAddedToWorld(entity => {
-					if (!entity.server) return;
+					if (entity.level.isClientSide()) return;
 					if (entity.tags.contains("kjsed")) return;
 
 					mounted_mobs(entity, "minecraft:skeleton");
@@ -289,7 +290,7 @@ EntityJSEvents.modifyEntity(e => {
 		e.modify(skeleton, modifyBuilder =>
 			modifyBuilder
 				.onAddedToWorld(entity => {
-					if (!entity.server) return;
+					if (entity.level.isClientSide()) return;
 					if (entity.tags.contains("kjsed")) return;
 
 					debuff_arrow(entity);
@@ -318,7 +319,7 @@ EntityJSEvents.modifyEntity(e => {
 		e.modify(arrow, modifyBuilder =>
 			modifyBuilder
 				.onAddedToWorld(entity => {
-					if (!entity.server) return;
+					if (entity.level.isClientSide()) return;
 					if (entity.tags.contains("kjsed")) return;
 
 					flame_effect(entity);
@@ -327,7 +328,7 @@ EntityJSEvents.modifyEntity(e => {
 					entity.addTag("kjsed")
 				})
 				.tick(entity => {
-					if (!entity.server) return;
+					if (entity.level.isClientSide()) return;
 					fiery_arrows(entity)
 				})
 		)
@@ -356,7 +357,7 @@ EntityJSEvents.modifyEntity(e => {
 		modifyBuilder
 			.tick(context => {
 				const { entity } = context;
-				if (!entity.server || entity.age < 120) return;
+				if (entity.level.isClientSide() || entity.age < 120) return;
 				entity.discard()
 			})
 	)
@@ -379,7 +380,7 @@ EntityJSEvents.modifyEntity(e => {
 		e.modify(raider, modifyBuilder =>
 			modifyBuilder
 				.onAddedToWorld(entity => {
-					if (!entity.server) return;
+					if (entity.level.isClientSide()) return;
 
 					no_sneaky_raiders(entity);
 
