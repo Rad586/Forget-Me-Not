@@ -939,6 +939,7 @@ ItemEvents.rightClicked(e => {
 
 ItemEvents.rightClicked(e => {
     const { level, player } = e;
+    player.rayTrace(4).entity.attack(player, 0.001)
     parry_effect(level, player, player.rayTrace(4).entity, 4, e)
 })
 

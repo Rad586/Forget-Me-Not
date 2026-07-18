@@ -56,13 +56,13 @@ function trinkets_action(level, player, target, ref) {
     })
 }
 
-let hurt_processing = false
+let t_hurting = false
 function trinkets_attack(level, player, target) {
-    if (hurt_processing) return;
+    if (t_hurting) return;
 
     trinkets_action(level, player, target, global.trinkets_attack)
 
-    hurt_processing = false
+    t_hurting = false
 }
 
 function trinkets_hurt(level, player, attacker) {

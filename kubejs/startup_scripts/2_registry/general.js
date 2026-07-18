@@ -272,15 +272,6 @@ global.trinkets_attack = {
 			global.setSecondsOnFire(level, target, amount * step)
 		}
 	},
-	"poison": {
-		step: 1,
-		action: (level, player, target, amount) => {
-			const { step } = global.trinkets["poison"];
-			amount += 1;
-
-			target.potionEffects.add("poison", amount * step * 20, 0, false, true)
-		}
-	},
 	"leech": {
 		step: 0.45,
 		action: (level, player, target, amount) => {
@@ -337,6 +328,7 @@ global.trinkets_hurt = {
 			const { step } = global.trinkets["evasion"];
 
 			if (Math.random() >= amount * step) return;
+			target.attack(player, 0.001);
 			player.invulnerableTime = 20
 		}
 	},

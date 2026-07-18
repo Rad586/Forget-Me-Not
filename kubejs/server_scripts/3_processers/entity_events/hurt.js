@@ -1,11 +1,13 @@
 EntityEvents.hurt(e => {
 	const { entity } = e;
 	if (!entity.isLiving() || !entity.isAlive()) return;
-
 	const { server, level, source, damage } = e;
-	if (isNaN(damage)) e.cancel();
-	const { actual, type } = source;
+	let ignore = false
 
+	if (isNaN(damage)) e.cancel();
+	if(damage < 0.01) ignore = true;
+
+	const { actual, type } = source;
 	const final_dmg = global.calculateDamage(level, entity, source, damage);
 	const actual_hurt = entity.invulnerableTime <= 10;
 
@@ -38,5 +40,7 @@ EntityEvents.hurt(e => {
 			fight_back_attack(actual, final_dmg);
 			dizzying(level, entity, final_dmg)
 		}
-	}
+	};
+
+	if(ignore) e.cancel()
 })
