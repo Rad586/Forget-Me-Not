@@ -2,8 +2,8 @@ EntityEvents.hurt(e => {
 	const { entity } = e;
 	if (!entity.isLiving() || !entity.isAlive()) return;
 	const { server, level, source, damage } = e;
-	let ignore = false
 
+	let ignore = false;
 	if (isNaN(damage)) e.cancel();
 	if(damage < 0.01) ignore = true;
 

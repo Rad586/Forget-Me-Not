@@ -6,5 +6,7 @@ EntityEvents.death("minecraft:player", e => {
 	heart_of_demon(e, level, entity);
 
 	recovery_pearl_death(entity);
-	mob_sense(entity)
+	mob_sense(entity);
+
+	log_death(entity)
 })
