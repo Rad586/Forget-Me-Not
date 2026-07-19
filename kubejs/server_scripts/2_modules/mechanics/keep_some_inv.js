@@ -5,16 +5,16 @@ const keep_slots = [
 	0, 1, 2, 3, 4, 5, 6, 7, 8 /* hotbar */
 ];
 function loadAndUpdate(player, content) {
-    player.mergeNbt({Inventory: content});
+	player.mergeNbt({ Inventory: content });
 	player.inventoryMenu.broadcastFullState()
 };
 
 EntityEvents.death("minecraft:player", e => {
-	const {player} = e, {inventory} = player;
-	if(keep_inv == "true" || inventory.isEmpty()) return;
+	const { player } = e, { inventory } = player;
+	if (keep_inv == "true" || inventory.isEmpty()) return;
 
 	inventory.allItems.forEach(i => {
-		if(i.hasEnchantment('vanishing_curse', 1)) i.setCount(0)
+		if (i.hasEnchantment('vanishing_curse', 1)) i.setCount(0)
 	});
 
 	const keep = [], clear = [];
@@ -30,13 +30,13 @@ EntityEvents.death("minecraft:player", e => {
 	};
 
 	player.persistentData.lastItems = keep;
-    loadAndUpdate(player, clear)
+	loadAndUpdate(player, clear)
 })
 
 PlayerEvents.respawned(e => {
-	const {player} = e, {persistentData: pData} = player, {lastItems} = pData;
+	const { player } = e, { persistentData: pData } = player, { lastItems } = pData;
 
-	if(keep_inv == "true" || !lastItems) return;
+	if (keep_inv == "true" || !lastItems) return;
 	loadAndUpdate(player, lastItems);
 	pData.remove('lastItems')
 })

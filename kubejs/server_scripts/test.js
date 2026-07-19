@@ -90,8 +90,9 @@ const skill_formulas = {
 }
 
 function attack(player, target, damage) {
+    if(!target) return;
     target.invulnerableTime = 0;
-    target.attack(player, damage);
+    target.attack(player, damage)
 }
 function attackable(player, target) {
     if (target &&
@@ -939,12 +940,15 @@ ItemEvents.rightClicked(e => {
 
 ItemEvents.rightClicked(e => {
     const { level, player } = e;
-    console.log("hi")
+
+    
+    player.tell(["peaceful", "easy"].includes(`${e.level.difficulty.getKey()}`))
     parry_effect(level, player, player.rayTrace(4).entity, 4, e)
 })
 
 EntityEvents.hurt("player", e => {
     const { player } = e;
+    if(!e.source.actual) return;
 
     Utils.server.scheduleInTicks(1, () => {
         // player.tell(["damage: ", 20 - player.health])

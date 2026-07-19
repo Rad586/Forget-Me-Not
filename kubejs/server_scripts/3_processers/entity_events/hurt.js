@@ -32,7 +32,6 @@ EntityEvents.hurt(e => {
 
 	/* player attack */
 	if(actual && actual.isPlayer()) {
-		Utils.server.tell(damage);
 		if(actual_hurt) {
 			trinkets_attack(level, actual, entity);
 			main_hand_weapon(level, actual, entity);
