@@ -372,12 +372,21 @@ ItemEvents.tooltip(e => {
 	})
 
 	e.addAdvanced("minecraft:golden_sword", (stack, isAdvanced, tooltip) => {
-		tooltip[3] = Component.literal(" ")
+		tooltip[3] = (Component.literal(" ")
 			.withStyle("dark_green")
 			.append(Component.translatable(
 				"attribute.modifier.equals.0",
 				"5",
 				Component.translatable("attribute.name.generic.attack_damage")
 			))
+		);
+		tooltip[4] = Component.literal(" ")
+			.withStyle("dark_green")
+			.append(Component.translatable(
+				"attribute.modifier.equals.0",
+				"1.6",
+				Component.translatable("attribute.name.generic.attack_speed")
+			)
+		)	
 	})
 })
