@@ -217,21 +217,21 @@ global.trinkets_common = {
 	/* common attribute */
 	"dmg": {
 		attribute: "minecraft:generic.attack_damage",
-		step: 0.3
+		step: 0.65
 	},
 	"spd": {
 		attribute: "minecraft:generic.movement_speed",
-		step: 0.05,
+		step: 0.06,
 		percent: true,
 		operation: "multiply_base"
 	},
 	"amr": {
 		attribute: "minecraft:generic.armor",
-		step: 1.5
+		step: 1.75
 	},
 	"mh": {
 		attribute: "minecraft:generic.max_health",
-		step: 1
+		step: 2
 	},
 
 	/* rare attribute */
@@ -241,13 +241,13 @@ global.trinkets_common = {
 	},
 	"as": {
 		attribute: "minecraft:generic.attack_speed",
-		step: 0.025,
+		step: 0.14,
 		percent: true,
 		operation: "multiply_base"
 	},
 	"at": {
 		attribute: "minecraft:generic.armor_toughness",
-		step: 0.85
+		step: 1.75
 	},
 	"bless": {
 		step: 0.08,
@@ -313,11 +313,13 @@ global.trinkets_hurt = {
 		}
 	},
 	"absorption": {
-		step: 0.25,
+		step: 1,
 		action: (level, player, target, amount) => {
 			const { step } = global.trinkets["absorption"];
 
-			if (player.absorptionAmount >= amount * step) return;
+			if (global.throttle(player, 60, "absorption") || 
+				player.absorptionAmount >= amount * step) return;
+
 			player.setAbsorptionAmount(amount * step)
 		}
 	},
@@ -332,11 +334,12 @@ global.trinkets_hurt = {
 			player.invulnerableTime = 20
 		}
 	},
-	"guard": {
+	"guard": { /* 难以触发攻击类附魔形成联动 */
 		step: 0.1,
 		action: (level, player, target, amount) => {
 			const { step } = global.trinkets["guard"];
 
+			// target.attack(player, 0.001);
 			player.server.scheduleInTicks(1, () => {
 				if (player.invulnerableTime < 19) return;
 				player.invulnerableTime += amount * step * 20
@@ -351,3 +354,38 @@ global.trinkets = Object.assign(
 	global.trinkets_attack,
 	global.trinkets_hurt
 )
+
+/* 
+符文设计原则：
+
+1. 类数值
+解释：可用“+x单位”（类似数值）简单描述
+正面例子：+1吸血、+1%攻击速度、+1反伤
+反面例子：清除自身减益（是机制不是数值）
+
+2. 无条件
+解释：没有要详细说明的判断条件
+正面例子：吸血（总能吸血，但不会超过生命值上限，这是常识/一般共识）
+反面例子：夜晚（详细说明条件：时间）增伤、平原群系（详细说明条件：地点）增伤
+
+3. 普适
+解释：只考虑pve与一般原版怪物（如僵尸、骷髅）
+正面例子：+1攻击伤害、+1%移动速度
+反面例子：对护盾/高甲目标增伤（几乎没有带护盾或高护甲的怪物）、击中失明（主要针对玩家）、弹射物抗性/增伤（针对特定类型）
+
+4. 线性
+解释：成长线性，没有边际收益递减，也不会指数型提升
+正面例子：升级增加点燃时长（理论来说，1000秒是1000点伤害）、升级增加攻击伤害
+反面例子：满级质变
+
+5. 兼容
+解释：符文间不存在取代/冲突/重复
+正面例子：反伤与点燃搭配（点燃攻击者，相得益彰）、护甲值与固定减伤（对不同伤害区间，效果不同）
+反面例子：凋零取代中毒、幸运取代增加掉落量、+x护甲值与+x%护甲值重复
+
+6. 即时收益
+解释：戴上马上提升战力，不存在“还用不了”或“这个最弱”
+正面例子：+1%恢复量、+1幸运
+反面例子：提升火焰伤害倍率（没点燃用不了）、增加/减少击退（太弱）
+
+*/

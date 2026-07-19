@@ -943,8 +943,6 @@ ItemEvents.rightClicked(e => {
     parry_effect(level, player, player.rayTrace(4).entity, 4, e)
 })
 
-
-
 EntityEvents.hurt("player", e => {
     const { player } = e;
 
