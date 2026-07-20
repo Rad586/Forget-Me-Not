@@ -37,7 +37,7 @@ ServerEvents.recipes(e => {
 		"andromeda", "bettertridents", "betteranimalsplus",
 		"endermanoverhaul", "waystones",
 		"illagerexp", "livingthings", "ecologics",
-		"naturalist", 
+		"naturalist", "ridingutils",
 		"sds", "elementalcreepers", "probablychests", 
 		"musictriggers"
 	].forEach(key => e.remove({ mod: key }))

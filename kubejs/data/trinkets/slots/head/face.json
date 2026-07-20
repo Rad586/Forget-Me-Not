@@ -1,6 +1,6 @@
 {
     "replace": true,
-    "amount": 4,
+    "amount": 2,
     "order": 2,
     "icon": "trinkets:gui/slots/necklace",
     "drop_rule": "keep"

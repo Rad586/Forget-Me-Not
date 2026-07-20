@@ -217,4 +217,42 @@ ItemEvents.modification(e => {
 	e.modify("golden_sword", item => {
 		item.attackDamage = 4
 	})
+
+	global.Swords
+		.map(i => i.asItem().id)
+		.forEach(id => {
+			e.modify(id, item => {
+				const builder =
+					new ItemBuilder(id)
+						.use((level, player, hand) => {
+							if (level.isClientSide() || hand == "off_hand") return false;
+							const trinkets = global.mergedTrinkets(player, "face")
+								.map(s => s.count = Math.min(3, s.count));
+							let lvl = 0, names = [], name = "";
+							trinkets.forEach(stack => {
+								lvl += stack.count;
+								names.push(stack.idLocation.path.split("_fragment_")[0])
+							});
+
+							if (names.size < 2) {
+								name = names[0]
+							}
+							else {
+								name = swords[`${names[0]}_${names[1]}`] ? 
+									`${names[0]}_${names[1]}` : `${names[1]}_${names[0]}`
+							};
+
+							const skill = swords[name];
+							const cd = player.getCurrentItemAttackStrengthDelay() * 2;
+							const damage = player.getAttribute("generic.attack_damage").getValue();
+							const lvl_average = lvl / 2;
+							const { id } = player.mainHandItem;
+
+							swords[skill](level, player, skill, cd, damage, lvl_average, id)
+
+							return false
+						})
+				item.setItemBuilder(builder);
+			})
+		})
 })

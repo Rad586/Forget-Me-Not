@@ -354,41 +354,44 @@ global.getTrinkets = (player, type) => TrinketsApi
 	.map(p => p.b)
 
 global.mergedTrinkets = (player, type) => {
+	type = type || "necklace";
+
+	const type_to_id = {
+		"necklace": "_rune_",
+		"face": "_fragment_"
+	};
+	const temp = type_to_id[type];
 	const map = {};
 
 	global.getTrinkets(player, type)
 		.forEach(stack => {
-			const split = stack.idLocation.path.split("_rune_");
+			const split = stack.idLocation.path.split(temp);
 			const name = split[0], lvl = split[1];
 
 			map[name] = (map[name] || 0) + lvl * stack.count;
 		});
 
-	return Object.keys(map).map(n => Item.of(`kubejs:${n}_rune_1`, map[n]))
+	return Object.keys(map).map(n => Item.of(`kubejs:${n}${temp}1`, map[n]))
 }
 
-global.trinketAmount = (player, name) => {
-	let amount = 0;
+global.trinketAmount = (player, name, type) => {
+	type = type || "necklace";
 
-	TrinketsApi
-		.getTrinketComponent(player).get()
-		.getAllEquipped().map(p => p.b)
-		.forEach(stack => {
-			const split = stack.idLocation.path.split("_rune_");
-			const name2 = split[0], lvl = split[1];
+	const type_to_id = {
+		"necklace": "_rune_",
+		"face": "_fragment_"
+	};
 
-			if (name2 == name) amount += stack.count * lvl;
-		});
-
-	return amount
+	return global.mergedTrinkets(player, type)
+	[`kubejs:${name}${type_to_id[type]}1`].count
 }
 
 global.setSecondsOnFire = (level, entity, seconds) => {
-	entity.setSecondsOnFire(seconds);
 	if (level.getBlock(entity.x, entity.y - 0.5, entity.z)
 		.hasTag("minecraft:soul_fire_base_blocks")) {
 		entity.fireType = "minecraft:soul"
-	}
+	};
+	entity.setSecondsOnFire(seconds)
 }
 
 global.getEffects = entity => {

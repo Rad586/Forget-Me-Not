@@ -941,9 +941,10 @@ ItemEvents.rightClicked(e => {
 ItemEvents.rightClicked(e => {
     const { level, player } = e;
 
-    
-    player.tell(["peaceful", "easy"].includes(`${e.level.difficulty.getKey()}`))
-    parry_effect(level, player, player.rayTrace(4).entity, 4, e)
+
+
+
+    // parry_effect(level, player, player.rayTrace(4).entity, 4, e)
 })
 
 EntityEvents.hurt("player", e => {
@@ -956,3 +957,5 @@ EntityEvents.hurt("player", e => {
         player.setFoodLevel(100)
     })
 })
+
+//测试order
