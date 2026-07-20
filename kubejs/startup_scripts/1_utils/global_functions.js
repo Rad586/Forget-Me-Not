@@ -347,16 +347,16 @@ global.getBiomeAt = (level, pos) => String(level.getBiome(pos).unwrapKey().get()
 // 	.getTrinketComponent(player).get()
 // 	.isEquipped(Item.of(id).item)
 
-global.getTrinkets = (player) => TrinketsApi
+global.getTrinkets = (player, type) => TrinketsApi
 	.getTrinketComponent(player).get()
-	.getAllEquipped().map(p => p.b)
+	.getAllEquipped()
+	.filter(p => p.a.inventory().getSlotType().name == (type || "necklace"))
+	.map(p => p.b)
 
-global.mergedTrinkets = (player) => {
+global.mergedTrinkets = (player, type) => {
 	const map = {};
 
-	TrinketsApi
-		.getTrinketComponent(player).get()
-		.getAllEquipped().map(p => p.b)
+	global.getTrinkets(player, type)
 		.forEach(stack => {
 			const split = stack.idLocation.path.split("_rune_");
 			const name = split[0], lvl = split[1];

@@ -4,6 +4,7 @@ Object.keys(global.trinkets_common).forEach(name => {
     if (at) t_attributes.push(at)
 })
 
+/* trinket mod doesn't support attribute stacking(dulplicated uuid) */
 function trinkets(player) {
     const modifiers = {};
     global.mergedTrinkets(player).forEach(stack => {
