@@ -29,7 +29,8 @@ const advancements = [
     "deep", "diamond", "waystone",
     "smithing_table", "nether_portal",
     "cauldron", "mob_farm", "dummy",
-    "waypoint", "hoe", "breeding", "tower"
+    "waypoint", "hoe", "breeding", "tower",
+    "stripping"
 ]
 
 advancements.forEach(adv => {
