@@ -372,14 +372,15 @@ ItemEvents.tooltip(e => {
 	})
 
 	e.addAdvanced("minecraft:golden_sword", (stack, isAdvanced, tooltip) => {
-		tooltip[3] = (Component.literal(" ")
+		tooltip[3] = Component.literal(" ")
 			.withStyle("dark_green")
 			.append(Component.translatable(
 				"attribute.modifier.equals.0",
 				"5",
 				Component.translatable("attribute.name.generic.attack_damage")
-			))
-		);
+			)
+		)
+		
 		tooltip[4] = Component.literal(" ")
 			.withStyle("dark_green")
 			.append(Component.translatable(
@@ -388,5 +389,22 @@ ItemEvents.tooltip(e => {
 				Component.translatable("attribute.name.generic.attack_speed")
 			)
 		)	
+	})
+
+	global.Axes.forEach(i => {
+		e.addAdvanced(i.id, (stack, isAdvanced, tooltip) => {
+			const t3 = tooltip[3], t4 = tooltip[4];
+			const num = String(Number(t4.getContents().args[0]) + 1);
+
+			tooltip[3] = Component.literal(" ")
+				.withStyle("dark_green")
+				.append(Component.translatable(
+					"attribute.modifier.equals.0",
+					num,
+					Component.translatable("attribute.name.generic.attack_damage")
+				)
+			);
+			tooltip[4] = t3.darkGreen()
+		})
 	})
 })

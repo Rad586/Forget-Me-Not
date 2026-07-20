@@ -958,4 +958,4 @@ EntityEvents.hurt("player", e => {
     })
 })
 
-//测试order
+//斧头或原木上加上stripping tooltip
