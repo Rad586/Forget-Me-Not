@@ -225,8 +225,10 @@ ItemEvents.modification(e => {
 					new ItemBuilder(id)
 						.use((level, player, hand) => {
 							if (level.isClientSide() || hand == "off_hand") return false;
+							const { skills } = global;
 							const trinkets = global.mergedTrinkets(player, "face")
 								.map(s => s.count = Math.min(3, s.count));
+
 							let lvl = 0, names = [], name = "";
 							trinkets.forEach(stack => {
 								lvl += stack.count;
@@ -237,17 +239,18 @@ ItemEvents.modification(e => {
 								name = names[0]
 							}
 							else {
-								name = swords[`${names[0]}_${names[1]}`] ? 
+								name = skills[`${names[0]}_${names[1]}`] ? 
 									`${names[0]}_${names[1]}` : `${names[1]}_${names[0]}`
 							};
 
-							const skill = swords[name];
+							const skill = skills[name];
 							const cd = player.getCurrentItemAttackStrengthDelay() * 2;
 							const damage = player.getAttribute("generic.attack_damage").getValue();
 							const lvl_average = lvl / 2;
 							const { id } = player.mainHandItem;
+							const split = skill.split("_");
 
-							swords[skill](level, player, skill, cd, damage, lvl_average, id)
+							skills[skill](level, player, skill_formulas[split[1] || split[0]], cd, damage, lvl_average, id)
 
 							return false
 						})
