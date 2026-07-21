@@ -27,25 +27,18 @@ ItemEvents.tooltip(e => {
 		"use_bottle": [
 			"minecraft:glass_bottle"
 		],
-		"boat": [
-			"minecraft:oak_boat"
-		],
+		"boat": Ingredient.of("#minecraft:boats"),
 		"obsidian": [
 			"minecraft:obsidian"
 		],
-		"horse": [
-			"minecraft:iron_horse_armor", "minecraft:golden_horse_armor", "minecraft:diamond_horse_armor",
-			"minecraft:leather_horse_armor"
-		],
+		"horse": Ingredient.of(/_horse_armor/),
 		"dirt": [
 			"minecraft:dirt"
 		],
 		"netherrack": [
 			"minecraft:netherrack"
 		],
-		"fish": [
-			"minecraft:cod", "minecraft:salmon", "minecraft:tropical_fish"
-		],
+		"fish": Ingredient.of("#minecraft:fishes"),
 		"torch": [
 			"minecraft:torch", "minecraft:soul_torch"
 		],
@@ -80,7 +73,7 @@ ItemEvents.tooltip(e => {
 			"minecraft:gold_block"
 		],
 		"piglin_trade": [
-			"minecraft:gold_nugget"
+			"minecraft:gold_block"
 		],
 		"diamond": [
 			"minecraft:diamond"
@@ -94,11 +87,7 @@ ItemEvents.tooltip(e => {
 		"nether_wart": [
 			"minecraft:nether_wart"
 		],
-		"oak_leaves": [
-			"minecraft:birch_leaves", "minecraft:dark_oak_leaves",
-			"minecraft:acacia_leaves", "minecraft:jungle_leaves", "minecraft:spruce_leaves",
-			"minecraft:azalea_leaves", "minecraft:flowering_azalea_leaves", "minecraft:mangrove_leaves"
-		],
+		"oak_leaves": Ingredient.of("#minecraft:leaves").getItemIds(),
 		"zombie": [
 			"minecraft:rotten_flesh"
 		],
@@ -126,17 +115,12 @@ ItemEvents.tooltip(e => {
 		"fletching_table": [
 			"minecraft:fletching_table"
 		],
-		"sapling": [
-			"minecraft:wheat_seeds"
-		],
+		"sapling": Ingredient.of("#minecraft:saplings").getItemIds()
+			.concat(Ingredient.of("#minecraft:small_flowers").getItemIds()),
 		"coal_ore": [
 			"minecraft:coal"
 		],
-		"oak_door": [
-			"minecraft:iron_door", "minecraft:oak_door", "minecraft:birch_door", "minecraft:dark_oak_door",
-			"minecraft:acacia_door", "minecraft:jungle_door", "minecraft:spruce_door",
-			"minecraft:mangrove_door", "minecraft:warped_door", "minecraft:crimson_door"
-		],
+		"oak_door": Ingredient.of("#minecraft:doors").getItemIds(),
 		"item_frame": [
 			"minecraft:item_frame", "minecraft:glow_item_frame"
 		],
@@ -205,19 +189,15 @@ ItemEvents.tooltip(e => {
 		"grass": [
 			"minecraft:wooden_hoe", "minecraft:iron_hoe",
 			"minecraft:golden_hoe", "minecraft:diamond_hoe",
-			"minecraft:netherite_hoe"
-		],
-		"deep": [
-			"minecraft:raw_gold"
-		],
-		"redstone": [
-			"minecraft:redstone", "minecraft:redstone_torch"
+			"minecraft:netherite_hoe", "minecraft:stone_hoe"
 		],
 		"wolf": [
 			"kubejs:meat", "kubejs:cooked_meat"
 		],
 		"hoe": [
-			"minecraft:wheat"
+			"minecraft:wooden_hoe", "minecraft:iron_hoe",
+			"minecraft:golden_hoe", "minecraft:diamond_hoe",
+			"minecraft:netherite_hoe", "minecraft:stone_hoe"
 		],
 		"hoe2": [
 			"minecraft:grass"
@@ -226,30 +206,43 @@ ItemEvents.tooltip(e => {
 			"minecraft:tnt"
 		],
 		"breeding": [
-			"minecraft:carrot"
+			"minecraft:carrot", "minecraft:wheat_seeds",
+			"minecraft:wheat"
 		],
 		"free": [
-			"minecraft:lava_bucket"
+			"minecraft:sheers"
 		],
-		"pickaxe": [
-			"minecraft:wooden_pickaxe", "minecraft:stone_pickaxe"
-		],
+		"pickaxe": global.Pickaxes.map(s => s.id),
 		"hotbar_totem": [
 			"minecraft:totem_of_undying"
 		],
 		"golden_tool": [
 			"minecraft:golden_pickaxe", "minecraft:golden_axe", 
 			"minecraft:golden_hoe", "minecraft:golden_shovel",
-		]
+		],
+		"stripping": Ingredient.of("#minecraft:logs").getItemIds()
 	};
 
 	const shift = Text.translate("dialogue.fmn.shift");
+	const itemTips = {};
+
 	Object.keys(advanced).forEach(d => {
 		const items = advanced[d];
 		const dialogue = Text.translate("dialogue.fmn." + d).darkGray();
-		e.addAdvanced(items, (stack, isAdvanced, tooltip) => {
-			if (e.isShift()) tooltip.add(dialogue);
-			else tooltip.add(shift);
+
+		items.forEach(item => {
+			if (!itemTips[item]) itemTips[item] = [];
+			itemTips[item].push(dialogue);
+		})
+	})
+
+	Object.keys(itemTips).forEach(item => {
+		e.addAdvanced([item], (stack, isAdvanced, tooltip) => {
+			if (e.isShift()) {
+				itemTips[item].forEach(t => tooltip.add(t))
+			} else {
+				tooltip.add(shift)
+			}
 		})
 	})
 

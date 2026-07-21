@@ -957,5 +957,3 @@ EntityEvents.hurt("player", e => {
         player.setFoodLevel(100)
     })
 })
-
-//斧头或原木上加上stripping tooltip
