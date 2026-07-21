@@ -4,6 +4,7 @@ ItemEvents.tooltip(e => {
 		Text.translate("dialogue.fmn.magnet2")
 	]);
 
+	const i_items = (i) => Ingredient.of(i).getItemIds();
 	const advanced = {
 		"chest": [
 			"minecraft:chest", "minecraft:barrel", "minecraft:trapped_chest"
@@ -27,18 +28,18 @@ ItemEvents.tooltip(e => {
 		"use_bottle": [
 			"minecraft:glass_bottle"
 		],
-		"boat": Ingredient.of("#minecraft:boats"),
+		"boat": i_items("#minecraft:boats"),
 		"obsidian": [
 			"minecraft:obsidian"
 		],
-		"horse": Ingredient.of(/_horse_armor/),
+		"horse": i_items("/_horse_armor$/"),
 		"dirt": [
 			"minecraft:dirt"
 		],
 		"netherrack": [
 			"minecraft:netherrack"
 		],
-		"fish": Ingredient.of("#minecraft:fishes"),
+		"fish": i_items("#minecraft:fishes"),
 		"torch": [
 			"minecraft:torch", "minecraft:soul_torch"
 		],
@@ -87,7 +88,7 @@ ItemEvents.tooltip(e => {
 		"nether_wart": [
 			"minecraft:nether_wart"
 		],
-		"oak_leaves": Ingredient.of("#minecraft:leaves").getItemIds(),
+		"oak_leaves": i_items("#minecraft:leaves"),
 		"zombie": [
 			"minecraft:rotten_flesh"
 		],
@@ -115,12 +116,12 @@ ItemEvents.tooltip(e => {
 		"fletching_table": [
 			"minecraft:fletching_table"
 		],
-		"sapling": Ingredient.of("#minecraft:saplings").getItemIds()
-			.concat(Ingredient.of("#minecraft:small_flowers").getItemIds()),
+		"sapling": i_items("#minecraft:saplings")
+			.concat(i_items("#minecraft:small_flowers")),
 		"coal_ore": [
 			"minecraft:coal"
 		],
-		"oak_door": Ingredient.of("#minecraft:doors").getItemIds(),
+		"oak_door": i_items("#minecraft:doors"),
 		"item_frame": [
 			"minecraft:item_frame", "minecraft:glow_item_frame"
 		],
@@ -151,14 +152,7 @@ ItemEvents.tooltip(e => {
 		"stove": [
 			"farmersdelight:stove"
 		],
-		"soap": [
-			"fancydyes:solid_red_dye", "fancydyes:solid_orange_dye", "fancydyes:solid_yellow_dye",
-			"fancydyes:solid_green_dye", "fancydyes:solid_lime_dye", "fancydyes:solid_cyan_dye",
-			"fancydyes:solid_light_blue_dye", "fancydyes:solid_blue_dye", "fancydyes:solid_purple_dye",
-			"fancydyes:solid_pink_dye", "fancydyes:solid_magenta_dye", "fancydyes:solid_brown_dye",
-			"fancydyes:solid_white_dye", "fancydyes:solid_light_gray_dye", "fancydyes:solid_gray_dye",
-			"fancydyes:solid_black_dye"
-		],
+		"soap": i_items("#minecraft:fancydyes"),
 		"bundle": [
 			"minecraft:leather", "minecraft:rabbit_hide"
 		],
@@ -180,25 +174,16 @@ ItemEvents.tooltip(e => {
 		"bundle2": [
 			"minecraft:bundle"
 		],
-		"hot_biome": [
-			"minecraft:sand", "minecraft:cactus"
-		],
+		"hot_biome": i_items("#minecraft:sand")
+			.concat("minecraft:cactus"),
 		"cold_biome": [
 			"minecraft:snowball", "minecraft:powder_snow_bucket"
 		],
-		"grass": [
-			"minecraft:wooden_hoe", "minecraft:iron_hoe",
-			"minecraft:golden_hoe", "minecraft:diamond_hoe",
-			"minecraft:netherite_hoe", "minecraft:stone_hoe"
-		],
+		"grass": i_items("/_hoe$/"),
 		"wolf": [
 			"kubejs:meat", "kubejs:cooked_meat"
 		],
-		"hoe": [
-			"minecraft:wooden_hoe", "minecraft:iron_hoe",
-			"minecraft:golden_hoe", "minecraft:diamond_hoe",
-			"minecraft:netherite_hoe", "minecraft:stone_hoe"
-		],
+		"hoe": i_items("/_hoe$/"),
 		"hoe2": [
 			"minecraft:grass"
 		],
@@ -220,7 +205,7 @@ ItemEvents.tooltip(e => {
 			"minecraft:golden_pickaxe", "minecraft:golden_axe", 
 			"minecraft:golden_hoe", "minecraft:golden_shovel",
 		],
-		"stripping": Ingredient.of("#minecraft:logs").getItemIds()
+		"stripping": i_items("#minecraft:logs")
 	};
 
 	const shift = Text.translate("dialogue.fmn.shift");
