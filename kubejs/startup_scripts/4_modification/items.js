@@ -223,6 +223,8 @@ ItemEvents.modification(e => {
 			e.modify(id, item => {
 				const builder =
 					new ItemBuilder(id)
+						.useAnimation("spear")
+						.useDuration(item => 1)
 						.use((level, player, hand) => {
 							if (level.isClientSide() || hand == "off_hand") return false;
 							const { skills } = global;
