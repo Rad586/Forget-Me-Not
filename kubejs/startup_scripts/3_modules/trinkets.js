@@ -52,10 +52,12 @@ global.trinkets_common = {
     },
     "cc": {
         attribute: "minecraft:generic.crit_chance",
+        percent: true,
         step: 0.08
     },
     "cd": {
         attribute: "minecraft:generic.crit_damage",
+        percent: true,
         step: 0.08
     }
 }
@@ -119,29 +121,6 @@ global.trinkets_hurt = {
                 player.absorptionAmount >= amount * step) return;
 
             player.setAbsorptionAmount(amount * step)
-        }
-    },
-    "evasion": { /* 这和百分比免伤有区别？ */
-        step: 0.015,
-        percent: true,
-        action: (level, player, target, amount) => {
-            const { step } = global.trinkets["evasion"];
-
-            if (Math.random() >= amount * step) return;
-            target.attack(player, 0.001);
-            player.invulnerableTime = 20
-        }
-    },
-    "guard": { /* 难以触发攻击类附魔形成联动 */
-        step: 0.1,
-        action: (level, player, target, amount) => {
-            const { step } = global.trinkets["guard"];
-
-            // target.attack(player, 0.001);
-            player.server.scheduleInTicks(1, () => {
-                if (player.invulnerableTime < 19) return;
-                player.invulnerableTime += amount * step * 20
-            })
         }
     }
 }

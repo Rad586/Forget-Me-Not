@@ -206,6 +206,25 @@ StartupEvents.registry("item", e => {
 
 	Object.keys(global.trinkets).forEach(n => 
 		createTrinket(n/*, global.trinkets[n].maxLvl*/))
+
+	Object.keys(global.skills).forEach(skill => {
+		const rarity = {
+			1: "rare",
+			2: "epic",
+			3: "uncommon"
+		};
+
+		if(skill.includes("_")) return;
+		for (let i = 1; i <= 3; i++) {
+			e.create(`${name}_fragment_${i}`)
+				.maxStackSize(1)
+				.tag("trinkets:head/face")
+				.rarity(rarity[i])
+				.tooltip(Text.translate(`dialogue.fmn.${name}_fragment`)
+					.darkGray()
+				)
+		}
+	})
 })
 
 /* 
@@ -276,7 +295,7 @@ StartupEvents.registry("item", e => {
 攻击后增益（增益任何东西，移速、伤害…），
 受击伤害转化（转化为任何东西，护盾、生命…）护盾，
 击杀条件（击杀回血、击杀增加护盾…），
-溅射/范围/横扫伤害，暴击率，暴击伤害，命中率，百分比减伤/免伤率，
+溅射/范围/横扫伤害，命中率，百分比减伤/免伤率，
 冷却，生命回复间隔/回血/受伤恢复速度，
 修改效果（正/负面效果强度/时长改变），
 怪物感知距离，受击自动反击概率，雷击，
@@ -285,14 +304,11 @@ StartupEvents.registry("item", e => {
 受击/攻击/击杀给予自身/目标药水效果（力量、速度、急迫…），
 受击/攻击控制目标（击退/缓慢/清除仇恨/晕眩/位移/转身/冰冻/打断/吸引/拉扯），
 
-
-
-
 8. 非已有设计
 设计的符文的项目（无论增减）不应出现在这个名单里：
 攻击伤害，最大生命，护甲值，盔甲韧性/护甲韧性，
 击中着火，吸血，反伤，固定减伤，攻击速度，
-生命恢复量/治疗效果，幸运，移动速度
+生命恢复量/治疗效果，幸运，移动速度，暴击率，暴击伤害
 
 
 
