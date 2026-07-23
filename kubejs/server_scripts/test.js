@@ -68,9 +68,9 @@ ItemEvents.rightClicked(e => {
 
     // player.tell(global.mergedTrinkets(player, "face"))
     // global.particleWind(level, 3, player, "flame", -0.3, 0.3);
-    e.server.scheduleInTicks(1, () => {
-        parry_effect(level, player, player.rayTrace(4).entity, 4, e)
-    })
+    // e.server.scheduleInTicks(1, () => {
+    //     parry_effect(level, player, player.rayTrace(4).entity, 4, e)
+    // })
 
 })
 

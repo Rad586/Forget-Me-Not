@@ -200,10 +200,10 @@ function parry1(type, player, lvl, cd, range, speed, duration) {
         speed: speed,
         duration: duration
     };
-    player.potionEffects.add("kubejs:parry", 40/* 7 */, 0, false, true);
+    player.potionEffects.add("kubejs:parry", 7, 0, false, true);
 }
 function parry2(player, target, lvl, damage) {
-    attack(player, target, damage)
+    attack(player, target, Math.max(lvl + 5, damage))
     player.heal(lvl * 2)
 }
 function inferno(player, target, damage, cd) {

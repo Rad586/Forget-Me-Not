@@ -115,7 +115,7 @@ function lunge(level, player, damage, speed, range, func1, func2) {
     })
 }
 function parry2(player, target, lvl, damage) {
-    attack(player, target, damage);
+    attack(player, target, Math.max(lvl + 5, damage))
     player.heal(lvl * 2)
 }
 function inferno(player, target, damage, cd) {
@@ -268,7 +268,8 @@ function parry_effect(level, player, actual, final_dmg, e) {
     if (!player.hasEffect("kubejs:parry")) return;
     player.removeEffect("kubejs:parry");
 
-    const { parry } = player.persistentData;
+    const pData = player.persistentData, { parry } = pData;
+    player.tell(parry)
     if (!parry) return;
 
     const { type, lvl, cd, range, speed, duration } = parry;
