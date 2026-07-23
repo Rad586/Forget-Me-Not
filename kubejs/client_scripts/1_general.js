@@ -3,26 +3,28 @@ const SimpleSoundInstance = Java.loadClass("net.minecraft.client.resources.sound
 
 function getHovered() {
     const { screen } = Client;
-    if (!screen) return Item.empty;
-    const { menu } = screen;
-    if (!menu) return Item.empty;
+    if(!screen) return;
 
-    const { window: w, mouseHandler: m } = Client;
-    const mouseX = m.xpos() * w.guiScaledWidth / w.screenWidth
-    const mouseY = m.ypos() * w.guiScaledHeight / w.screenHeight
+    const { hoveredSlot } = screen;
+    if (!hoveredSlot) return;
 
-    for (let slot of menu.slots) {
-        let x = screen.leftPos + slot.x
-        let y = screen.topPos + slot.y
+    const { item } = hoveredSlot;
+    if(item.isEmpty()) return;
 
-        if (mouseX >= x && mouseX < x + 16 &&
-            mouseY >= y && mouseY < y + 16
-        ) {
-            return {
-                slot: slot.index,
-                stack: slot.getItem()
-            }
-        }
+    return {
+        stack: item,
+        slot: hoveredSlot.index
     }
-    return Item.empty
+}
+
+function uiSound(sound, volume, pitch) {
+    Client.soundManager.play(
+        SimpleSoundInstance.forUI(sound, pitch || 1, volume || 1)
+    )
+}
+
+function hoveredRc(player, hovered, func) {
+    const { carried } = player.containerMenu;
+    if (carried.isEmpty() || !mousePressedOnce("GLFW_MOUSE_BUTTON_RIGHT")) return;
+    func(player, hovered, carried)
 }

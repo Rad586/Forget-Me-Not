@@ -11,9 +11,7 @@ function gliding_client(level, player, age) {
         player.sendData("gliding", {status: status});
         FootstepsConfig.setPlacementMode(!status ? GROUND_ONLY : CONTINUOUS);
         if (pitch) {
-            Client.soundManager.play(
-                SimpleSoundInstance.forUI("item.armor.equip_generic", pitch, 0.68)
-            )
+            uiSound("item.armor.equip_generic", 0.68, pitch)
         }
     };
     const { deltaMovement: m } = player;

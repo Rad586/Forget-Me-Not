@@ -1,13 +1,11 @@
-function removeItem(player) {
+function removeItem(player, hovered) {
     if (GLFW.glfwGetKey(
         Client.window.window,
         global_keybinds["key_remove"].getKey().getValue()) != 1
     ) return;
-    const hovered = getHovered(), { slot, stack } = hovered;
-    if (!stack || stack.isEmpty()) return;
 
+    const { slot } = hovered;
     player.sendData("remove_item", { slot: slot });
-    Client.soundManager.play(
-        SimpleSoundInstance.forUI("block.lava.extinguish", 2, 0.12)
-    )
+
+    uiSound("block.lava.extinguish", 0.12, 2)
 }

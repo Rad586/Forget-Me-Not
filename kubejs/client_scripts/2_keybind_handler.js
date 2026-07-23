@@ -36,3 +36,14 @@ function pressedTwice(name) {
     this[name + "twice_hold"] = pressing;
     return result
 }
+
+function mousePressedOnce(name) {
+    const pressing = GLFW.glfwGetMouseButton(
+        Client.window.window,
+        GLFW[name]
+    ) == 1;
+    const needs_change = pressing && !this[name + "once"];
+    this[name + "once"] = pressing;
+
+    return needs_change
+}

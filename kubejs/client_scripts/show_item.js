@@ -14,13 +14,10 @@ function stackMessage(stack, player) {
         .append(stack.displayName)
         .setStyle(Style.EMPTY.withHoverEvent(hover))
 }
-function showItem(player) {
+function showItem(player, hovered) {
     if (!pressedOnce("key_show", true)) return;
-    const { stack } = getHovered();
-    if (!stack || stack.isEmpty()) return;
+    const { stack } = hovered;
 
     Utils.server.tell(stackMessage(stack, player));
-    Client.soundManager.play(
-        SimpleSoundInstance.forUI("ui.button.click", 1.1, 0.2)
-    )
+    uiSound("ui.button.click", 0.2, 1.1)
 }

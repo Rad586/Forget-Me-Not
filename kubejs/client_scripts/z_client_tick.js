@@ -15,8 +15,16 @@ ClientEvents.tick(e => {
         fallInLeavesClient(player);
         modFootstep(player, age);
         sitClient(player);
-        removeItem(player);
-        showItem(player)
+
+        let hovered = getHovered();
+        if (hovered) {
+            removeItem(player, hovered);
+            showItem(player, hovered);
+            
+            hoveredRc(player, hovered, (player, hovered, carried) => {
+                // Utils.server.tell('hi')
+            })
+        }
     }
 
     if (now - previous < 250) return;
