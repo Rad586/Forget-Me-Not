@@ -41,32 +41,32 @@
 
 
 
+// ItemEvents.rightClicked(e => {
+//     const { level, player } = e;
+//     // player.setHealth(10)
+
+//     if (!(e.item.item instanceof SwordItem)) return;
+
+//     const skill = "smite";
+
+//     const split = skill.split("_")
+//     global.skills[skill](
+//         level,
+//         player,
+//         global.skill_formulas[split[1] || split[0]],
+//         player.getCurrentItemAttackStrengthDelay() * 2,
+//         player.getAttribute("generic.attack_damage").getValue(),
+//         1,
+//         player.mainHandItem.id
+//     )
+// })
+
+
 ItemEvents.rightClicked(e => {
     const { level, player } = e;
-    // player.setHealth(10)
-
-    if (!(e.item.item instanceof SwordItem)) return;
-
-    const skill = "smite";
-
-    const split = skill.split("_")
-    global.skills[skill](
-        level,
-        player,
-        global.skill_formulas[split[1] || split[0]],
-        player.getCurrentItemAttackStrengthDelay() * 2,
-        player.getAttribute("generic.attack_damage").getValue(),
-        1,
-        player.mainHandItem.id
-    )
-})
 
 
-ItemEvents.rightClicked(e => {
-    const { level, player } = e;
-
-
-
+    // player.tell(global.mergedTrinkets(player, "face"))
 
     // parry_effect(level, player, player.rayTrace(4).entity, 4, e)
 })

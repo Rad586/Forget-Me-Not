@@ -223,38 +223,35 @@ ItemEvents.modification(e => {
 			e.modify(id, item => {
 				const builder =
 					new ItemBuilder(id)
-						.useAnimation("spear")
+						.useAnimation("none")
 						.useDuration(item => 1)
-						.use((level, player, hand) => {
-							if (level.isClientSide() || hand == "off_hand") return false;
-							const { skills } = global;
-							const trinkets = global.mergedTrinkets(player, "face")
-								.map(s => s.count = Math.min(3, s.count));
+						.use((level, player, hand) => (!level.isClientSide() &&
+							global.mergedTrinkets(player, "face").length > 0)
+						)
+						.finishUsing((item, level, entity) => {
+							if (level.isClientSide()) return item;
 
-							let lvl = 0, names = [], name = "";
-							trinkets.forEach(stack => {
-								lvl += stack.count;
+							let lvl = 0, names = [];
+							global.mergedTrinkets(player, "face").forEach(stack => {
+								lvl += Math.min(3, stack.count);
 								names.push(stack.idLocation.path.split("_fragment_")[0])
 							});
 
-							if (names.size < 2) {
-								name = names[0]
-							}
-							else {
-								name = skills[`${names[0]}_${names[1]}`] ? 
-									`${names[0]}_${names[1]}` : `${names[1]}_${names[0]}`
-							};
+							let name = names.join("_");
+							name = name in skills ?
+								name : names.reverse().join("_");
 
-							const skill = skills[name];
-							const cd = player.getCurrentItemAttackStrengthDelay() * 2;
-							const damage = player.getAttribute("generic.attack_damage").getValue();
-							const lvl_average = lvl / 2;
-							const { id } = player.mainHandItem;
-							const split = skill.split("_");
+							skills[name](
+								level, player,
+								skill_formulas[names[1] || names[0]],
+								player.getCurrentItemAttackStrengthDelay() * 2,
+								player.getAttribute("generic.attack_damage").getValue(),
+								lvl / names.length,
+								item.id
+							);
+							player.swing();
 
-							skills[skill](level, player, skill_formulas[split[1] || split[0]], cd, damage, lvl_average, id)
-
-							return false
+							return item
 						})
 				item.setItemBuilder(builder);
 			})

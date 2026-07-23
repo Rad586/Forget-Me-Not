@@ -42,7 +42,6 @@ global.skill_formulas = {
     },
     "gernic_cd": (delay) => delay * 1.25
 }
-const { skill_formulas } = global
 
 function attack(player, target, damage) {
     if (!target) return;
@@ -833,7 +832,6 @@ global.skills = {
         const cd = skill_formulas["sacrifice"].cd(info.cd(delay));
         lvl = skill_formulas["sacrifice"].amp(lvl);
         sacrifice(player, cost);
-        Utils.server.tell(lvl)
 
         parry1("nope", player, lvl, cd, null, null, null);
 
@@ -870,3 +868,5 @@ global.skills = {
         player.cooldowns.addCooldown(id, cd)
     }
 }
+
+const { skill_formulas, skills } = global

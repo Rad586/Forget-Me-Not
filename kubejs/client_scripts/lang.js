@@ -218,16 +218,14 @@ ClientEvents.lang("zh_cn", e => {
 		"as": "攻速",
 		"at": "韧性",
 		"bless": "生命恢复",
+		"cc": "暴击率",
+		"cd": "暴击伤害",
 
 		"fire": "火焰",
 		"leech": "吸血",
-		"execution": "斩杀",
-		"grim": "死神",
 
 		"thorns": "荆棘",
-		"absorption": "伤害吸收",
-		"evasion": "闪避",
-		"guard": "庇护"
+		"absorption": "伤害吸收"
 	};
 	const num = {
 		"1": "Ⅰ", "2": "Ⅱ", "3": "Ⅲ",
@@ -255,16 +253,14 @@ ClientEvents.lang("en_us", e => {
 		"as": "Attack Speed",
 		"at": "Toughness",
 		"bless": "Bless",
+		"cc": "Crit Chance",
+		"cd": "Crit Damage",
 
 		"fire": "Fire",
 		"leech": "Leech",
-		"execution": "Execution",
-		"grim": "Grim",
 
 		"thorns": "Thorns",
-		"absorption": "Absorption",
-		"evasion": "Evasion",
-		"guard": "Guard"
+		"absorption": "Absorption"
 	};
 	const num = {
 		"1": "I", "2": "II", "3": "III",

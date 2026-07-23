@@ -80,26 +80,6 @@ global.trinkets_attack = {
             if (global.throttle(player, 1, "leech")) return;
             player.heal(amount * step)
         }
-    },
-    "execution": {
-        step: 0.04,
-        percent: true,
-        action: (level, player, target, amount) => {
-            const { step } = global.trinkets["execution"];
-
-            if (target.health / target.maxHealth > amount * step) return;
-            attack(player, target, 999)
-        }
-    },
-    "grim": {
-        step: 0.075,
-        percent: true,
-        action: (level, player, target, amount) => {
-            const { step } = global.trinkets["grim"];
-
-            if (Math.random() > amount * step) return;
-            attack(player, target, 100)
-        }
     }
 }
 

@@ -207,14 +207,14 @@ StartupEvents.registry("item", e => {
 	Object.keys(global.trinkets).forEach(n => 
 		createTrinket(n/*, global.trinkets[n].maxLvl*/))
 
-	Object.keys(global.skills).forEach(skill => {
+	Object.keys(global.skills).forEach(name => {
 		const rarity = {
 			1: "rare",
 			2: "epic",
 			3: "uncommon"
 		};
 
-		if(skill.includes("_")) return;
+		if (name.includes("_")) return;
 		for (let i = 1; i <= 3; i++) {
 			e.create(`${name}_fragment_${i}`)
 				.maxStackSize(1)
