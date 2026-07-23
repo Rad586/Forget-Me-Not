@@ -228,7 +228,7 @@ ItemEvents.modification(e => {
 						.use((level, player, hand) => (!level.isClientSide() &&
 							global.mergedTrinkets(player, "face").length > 0)
 						)
-						.finishUsing((item, level, entity) => {
+						.finishUsing((item, level, player) => {
 							if (level.isClientSide()) return item;
 
 							let lvl = 0, names = [];
@@ -241,7 +241,7 @@ ItemEvents.modification(e => {
 							name = name in skills ?
 								name : names.reverse().join("_");
 
-							skills[name](
+							global.skills[name](
 								level, player,
 								skill_formulas[names[1] || names[0]],
 								player.getCurrentItemAttackStrengthDelay() * 2,

@@ -194,16 +194,14 @@
   "dialogue.fmn.spd_rune": "% Movement Speed",
   "dialogue.fmn.amr_rune": " Armor",
   "dialogue.fmn.mh_rune": " Max Health",
+  "dialogue.fmn.cc_rune": "% Crit Chance",
+  "dialogue.fmn.cd_rune": "% Crit Damage",
 
   "dialogue.fmn.luck_rune": " Luck",
   "dialogue.fmn.as_rune": "% Attack Speed",
-  "dialogue.fmn.at_rune": " Armor Toughness",
-  "dialogue.fmn.bless_rune": "% Health Regeneration",
 
   "dialogue.fmn.fire_rune": "s Fire Duration",
   "dialogue.fmn.leech_rune": " Life Steal",
-  "dialogue.fmn.execution_rune": "% Execution Threshold",
-  "dialogue.fmn.grim_rune": "% Instant Kill Chance",
 
   "dialogue.fmn.thorns_rune": " Thorns Damage",
   "dialogue.fmn.absorption_rune": " Absorption",
@@ -257,6 +255,16 @@
   "enchantment.kubejs.blessed.desc":"Increase invulunerable time on taking hit.",
   "enchantment.kubejs.luna.desc":"At night, deal extra damage based on moon phase.",
   "enchantment.kubejs.shocking.desc":"Chain attack enemies.",
+
+  "dialogue.fmn.smite_fragment": "Perform a powerful forward slash",
+  "dialogue.fmn.whirlwind_fragment": "Damage nearby targets",
+  "dialogue.fmn.lunge_fragment": "Lunge forward",
+  "dialogue.fmn.slash_fragment": "Fire a blade wave forward",
+  "dialogue.fmn.vortex_fragment": "Pull nearby creatures to the targeted location",
+  "dialogue.fmn.parry_fragment": "Counterattack and restore health after blocking",
+  "dialogue.fmn.inferno_fragment": "Ignite nearby targets, deal damage to burning targets",
+  "dialogue.fmn.blizzard_fragment": "Slow nearby targets, enhance slowed targets",
+  "dialogue.fmn.sacrifice_fragment": "Sacrifice health to increase skill power",
 
   "key.categories.kubejs": "KubeJS",
   "key.kubejs.key_glide": "Glide(press in mid-air)",

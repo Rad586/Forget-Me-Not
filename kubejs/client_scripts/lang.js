@@ -232,11 +232,32 @@ ClientEvents.lang("zh_cn", e => {
 		"4": "Ⅳ", "5": "Ⅴ", "6": "Ⅵ",
 	};
 
+	const skill_names = {
+		"smite": "重击",
+		"whirlwind": "圆舞",
+		"lunge": "突刺",
+		"slash": "剑气",
+		"vortex": "暴风",
+		"parry": "格挡",
+		"inferno": "烈焰",
+		"blizzard": "寒霜",
+		"sacrifice": "献祭"
+	};
 	Object.keys(global.trinkets).forEach(name => {
 		for (let i = 1; i <= (/*global.trinkets[name].maxLvl || */3); i++) {
 			e.add(
 				`item.kubejs.${name}_rune_${i}`, 
 				`${rune_names[name]}符文 ${num[i]}`
+			)
+		}
+	});
+
+	Object.keys(global.skills).forEach(name => {
+		if(name.includes("_")) return;
+		for (let i = 1; i <= 3; i++) {
+			e.add(
+				`item.kubejs.${name}_fragment_${i}`,
+				`${skill_names[name]}技能残页 ${num[i]}`
 			)
 		}
 	})
@@ -272,6 +293,28 @@ ClientEvents.lang("en_us", e => {
 			e.add(
 				`item.kubejs.${name}_rune_${i}`,
 				`${rune_names[name]} Rune ${num[i]}`
+			)
+		}
+	});
+
+	const skill_names = {
+		"smite": "Smite",
+		"whirlwind": "Whirlwind",
+		"lunge": "Lunge",
+		"slash": "Slash",
+		"vortex": "Vortex",
+		"parry": "Parry",
+		"inferno": "Inferno",
+		"blizzard": "Blizzard",
+		"sacrifice": "Sacrifice"
+	};
+
+	Object.keys(global.skills).forEach(name => {
+		if (name.includes("_")) return;
+		for (let i = 1; i <= 3; i++) {
+			e.add(
+				`item.kubejs.${name}_fragment_${i}`,
+				`${skill_names[name]} Fragment ${num[i]}`
 			)
 		}
 	})

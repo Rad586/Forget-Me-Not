@@ -1,6 +1,7 @@
 EntityEvents.hurt(e => {
 	const { entity } = e;
-	if (!entity.isLiving() || !entity.isAlive()) return;
+	if (!entity.isLiving() || !entity.isAlive() || 
+		entity.type == "entity.kubejs.dummy") return;
 	const { server, level, source, damage } = e;
 
 	let ignore = false;

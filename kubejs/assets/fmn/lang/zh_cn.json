@@ -283,6 +283,8 @@
 	"dialogue.fmn.spd_rune": "%移动速度",
 	"dialogue.fmn.amr_rune": "护甲值",
 	"dialogue.fmn.mh_rune": "最大生命",
+	"dialogue.fmn.cc_rune": "%暴击率",
+	"dialogue.fmn.cd_rune": "%暴击伤害",
 
 	"dialogue.fmn.luck_rune": "幸运",
 	"dialogue.fmn.as_rune": "%攻击速度",
@@ -291,13 +293,9 @@
 
 	"dialogue.fmn.fire_rune": "s火焰附加",
 	"dialogue.fmn.leech_rune": "吸血",
-	"dialogue.fmn.execution_rune": "%斩杀线",
-	"dialogue.fmn.grim_rune": "%秒杀率",
 
 	"dialogue.fmn.thorns_rune": "反击伤害",
 	"dialogue.fmn.absorption_rune": "伤害吸收",
-	"dialogue.fmn.evasion_rune": "%闪避率",
-	"dialogue.fmn.guard_rune": "s无敌帧",
 
 	"enchantment.kubejs.stench_curse":"恶臭诅咒",
 	"enchantment.kubejs.stench_curse.desc":"受击概率排放毒气",
@@ -405,6 +403,16 @@
 
 	"enchantment.kubejs.regeneration":"再生",
 	"enchantment.kubejs.regeneration.desc":"受击后缓慢再生",
+
+	"dialogue.fmn.smite_fragment": "向前方进行一次强力斩击",
+	"dialogue.fmn.whirlwind_fragment": "伤害自身周围目标",
+	"dialogue.fmn.lunge_fragment": "向前方发起突刺",
+	"dialogue.fmn.slash_fragment": "向前方发射一道剑气",
+	"dialogue.fmn.vortex_fragment": "吸引指定位置周围的生物",
+	"dialogue.fmn.parry_fragment": "若成功格挡，反击目标并恢复生命值",
+	"dialogue.fmn.inferno_fragment": "点燃范围内目标，攻击被点燃目标",
+	"dialogue.fmn.blizzard_fragment": "减速范围内目标，强化减速已减速目标",
+	"dialogue.fmn.sacrifice_fragment": "献祭血量，提升技能效果",
 
 	"key.categories.kubejs": "KubeJS",
 	"key.kubejs.key_glide": "滑翔（半空中按下）",

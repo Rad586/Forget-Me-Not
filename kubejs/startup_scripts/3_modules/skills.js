@@ -40,7 +40,7 @@ global.skill_formulas = {
         amp: (lvl) => 2.5 + (3 * lvl * (lvl - 1)) / 4,
         cd: (cd) => cd * 1.25
     },
-    "gernic_cd": (delay) => delay * 1.25
+    "generic_cd": (delay) => delay * 1.25
 }
 
 function attack(player, target, damage) {
@@ -295,9 +295,18 @@ global.skills = {
 
         player.cooldowns.addCooldown(id, cd)
     },
+    "parry": (level, player, info, delay, dmg, lvl, id) => {
+        const damage = info.damage(dmg, lvl);
+        const cd = info.cd(delay);
+
+        parry1("nope", player, lvl, cd, null, null, null);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+
     "inferno": (level, player, info, delay, dmg, lvl, id) => {
         const damage = info.damage(dmg);
-        const cd = skill_formulas["gernic_cd"](delay);
+        const cd = skill_formulas["generic_cd"](delay);
         const range = info.range(lvl);
 
         areaCheck(player, level, player, range, (target) =>
@@ -312,7 +321,7 @@ global.skills = {
     },
     "blizzard": (level, player, info, delay, dmg, lvl, id) => {
         const duration = info.duration(dmg);
-        const cd = skill_formulas["gernic_cd"](delay);
+        const cd = skill_formulas["generic_cd"](delay);
         const range = info.range(lvl);
 
         areaCheck(player, level, player, range, (target) =>
@@ -322,6 +331,23 @@ global.skills = {
         global.particleRingVertical(level, range * 5, range, player, "snowflake", 0.4, -0.1);
         global.particleRing(level, range * 2, 0.5, player, "cloud", 0.8);
         global.sound(level, player, "fmn:skill/blizzard", 0.3);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "sacrifice": (level, player, info, delay, dmg, lvl, id) => {
+        const cost = info.cost(lvl);
+        const amp = info.amp(lvl);
+        const cd = info.cd(delay);
+
+        sacrifice(player, cost);
+        dmg *= 2 + ((lvl - 1) * 0.5);
+
+        smite(level, player, dmg, cd, () => { });
+        sacrifice(player, cost);
+
+        global.particleBurst(level, player,
+            global.itemParticle("minecraft:redstone_block"), 8, 0.1);
+        global.sound(level, player, "fmn:skill/sacrifice", 0.6);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -402,7 +428,7 @@ global.skills = {
         });
 
         global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
-        global.sound(level, player, "fmn:skill/whirlwind", 0.3);
+        global.sound(level, player, "fmn:skill/whirlwind", 0.4);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -488,6 +514,63 @@ global.skills = {
 
         player.cooldowns.addCooldown(id, cd)
     },
+    "smite_parry": (level, player, info, delay, dmg, lvl, id) => {
+        const cd = info.cd(delay);
+
+        parry1("smite", player, lvl, cd, null, null, null);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "whirlwind_parry": (level, player, info, delay, dmg, lvl, id) => {
+        const cd = info.cd(delay);
+        const range = skill_formulas["whirlwind"].range(lvl);
+
+        parry1("whirlwind", player, lvl, cd, range, null, null);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "lunge_parry": (level, player, info, delay, dmg, lvl, id) => {
+        const cd = info.cd(delay);
+        const speed = skill_formulas["lunge"].speed(lvl);
+        const range = skill_formulas["lunge"].range();
+
+        parry1("lunge", player, lvl, cd, range, speed, null);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "slash_parry": (level, player, info, delay, dmg, lvl, id) => {
+        const cd = info.cd(delay);
+        const speed = skill_formulas["slash"].speed(dmg);
+
+        parry1("slash", player, lvl, cd, null, speed, null);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "vortex_parry": (level, player, info, delay, dmg, lvl, id) => {
+        const cd = info.cd(delay);
+        const range = skill_formulas["vortex"].range(lvl);
+
+        parry1("vortex", player, lvl, cd, range, null, null);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "inferno_parry": (level, player, info, delay, dmg, lvl, id) => {
+        const cd = info.cd(delay);
+        const range = skill_formulas["inferno"].range(lvl);
+
+        parry1("inferno", player, lvl, cd, range, null, null);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
+    "blizzard_parry": (level, player, info, delay, dmg, lvl, id) => {
+        const duration = skill_formulas["blizzard"].duration(dmg);
+        const cd = info.cd(delay);
+        const range = skill_formulas["blizzard"].range(lvl);
+
+        parry1("blizzard", player, lvl, cd, range, null, duration);
+
+        player.cooldowns.addCooldown(id, cd)
+    },
     "inferno_smite": (level, player, info, delay, dmg, lvl, id) => {
         const damage = info.damage(dmg, lvl);
         const damage2 = skill_formulas["inferno"].damage(dmg)
@@ -537,7 +620,7 @@ global.skills = {
     },
     "blizzard_inferno": (level, player, info, delay, dmg, lvl, id) => {
         const damage = info.damage();
-        const cd = skill_formulas["gernic_cd"](delay);
+        const cd = skill_formulas["generic_cd"](delay);
         const range = (info.range(lvl) + skill_formulas["blizzard"].range(lvl)) / 2;
         const duration = skill_formulas["blizzard"].duration(damage);
 
@@ -667,88 +750,6 @@ global.skills = {
 
         player.cooldowns.addCooldown(id, cd)
     },
-
-
-    "parry": (level, player, info, delay, dmg, lvl, id) => {
-        const damage = info.damage(dmg, lvl);
-        const cd = info.cd(delay);
-
-        parry1("nope", player, lvl, cd, null, null, null);
-
-        player.cooldowns.addCooldown(id, cd)
-    },
-    "smite_parry": (level, player, info, delay, dmg, lvl, id) => {
-        const cd = info.cd(delay);
-
-        parry1("smite", player, lvl, cd, null, null, null);
-
-        player.cooldowns.addCooldown(id, cd)
-    },
-    "whirlwind_parry": (level, player, info, delay, dmg, lvl, id) => {
-        const cd = info.cd(delay);
-        const range = skill_formulas["whirlwind"].range(lvl);
-
-        parry1("whirlwind", player, lvl, cd, range, null, null);
-
-        player.cooldowns.addCooldown(id, cd)
-    },
-    "lunge_parry": (level, player, info, delay, dmg, lvl, id) => {
-        const cd = info.cd(delay);
-        const speed = skill_formulas["lunge"].speed(lvl);
-        const range = skill_formulas["lunge"].range();
-
-        parry1("lunge", player, lvl, cd, range, speed, null);
-
-        player.cooldowns.addCooldown(id, cd)
-    },
-    "slash_parry": (level, player, info, delay, dmg, lvl, id) => {
-        const cd = info.cd(delay);
-        const speed = skill_formulas["slash"].speed(dmg);
-
-        parry1("slash", player, lvl, cd, null, speed, null);
-
-        player.cooldowns.addCooldown(id, cd)
-    },
-    "vortex_parry": (level, player, info, delay, dmg, lvl, id) => {
-        const cd = info.cd(delay);
-        const range = skill_formulas["vortex"].range(lvl);
-
-        parry1("vortex", player, lvl, cd, range, null, null);
-
-        player.cooldowns.addCooldown(id, cd)
-    },
-    "inferno_parry": (level, player, info, delay, dmg, lvl, id) => {
-        const cd = info.cd(delay);
-        const range = skill_formulas["inferno"].range(lvl);
-
-        parry1("inferno", player, lvl, cd, range, null, null);
-
-        player.cooldowns.addCooldown(id, cd)
-    },
-    "blizzard_parry": (level, player, info, delay, dmg, lvl, id) => {
-        const duration = skill_formulas["blizzard"].duration(dmg);
-        const cd = info.cd(delay);
-        const range = skill_formulas["blizzard"].range(lvl);
-
-        parry1("blizzard", player, lvl, cd, range, null, duration);
-
-        player.cooldowns.addCooldown(id, cd)
-    },
-
-
-    "sacrifice": (level, player, info, delay, dmg, lvl, id) => {
-        const cost = info.cost(lvl);
-        const amp = info.amp(lvl);
-        const cd = info.cd(delay);
-
-        sacrifice(player, cost);
-        dmg *= 2 + ((lvl - 1) * 0.5);
-
-        smite(level, player, dmg, cd, () => { });
-        sacrifice(player, cost);
-
-        player.cooldowns.addCooldown(id, cd)
-    },
     "sacrifice_smite": (level, player, info, delay, dmg, lvl, id) => {
         const cost = skill_formulas["sacrifice"].cost(lvl);
         const cd = skill_formulas["sacrifice"].cd(info.cd(delay));
@@ -758,6 +759,11 @@ global.skills = {
         const damage = info.damage(dmg, lvl);
 
         smite(level, player, damage, cd, () => { });
+
+        global.particleBurst(level, player,
+            global.itemParticle("minecraft:redstone_block"), 8, 0.1);
+        global.sound(level, player, "fmn:skill/smite", 0.3);
+        global.sound(level, player, "fmn:skill/sacrifice", 0.6);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -774,6 +780,12 @@ global.skills = {
             whirlwind(player, target, damage)
         );
 
+        global.particleRing(level, range * 3, range, player, "sweep_attack", 0, 0.7);
+        global.particleBurst(level, player,
+            global.itemParticle("minecraft:redstone_block"), 8, 0.1);
+        global.sound(level, player, "fmn:skill/whirlwind", 0.3);
+        global.sound(level, player, "fmn:skill/sacrifice", 0.6);
+
         player.cooldowns.addCooldown(id, cd)
     },
 
@@ -787,7 +799,13 @@ global.skills = {
         const speed = info.speed(lvl);
         const range = info.range();
 
-        lunge(level, player, damage, speed, range, () => { }, () => { })
+        lunge(level, player, damage, speed, range, () => { }, () => { });
+
+        global.particleWind(level, 4, player, "cloud", 0.8, 1);
+        global.particleBurst(level, player,
+            global.itemParticle("minecraft:redstone_block"), 8, 0.1);
+        global.sound(level, player, "fmn:skill/lunge", 0.3);
+        global.sound(level, player, "fmn:skill/sacrifice", 0.6);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -801,6 +819,11 @@ global.skills = {
         const speed = info.speed(dmg);
 
         slash(level, player, damage, cd, speed, "parry", lvl);
+
+        global.particleBurst(level, player,
+            global.itemParticle("minecraft:redstone_block"), 8, 0.1);
+        global.sound(level, player, "fmn:skill/slash", 0.3);
+        global.sound(level, player, "fmn:skill/sacrifice", 0.6);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -822,8 +845,17 @@ global.skills = {
                 vortex(center, player, target, null, 0.01)
             });
 
+            if(!(counter % 42)) {
+                global.particleRing(level, range * 3, range, center, "poof", -0.1 * range, -0.1);
+                global.sound(level, center, "fmn:skill/vortex", 0.2);
+            };
+
             c.reschedule(7)
         });
+
+        global.particleBurst(level, player,
+            global.itemParticle("minecraft:redstone_block"), 8, 0.1);
+        global.sound(level, player, "fmn:skill/sacrifice", 0.6);
 
         player.cooldowns.addCooldown(id, cd)
     },
@@ -835,11 +867,15 @@ global.skills = {
 
         parry1("nope", player, lvl, cd, null, null, null);
 
+        global.particleBurst(level, player,
+            global.itemParticle("minecraft:redstone_block"), 8, 0.1);
+        global.sound(level, player, "fmn:skill/sacrifice", 0.6);
+
         player.cooldowns.addCooldown(id, cd)
     },
     "sacrifice_inferno": (level, player, info, delay, dmg, lvl, id) => {
         const cost = skill_formulas["sacrifice"].cost(lvl);
-        const cd = skill_formulas["sacrifice"].cd(info.cd(delay));
+        const cd = skill_formulas["sacrifice"].cd(skill_formulas["generic_cd"](delay));
         lvl = skill_formulas["sacrifice"].amp(lvl);
         sacrifice(player, cost);
 
@@ -850,11 +886,18 @@ global.skills = {
             inferno(player, target, damage, cd)
         });
 
+        global.particleRingVertical(level, range * 5, range, player, "lava", 0.2, -0.1);
+        global.particleRing(level, range * 2, 0.5, player, "flame", 0.4);
+        global.particleBurst(level, player,
+            global.itemParticle("minecraft:redstone_block"), 8, 0.1);
+        global.sound(level, player, "fmn:skill/inferno", 0.3);
+        global.sound(level, player, "fmn:skill/sacrifice", 0.6);
+
         player.cooldowns.addCooldown(id, cd)
     },
     "sacrifice_blizzard": (level, player, info, delay, dmg, lvl, id) => {
         const cost = skill_formulas["sacrifice"].cost(lvl);
-        const cd = skill_formulas["sacrifice"].cd(info.cd(delay));
+        const cd = skill_formulas["sacrifice"].cd(skill_formulas["generic_cd"](delay));
         lvl = skill_formulas["sacrifice"].amp(lvl);
         sacrifice(player, cost);
 
@@ -864,6 +907,13 @@ global.skills = {
         areaCheck(player, level, player, range, (target) => {
             blizzard(target, duration, cd)
         });
+
+        global.particleRingVertical(level, range * 5, range, player, "snowflake", 0.4, -0.1);
+        global.particleRing(level, range * 2, 0.5, player, "cloud", 0.8);
+        global.particleBurst(level, player,
+            global.itemParticle("minecraft:redstone_block"), 8, 0.1);
+        global.sound(level, player, "fmn:skill/blizzard", 0.3);
+        global.sound(level, player, "fmn:skill/sacrifice", 0.6);
 
         player.cooldowns.addCooldown(id, cd)
     }
