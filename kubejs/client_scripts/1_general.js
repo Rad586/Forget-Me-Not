@@ -26,5 +26,6 @@ function uiSound(sound, volume, pitch) {
 function hoveredRc(player, hovered, func) {
     const { carried } = player.containerMenu;
     if (carried.isEmpty() || !mousePressedOnce("GLFW_MOUSE_BUTTON_RIGHT")) return;
-    func(player, hovered, carried)
+
+    func(player, carried, hovered)
 }

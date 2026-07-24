@@ -21,8 +21,9 @@ ClientEvents.tick(e => {
             removeItem(player, hovered);
             showItem(player, hovered);
             
-            hoveredRc(player, hovered, (player, hovered, carried) => {
+            hoveredRc(player, hovered, (player, carried, hovered) => {
                 // Utils.server.tell('hi')
+                removeDye(player, carried, hovered)
             })
         }
     }
