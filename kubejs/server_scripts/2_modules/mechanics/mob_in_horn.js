@@ -1,8 +1,7 @@
 ItemEvents.entityInteracted("minecraft:goat_horn", e => {
     const { target, player } = e, { ownerUUID } = target;
     if (player.cooldowns.isOnCooldown("minecraft:goat_horn") ||
-        !ownerUUID.equals(player.uuid) || 
-        !target.isLiving()
+        String(ownerUUID) != player.uuid
     ) return;
 
     const { nbt } = e.item;

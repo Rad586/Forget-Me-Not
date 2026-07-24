@@ -109,6 +109,8 @@ global.class_map = {
     "KubeJS": "dev.latvian.mods.kubejs.KubeJS",
     "TrinketsApi": "dev.emi.trinkets.api.TrinketsApi",
     "ServerScriptManager": "dev.latvian.mods.kubejs.server.ServerScriptManager",
+    "Balm": "net.blay09.mods.balm.api.Balm",
+    "WaystoneTeleportEventPre": "net.blay09.mods.waystones.api.WaystoneTeleportEvent$Pre",
 
     "UUID": "java.util.UUID",
     "Integer": "java.lang.Integer"

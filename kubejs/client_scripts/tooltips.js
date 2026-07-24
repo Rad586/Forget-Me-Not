@@ -398,11 +398,8 @@ ItemEvents.tooltip(e => {
 		})
 	})
 
-	e.addAdvanced(Ingredient.of("#kubejs:fragments"), (stack, isAdvanced, tooltip) => {
-		tooltip.removeIf(t => String(t).includes("trinkets.tooltip"))
-	})
-	e.addAdvanced(Ingredient.of("#kubejs:runes"), (stack, isAdvanced, tooltip) => {
-		tooltip.removeIf(t => String(t).includes("trinkets.tooltip"))
-	})
-	
+	e.addAdvanced(Ingredient.of(["#kubejs:fragments", "#kubejs:runes"]),
+		(stack, isAdvanced, tooltip) =>
+			tooltip.removeIf(t => String(t).includes("trinkets.tooltip"))
+	)
 })

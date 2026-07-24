@@ -42,46 +42,46 @@
 
 
 // ItemEvents.rightClicked(e => {
-//     const { level, player } = e;
-//     // player.setHealth(10)
+//	 const { level, player } = e;
+//	 // player.setHealth(10)
 
-//     if (!(e.item.item instanceof SwordItem)) return;
+//	 if (!(e.item.item instanceof SwordItem)) return;
 
-//     const skill = "smite";
+//	 const skill = "smite";
 
-//     const split = skill.split("_")
-//     global.skills[skill](
-//         level,
-//         player,
-//         global.skill_formulas[split[1] || split[0]],
-//         player.getCurrentItemAttackStrengthDelay() * 2,
-//         player.getAttribute("generic.attack_damage").getValue(),
-//         1,
-//         player.mainHandItem.id
-//     )
+//	 const split = skill.split("_")
+//	 global.skills[skill](
+//		 level,
+//		 player,
+//		 global.skill_formulas[split[1] || split[0]],
+//		 player.getCurrentItemAttackStrengthDelay() * 2,
+//		 player.getAttribute("generic.attack_damage").getValue(),
+//		 1,
+//		 player.mainHandItem.id
+//	 )
 // })
 
 
 ItemEvents.rightClicked(e => {
-    const { level, player } = e;
+	const { level, player } = e;
 
 
-    player.mainHandItem.nbt.remove("dye")
-    // player.tell(global.mergedTrinkets(player, "face"))
-    // global.particleWind(level, 3, player, "flame", -0.3, 0.3);
-    // e.server.scheduleInTicks(1, () => {
-    //     parry_effect(level, player, player.rayTrace(4).entity, 4, e)
-    // })
+	level.getEntitiesWithin(player.boundingBox.inflate(5, 1, 5))
+		.forEach(pet => {
+			if (!pet.living ||
+				String(pet.ownerUUID) != player.uuid) return;
+			player.tell(pet instanceof OwnableEntity)
+		})
 
 })
 
 EntityEvents.hurt("player", e => {
-    const { player } = e;
-    if(!e.source.actual) return;
+	const { player } = e;
+	if(!e.source.actual) return;
 
-    Utils.server.scheduleInTicks(1, () => {
-        // player.tell(["damage: ", 20 - player.health])
-        player.setHealth(100)
-        player.setFoodLevel(100)
-    })
+	Utils.server.scheduleInTicks(1, () => {
+		// player.tell(["damage: ", 20 - player.health])
+		player.setHealth(100)
+		player.setFoodLevel(100)
+	})
 })
