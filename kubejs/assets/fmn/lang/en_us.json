@@ -16,7 +16,7 @@
   "dialogue.fmn.saddle":"§8Shift + right click to unsaddle.",
   "dialogue.fmn.emerald_block":"§8Villagers follow emerald blocks.",
   "dialogue.fmn.use_bottle":"Glass bottles can be used to hold fancy dyes.",
-  "dialogue.fmn.soap":"§8Soap can be used to remove dyes.",
+  "dialogue.fmn.remove_dye":"Water bucket/bottle can be used to remove dye.",
   "dialogue.fmn.boat":"Shift + right click to get mobs out of the boat.",
   "dialogue.fmn.guard_rc":"Shift + right click with weapon to make jobless villager a guard.",
   "dialogue.fmn.slime_ball":"§8Can be used to craft sticky torch.",
@@ -76,6 +76,8 @@
   "dialogue.fmn.cold_biome":"Take on full armor/be on fire/sprint/be underground/stay near respawn point to warm up.",
   "dialogue.fmn.golden_tool": "Comes with silk touch and auto-smelt.",
   "dialogue.fmn.stripping": "Shift + right click to strip.",
+  "dialogue.fmn.farmland_wet": "Water bucket/bottle can be used to moisten farmland/corals.",
+  "dialogue.fmn.farmland_dry": "Water bucket/bottle can be used to dry farmland/corals.",
 
   "dialogue.fmn.falling_star":"Being direct hit by it may reward you something...",
   "dialogue.fmn.goat_horn":"Right click tamed mob to store in the horn.",

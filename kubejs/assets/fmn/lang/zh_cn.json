@@ -17,7 +17,7 @@
 	"dialogue.fmn.saddle":"§8潜行右键以取下鞍",
 	"dialogue.fmn.emerald_block":"§8村民会跟随绿宝石块",
 	"dialogue.fmn.use_bottle":"玻璃瓶可用于填装高级染料",
-	"dialogue.fmn.soap":"§8可用肥皂洗掉染料",
+	"dialogue.fmn.remove_dye":"可用水桶/水瓶洗掉染料",
 	"dialogue.fmn.boat":"潜行右键以使生物下船",
 	"dialogue.fmn.guard_rc":"手持武器潜行右键以赋予警卫职业（无法取回）",
 	"dialogue.fmn.slime_ball":"§8可用于制作黏性火把",
@@ -114,6 +114,8 @@
 	"dialogue.fmn.showitem": "展示了：",
 	"dialogue.fmn.oak_log": "你可以空手挖掘石头",
 	"dialogue.fmn.golden_tool": "自带精准采集与自动熔炼",
+	"dialogue.fmn.farmland_wet": "可用水桶/水瓶湿润耕地/珊瑚",
+	"dialogue.fmn.farmland_dry": "可用打火石干燥耕地/珊瑚",
 	
 	"dialogue.fmn.zoom":"按c进行缩放",
 	"dialogue.fmn.waypoint":"按+创建/删除标记点",

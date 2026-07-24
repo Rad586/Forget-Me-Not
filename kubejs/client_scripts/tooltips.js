@@ -152,7 +152,8 @@ ItemEvents.tooltip(e => {
 		"stove": [
 			"farmersdelight:stove"
 		],
-		"soap": i_items("#minecraft:fancydyes"),
+		"remove_dye": i_items("#minecraft:fancydyes")
+			.concat(["minecraft:water_bucket", "minecraft:potion"]),
 		"bundle": [
 			"minecraft:leather", "minecraft:rabbit_hide"
 		],
@@ -175,7 +176,7 @@ ItemEvents.tooltip(e => {
 			"minecraft:bundle"
 		],
 		"hot_biome": i_items("#minecraft:sand")
-			.concat("minecraft:cactus"),
+			.concat(["minecraft:cactus"]),
 		"cold_biome": [
 			"minecraft:snowball", "minecraft:powder_snow_bucket"
 		],
@@ -205,7 +206,13 @@ ItemEvents.tooltip(e => {
 			"minecraft:golden_pickaxe", "minecraft:golden_axe", 
 			"minecraft:golden_hoe", "minecraft:golden_shovel",
 		],
-		"stripping": i_items("#minecraft:logs")
+		"stripping": i_items("#minecraft:logs"),
+		"farmland_wet": [
+			"minecraft:potion", "minecraft:water_bucket"
+		],
+		"farmland_dry": [
+			"minecraft:flint_and_steel"
+		]
 	};
 
 	const shift = Text.translate("dialogue.fmn.shift");

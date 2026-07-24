@@ -66,6 +66,7 @@ ItemEvents.rightClicked(e => {
     const { level, player } = e;
 
 
+    player.mainHandItem.nbt.remove("dye")
     // player.tell(global.mergedTrinkets(player, "face"))
     // global.particleWind(level, 3, player, "flame", -0.3, 0.3);
     // e.server.scheduleInTicks(1, () => {
