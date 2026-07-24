@@ -43,6 +43,7 @@ global.class_map = {
     "AbstractArrow": "net.minecraft.world.entity.projectile.AbstractArrow",
 
     "OwnableEntity": "net.minecraft.world.entity.OwnableEntity",
+    "TamableAnimal": "net.minecraft.world.entity.TamableAnimal",
     "NeutralMob": "net.minecraft.world.entity.NeutralMob",
     "Npc": "net.minecraft.world.entity.npc.Npc",
     "WaterAnimal": "net.minecraft.world.entity.animal.WaterAnimal",

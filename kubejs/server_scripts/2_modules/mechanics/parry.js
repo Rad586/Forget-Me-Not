@@ -9,7 +9,7 @@ function attackable(player, target) {
         target.isLiving() &&
         target.isAlive() &&
         target != player &&
-        target.owner != player &&
+        String(target.ownerUUID) != player.uuid &&
         !player.isOnSameTeam(target)
     ) return true;
 

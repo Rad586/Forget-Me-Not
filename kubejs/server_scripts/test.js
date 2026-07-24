@@ -66,13 +66,13 @@ ItemEvents.rightClicked(e => {
 	const { level, player } = e;
 
 
-	level.getEntitiesWithin(player.boundingBox.inflate(5, 1, 5))
-		.forEach(pet => {
-			if (!pet.living ||
-				String(pet.ownerUUID) != player.uuid) return;
-			player.tell(pet instanceof OwnableEntity)
-		})
-
+	// level.getEntitiesWithin(player.boundingBox.inflate(5, 1, 5))
+	// 	.forEach(pet => {
+	// 		if (!pet.living ||
+	// 			String(pet.ownerUUID) != player.uuid) return;
+	// 		player.tell(pet instanceof OwnableEntity)
+	// 	})
+	player.tell(player.rayTrace(10).entity instanceof TamableAnimal)
 })
 
 EntityEvents.hurt("player", e => {
