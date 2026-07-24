@@ -37,7 +37,7 @@ ServerEvents.recipes(e => {
 		"andromeda", "bettertridents", "betteranimalsplus",
 		"endermanoverhaul", "waystones",
 		"illagerexp", "livingthings", "ecologics",
-		"naturalist", "ridingutils",
+		"naturalist", "ridingutils", "fancydyes",
 		"sds", "elementalcreepers", "probablychests", 
 		"musictriggers"
 	].forEach(key => e.remove({ mod: key }))
@@ -110,12 +110,6 @@ ServerEvents.recipes(e => {
 	e.shapeless("minecraft:medium_amethyst_bud", ["2x minecraft:amethyst_shard"])
 	e.shapeless("minecraft:large_amethyst_bud", ["3x minecraft:amethyst_shard"])
 	e.shapeless("minecraft:amethyst_cluster", ["4x minecraft:amethyst_shard"])
-
-	/* 精致点染的配方拓展 More recipes for fancydyes mod */
-	colors.forEach(key => {
-		e.shapeless(`fancydyes:shimmer_${key}_dye`, [`fancydyes:solid_${key}_dye`, "#minecraft:glowing_items"]);
-		e.shapeless(`fancydyes:shimmer_${key}_dye`, [`minecraft:${key}_dye`, "minecraft:glass_bottle", "#minecraft:glowing_items"])
-	})
 
 	/* 更多烧炼配方 More smelting recipes */
 	const recycle = {
@@ -200,7 +194,7 @@ ServerEvents.recipes(e => {
 
 	const banned_output = [
 		"patchouli:guide_book", "minecraft:recovery_compass", 
-		"#minecraft:chestsandkeys", "#minecraft:fancydyes",
+		"#minecraft:chestsandkeys",
 		"minecraft:gold_nugget", "minecraft:iron_nugget",
 		"minecraft:wooden_sword", "minecraft:wooden_shovel",
 		"minecraft:wooden_axe", "minecraft:wooden_hoe", 
@@ -347,9 +341,6 @@ ServerEvents.recipes(e => {
 	], {
 		0: "minecraft:hay_block"
 	})
-
-	e.remove({ output: "fancydyes:empty_dye_bottle" })
-	e.shapeless("fancydyes:empty_dye_bottle", ["minecraft:glass_bottle"]);
 
 	e.remove({ output: "minecraft:lightning_rod" })
 	e.shaped("minecraft:lightning_rod", [
@@ -498,4 +489,33 @@ ServerEvents.recipes(e => {
 
 	e.shapeless("minecraft:golden_carrot", ["minecraft:carrot", "minecraft:gold_ingot"]);
 	e.shapeless("minecraft:soul_lantern", ["minecraft:gold_ingot", "minecraft:soul_torch"]);
+
+	Object.keys(global.trinkets).forEach(name => {
+		for (let i = 1; i <= 2; i++) {
+			e.shapeless(`kubejs:${name}_rune_${i + 1}`,
+				[`2x kubejs:${name}_rune_${i}`, `#kubejs:runes_${i}`]);
+		};
+		for (let i = 2; i <= 3; i++) {
+			Object.keys(global.trinkets_common).forEach(other => {
+				if (other == name) return;
+				e.shapeless(`kubejs:${other}_rune_${i - 1}`,
+					[`kubejs:${name}_rune_${i}`]);
+			})
+		}
+	})
+
+	const skills = Object.keys(global.skills).filter(n => !n.includes("_"))
+	skills.forEach(name => {	
+		for (let i = 1; i <= 2; i++) {
+			e.shapeless(`kubejs:${name}_fragment_${i + 1}`,
+				[`2x kubejs:${name}_fragment_${i}`, `#kubejs:fragments_${i}`]);
+		};
+		for (let i = 2; i <= 3; i++) {
+			skills.forEach(other => {
+				if (other == name) return;
+				e.shapeless(`kubejs:${other}_fragment_${i - 1}`,
+					[`kubejs:${name}_fragment_${i}`]);
+			})
+		}
+	})
 })

@@ -212,7 +212,12 @@ ItemEvents.tooltip(e => {
 		],
 		"farmland_dry": [
 			"minecraft:flint_and_steel"
-		]
+		],
+		"rune": i_items("#kubejs:runes"),
+		"skill": i_items("#kubejs:fragments"),
+		"skill_cap": i_items("#kubejs:runes")
+			.concat(i_items("#kubejs:fragments")),
+		"skill_combine": i_items("#kubejs:fragments")
 	};
 
 	const shift = Text.translate("dialogue.fmn.shift");
@@ -392,4 +397,12 @@ ItemEvents.tooltip(e => {
 			tooltip[4] = t3.darkGreen()
 		})
 	})
+
+	e.addAdvanced(Ingredient.of("#kubejs:fragments"), (stack, isAdvanced, tooltip) => {
+		tooltip.removeIf(t => String(t).includes("trinkets.tooltip"))
+	})
+	e.addAdvanced(Ingredient.of("#kubejs:runes"), (stack, isAdvanced, tooltip) => {
+		tooltip.removeIf(t => String(t).includes("trinkets.tooltip"))
+	})
+	
 })

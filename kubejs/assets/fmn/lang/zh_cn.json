@@ -116,6 +116,10 @@
 	"dialogue.fmn.golden_tool": "自带精准采集与自动熔炼",
 	"dialogue.fmn.farmland_wet": "可用水桶/水瓶湿润耕地/珊瑚",
 	"dialogue.fmn.farmland_dry": "可用打火石干燥耕地/珊瑚",
+	"dialogue.fmn.skill": "可装备于头部饰品槽",
+	"dialogue.fmn.rune": "可装备于胸部饰品槽",
+	"dialogue.fmn.skill_cap": "单个技能/符文最高三级",
+	"dialogue.fmn.skill_combine": "技能可以两两组合",
 	
 	"dialogue.fmn.zoom":"按c进行缩放",
 	"dialogue.fmn.waypoint":"按+创建/删除标记点",
