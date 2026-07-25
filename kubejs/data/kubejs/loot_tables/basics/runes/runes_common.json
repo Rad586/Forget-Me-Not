@@ -1,0 +1,31 @@
+{
+    "type": "minecraft:chest",
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:dmg_rune_1",
+                    "weight": 12
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:spd_rune_1",
+                    "weight": 12
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:amr_rune_1",
+                    "weight": 12
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:mh_rune_1",
+                    "weight": 10,
+                    "quality": 2
+                }
+            ]
+        }
+    ]
+}

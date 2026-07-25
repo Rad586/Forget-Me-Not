@@ -10,7 +10,8 @@ if (!global.pettp) {
         level.getEntitiesWithin(player.boundingBox.inflate(5, 1, 5))
             .forEach(pet => {
                 if (!pet.isLiving() ||
-                    (pet instanceof TamableAnimal && pet.isOrderedToSit()) ||
+                    pet.leashed || 
+                    pet.orderedToSit ||
                     String(pet.ownerUUID) != player.uuid) return;
                 context.addAdditionalEntity(pet)
             })

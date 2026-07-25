@@ -1,0 +1,27 @@
+{
+    "type": "minecraft:chest",
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:loot_table",
+                    "name": "kubejs:basics/runes/runes_common",
+                    "weight": 10
+                },
+                {
+                    "type": "minecraft:loot_table",
+                    "name": "kubejs:basics/runes/runes_rare",
+                    "weight": 12,
+                    "quality": 2
+                },
+                {
+                    "type": "minecraft:loot_table",
+                    "name": "kubejs:basics/runes/runes_epic",
+                    "weight": 9,
+                    "quality": 2
+                }
+            ]
+        }
+    ]
+}

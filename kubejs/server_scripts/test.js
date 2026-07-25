@@ -72,7 +72,7 @@ ItemEvents.rightClicked(e => {
 	// 			String(pet.ownerUUID) != player.uuid) return;
 	// 		player.tell(pet instanceof OwnableEntity)
 	// 	})
-	player.tell(player.rayTrace(10).entity instanceof TamableAnimal)
+	player.tell(!player.rayTrace(10).entity.orderedToSit)
 })
 
 EntityEvents.hurt("player", e => {

@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:chest",
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:loot_table",
+                    "name": "kubejs:basics/food/food_meat_cooked",
+                    "weight": 12
+                },
+                {
+                    "type": "minecraft:loot_table",
+                    "name": "kubejs:basics/food/food_vege_rare",
+                    "weight": 12
+                },
+                {
+                    "type": "minecraft:loot_table",
+                    "name": "kubejs:basics/food/food_vege_epic",
+                    "weight": 9,
+                    "quality": 1
+                }
+            ]
+        }
+    ]
+}

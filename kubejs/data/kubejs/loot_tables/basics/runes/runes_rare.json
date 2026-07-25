@@ -1,0 +1,40 @@
+{
+    "type": "minecraft:chest",
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:thorns_rune_1",
+                    "weight": 13
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:fire_rune_1",
+                    "weight": 12
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:at_rune_1",
+                    "weight": 12
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:cc_rune_1",
+                    "weight": 12
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:cd_rune_1",
+                    "weight": 12
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:as_rune_1",
+                    "weight": 12
+                }
+            ]
+        }
+    ]
+}

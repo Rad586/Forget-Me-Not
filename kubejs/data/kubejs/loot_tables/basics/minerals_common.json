@@ -1,0 +1,27 @@
+{
+    "type": "minecraft:chest",
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:loot_table",
+                    "name": "kubejs:basics/minerals/minerals_common",
+                    "weight": 12
+                },
+                {
+                    "type": "minecraft:loot_table",
+                    "name": "kubejs:basics/minerals/minerals_rare",
+                    "weight": 4,
+                    "quality": 2
+                },
+                {
+                    "type": "minecraft:loot_table",
+                    "name": "kubejs:basics/minerals/minerals_epic",
+                    "weight": 1,
+                    "quality": 1
+                }
+            ]
+        }
+    ]
+}

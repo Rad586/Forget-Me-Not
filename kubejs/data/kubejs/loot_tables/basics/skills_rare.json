@@ -1,0 +1,56 @@
+{
+    "type": "minecraft:chest",
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:smite_fragment_1",
+                    "weight": 13
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:whirlwind_fragment_1",
+                    "weight": 13
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:lunge_fragment_1",
+                    "weight": 13
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:slash_fragment_1",
+                    "weight": 13
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:vortex_fragment_1",
+                    "weight": 11
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:inferno_fragment_1",
+                    "weight": 11
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:blizzard_fragment_1",
+                    "weight": 11
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:sacrifice_fragment_1",
+                    "weight": 11
+                },
+                {
+                    "type": "minecraft:item",
+                    "name": "fmn:parry_fragment_1",
+                    "weight": 9,
+                    "quality": 1
+                }
+            ]
+        }
+    ]
+}
