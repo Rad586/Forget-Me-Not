@@ -176,21 +176,6 @@ global.effect_parry = {
         global.sound(level, player, "fmn:skill/whirlwind", 0.3);
         global.sound(level, player, "fmn:skill/parry", 0.5)
     },
-    "lunge": (level, player, target, lvl, damage, cd, range, speed, duration) => {
-        damage = skill_formulas["parry"].damage(damage, lvl);
-        damage = skill_formulas["lunge"].damage(damage)
-
-        lunge(level, player, damage, speed, range, () => { }, (target2) => {
-            attack(player, target2, damage);
-            target2.potionEffects.add("weakness", 40, 0, true, false)
-        });
-        player.heal(lvl * 2);
-
-        global.particleWind(level, 4, player, "cloud", 0.8, 1);
-        global.particleWind(level, 3, player, "flame", -0.3, 0.3);
-        global.sound(level, player, "fmn:skill/lunge", 0.3);
-        global.sound(level, player, "fmn:skill/parry", 0.5)
-    },
     "slash": (level, player, target, lvl, damage, cd, range, speed, duration) => {
         const d1 = skill_formulas["parry"].damage(damage, lvl);
         const d2 = skill_formulas["slash"].damage(damage, lvl);

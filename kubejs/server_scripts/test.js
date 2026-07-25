@@ -85,3 +85,5 @@ EntityEvents.hurt("player", e => {
 		player.setFoodLevel(100)
 	})
 })
+
+//青金石变成蓝宝石，下界合金锭变成红宝石（碎片为1/4几率是，否则消失）

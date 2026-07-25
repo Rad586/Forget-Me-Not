@@ -534,7 +534,11 @@ global.skills = {
         const speed = skill_formulas["lunge"].speed(lvl);
         const range = skill_formulas["lunge"].range();
 
-        parry1("lunge", player, lvl, cd, range, speed, null);
+        lunge(level, player, 0.01, speed, range, () => { }, () => { });
+        parry1("nope", player, lvl, cd, range, speed, null);
+
+        global.particleWind(level, 4, player, "cloud", 0.8, 1);
+        global.sound(level, player, "fmn:skill/lunge", 0.3);
 
         player.cooldowns.addCooldown(id, cd)
     },
