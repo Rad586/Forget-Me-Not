@@ -205,7 +205,40 @@ StartupEvents.registry("enchantment", e => {
 				if (target.isInWaterOrRain()) global.shocking(user, target, 7, 3);
 				else global.shocking(user, target, 4, 1.5);
 			})
+
+	e.create("infusion")
+		.checkCompatibility(() => false)
+		.weapon()
+		.undiscoverable()
+		.untradeable()
+		.veryRare()
+		.maxLevel(999)
+		.postAttack(
+			(user, target, lvl) => {
+				global.test(user, target, lvl)
+			}
+		)
 })
+
+global.test = (user, target, lvl) => {
+	if (ec_check(target, "sec33")) return;
+	if (target.health / target.maxHealth > 0.15 ||
+		!target.isAlive()
+	) return;
+
+	target.attack(user, 999);
+	global.particleBurst(user.level, target, global.itemParticle("minecraft:amethyst_shard"), 6, 0.2);
+	target.playSound("block.amethyst_block.break", 1, 1);
+
+	const { Enchantments } = user.mainHandItem.nbt;
+	const infusion = Enchantments.find(i => i.id == "kubejs:infusion");
+
+	if (infusion.lvl <= 1) {
+		Enchantments.remove(infusion);
+		return
+	};
+	infusion.lvl -= 1
+}
 
 // e.create("mountain_king")
 // 	.checkCompatibility(() => false)

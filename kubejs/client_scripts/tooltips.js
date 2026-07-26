@@ -383,18 +383,19 @@ ItemEvents.tooltip(e => {
 
 	global.Axes.forEach(i => {
 		e.addAdvanced(i.id, (stack, isAdvanced, tooltip) => {
-			const t3 = tooltip[3], t4 = tooltip[4];
-			const num = String(Number(t4.getContents().args[0]) + 1);
+			// const t3 = tooltip[3], t4 = tooltip[4];
+			// Utils.server.tell(t3.getContents())
+			// const num = String(Number(t3.getContents().args[0]) + 1);
 
-			tooltip[3] = Component.literal(" ")
-				.withStyle("dark_green")
-				.append(Component.translatable(
-					"attribute.modifier.equals.0",
-					num,
-					Component.translatable("attribute.name.generic.attack_damage")
-				)
-			);
-			tooltip[4] = t3.darkGreen()
+			// tooltip[3] = Component.literal(" ")
+			// 	.withStyle("dark_green")
+			// 	.append(Component.translatable(
+			// 		"attribute.modifier.equals.0",
+			// 		num,
+			// 		Component.translatable("attribute.name.generic.attack_damage")
+			// 	)
+			// );
+			// tooltip[4] = t3.darkGreen()
 		})
 	})
 

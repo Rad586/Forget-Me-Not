@@ -261,6 +261,7 @@
 	"enchantment.kubejs.blessed.desc":"Increase invulunerable time on taking hit.",
 	"enchantment.kubejs.luna.desc":"At night, deal extra damage based on moon phase.",
 	"enchantment.kubejs.shocking.desc":"Chain attack enemies.",
+	"enchantment.kubejs.infusion.desc": "Executes enemies below 15% HP.",
 
 	"dialogue.fmn.smite_fragment": "Perform a powerful forward slash",
 	"dialogue.fmn.whirlwind_fragment": "Damage nearby targets",

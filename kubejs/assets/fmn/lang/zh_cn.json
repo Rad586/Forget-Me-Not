@@ -410,6 +410,9 @@
 	"enchantment.kubejs.regeneration":"再生",
 	"enchantment.kubejs.regeneration.desc":"受击后缓慢再生",
 
+	"enchantment.kubejs.infusion": "注能",
+	"enchantment.kubejs.infusion.desc": "斩杀血量低于15%的目标",
+
 	"dialogue.fmn.smite_fragment": "向前方进行一次强力斩击",
 	"dialogue.fmn.whirlwind_fragment": "伤害自身周围目标",
 	"dialogue.fmn.lunge_fragment": "向前方发起突刺",

@@ -22,7 +22,7 @@ ClientEvents.tick(e => {
             showItem(player, hovered);
             
             hoveredRc(player, hovered, (player, carried, hovered) => {
-                // Utils.server.tell('hi')
+                amethystEnchant(player, carried, hovered);
                 removeDye(player, carried, hovered)
             })
         }
