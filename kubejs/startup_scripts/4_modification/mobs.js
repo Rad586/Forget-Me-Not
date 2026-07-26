@@ -313,6 +313,7 @@ EntityJSEvents.modifyEntity(e => {
 			.calculateFallDamage(context => fall_damage_modifier(context))
 			.canBeAffected(context => conditional_effects(context))
 			.onLivingHeal(context => heal_rune(context))
+			.onStopSleeping(entity => bed_benefits(entity))
 	)
 
 	arrows.forEach(arrow =>
