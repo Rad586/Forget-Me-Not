@@ -2,7 +2,8 @@ const { skill_formulas } = global;
 function attack(player, target, damage) {
     if (!target) return;
     target.invulnerableTime = 0;
-    target.attack(player, damage)
+    target.attack(player, damage);
+    EnchantmentHelper.doPostDamageEffects(player, target)
 }
 function attackable(player, target) {
     if (target &&

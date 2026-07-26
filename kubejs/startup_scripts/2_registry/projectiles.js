@@ -112,6 +112,7 @@ StartupEvents.registry("entity_type", e => {
 	function attack(player, target, damage) {
 		target.invulnerableTime = 0;
 		target.attack(player, damage);
+		EnchantmentHelper.doPostDamageEffects(player, target)
 	}
 	function attackable(player, target) {
 		if (target &&

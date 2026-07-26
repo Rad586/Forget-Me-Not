@@ -66,19 +66,7 @@ ItemEvents.rightClicked(e => {
 	const { level, player } = e;
 	const target = player.rayTrace(10).entity;
 
-	// const { Enchantments } = player.mainHandItem.nbt
-	// const sharpness = Enchantments.find(i => i.id == "minecraft:sharpness")
-	// if(!Enchantments || !sharpness) return;
 
-	// const { lvl } = sharpness;
-	// if(lvl <= 1) {
-	// 	Enchantments.remove(sharpness);
-	// 	return
-	// }
-	// sharpness.lvl -= 1
-
-
-	EnchantmentHelper.doPostDamageEffects(player, target)
 	target.attack(player, 1)
 
 })

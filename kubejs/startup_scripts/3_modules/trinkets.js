@@ -1,6 +1,7 @@
 function attack(player, target, amount) {
     target.invulnerableTime = 0;
-    target.attack(player, amount)
+    target.attack(player, amount);
+    EnchantmentHelper.doPostDamageEffects(player, target)
 }
 
 global.trinkets_common = {
