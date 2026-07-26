@@ -64,15 +64,11 @@
 
 ItemEvents.rightClicked(e => {
 	const { level, player } = e;
+	const target = player.rayTrace(10).entity;
 
-
-	// level.getEntitiesWithin(player.boundingBox.inflate(5, 1, 5))
-	// 	.forEach(pet => {
-	// 		if (!pet.living ||
-	// 			String(pet.ownerUUID) != player.uuid) return;
-	// 		player.tell(pet instanceof OwnableEntity)
-	// 	})
-	player.tell(!player.rayTrace(10).entity.orderedToSit)
+	const mul = JavaMath.clamp(
+		1 - (12 - 8) / 16, 0.5, 1);
+	player.tell(mul)
 })
 
 EntityEvents.hurt("player", e => {

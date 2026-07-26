@@ -115,7 +115,9 @@ function lunge(level, player, damage, speed, range, func1, func2) {
     })
 }
 function parry2(player, target, lvl, damage) {
-    attack(player, target, Math.max(lvl + 5, damage))
+    const mul = JavaMath.clamp(
+        1 - (target.distanceToEntity(player) - 8) / 16, 0.5, 1);
+    attack(player, target, Math.max(lvl + 5, damage) * mul);
     player.heal(lvl * 2)
 }
 function inferno(player, target, damage, cd) {
@@ -254,7 +256,6 @@ function parry_effect(level, player, actual, final_dmg, e) {
     player.removeEffect("kubejs:parry");
 
     const pData = player.persistentData, { parry } = pData;
-    player.tell(parry)
     if (!parry) return;
 
     const { type, lvl, cd, range, speed, duration } = parry;
