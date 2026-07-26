@@ -383,14 +383,14 @@ ItemEvents.tooltip(e => {
 
 	global.Axes.forEach(i => {
 		e.addAdvanced(i.id, (stack, isAdvanced, tooltip) => {
-			const t3 = tooltip[3];
-			const num = String(Number(t3.getContents().args[0]) + 1);
+			const { contents } = tooltip[3];
+			if (!String(contents).includes("generic.attack_damage")) return;
 
 			tooltip[3] = Component.literal(" ")
 				.withStyle("dark_green")
 				.append(Component.translatable(
 					"attribute.modifier.equals.0",
-					num,
+					String(Number(contents.args[0]) + 1),
 					Component.translatable("attribute.name.generic.attack_damage")
 				)
 			)
