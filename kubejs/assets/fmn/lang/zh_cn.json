@@ -120,6 +120,7 @@
 	"dialogue.fmn.rune": "可装备于胸部饰品槽",
 	"dialogue.fmn.skill_cap": "单个技能/符文最高三级",
 	"dialogue.fmn.skill_combine": "技能可以两两组合",
+	"dialogue.fmn.infusion": "背包内，用它对剑右键以注能",
 	
 	"dialogue.fmn.zoom":"按c进行缩放",
 	"dialogue.fmn.waypoint":"按+创建/删除标记点",
@@ -411,7 +412,7 @@
 	"enchantment.kubejs.regeneration.desc":"受击后缓慢再生",
 
 	"enchantment.kubejs.infusion": "注能",
-	"enchantment.kubejs.infusion.desc": "斩杀血量低于15%的目标",
+	"enchantment.kubejs.infusion.desc": "消耗一级，斩杀血量低于15%的目标",
 
 	"dialogue.fmn.smite_fragment": "向前方进行一次强力斩击",
 	"dialogue.fmn.whirlwind_fragment": "伤害自身周围目标",

@@ -217,7 +217,8 @@ ItemEvents.tooltip(e => {
 		"skill": i_items("#kubejs:fragments"),
 		"skill_cap": i_items("#kubejs:runes")
 			.concat(i_items("#kubejs:fragments")),
-		"skill_combine": i_items("#kubejs:fragments")
+		"skill_combine": i_items("#kubejs:fragments"),
+		"infusion": ["minecraft:amethyst_shard"]
 	};
 
 	const shift = Text.translate("dialogue.fmn.shift");

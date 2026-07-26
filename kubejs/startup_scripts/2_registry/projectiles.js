@@ -109,64 +109,22 @@ StartupEvents.registry("entity_type", e => {
 		.onHitBlock(context => powder_block(context))
 		.isInvulnerableTo(context => powder_onfire(context.entity))
 
-	function attack(player, target, damage) {
-		target.invulnerableTime = 0;
-		target.attack(player, damage);
-		EnchantmentHelper.doPostDamageEffects(player, target)
-	}
-	function attackable(player, target) {
-		if (target &&
-			target.isLiving() &&
-			target.isAlive() &&
-			target != player &&
-			target.owner != player
-		) return true;
-
-		if (target instanceof Projectile && target.type != "kubejs:slash") {
-			target.playSound("fmn:destroy_projectile", 0.3, 1);
-			target.level.spawnParticles(
-				"large_smoke", false,
-				target.x, target.y + 0.2, target.z,
-				0.1, 0.12, 0.1,
-				2, 0.06
-			);
-			target.discard()
-		};
-
-		return false
-	}
-	const hit_criteria = (center, player, target, range) => (
-		target &&
-		target != player &&
-		target.distanceToEntity(center) <= range &&
-		player.hasLineOfSight(target) &&
-		attackable(player, target)
-	)
-	function areaCheck(center, level, player, range, func) {
-		const { x, eyeY, z } = center;
-		const aabb = AABB.of(x, eyeY, z, x, eyeY, z).inflate(range, 1, range);
-		const entities = level.getEntitiesWithin(aabb)
-			.filter(target => hit_criteria(center, player, target, range));
-
-		if (entities.isEmpty()) return;
-		entities.forEach(target => func(target))
-	}
 	const type_map = {
 		"nope": (level, player, hit, cd, damage, lvl) => {
-			attack(player, hit, damage)
+			s_attack(player, hit, damage)
 		},
 		"whirlwind": (level, player, hit, cd, damage, lvl) => { 
 			const range = 1 + (lvl - 1) * 0.5;
 
-			areaCheck(hit, level, player, range, (target) => {
-				attack(player, target, damage)
+			s_areaCheck(hit, level, player, range, (target) => {
+				s_attack(player, target, damage)
 			})
 		},
 		"vortex": (level, player, hit, cd, damage, lvl) => { 
 			const range = 1.5 + (lvl - 1) * 0.5;
 
-			attack(player, hit, damage);
-			areaCheck(hit, level, player, range, (target) => {
+			s_attack(player, hit, damage);
+			s_areaCheck(hit, level, player, range, (target) => {
 				const target_pos = target.eyePosition;
 				const visible = player.getViewVector(1)
 					.dot(target_pos.subtract(player.eyePosition)) > 0;
@@ -185,7 +143,7 @@ StartupEvents.registry("entity_type", e => {
 		"inferno": (level, player, hit, cd, damage, lvl) => { 
 			const range = 1 + (lvl - 1) * 0.5;
 
-			areaCheck(hit, level, player, range, (target) => {
+			s_areaCheck(hit, level, player, range, (target) => {
 				if (!target.isOnFire()) {
 					if (target.block.hasTag("minecraft:soul_fire_base_blocks")) {
 						target.fireType = "minecraft:soul"
@@ -193,18 +151,18 @@ StartupEvents.registry("entity_type", e => {
 					global.setSecondsOnFire(level, target, cd / 20 + 1.2)
 				}
 				else {
-					attack(player, target, damage);
+					s_attack(player, target, damage);
 					target.extinguish()
 				}
 			});
-			attack(player, hit, damage);
+			s_attack(player, hit, damage);
 
 			global.particleRingVertical(level, range * 3, range, hit, "lava", 0.2, -0.1)
 		},
 		"blizzard": (level, player, hit, cd, damage, lvl) => { 
 			const range = 1.5 + (lvl - 1) * 1;
 
-			areaCheck(hit, level, player, range, (target) => {
+			s_areaCheck(hit, level, player, range, (target) => {
 				const { potionEffects } = target;
 
 				if (!target.hasEffect("slowness")) {
@@ -214,14 +172,14 @@ StartupEvents.registry("entity_type", e => {
 					potionEffects.add("slowness", damage * 20 / 2, 1, false, true)
 				}
 			});
-			attack(player, hit, damage);
+			s_attack(player, hit, damage);
 
 			global.particleRingVertical(level, range * 2, range, hit, "snowflake", 0.4, -0.1);
 		},
 		"lunge": (level, player, hit, cd, damage, lvl) => { 
 			const range = 1.5;
 
-			areaCheck(hit, level, player, range, (target) => {
+			s_areaCheck(hit, level, player, range, (target) => {
 				const { lookAngle: m } = player;
 
 				target.setDeltaMovement(new Vec3(
@@ -230,10 +188,7 @@ StartupEvents.registry("entity_type", e => {
 					m.z()).scale(0.75 + (lvl - 1) * 0.25));
 				target.hurtMarked = true;
 			});
-			attack(player, hit, damage)
-		},
-		"parry": (level, player, hit, cd, damage, lvl) => {
-			attack(player, hit, damage)
+			s_attack(player, hit, damage)
 		}
 	}
 

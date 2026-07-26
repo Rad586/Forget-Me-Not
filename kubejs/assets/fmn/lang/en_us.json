@@ -82,6 +82,7 @@
 	"dialogue.fmn.rune": "Can be equipped in the chest slot",
 	"dialogue.fmn.skill_cap": "Each skill/rune can only reach level three",
 	"dialogue.fmn.skill_combine": "Skills can be combined with each other",
+	"dialogue.fmn.infusion": "Right click a sword with it in your inventory to infuse it",
 
 	"dialogue.fmn.falling_star":"Being direct hit by it may reward you something...",
 	"dialogue.fmn.goat_horn":"Right click tamed mob to store in the horn.",
@@ -261,7 +262,7 @@
 	"enchantment.kubejs.blessed.desc":"Increase invulunerable time on taking hit.",
 	"enchantment.kubejs.luna.desc":"At night, deal extra damage based on moon phase.",
 	"enchantment.kubejs.shocking.desc":"Chain attack enemies.",
-	"enchantment.kubejs.infusion.desc": "Executes enemies below 15% HP.",
+	"enchantment.kubejs.infusion.desc": "Executes enemies below 15% HP, costs 1 lvl.",
 
 	"dialogue.fmn.smite_fragment": "Perform a powerful forward slash",
 	"dialogue.fmn.whirlwind_fragment": "Damage nearby targets",

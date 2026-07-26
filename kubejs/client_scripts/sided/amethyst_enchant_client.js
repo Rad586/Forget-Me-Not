@@ -1,6 +1,5 @@
 const SwordItem = Java.loadClass("net.minecraft.world.item.SwordItem")
 function amethystEnchant(player, carried, hovered) {
-    Utils.server.tell(carried.is("amethyst_shard"))
     if (!carried.is("amethyst_shard") ||
         !(hovered.stack.item instanceof SwordItem)) return;
 
