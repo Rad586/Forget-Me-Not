@@ -45,9 +45,18 @@ global.skill_formulas = {
 
 global.s_attack = (player, target, damage) => {
     if (!target) return;
+
+    const is_crit = Math.random() < 
+        player.getAttributeTotalValue("generic.crit_chance");
+    damage = is_crit ? 
+        (damage * player.getAttributeTotalValue("generic.crit_damage") + damage) / 2 : damage
+
     target.invulnerableTime = 0;
     target.attack(player, damage);
-    EnchantmentHelper.doPostDamageEffects(player, target)
+    EnchantmentHelper.doPostDamageEffects(player, target);
+
+    if(!is_crit) return;
+    global.particleBurst(player.level, target, "crit", 10, 0.5);
 }
 global.s_attackable = (player, target) => {
     if (target &&
