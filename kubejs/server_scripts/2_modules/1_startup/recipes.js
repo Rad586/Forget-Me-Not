@@ -518,4 +518,70 @@ ServerEvents.recipes(e => {
 			})
 		}
 	})
+
+	e.remove({ type: "minecraft:repair_item" })
+
+	e.shaped("kubejs:lapis_helmet", [
+		"000",
+		"0 0",
+	], {
+		0: "minecraft:lapis_lazuli"
+	})
+	e.shaped("kubejs:lapis_chestplate", [
+		"0 0",
+		"000",
+		"000"
+	], {
+		0: "minecraft:lapis_lazuli"
+	})
+	e.shaped("kubejs:lapis_leggings", [
+		"000",
+		"0 0",
+		"0 0"
+	], {
+		0: "minecraft:lapis_lazuli"
+	})
+	e.shaped("kubejs:lapis_boots", [
+		"0 0",
+		"0 0",
+	], {
+		0: "minecraft:lapis_lazuli"
+	})
+
+	e.remove({id: "minecraft:netherite_axe_smithing"})
+	e.remove({ id: "minecraft:netherite_sword_smithing" })
+	e.remove({ id: "minecraft:netherite_shovel_smithing" })
+	e.remove({ id: "minecraft:netherite_pickaxe_smithing" })
+	e.remove({ id: "minecraft:netherite_hoe_smithing" })
+	e.remove({ id: "minecraft:netherite_helmet_smithing" })
+	e.remove({ id: "minecraft:netherite_chestplate_smithing" })
+	e.remove({ id: "minecraft:netherite_leggings_smithing" })
+	e.remove({ id: "minecraft:netherite_boots_smithing" })
+
+	e.shaped("minecraft:netherite_helmet", [
+		"000",
+		"0 0",
+	], {
+		0: "minecraft:netherite_ingot"
+	})
+	e.shaped("minecraft:netherite_chestplate", [
+		"0 0",
+		"000",
+		"000"
+	], {
+		0: "minecraft:netherite_ingot"
+	})
+	e.shaped("minecraft:netherite_leggings", [
+		"000",
+		"0 0",
+		"0 0"
+	], {
+		0: "minecraft:netherite_ingot"
+	})
+	e.shaped("minecraft:netherite_boots", [
+		"0 0",
+		"0 0",
+	], {
+		0: "minecraft:netherite_ingot"
+	})
 })

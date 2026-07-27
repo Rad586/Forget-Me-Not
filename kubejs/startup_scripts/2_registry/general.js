@@ -10,6 +10,12 @@ ItemEvents.toolTierRegistry(e => {
 		tier.uses = 1200;
 		tier.enchantmentValue = 20;
 	})
+	e.add("lapis", tier => {
+		tier.uses = 1561;
+		tier.speed = 8.0;
+		tier.attackDamageBonus = 4.0;
+		tier.level = 4;
+	})
 	for (let i = 0; i <= 15; i += 3) {
 		e.add(`caving${i}`, tier => {
 			tier.uses = 0
@@ -26,6 +32,14 @@ ItemEvents.armorTierRegistry(e => {
 		tier.enchantmentValue = 10
 		tier.equipSound = "minecraft:item.armor.equip_iron"
 		tier.toughness = 1.0
+	})
+
+	e.add("lapis", tier => {
+		tier.durabilityMultiplier = 37
+		tier.slotProtections = [3, 6, 8, 3]
+		tier.enchantmentValue = 15
+		tier.equipSound = "minecraft:item.armor.equip_diamond"
+		tier.toughness = 2.0
 	})
 })
 
@@ -229,6 +243,11 @@ StartupEvents.registry("item", e => {
 				)
 		}
 	})
+
+	e.create("lapis_helmet", "helmet").tier("lapis").fireResistant().modifyAttribute("minecraft:generic.max_health", "lapis", 2, "addition")
+	e.create("lapis_chestplate", "chestplate").tier("lapis").fireResistant().modifyAttribute("minecraft:generic.max_health", "lapis", 2, "addition")
+	e.create("lapis_leggings", "leggings").tier("lapis").fireResistant().modifyAttribute("minecraft:generic.max_health", "lapis", 2, "addition")
+	e.create("lapis_boots", "boots").tier("lapis").fireResistant().modifyAttribute("minecraft:generic.max_health", "lapis", 2, "addition")
 })
 
 /* 

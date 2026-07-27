@@ -11,22 +11,6 @@
                 },
                 {
                     "type": "minecraft:item",
-                    "name": "minecraft:amethyst_shard",
-                    "weight": 1,
-                    "quality": 2,
-                    "functions": [
-                        {
-                            "function": "minecraft:set_count",
-                            "count": {
-                                "type": "minecraft:uniform",
-                                "min": 1,
-                                "max": 2
-                            }
-                        }
-                    ]
-                },
-                {
-                    "type": "minecraft:item",
                     "name": "minecraft:lapis_lazuli",
                     "weight": 1,
                     "quality": 1

@@ -1,5 +1,5 @@
 const fireResistant = ["minecraft:goat_horn"];
-const uncommon =["bosses_of_mass_destruction:soul_star","bosses_of_mass_destruction:void_lily","fancydyes:aurora_dye","fancydyes:flame_dye","fancydyes:aurora_dye","rottencreatures:treasure_chest"];
+const uncommon = ["bosses_of_mass_destruction:soul_star", "bosses_of_mass_destruction:void_lily", "fancydyes:aurora_dye", "fancydyes:flame_dye", "fancydyes:aurora_dye", "rottencreatures:treasure_chest"];
 
 const effectMap = {
 	common: {
@@ -34,14 +34,14 @@ const effectMap = {
 
 		"farmersdelight:fried_rice": ["kubejs:sweeping_edge", 60],
 		"farmersdelight:bacon_and_eggs": ["kubejs:blast_immunity", 15],
-		
+
 		"farmersdelight:salmon_roll": ["regeneration", 3],
 		"farmersdelight:cod_roll": ["regeneration", 3],
 		"farmersdelight:kelp_roll_slice": ["speed", 60]
 	},
 	rare: {
 		"farmersdelight:mushroom_rice": ["kubejs:soul_fire_aspect", 180],
-	
+
 		"farmersdelight:dumplings": ["kubejs:blessed", 60],
 
 		"farmersdelight:vegetable_noodles": ["kubejs:poison_aspect", 180],
@@ -72,22 +72,22 @@ ItemEvents.modification(e => {
 	fireResistant.forEach(itemName => e.modify(itemName, item => item.fireResistant = true));
 
 	/* uncommon */
-	uncommon.forEach(itemName => e.modify(itemName, item => item.rarity="uncommon"));
+	uncommon.forEach(itemName => e.modify(itemName, item => item.rarity = "uncommon"));
 
 	/* food effects */
 	Object.keys(effectMap).forEach(rarity => {
 		const ids = effectMap[rarity];
 		Object.keys(ids).forEach(id => {
 			const effectInfo = ids[id];
-			if(rarity != "common") {
+			if (rarity != "common") {
 				e.modify(id, item => item.rarity = rarity)
 			};
-			e.modify(id, item => item.foodProperties = food => food.effect(effectInfo[0], effectInfo[1]*20, effectInfo[2] || 0, 1));
+			e.modify(id, item => item.foodProperties = food => food.effect(effectInfo[0], effectInfo[1] * 20, effectInfo[2] || 0, 1));
 		})
 	})
 
 	/* drinkable dragon breath */
-	e.modify("minecraft:dragon_breath", item => 
+	e.modify("minecraft:dragon_breath", item =>
 		item.foodProperties = food => {
 			food.hunger(0);
 			food.saturation(0);
@@ -117,11 +117,15 @@ ItemEvents.modification(e => {
 		}
 	)
 
+	const netherite_armors = [
+		"minecraft:netherite_helmet", "minecraft:netherite_chestplate",
+		"minecraft:netherite_leggings", "minecraft:netherite_boots"
+	]
 	const diamond_armors = [
-		"minecraft:diamond_helmet", "minecraft:diamond_chestplate", 
+		"minecraft:diamond_helmet", "minecraft:diamond_chestplate",
 		"minecraft:diamond_leggings", "minecraft:diamond_boots"
 	]
-	e.modify(diamond_armors, item => item.armorToughness = 0)
+	e.modify(diamond_armors.concat(netherite_armors), item => item.armorToughness = 0)
 
 	/* torch hit but more */
 	global.Emitters
@@ -149,17 +153,16 @@ ItemEvents.modification(e => {
 		.map(i => i.asItem().id)
 		.forEach(id => {
 			e.modify(id, item => {
-				const builder =
-					new ItemBuilder(id)
-						.use((level, player, hand) => {
-							if (player.isCrouching()) return true;
-							const result = global.advancedRayTraceBlock(player, 4);
-							const block = level.getBlock(result.blockPos);
-							return !(
-								block.id == "minecraft:farmland" &&
-								result.direction == "up"
-							)
-						})
+				const builder = new ItemBuilder(id)
+					.use((level, player, hand) => {
+						if (player.isCrouching()) return true;
+						const result = global.advancedRayTraceBlock(player, 4);
+						const block = level.getBlock(result.blockPos);
+						return !(
+							block.id == "minecraft:farmland" &&
+							result.direction == "up"
+						)
+					})
 				item.setItemBuilder(builder);
 			})
 		})
@@ -180,29 +183,28 @@ ItemEvents.modification(e => {
 		.map(i => i.asItem().id)
 		.forEach(id => {
 			e.modify(id, item => {
-				const builder =
-					new ItemBuilder(id)
-						.use((level, player, hand) => {
-							if(level.isClientSide()) return false;
+				const builder = new ItemBuilder(id)
+					.use((level, player, hand) => {
+						if (level.isClientSide()) return false;
 
-							const result = global.advancedRayTraceBlock(player, 4);
-							const stack = player.inventory.allItems.find(i => i.id == "minecraft:torch");
+						const result = global.advancedRayTraceBlock(player, 4);
+						const stack = player.inventory.allItems.find(i => i.id == "minecraft:torch");
 
-							if (stack && stack.useOn(new UseOnContext(
-								level, player, hand, stack, result
-							)).consumesAction()) {
-								level.playSound(null, result.blockPos, "block.stone.place", "blocks", 0.68, 1);
-								player.swing()
-							};
+						if (stack && stack.useOn(new UseOnContext(
+							level, player, hand, stack, result
+						)).consumesAction()) {
+							level.playSound(null, result.blockPos, "block.stone.place", "blocks", 0.68, 1);
+							player.swing()
+						};
 
-							return false
-						})
+						return false
+					})
 				item.setItemBuilder(builder);
 			})
 		})
 
 	const golden_tool = [
-		"minecraft:golden_pickaxe", "minecraft:golden_axe", 
+		"minecraft:golden_pickaxe", "minecraft:golden_axe",
 		"minecraft:golden_shovel", "minecraft:golden_hoe"
 	]
 	golden_tool.forEach(id => {
@@ -221,39 +223,50 @@ ItemEvents.modification(e => {
 		.map(i => i.asItem().id)
 		.forEach(id => {
 			e.modify(id, item => {
-				const builder =
-					new ItemBuilder(id)
-						.useAnimation("none")
-						.useDuration(item => 1)
-						.use((level, player, hand) => (!level.isClientSide() &&
-							global.mergedTrinkets(player, "face").length > 0)
-						)
-						.finishUsing((item, level, player) => {
-							if (level.isClientSide()) return item;
+				const builder = new ItemBuilder(id)
+					.useAnimation("none")
+					.useDuration(item => 1)
+					.use((level, player, hand) => (!level.isClientSide() &&
+						global.mergedTrinkets(player, "face").length > 0)
+					)
+					.finishUsing((item, level, player) => {
+						if (level.isClientSide()) return item;
 
-							let lvl = 0, names = [];
-							global.mergedTrinkets(player, "face").forEach(stack => {
-								lvl += Math.min(3, stack.count);
-								names.push(stack.idLocation.path.split("_fragment_")[0])
-							});
+						let lvl = 0, names = [];
+						global.mergedTrinkets(player, "face").forEach(stack => {
+							lvl += Math.min(3, stack.count);
+							names.push(stack.idLocation.path.split("_fragment_")[0])
+						});
 
-							let name = names.join("_");
-							name = name in skills ?
-								name : names.reverse().join("_");
+						let name = names.join("_");
+						name = name in skills ?
+							name : names.reverse().join("_");
 
-							global.skills[name](
-								level, player,
-								skill_formulas[names[1] || names[0]],
-								player.getCurrentItemAttackStrengthDelay() * 2,
-								player.getAttribute("generic.attack_damage").getValue(),
-								lvl / names.length,
-								item.id
-							);
-							player.swing();
+						global.skills[name](
+							level, player,
+							skill_formulas[names[1] || names[0]],
+							player.getCurrentItemAttackStrengthDelay() * 2,
+							player.getAttribute("generic.attack_damage").getValue(),
+							lvl / names.length,
+							item.id
+						);
+						player.swing();
 
-							return item
-						})
+						return item
+					})
 				item.setItemBuilder(builder);
 			})
 		})
+
+	netherite_armors.forEach(id => {
+		e.modify(id, item => {
+			item.addAttribute(
+				"minecraft:generic.crit_damage",
+				UUID.randomUUID(),
+				"ruby",
+				0.1,
+				"addition"
+			)
+		})
+	})
 })

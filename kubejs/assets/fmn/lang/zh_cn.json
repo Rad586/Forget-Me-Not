@@ -192,6 +192,11 @@
 	"item.kubejs.villagers_leggings":"警卫的护腿",
 	"item.kubejs.villagers_boots":"警卫的靴子",
 
+	"item.minecraft.lapis_helmet": "蓝宝石头盔",
+	"item.minecraft.lapis_chestplate": "蓝宝石胸甲",
+	"item.minecraft.lapis_leggings": "蓝宝石护腿",
+	"item.minecraft.lapis_boots": "蓝宝石靴子",
+
 	"item.kubejs.mysterious_bundle":"神秘包裹",
 	"item.kubejs.recovery_pearl":"追溯珍珠",
 	"item.kubejs.soul_remnant":"灵魂残片",

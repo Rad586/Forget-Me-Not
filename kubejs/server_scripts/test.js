@@ -67,7 +67,7 @@ ItemEvents.rightClicked(e => {
 	const target = player.rayTrace(10).entity;
 
 
-	target.attack(player, 1)
+	player.tell(player.getAttributeTotalValue("minecraft:generic.crit_damage"))
 
 })
 

@@ -191,6 +191,11 @@
 	"item.kubejs.villagers_oak_door":"Guard's Oak Door",
 	"item.kubejs.villagers_cauldron":"Guard's Cauldron",
 
+	"item.minecraft.lapis_helmet": "Sapphire Helmet",
+	"item.minecraft.lapis_chestplate": "Sapphire Chestplate",
+	"item.minecraft.lapis_leggings": "Sapphire Leggings",
+	"item.minecraft.lapis_boots": "Sapphire Boots",
+
 	"item.kubejs.meat":"Raw Meat",
 	"item.kubejs.cooked_meat":"Cooked Meat",
 	"item.kubejs.meat_sliced":"Raw Meat Slice",

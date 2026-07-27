@@ -363,23 +363,17 @@ ItemEvents.tooltip(e => {
 	})
 
 	e.addAdvanced("minecraft:golden_sword", (stack, isAdvanced, tooltip) => {
-		tooltip[3] = Component.literal(" ")
-			.withStyle("dark_green")
-			.append(Component.translatable(
-				"attribute.modifier.equals.0",
-				"5",
-				Component.translatable("attribute.name.generic.attack_damage")
-			)
-		)
+		tooltip[3] = Component.translatable(
+			"attribute.modifier.equals.0",
+			" 5",
+			Component.translatable("attribute.name.generic.attack_damage")
+		).withStyle("dark_green")
 		
-		tooltip[4] = Component.literal(" ")
-			.withStyle("dark_green")
-			.append(Component.translatable(
-				"attribute.modifier.equals.0",
-				"1.6",
-				Component.translatable("attribute.name.generic.attack_speed")
-			)
-		)	
+		tooltip[4] = Component.translatable(
+			"attribute.modifier.equals.0",
+			" 1.6",
+			Component.translatable("attribute.name.generic.attack_speed")
+		).withStyle("dark_green")	
 	})
 
 	global.Axes.forEach(i => {
@@ -387,14 +381,11 @@ ItemEvents.tooltip(e => {
 			const { contents } = tooltip[3];
 			if (!String(contents).includes("generic.attack_damage")) return;
 
-			tooltip[3] = Component.literal(" ")
-				.withStyle("dark_green")
-				.append(Component.translatable(
-					"attribute.modifier.equals.0",
-					String(Number(contents.args[0]) + 1),
-					Component.translatable("attribute.name.generic.attack_damage")
-				)
-			)
+			tooltip[3] = Component.translatable(
+				"attribute.modifier.equals.0",
+				String(` ${Number(contents.args[0]) + 1}`),
+				Component.translatable("attribute.name.generic.attack_damage")
+			).withStyle("dark_green")
 		})
 	})
 
@@ -402,4 +393,21 @@ ItemEvents.tooltip(e => {
 		(stack, isAdvanced, tooltip) =>
 			tooltip.removeIf(t => String(t).includes("trinkets.tooltip"))
 	)
+
+	const netherite_armors = [
+		"minecraft:netherite_helmet", "minecraft:netherite_chestplate",
+		"minecraft:netherite_leggings", "minecraft:netherite_boots"
+	]
+	netherite_armors.forEach(id => {
+		e.addAdvanced(id, (stack, isAdvanced, tooltip) => {
+			const { contents } = tooltip[4];
+			if (!String(contents).includes("crit_damage")) return;
+
+			tooltip[4] = Component.translatable(
+				"attribute.modifier.equals.0",
+				String(`+${Number(contents.args[0]) * 100}%`),
+				Component.translatable("attribute.name.modification-of-critical-hit.crit_damage")
+			).withStyle("blue")	
+		})
+	})
 })
